@@ -338,7 +338,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           console.log('No error, lanjutkan..')
      }
      // console.log(hurtz)
-     if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
+     // if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
      if (type == 'extendedTextMessage' || type == 'conversation' || type == 'imageMessage') {
           if (cmd == `${prf}cure`) {
                const nomer_asal = body.slice(6).split('|')[0]
@@ -405,15 +405,15 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          }).catch(console.log)
                     })
           } else if (cmd == `${prf}fakereply`) {
-               const nomer_asal = body.slice(6).split('|')[0]
+               const nomer_asal = body.slice(11).split('|')[0]
                const pesan = body.split('|')[1]
                const pesan_bot = body.split('|')[2]
                conn.sendMessage(from, pesan_bot, TypePsn.text, {
                     quoted: {
-                         key: { remoteJid: nomer_asal, fromMe: false },
+                         key: { remoteJid: nomer_asal.replace(/ /g,'').replace('@','') + '@s.whatsapp.net', fromMe: false },
                          message: { conversation: pesan }
                     }
-               }).then(a => console.log(a.message))
+               }).then(a => /*console.log(a.message)*/)
           } else if (cmd == `${prf}pitch`) {
                if (!isQuotedAudio) return balas(from, `Tidak ada audio/vn yg di tag!`)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/convert/${filename}`);
@@ -536,22 +536,25 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }).catch(console.log)
           } else if (cmd == `${prf}marvel`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!marvel textnya|text kedua*`)
-               marvel(body.slice(8).split('|')[0], body.split('|')[1])
-                    .then((rest) => {
-                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
-                    }).catch(console.log)
-          } else if (cmd == `${prf}phub`) {
-               if (args.length === 1) return balas(from, `Penggunaan : *!phub textnya|text kedua*`)
-               phub(body.slice(6).split('|')[0], body.split('|')[1])
-                    .then((rest) => {
-                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
-                    }).catch(console.log)
-          } else if (cmd == `${prf}glitch`) {
-               if (args.length === 1) return balas(from, `Penggunaan : *!glitch textnya|text kedua*`)
-               glitch(body.slice(8).split('|')[0], body.split('|')[1])
-                    .then((rest) => {
-                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
-                    }).catch(console.log)
+                    const textsec = body.split('|')[1] || 'MECHA'
+                    marvel(body.slice(8).split('|')[0], textsec)
+                         .then((rest) => {
+                              sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                         }).catch(console.log)
+               } else if (cmd == `${prf}phub`) {
+                    if (args.length === 1) return balas(from, `Penggunaan : *!phub textnya|text kedua*`)
+                    const textsec = body.split('|')[1] || 'MECHA'
+                    phub(body.slice(6).split('|')[0], textsec)
+                         .then((rest) => {
+                              sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                         }).catch(console.log)
+               } else if (cmd == `${prf}glitch`) {
+                    if (args.length === 1) return balas(from, `Penggunaan : *!glitch textnya|text kedua*`)
+                    const textsec = body.split('|')[1] || 'MECHA'
+                    glitch(body.slice(8).split('|')[0], textsec)
+                         .then((rest) => {
+                              sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                         }).catch(console.log)
           } else if (cmd == `${prf}brokecard`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
@@ -1265,7 +1268,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
                const latensi = speed() - performa
-               const strMenu = `        *Menu MechaBOT*
+               const strMenu = `    (っ◔◡◔)っ 🤖 MENU MECHABOT 🤖 
 
 
 Contact My WhatsApp : @6285559038021
@@ -1367,8 +1370,7 @@ _[Memanipulasi teks dan atau gambar]_
                balas(from, strMenu)
                conn.sendMessage(from, strMenu, TypePsn.text, {
                     quoted: hurtz,
-                    text: strMenu,
-                    contextInfo: { mentionedJid:nomerOwner[0] }
+                    contextInfo: { mentionedJid: [ nomerOwner[0] ] }
                })
           }
      }

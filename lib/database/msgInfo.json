@@ -48326,5 +48326,1941 @@
     "messageTimestamp": "1611484707",
     "status": "ERROR",
     "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "A275433567F539B23B2EF1195DBC0AEF"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Langsung mati",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "9A8B5A68A59E17152017CCD9868B85DD",
+          "participant": "6285754337101@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Ap yg terjadi klo dijawab yak?🙈"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485114",
+    "status": "ERROR",
+    "participant": "628127668234@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "8CD2B76F26024449F39D09C029AD7B63"
+    },
+    "message": {
+      "conversation": "!play every little thing you do"
+    },
+    "messageTimestamp": "1611485132",
+    "status": "ERROR",
+    "participant": "27810666155@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "918830593378-1557967721@g.us",
+      "fromMe": false,
+      "id": "B6F2ABD56F456D6E6D404C644D19E75E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "👊🏻😂",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3A4E991C74E20AE530FEFB0DB866D393",
+          "participant": "918305993747@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "removed you​                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               😜😜😜😜😜😜😜😜😜\nJhtka lga \nMujhe bhi lga\n\nDusre group me chipka dalo\nDekhte hai kitne darte hai\n.😂😂😂😅😅😝😝"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485132",
+    "status": "ERROR",
+    "participant": "918986554581@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "1946F23A08817878E6D494AC17418E8E"
+    },
+    "message": {
+      "conversation": "Spam no mantan"
+    },
+    "messageTimestamp": "1611485142",
+    "status": "ERROR",
+    "participant": "6288742689173@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "3EB08A3BD155218B387C"
+    },
+    "message": {
+      "conversation": "Ngebypass web verify itu gan, tanpa akses login jadi kalau diangkat percuma bakalan mati"
+    },
+    "messageTimestamp": "1611485145",
+    "status": "ERROR",
+    "participant": "6285692655520@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "926676940626FBD7B16F069CAF6E57F4"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1611485151",
+    "status": "READ"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB09D4F2D09"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.199.14_\n🔋  *Batre* : _16% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _71.76MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0325_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "926676940626FBD7B16F069CAF6E57F4",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485151",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB0572D0832"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.199.14_\n🔋  *Batre* : _16% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _71.76MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0325_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "926676940626FBD7B16F069CAF6E57F4",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          },
+          "mentionedJid": [
+            "6",
+            "2",
+            "8",
+            "5",
+            "5",
+            "5",
+            "9",
+            "0",
+            "3",
+            "8",
+            "0",
+            "2",
+            "1",
+            "@",
+            "s",
+            ".",
+            "w",
+            "h",
+            "a",
+            "t",
+            "s",
+            "a",
+            "p",
+            "p",
+            ".",
+            "n",
+            "e",
+            "t"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485151",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "694B469D812614EE5C070E1DC3FE08BB"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Yah ga asik:\"( coba dibales",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "A275433567F539B23B2EF1195DBC0AEF",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Langsung mati"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485153",
+    "status": "ERROR",
+    "participant": "6285754337101@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "824CF0184E9B3A09CFDFDCC84EC1D70A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "2",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "E18688000D9E9D2AAEDA8BC5E1108606",
+          "participant": "6285754337101@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Spamsmsny ditunggu🙈"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485167",
+    "status": "ERROR",
+    "participant": "6289636293927@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "FE781DE296E5E5A62920E62EE495AA08"
+    },
+    "message": {
+      "conversation": "Ada yg punya case spam wa"
+    },
+    "messageTimestamp": "1611485167",
+    "status": "ERROR",
+    "participant": "6288742689173@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F35CBECF28072AF09975B487018429C7"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1611485174",
+    "status": "ERROR",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "B1B22FEC57EFBF054A34B6B34F5F6236"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1611485176",
+    "status": "ERROR",
+    "participant": "27810666155@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB088A78734"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*Menu merhabot*\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.206.24_\n🔋  *Batre* : _54% Tidak di cas 🔌❌_\n💻 *Host* : _inst-dh1lp-inst_\n📱 *Device* : _Realme Versi OS 9_\n⚖️ *Ram Usage* : _82.47MB / 16380MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _AMDEPYC755132-CoreProcessor_\n⚡ *Speed Process* : _0.0284_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !play <Judul Lagu> _[Download Lagu]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n💚 !apk <Nama APK>\n💚 !getapk <ID APK DOWNLOAD>\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stiker ke gambar / Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "B1B22FEC57EFBF054A34B6B34F5F6236",
+          "participant": "27810666155@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485178",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "C90199A5C680AF683261F6EC288066C5"
+    },
+    "message": {
+      "conversation": "!ytmp3 https://youtu.be/gMJO5TsuQuI"
+    },
+    "messageTimestamp": "1611485181",
+    "status": "ERROR",
+    "participant": "6281265375118@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB049ABCA25"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AhIq-XzicBISYtMDpSWfxykQWh46IkYH-A4PKarpYPgD.enc",
+        "mimetype": "image/jpeg",
+        "caption": "*Data telah didapatkan!*\n\n*Judul* : BUKAN KOPLO TAPI REGGAE ! DJ SNOWMAN TIK TOK TERBARU 2021 ( DJ DESA Remix )\n*Type* : MP3\n*Filesize* : 4.7 MB\n\n_Mohon tunggu beberapa menit untuk mengirim file tersebut.._",
+        "fileSha256": "sWkldOvwxAVg0wtS1hT7OANY2pV2uAyrC0bMLbTcoLc=",
+        "fileLength": "32475",
+        "mediaKey": "gxyGDJdUvhCdoPDbwZ5YFv0JKisNpyicrLk1JLlVNLY=",
+        "fileEncSha256": "jVxsEQUzxKXPclj+HDyLjlf4E+PtMLgzlEaq330zbtM=",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "C90199A5C680AF683261F6EC288066C5",
+          "participant": "6281265375118@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!ytmp3 https://youtu.be/gMJO5TsuQuI"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485183",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "9675309BA22FE71EB938653414CAC46E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Oalah paham\"",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB08A3BD155218B387C",
+          "participant": "6285692655520@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Ngebypass web verify itu gan, tanpa akses login jadi kalau diangkat percuma bakalan mati"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485185",
+    "status": "ERROR",
+    "participant": "6285754337101@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB0175171A5"
+    },
+    "message": {
+      "audioMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/ArbCfa8AqxSBMe9IrMLPJL8TSxqSTZ1ISu-p1JSvqtC_.enc",
+        "mimetype": "audio/mp4",
+        "fileSha256": "vHFEDyWA66BM5TW/yFwUYS47m6b4nvBsRyjKKFSYAOA=",
+        "fileLength": "4824221",
+        "seconds": 301,
+        "ptt": false,
+        "mediaKey": "WzZN4TdhrvBkgf0YmPRnFqpxOytLBNRvC/vHKoDpo2A=",
+        "fileEncSha256": "68Ta6DKprv/eGbX5j3vpZFBPKxYvboM2YDSkVv7/yzo=",
+        "contextInfo": {
+          "stanzaId": "C90199A5C680AF683261F6EC288066C5",
+          "participant": "6281265375118@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!ytmp3 https://youtu.be/gMJO5TsuQuI"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485188",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB065091F56"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "```[ ⚠️ ] Terdeteksi pengapusan pesan [ ⚠️ ]\n\nNama : 🥺❤🐾🦋Ixy🦋🐾❤🥺 ( @27810666155 )\nTipe : Text\nWaktu : 17:45:32 24/01/2021\nPesan : !play every little thing you do```\n",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "27810666155@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485189",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "39056DF67B998F7168FF9918BE994D29"
+    },
+    "message": {
+      "conversation": "¥happymod google"
+    },
+    "messageTimestamp": "1611485190",
+    "status": "ERROR",
+    "participant": "628127668234@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "EE30AB225B72A11B74A95DEA22595303"
+    },
+    "message": {
+      "conversation": ":v"
+    },
+    "messageTimestamp": "1611485192",
+    "status": "ERROR",
+    "participant": "628127668234@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "Y6SHI4C33HDQRIZLDSHN"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Mohon tunggu sebentar~",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "39056DF67B998F7168FF9918BE994D29",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "¥happymod google"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485192",
+    "status": "ERROR",
+    "participant": "6281511241290@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "LCXLGYAZWMWYZZS3DAVF"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Not found.",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "39056DF67B998F7168FF9918BE994D29",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "¥happymod google"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485195",
+    "status": "ERROR",
+    "participant": "6281511241290@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "00306EB5D21D9F0056D164F4FAAB9E42"
+    },
+    "message": {
+      "conversation": "¥happymod coc"
+    },
+    "messageTimestamp": "1611485203",
+    "status": "ERROR",
+    "participant": "628127668234@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "U1HAW0GIRMHWXKE7SOC7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Mohon tunggu sebentar~",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "00306EB5D21D9F0056D164F4FAAB9E42",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "¥happymod coc"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485204",
+    "status": "ERROR",
+    "participant": "6281511241290@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "3EB06C68C9FFF311CEBB"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AswhKwTC1zifEk0wflRxVi9ZYxoENK0M8rLss_afCone.enc",
+        "mimetype": "image/jpeg",
+        "caption": "*「 APK DITEMUKAN 」*\n\n➸ *Nama File* : Clash of Clans Mod Apk 13.675.6 [Unlimited money](100% Working, tested!)\n\n➸ *Ukuran* : 168.48 MB\n➸ *Root* : No Need\n➸ *Version* : 13.675.6\n➸ *Harga Apk* : Free\n\n*Link Download*\nhttps://tinyurl.com/yyt43o34",
+        "fileSha256": "W6hLbBrlml9zk4R68jPSpf1kfy+o55QWHKkjZZuSLF4=",
+        "fileLength": "13431",
+        "height": 180,
+        "width": 180,
+        "mediaKey": "BoKNYWmXIglObEY0JMy5S0QIt8reqHSHgXamgB3CFuY=",
+        "fileEncSha256": "fJrinFUKjQHIcWSozpKGC1NbLEs1vxfNQ2/P5izdTjA=",
+        "directPath": "/v/t62.7118-24/33448952_439994087201375_3536297068781085305_n.enc?oh=6845e3f91b2f9e57fecff2791dd32d49&oe=60364A35",
+        "mediaKeyTimestamp": "1611485206",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "00306EB5D21D9F0056D164F4FAAB9E42",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "¥happymod coc"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485207",
+    "status": "ERROR",
+    "participant": "6281511241290@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "4D801FE46ED94F732E0BE40227B15228"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "🙄",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "74F52D03EA98AD1196696FE9D006F5C5",
+          "participant": "27810666155@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "🙃"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485209",
+    "status": "ERROR",
+    "participant": "265994028870@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "C42556CEC6AF3C189AA9799BF013450E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Lol",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB065091F56",
+          "participant": "6285797957301@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "```[ ⚠️ ] Terdeteksi pengapusan pesan [ ⚠️ ]\n\nNama : 🥺❤🐾🦋Ixy🦋🐾❤🥺 ( @27810666155 )\nTipe : Text\nWaktu : 17:45:32 24/01/2021\nPesan : !play every little thing you do```\n",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "27810666155@s.whatsapp.net"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485209",
+    "status": "ERROR",
+    "participant": "6289636409798@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285892766102-1607561139@g.us",
+      "fromMe": false,
+      "id": "361B7BB0A5962658D4DA6F7350D41DEF"
+    },
+    "message": {
+      "conversation": "dahal w pake wa omri"
+    },
+    "messageTimestamp": "1611485212",
+    "status": "ERROR",
+    "participant": "6289601416330@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3C77A7739FC944A20D74257A73DD7465"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1611485218",
+    "status": "ERROR",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "8A12396561340EE2F974D9CE08A577C2"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "😕",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "4D801FE46ED94F732E0BE40227B15228",
+          "participant": "265994028870@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "🙄"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485219",
+    "status": "ERROR",
+    "participant": "27810666155@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0E0F18431"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.199.14_\n🔋  *Batre* : _19% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _53.31MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0596_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "3C77A7739FC944A20D74257A73DD7465",
+          "participant": "6283853046084@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485218",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB01B24255A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.199.14_\n🔋  *Batre* : _19% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _53.31MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0596_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "3C77A7739FC944A20D74257A73DD7465",
+          "participant": "6283853046084@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          },
+          "mentionedJid": [
+            "6",
+            "2",
+            "8",
+            "5",
+            "5",
+            "5",
+            "9",
+            "0",
+            "3",
+            "8",
+            "0",
+            "2",
+            "1",
+            "@",
+            "s",
+            ".",
+            "w",
+            "h",
+            "a",
+            "t",
+            "s",
+            "a",
+            "p",
+            "p",
+            ".",
+            "n",
+            "e",
+            "t"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485218",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285892766102-1607561139@g.us",
+      "fromMe": false,
+      "id": "880449DD6A900F31AD60B5B1C79FF128"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "samngad aneh",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "EDD94D9EEBB26C0FA8F9AFC425AFB3CA",
+          "participant": "6289601416330@s.whatsapp.net",
+          "quotedMessage": {
+            "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/Ai595qmjhFApmS-MfS-_O9IPl_vECQO1K2oaEUvlQyn-.enc",
+              "mimetype": "image/jpeg",
+              "caption": "gini terus anying",
+              "fileSha256": "lQKWSlA91wjuTIGrIgPV7z9DA03Fke+Bsn0pw2jVIsw=",
+              "fileLength": "42208",
+              "height": 1280,
+              "width": 720,
+              "mediaKey": "m+6jBi+WSLBDW6SZtPTiczVLo6rsR0Ir5C3O7yC3vIY=",
+              "fileEncSha256": "WiJX0GOrGltigx3uvqoVnNF38+2krxTBTgLEZfEHPsU=",
+              "directPath": "/v/t62.7118-24/35330929_252425612980470_4397226451704616079_n.enc?oh=47564fe33d6dfae85ae7263bd2d13f00&oe=6037F7F9",
+              "mediaKeyTimestamp": "1611484519",
+              "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEgAKAMBIgACEQEDEQH/xAAsAAEBAQEAAwAAAAAAAAAAAAAABQQGAQIDAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAACHqo2jk/Xr/BxKoKF+BePn9cWw5gGm/Avkit5HLg03+RsFZJE1jHrvACYD/8QAKhAAAQIDBgYCAwAAAAAAAAAAAwABAgYRBRIUMjNSBBATITFRIEFTYYP/2gAIAQEAAT8AEGIjVZqrB/qJPwl36iXQLtdHhjE9HZWI1RE7J6s+kv5Kj/iVt5xKXMheVHr55TFrDUuZCo1273V8VaVdDpd7KY9calzIVReHTQx9TK9apvCmPXGpcyF+Ex641LmQvwmPXGrJLGOAlFiS+1iS+1iS+1axIiRjquAMIcETRPR1iwb1iw72WLBvVoFER4bi/8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k=",
+              "scansSidecar": "C/uPmpp4tkeh8IW6/KATabYgAp+9Iconx7ALtgMXpGWtbl6x4PTEPg==",
+              "scanLengths": [
+                5647,
+                19325,
+                7589,
+                9647
+              ],
+              "midQualityFileSha256": "eto0UpEuPpaURfOEAk1evVRn0jVL+YxpV+jOcOrieNE=",
+              "midQualityFileEncSha256": "Z0YA1eACNk/4AUzo/s7uF7qtQM61bT+saRaJPWjhl64="
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485223",
+    "status": "ERROR",
+    "participant": "6289601416330@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6737229309-1589713441@g.us",
+      "fromMe": false,
+      "id": "B4CED71E64E50B225C964D0AE0A89286"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Still In Project",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "5BA03E066518914B1B101CE79D71DCF2",
+          "participant": "6737229309@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "iMnotBecca"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485226",
+    "status": "ERROR",
+    "participant": "6281292288920@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "EBD83DD7F27DE99A83913F92BE205667"
+    },
+    "message": {
+      "conversation": "¥moddroid coc"
+    },
+    "messageTimestamp": "1611485228",
+    "status": "ERROR",
+    "participant": "628127668234@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "0MRQUUGQFE9VYZXLV95X"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Mohon tunggu sebentar~",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "EBD83DD7F27DE99A83913F92BE205667",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "¥moddroid coc"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485229",
+    "status": "ERROR",
+    "participant": "6281511241290@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "3EB0447CE5A8DED7D2A7"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AkuBRuqjMQCrWw9N7glqHm-QtVTYYgAulKLpTVHETzND.enc",
+        "mimetype": "image/jpeg",
+        "caption": "*「 APK DITEMUKAN 」*\n\n➸ *Nama File* : Koloro – Presets for Lightroom (MOD, VIP/Pro Unlocked)\n\n➸ *Ukuran* : 15M\n➸ *Publisher* : cerdillac\n➸ *Version* : 4.4.0.20210123\n➸ *Genre* : Photography\n\n*Link Download*\nhttps://moddroid.com/download/koloro-presets-for-lightroom-52287/1",
+        "fileSha256": "1Oc5seXVY+FlgLYm523/s0askRpEdbENwBthwacYmcg=",
+        "fileLength": "1392",
+        "height": 80,
+        "width": 80,
+        "mediaKey": "zuev8nxfmcwxXE/dUsri6JnBsFRh4OFkr4tPYgaT7KQ=",
+        "fileEncSha256": "MS2FtwxvzKI6ZNIaBiUmw3SNSwvceZQzxUuugO0YXzY=",
+        "directPath": "/v/t62.7118-24/19480728_461896808301489_8763331283244549722_n.enc?oh=b9f0a3f4b7b2ade3c7708ce694c2dd7c&oe=603730AD",
+        "mediaKeyTimestamp": "1611485230",
+        "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCABQAFADASIAAhEBAxEB/8QAGwABAAIDAQEAAAAAAAAAAAAAAAgJBAYHAwX/xAA0EAABAwMCBQEFBgcAAAAAAAABAgMEAAURBgcIEiExQXETIjJCYQkVIyRSgUNRYmOSoaL/xAAaAQEAAgMBAAAAAAAAAAAAAAAABgcCAwQB/8QALREAAQIEBAQEBwAAAAAAAAAAAQACAwQFEQYSITETQVFhIkJxgSNikaHR4fD/2gAMAwEAAhEDEQA/AKqqUpREpSlESlKURKUpREpSlESlKURKUredldpb/vbuLa9v9P8A4a5q+eTJUnKIsdPVx1XoOw8kgeaya0vcGt3K1Ro0OXhuixTZrRcnsFj7XbRbh7y6jb0vt3puTdZisF1SBysx0frdcPuoT9SevjNWBbO/ZV6PtzLFy3p1fKvEvopdttCixGT/AEqdI9ov1SEVKLZnanQ2yekImitD21uMy0kKkPkAvy3cYU66rupRP7DsMCulMP56E12vkjCHi3VP1rHE5OPMORPDh9fMe9+Xt9VzLT/Cxwwbc212ZD2m0pHjxWSt+XcoyZJQ2kZUpbj/ADYAAyTmoC8WfF7tVcHpm3nD5tjo5mC3zMSdSLsMUrdPYiKkowlP9wjJ+UDoT9H7RHi5uWrtQzdiNA3NbOn7Q77G+SGV4M+Uk9WMj+E2ehHzKB8JGYLVwkWNlJMMYejRGtqFTe5zjq1pJNhyJ6ntsOeuwnJyfNKUrxWClKUoi9YkWTOlMwobC3pEhxLTTaBlS1qOAkDySTirUeGLY+z8N+g2J86E1N1zqMNtSFd1BxQ5kxUK+VCACpavPKo+AKgrwa2S33viG0w3c2Q61EVImNpV2LrTKlIP1woA/tVmGmpLmodYXLUL4/J2dSrTbgexcGDJd/y5WwfHslfqqXYeprYsIzR1N8o7aXJ+/wDXVaY8qcRrmyDTZmXM75tbNb6XFz+l1Kypdix0iTI9vJX7zzuMcyvoPAHYDwK5pxWcQUPYPaSffmJDZ1Bc0qgWRgnqqQodXMfpbHvH6gDzW1XzV9k0dYJ2p9R3FqFbbawqRJfcOAhCRk+p8AdycCqi+Jbfy9cQO4sjU0ouMWeGDFs8JR6MRwfiI7c6z7yj6DsBXlaySjcvmO35UVwpQnVqc4kUfCYbu79G+/PoPZcqkyH5kh2XKeW68+tTjjizlS1E5JJ8kk150pUSV67JSlKIlKUoikbwO6ri2vddOnLnHQ6zPYdkxFkDmjymm1HmSe45my4kgd8jPap+bfXGNa9vrbdLhISy0qF94yXVnoku5dWon1Waq64ebj92b1aRke1DYXcExyT2/FSpvH/VZ25m/e6Or3Vabmahl260W5CYDdthulprlaHJ7/LgrJ5cnmyOvQCptR65CplNvFaXHM4NA9GnUqv8QYaiVqpWhODWlrS4nsXDQdVuPFdvjpncnU0m3aLmXq5QEOnnn3Cc6ppRB+GNHyENtjHxFJUr6eY+UpURmpl83FMZ+56KaSElCp0u2Xg7N67pSlK512JSlKIlKUoiy7PdJNku0K8wlcsiBIbktH+S0KCh/sVl6uuMC76pu93tgcTFnTXpLSXBhSUrWVYPpnFfJpWziOycPle6w4bc/E52slKUrWs0pSlESlKURf/Z",
+        "contextInfo": {
+          "stanzaId": "EBD83DD7F27DE99A83913F92BE205667",
+          "participant": "628127668234@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "¥moddroid coc"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485231",
+    "status": "ERROR",
+    "participant": "6281511241290@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "7DD00B05DF80810B1A56D6D6F3D24455"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Kulib 😅",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "EEBFDA293BF337056FAA4459CBE2B895",
+          "participant": "265994028870@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!firework ..Austin.."
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485233",
+    "status": "ERROR",
+    "participant": "265888704354@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "status@broadcast",
+      "fromMe": false,
+      "id": "2D924B7BA26639514E685CAB827A3713"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Gantengan dia 🤣👈👈🥱",
+        "textArgb": 4294967295,
+        "backgroundArgb": 4286747850,
+        "font": "SANS_SERIF",
+        "previewType": "NONE"
+      }
+    },
+    "messageTimestamp": "1611485237",
+    "status": "ERROR",
+    "participant": "6283196110855@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285892766102-1607561139@g.us",
+      "fromMe": false,
+      "id": "BE7CF49D991E6D7C038CC98C5ED6BEB8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Gw nggak",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "EDD94D9EEBB26C0FA8F9AFC425AFB3CA",
+          "participant": "6289601416330@s.whatsapp.net",
+          "quotedMessage": {
+            "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/Ai595qmjhFApmS-MfS-_O9IPl_vECQO1K2oaEUvlQyn-.enc",
+              "mimetype": "image/jpeg",
+              "caption": "gini terus anying",
+              "fileSha256": "lQKWSlA91wjuTIGrIgPV7z9DA03Fke+Bsn0pw2jVIsw=",
+              "fileLength": "42208",
+              "height": 1280,
+              "width": 720,
+              "mediaKey": "m+6jBi+WSLBDW6SZtPTiczVLo6rsR0Ir5C3O7yC3vIY=",
+              "fileEncSha256": "WiJX0GOrGltigx3uvqoVnNF38+2krxTBTgLEZfEHPsU=",
+              "directPath": "/v/t62.7118-24/35330929_252425612980470_4397226451704616079_n.enc?oh=47564fe33d6dfae85ae7263bd2d13f00&oe=6037F7F9",
+              "mediaKeyTimestamp": "1611484519",
+              "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEgAKAMBIgACEQEDEQH/xAAsAAEBAQEAAwAAAAAAAAAAAAAABQQGAQIDAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAACHqo2jk/Xr/BxKoKF+BePn9cWw5gGm/Avkit5HLg03+RsFZJE1jHrvACYD/8QAKhAAAQIDBgYCAwAAAAAAAAAAAwABAgYRBRIUMjNSBBATITFRIEFTYYP/2gAIAQEAAT8AEGIjVZqrB/qJPwl36iXQLtdHhjE9HZWI1RE7J6s+kv5Kj/iVt5xKXMheVHr55TFrDUuZCo1273V8VaVdDpd7KY9calzIVReHTQx9TK9apvCmPXGpcyF+Ex641LmQvwmPXGrJLGOAlFiS+1iS+1iS+1axIiRjquAMIcETRPR1iwb1iw72WLBvVoFER4bi/8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k=",
+              "scansSidecar": "C/uPmpp4tkeh8IW6/KATabYgAp+9Iconx7ALtgMXpGWtbl6x4PTEPg==",
+              "scanLengths": [
+                5647,
+                19325,
+                7589,
+                9647
+              ],
+              "midQualityFileSha256": "eto0UpEuPpaURfOEAk1evVRn0jVL+YxpV+jOcOrieNE=",
+              "midQualityFileEncSha256": "Z0YA1eACNk/4AUzo/s7uF7qtQM61bT+saRaJPWjhl64="
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485241",
+    "status": "ERROR",
+    "participant": "6285329981485@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "4358582BEB40CE35389B03B783880BE5"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AtVQVQOyIy4aXysHHxL-HeF9XTiW4pfv7lxSPI8RCttB.enc",
+        "mimetype": "image/jpeg",
+        "caption": "Api instgram dah jadi",
+        "fileSha256": "q4y++HwnS9EeDZSKotHHOTVu2n/x0SDIicvEiKFF6kc=",
+        "fileLength": "26120",
+        "height": 265,
+        "width": 540,
+        "mediaKey": "+hUFs25tbk83+LWalo31M+rqsKIjJEyMaKZzI5cKxAw=",
+        "fileEncSha256": "BY67VND1iBC7t1T1kNn3idElYs2VqPhpDo7l5iBJByU=",
+        "directPath": "/v/t62.7118-24/24327060_1800342706789152_8881262849623619851_n.enc?oh=cbd175117cdaf85914cf06bf65a0855e&oe=603511FC",
+        "mediaKeyTimestamp": "1611485240",
+        "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIACIARAMBIgACEQEDEQH/xAAtAAEBAQEBAQAAAAAAAAAAAAAAAQIGAwUBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAA+PZqyKIozLDoVS8/vNKkTTIzPTNdAJeeyWBQAHQjN//EACQQAAIBAgUEAwAAAAAAAAAAAAABIhJRAgUQETQDQVJhITAx/9oACAEBAAE/AEUspdyl3KXcpdxrbTLcHTfQlgTFsR9kfZCzI2ZCzHT20yzji3JXRK6JeSJeSJXRiW2mWccSW3yQIECBAgOnsZZxx/v0Zbxz/8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k="
+      }
+    },
+    "messageTimestamp": "1611485241",
+    "status": "ERROR",
+    "participant": "6289630152417@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "EB73D09B6C0E6663EE138AFEA11943C6"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AgfYdctvPzz-psPcma6co0fWt4S51FTWphYVO0CDmCJv.enc",
+        "fileSha256": "ORgcpr/7HA0ehsVgdbVeepWBCxLb9hqoq7vy+pLdHc4=",
+        "fileEncSha256": "wrW4YE3HuDszf5Vd+okzPRETdFnHqpPcuxn7/ihuYLU=",
+        "mediaKey": "B2ahdqhaCccJ9WCEbjziUffQXLlb8aVrk0Ni0OZ1DO0=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/40874639_232446268454638_8613366883399549490_n.enc?oh=037397d0fd4c705dc13145554fa19b14&oe=60352FB6",
+        "fileLength": "5694",
+        "mediaKeyTimestamp": "1611370449",
+        "isAnimated": false
+      }
+    },
+    "messageTimestamp": "1611485245",
+    "status": "ERROR",
+    "participant": "6289630152417@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6737229309-1589713441@g.us",
+      "fromMe": false,
+      "id": "89E95620146571CC82699A14BDBBDACA"
+    },
+    "message": {
+      "conversation": "Still Working On Easy Difficulty"
+    },
+    "messageTimestamp": "1611485248",
+    "status": "ERROR",
+    "participant": "6281292288920@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "12A5FA9FCE970AC01CDB73BFE3166375"
+    },
+    "message": {
+      "conversation": "!glitch ..Austin.."
+    },
+    "messageTimestamp": "1611485250",
+    "status": "ERROR",
+    "participant": "265994028870@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "3EB00D34BB59B5098FC8"
+    },
+    "message": {
+      "conversation": "Spam sms tinggal gw publish aja, tapi limit nya sial + delay beberapa menit"
+    },
+    "messageTimestamp": "1611485250",
+    "status": "ERROR",
+    "participant": "6285692655520@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "4F9D1AAE9339F19B10161BFCDA00164D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "🙄🙄",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "A3F600307A76672226E2F181D1A840BB",
+          "participant": "27810666155@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!glitch dick|ixy..."
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485352",
+    "status": "ERROR",
+    "participant": "265994028870@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB0F7CA6E89"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AvlpwTHWmRlP79bgPtKqeXqDT-VK-L78ievbbTD8Ht_f.enc",
+        "mimetype": "image/jpeg",
+        "caption": "Dah jadi ni Pop smoke weed 😢",
+        "fileSha256": "Xwq3PqK4mT6ayrDzMnQ9omH3oAYzqZbgIo7sbYNKxdg=",
+        "fileLength": "375510",
+        "mediaKey": "Sb9nKxtwhXEWqKuGVEgUgR6UsShqljjyPQOSPRibq/U=",
+        "fileEncSha256": "Jx+WE03BcgZPFQa3MXS2KZj405qNkPZL6ihqkvEFN7Q=",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "CBA9BCA062CFBCE1ADC6AA61A63E3685",
+          "participant": "265998901485@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!thunder thandie"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485353",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "BF0969123BA2CCE9FC33DE47B2909807"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!sticker",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB02E570FF7",
+          "participant": "6285797957301@s.whatsapp.net",
+          "quotedMessage": {
+            "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/ArkGkwQ0PEN-TZa37vjtA_binOMVONaKIWkvS1wfGN5a.enc",
+              "mimetype": "image/jpeg",
+              "caption": "Dah jadi ni 🥺❤🐾🦋Ixy🦋🐾❤🥺",
+              "fileSha256": "J2755G5jHm64NidCH61wHQcD65IFwmrJqrtkei0edSk=",
+              "fileLength": "85764",
+              "mediaKey": "b2Hoh2i9wr3K+NRLXETYE5y9AT1cGwUJ4TZvZXRXvZw=",
+              "fileEncSha256": "p/DPYWSVzOUM3uOfarKSCorP2dbgot8knCN3lZbxfYc=",
+              "jpegThumbnail": "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"
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485362",
+    "status": "ERROR",
+    "participant": "27810666155@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "43287ABF95D11FC5544858FF46818326"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "🦦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "5E05F959881E0C1DB1C048D14BD9A0B8",
+          "participant": "27810666155@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "👩‍🦯"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485362",
+    "status": "ERROR",
+    "participant": "265994028870@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB02963C2E9"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AjOFxy5zievT6NPphJfj6k-IPI-pMOEPcDtw6wcAreP_.enc",
+        "fileSha256": "ic4dfH4Y6nCAS1E8FHbfGiAMakqU0KzXPYNeB2ZkYlM=",
+        "fileEncSha256": "6VHwBFjt8ezSPAlvoYGSoxa+fU7HZntMvR06AC0rxrw=",
+        "mediaKey": "oqC71Q51nEQrpyN/0vdRiSYCjvuSUX358iFiVGXzA4g=",
+        "mimetype": "image/webp",
+        "fileLength": "5146",
+        "isAnimated": false,
+        "contextInfo": {
+          "stanzaId": "",
+          "participant": "6285797957301@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "*Size asal* : 83.75 KB\n*Stickerpack* : DGC ChatBotV3\n*Author* : MRHRTZ as Dev"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485364",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3E5A5D1F7651E57A9A0EE33C14D388A7"
+    },
+    "message": {
+      "conversation": "!sand thandie"
+    },
+    "messageTimestamp": "1611485368",
+    "status": "ERROR",
+    "participant": "265998901485@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB0F4461A8C"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AvMkwI8nMs3Txwov2o3Mh2RkUH3_jQBpZX8oyHpBA-u7.enc",
+        "mimetype": "image/jpeg",
+        "caption": "Dah jadi ni Pop smoke weed 😢",
+        "fileSha256": "6F/KYHucuhM/3WxUfqEMlpPPaTOZkJxCkf8PNcBSJbU=",
+        "fileLength": "1299361",
+        "mediaKey": "mFBIAm6nLul+fdqrR45i08ePnr6lNCByX/lgmrRismI=",
+        "fileEncSha256": "auaUp7CJjGKZommgcEkuRNYtwiKn7Ua4FE9ULB+kFrU=",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "3E5A5D1F7651E57A9A0EE33C14D388A7",
+          "participant": "265998901485@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!sand thandie"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485372",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "4039AB7FC81287CB30833B2912B483E6"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "F",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "C42556CEC6AF3C189AA9799BF013450E",
+          "participant": "6289636409798@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Lol"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485373",
+    "status": "ERROR",
+    "participant": "6285797957303@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "A82D338EE614D55325F6FB52C2235392"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": ".",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "FE781DE296E5E5A62920E62EE495AA08",
+          "participant": "6288742689173@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Ada yg punya case spam wa"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485374",
+    "status": "ERROR",
+    "participant": "6288742689173@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "80D4B10749B5BF28E7B48AD08D36264D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "😖",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "4F9D1AAE9339F19B10161BFCDA00164D",
+          "participant": "265994028870@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "🙄🙄"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485376",
+    "status": "ERROR",
+    "participant": "27810666155@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "0F00D9BAF43B650EB8BE0C9B3F9B95E1"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1611485381",
+    "status": "ERROR",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": true,
+      "id": "3EB0068759CD"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AvC9Rg91ZBOuqWLmXQcN0ognRUONToNIZM8idDPM91Zf.enc",
+        "mimetype": "image/jpeg",
+        "caption": "Dah jadi ni -",
+        "fileSha256": "6F/KYHucuhM/3WxUfqEMlpPPaTOZkJxCkf8PNcBSJbU=",
+        "fileLength": "1299361",
+        "mediaKey": "R3rZUuN/UfRqwvLO9nNReyt2mPd01gz2kFX40xuaNv4=",
+        "fileEncSha256": "aZidwLmU4U7Lr0kXDFW91yDmbJaVuduJRdlxyC/oJaA=",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "3E5A5D1F7651E57A9A0EE33C14D388A7",
+          "participant": "265998901485@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!sand thandie"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485382",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "43F9D8D3D61BAC568DCA30AA83D3F61F"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Al6eYEDM_5nNy6fqCHjii0LZbWmlhoSaVApFdrYdQRUp.enc",
+        "mimetype": "image/jpeg",
+        "caption": "tawar menawar :v",
+        "fileSha256": "By9CpghNdTx30oYzncYvVXZuQX2UyFJHKk1v1l16BS8=",
+        "fileLength": "53075",
+        "height": 960,
+        "width": 540,
+        "mediaKey": "ZaGZ0IChxhA/Y+1lVjWHLoLIf357+V4OZQRw59vxSCs=",
+        "fileEncSha256": "yoVajWuhjASRMSL9jtQcY+rh/m3cRf/6YfglU1oIG9M=",
+        "directPath": "/v/t62.7118-24/31459857_256802485842788_2433590241822348899_n.enc?oh=5bad638ac57c23cbb9ac63b818ce486e&oe=6035CFD1",
+        "mediaKeyTimestamp": "1611485262",
+        "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIADwAIQMBIgACEQEDEQH/xAAvAAACAwEBAAAAAAAAAAAAAAAEBQADBgECAQEBAQEAAAAAAAAAAAAAAAAAAQID/9oADAMBAAIQAxAAAACvj0pjNLNvgUsg0rSiDAzo+XUkyUwqRd4JK1c1x8vgGdgxYduoMByAJ5dLx//EACkQAAICAgAFAgcBAQAAAAAAAAIDAAEEEQUSFCFRE1IVIjE0U2RygpL/2gAIAQEAAT8ADCc0BPzUvAdRa5Z8OfcNoqMwuu9TqF+JhfbJ/mdoWtTL+6b/AFNh4iOLpUgA5D3Qy+NZf4oniWS0fqoIzDthkd5CtlPh/wCwqBSPSreZq9fTUt7avsc6LKbo+3eIwzDfqoE/9Tpv1Q/6iMDhpqAjyNFDxuGrZdURlqO3Z3YkWpSMoq2AndTp8z2HE4+A5A0RDz3U6JC1aC93ULFXvmMZlE1ehTZ1Xip6ub7mTGQr06IuWruopoYwfPq68xnFsb2RvFd7oFzq2ebibAlAVqHvU2u61ah1OVH4AmfSxXXKoK3c+X2VP//EABoRAAICAwAAAAAAAAAAAAAAAAARARASIIH/2gAIAQIBAT8Acjm+j2xP/8QAGhEAAgIDAAAAAAAAAAAAAAAAABMBAjBRYv/aAAgBAwEBPwBdRVRddThbyf/Z",
+        "scansSidecar": "Wa2C8ehXOMKKZU8ffblCQZLASP4Jfd0naTMyhRZkeLpsgHJcSnyLZw==",
+        "scanLengths": [
+          5042,
+          23849,
+          10602,
+          13582
+        ],
+        "midQualityFileSha256": "U4Y9C4y3iIgHzyNtSV+C2+3YwKVylEdnAKM6/1uN5KM=",
+        "midQualityFileEncSha256": "saZQif7lwLBDTWdZpMBog7YaUpn433UwxwOQk8Z9nDw="
+      }
+    },
+    "messageTimestamp": "1611485387",
+    "status": "ERROR",
+    "participant": "628886600839@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "66D7C636DB466FDA178D94DE95CAF552"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Minta apinya",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB00D34BB59B5098FC8",
+          "participant": "6285692655520@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Spam sms tinggal gw publish aja, tapi limit nya sial + delay beberapa menit"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485391",
+    "status": "ERROR",
+    "participant": "628988737275@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "918830593378-1557967721@g.us",
+      "fromMe": true,
+      "id": "B68A64777837AA179D3275A9473B985A"
+    },
+    "messageTimestamp": "1611485392",
+    "messageStubType": "E2E_IDENTITY_CHANGED",
+    "messageStubParameters": [
+      "6285641261396@s.whatsapp.net"
+    ]
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": true,
+      "id": "3EB095BE393F"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Ah8RRYDn7XjUqDAJ38eEr0Px56FybS9KJKdrf6_ao7xV.enc",
+        "fileSha256": "JHNAOXKW0QdM+ZzvDL/JtP9dAWfwNir30Rzl9oLmNec=",
+        "fileEncSha256": "qAUsrR9uh3lAyQ3mEwVqKOX8C/jD8Skqrhv2b3vuEzo=",
+        "mediaKey": "xK349mksyFkq7+Gg4AzrJuraVt1PBLjnaC1q4uWZtGk=",
+        "mimetype": "image/webp",
+        "fileLength": "5240"
+      }
+    },
+    "messageTimestamp": "1611485390",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "B68A1BF1387E0EC4C9BA9579AD8FE33E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "🤨",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "80D4B10749B5BF28E7B48AD08D36264D",
+          "participant": "27810666155@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "😖"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485393",
+    "status": "ERROR",
+    "participant": "265994028870@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0316C9964"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.199.14_\n🔋  *Batre* : _20% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _61.99MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0246_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "0F00D9BAF43B650EB8BE0C9B3F9B95E1",
+          "participant": "6283853046084@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485393",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB08DD1F169"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.20.199.14_\n🔋  *Batre* : _20% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _61.99MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0246_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "0F00D9BAF43B650EB8BE0C9B3F9B95E1",
+          "participant": "6283853046084@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          },
+          "mentionedJid": [
+            "6",
+            "2",
+            "8",
+            "5",
+            "5",
+            "5",
+            "9",
+            "0",
+            "3",
+            "8",
+            "0",
+            "2",
+            "1",
+            "@",
+            "s",
+            ".",
+            "w",
+            "h",
+            "a",
+            "t",
+            "s",
+            "a",
+            "p",
+            "p",
+            ".",
+            "n",
+            "e",
+            "t"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485393",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285641261396@s.whatsapp.net",
+      "fromMe": true,
+      "id": "A17BE605E1C5EFEF75CCC1EF28E64BD3"
+    },
+    "messageTimestamp": "1611485391",
+    "messageStubType": "E2E_IDENTITY_CHANGED",
+    "messageStubParameters": [
+      "6285641261396@s.whatsapp.net"
+    ]
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "636FD9F40A0F60E8BE0587BD63B60998"
+    },
+    "message": {
+      "conversation": "!drop water thandie"
+    },
+    "messageTimestamp": "1611485396",
+    "status": "ERROR",
+    "participant": "265998901485@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "3EB046B70D7D35A38884"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Ga ane publish",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "66D7C636DB466FDA178D94DE95CAF552",
+          "participant": "628988737275@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Minta apinya"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485406",
+    "status": "ERROR",
+    "participant": "6285692655520@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "B7CA93C3A7FB4B885FE88B6571D2046C"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1611485521",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0B0AF00F3"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.21.1.13_\n🔋  *Batre* : _20% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _32.60MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0176_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "B7CA93C3A7FB4B885FE88B6571D2046C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485522",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0DC5353AA"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "        *Menu MechaBOT*\n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.21.1.13_\n🔋  *Batre* : _20% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _32.60MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0176_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "B7CA93C3A7FB4B885FE88B6571D2046C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!menu"
+          },
+          "mentionedJid": [
+            "6",
+            "2",
+            "8",
+            "5",
+            "5",
+            "5",
+            "9",
+            "0",
+            "3",
+            "8",
+            "0",
+            "2",
+            "1",
+            "@",
+            "s",
+            ".",
+            "w",
+            "h",
+            "a",
+            "t",
+            "s",
+            "a",
+            "p",
+            "p",
+            ".",
+            "n",
+            "e",
+            "t"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485522",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285769735694-1609679070@g.us",
+      "fromMe": true,
+      "id": "3297611445"
+    },
+    "messageTimestamp": "1611485606",
+    "messageStubType": "GROUP_PARTICIPANT_LEAVE",
+    "messageStubParameters": [
+      "6281226267049@s.whatsapp.net"
+    ]
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F40A2B5B1C046DE71BBE654DB974998C"
+    },
+    "message": {
+      "conversation": "🤖"
+    },
+    "messageTimestamp": "1611485664",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "1C57F4DD74DDE6C34DEF7D3EBE237A14"
+    },
+    "message": {
+      "conversation": "!help"
+    },
+    "messageTimestamp": "1611485717",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0F60E6513"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "    (っ◔◡◔)っ 🤖 MENU MECHABOT 🤖 \n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.21.1.13_\n🔋  *Batre* : _21% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _55.32MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0313_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "1C57F4DD74DDE6C34DEF7D3EBE237A14",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!help"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485718",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0E62EF86B"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "    (っ◔◡◔)っ 🤖 MENU MECHABOT 🤖 \n\n\nContact My WhatsApp : @6285559038021\n\nLegend :\n\n⚪ : Fitur member tanpa limit\n🔷 : Fitur admin dan limit +1\n💚 : Fitur member dan limit +1\n💛 : Fitur member dan limit +2\n🔴 : Fitur VIP dan limit +5\n\n\n_Note : Bot ini multiprefix namun prefix utamanya adalah !_\n\n\n📲 *Versi WA* : _2.21.1.13_\n🔋  *Batre* : _21% Sedang di cas ✅⚡_\n💻 *Host* : _DESKTOP-DPUUTL3_\n📱 *Device* : _Xiaomi Versi OS 10_\n⚖️ *Ram Usage* : _55.32MB / 8118MB_\n🧿 *Platform* : _win32_\n🔌 *CPU* : _Intel(R)Core(TM)i5CPUM520@2.40GHz_\n⚡ *Speed Process* : _0.0313_\n\n*Info Bot*\n\n⚪ !menu _[Menampilkan seluruh menu]_\n⚪ !runtime _[Menampilkan waktu bot berjalan]_\n\n*Fitur VIP*\n\n🔴 !hidetag <teksnya>\n🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>\n\n*Fitur Games*\n\n💚 !minesweeper\n | ⚪ isi <x y>\n\n*Fitur Media & Download*\n\n💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_\n💚 !listkodebahasa _[Menampilkan list kode bahasa]_\n💚 !tomp3 <TagVideo> _[Extract video ke audio]_\n💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_\n💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_\n\n*Fitur stiker*\n\n💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_\n💚 !trigger <@TagMember> _[Efek triggered]_\n💚 !tomedia <TagStiker> _[Stikergif ke video]_\n\n*Fitur Admin* \n\n🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_\n🔷 !title <teksnya> _[Mengubah judul grup]_\n🔷 !desc <teksnya> _[Mengubah deskripsi grup]_\n🔷 !mutegrup _[Setting group chat hanya admin]_\n🔷 !unmutegrup _[Setting group chat untuk semua member]_\n\n*Fitur imagemaker*\n\n_[Memanipulasi teks dan atau gambar]_\n\n💚 !advancedglow <teksnya>\n💚 !futuristic <teksnya>\n💚 !cloud <teksnya>\n💚 !blackpink <teksnya>\n💚 !sand <teksnya>\n💚 !scifi <teksnya>\n💚 !dropwater <teksnya>\n💚 !codmw <teksnya>\n💚 !bokeh <teksnya>\n💚 !neon <teksnya>\n💚 !thunder <teksnya>\n💚 !horrorblood <teksnya>\n💚 !firework <teksnya>\n💚 !bloodglass <teksnya>\n💚 !neonlight <teksnya>\n💚 !marvel <teks1|teks2>\n💚 !phub <teks1|teks2>\n💚 !glitch <teks1|teks2>\n💛 !brokeCard <TagGambar>\n💛 !iphone <TagGambar>\n💛 !underwater <TagGambar>\n💛 !drawing <TagGambar>\n💛 !burningFire <TagGambar>\n💚 !semok <teksnya>\n💚 !harryPotter <Teksnya>\n💚 !horrorHouse <teksnya>\n💚 !coffee <teksnya>\n💚 !battlefield <teks1|teks2>\n💚 !googleKeyword <teks1|teks2|teks3>\n💛 !gtaV <TagGambar>\n\n                    ",
+        "contextInfo": {
+          "stanzaId": "1C57F4DD74DDE6C34DEF7D3EBE237A14",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!help"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485718",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "DBEBE8C06ED2F2FB3289A0538A291732"
+    },
+    "message": {
+      "conversation": "!hidetag cek"
+    },
+    "messageTimestamp": "1611485726",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0882129A0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "cek",
+        "contextInfo": {
+          "mentionedJid": [
+            "966572592040@s.whatsapp.net",
+            "966501472316@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net",
+            "6285157793599@s.whatsapp.net",
+            "6283853046084@s.whatsapp.net",
+            "447520623351@s.whatsapp.net",
+            "27635763638@s.whatsapp.net",
+            "256791208345@s.whatsapp.net",
+            "16128437723@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485726",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "82AB5F994EAFF2FB49B755AE5970ADBD"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!fakereply @6285157793599|hem|hem",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6285157793599@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485749",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0C9E0A01F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "hem",
+        "contextInfo": {
+          "participant": "eply @6285157793599",
+          "quotedMessage": {
+            "conversation": "hem"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485749",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "463C703583C685968614CAE882D5ACF0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!fakereply @256791208345 | cek | cek",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "256791208345@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485804",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB051ECA6EF"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": " cek",
+        "contextInfo": {
+          "participant": "eply 256791208345 @s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": " cek "
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485804",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F9B7629CE320761A094E6E596B0BFBFC"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!fakereply @27635763638 | aj|ha",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "27635763638@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485852",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0CCE9AFCD"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "ha",
+        "contextInfo": {
+          "participant": "27635763638 @s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": " aj"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485853",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "950A06A55C5A168E76B043E147C2E39E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!fakereply @256791208345|Hei|Wazzup",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "256791208345@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1611485905",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB04CA3F7C0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Wazzup",
+        "contextInfo": {
+          "participant": "256791208345@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Hei"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1611485905",
+    "status": "SERVER_ACK",
+    "participant": "6283853046084@s.whatsapp.net"
   }
 ]
