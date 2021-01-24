@@ -1265,7 +1265,10 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
                const latensi = speed() - performa
-               const strMenu = `*Menu merhabot*
+               const strMenu = `        *Menu MechaBOT*
+
+
+Contact My WhatsApp : @6285559038021
 
 Legend :
 
@@ -1362,6 +1365,11 @@ _[Memanipulasi teks dan atau gambar]_
 
                     `
                balas(from, strMenu)
+               conn.sendMessage(from, strMenu, TypePsn.text, {
+                    quoted: hurtz,
+                    text: strMenu,
+                    contextInfo: { mentionedJid:nomerOwner[0] }
+               })
           }
      }
 }
