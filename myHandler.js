@@ -413,7 +413,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          key: { remoteJid: nomer_asal.replace(/ /g,'').replace('@','') + '@s.whatsapp.net', fromMe: false },
                          message: { conversation: pesan }
                     }
-               }).then(a => /*console.log(a.message)*/)
+               })/*.then(a => console.log(a.message))*/
           } else if (cmd == `${prf}pitch`) {
                if (!isQuotedAudio) return balas(from, `Tidak ada audio/vn yg di tag!`)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/convert/${filename}`);
