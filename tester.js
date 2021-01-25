@@ -1,4 +1,4 @@
-const mysession = /*'mecha'*/'MRHRTZ'
+const mysession = 'mecha'//'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode-terminal')
 const fs = require('fs')
@@ -64,7 +64,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      conn.on('CB:action,,battery', json => {
           const batteryLevelStr = json[2][0][1].value
           const batterylevel = parseInt(batteryLevelStr)
-          INFOLOG('battery level: ' + batterylevel)
+          // INFOLOG('battery level: ' + batterylevel)
           fs.writeFileSync('./lib/database/batt.json', JSON.stringify(json[2][0], null, 2))
      })
 

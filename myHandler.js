@@ -1,7 +1,7 @@
 const { createExif } = require('./lib/create-exif')
 const chalk = require('chalk')
 const moment = require('moment')
-const { getFilesize } = require('./lib/func')
+const { getFilesize, lirik } = require('./lib/func')
 const fs = require('fs')
 const util = require('util')
 const os = require('os')
@@ -51,18 +51,21 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const self = hurtz.key.fromMe
      const isGroup = from.endsWith('@g.us')
      const type = Object.keys(hurtz.message)[0]
+     const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo.quotedMessage)[0] : ''
      const body = type == 'conversation' ? hurtz.message.conversation : type == 'extendedTextMessage' ? hurtz.message.extendedTextMessage.text : type == 'imageMessage' ? hurtz.message.imageMessage.caption : type == 'stickerMessage' ? 'Sticker' : type == 'audioMessage' ? 'Audio' : type == 'videoMessage' ? hurtz.message.videoMessage.caption : type == 'documentMessage' ? 'document' : hurtz.message
      const args = body.split(' ')//
      const cmd = body.toLowerCase().split(' ')[0] || ''
      const prf = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/gi) : '-'
      const anticol = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g
      const isMedia = (type === 'imageMessage' || type === 'videoMessage')
+     const quotedMsg = type === 'extendedTextMessage' ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage[typeQuoted] : ''
      const isQuotedImage = type === 'extendedTextMessage' && konten.includes('imageMessage')
      const isQuotedVideo = type === 'extendedTextMessage' && konten.includes('videoMessage')
      const isQuotedSticker = type === 'extendedTextMessage' && konten.includes('stickerMessage')
      const isQuotedAudio = type === 'extendedTextMessage' && konten.includes('audioMessage')
      const mediaData = type === 'extendedTextMessage' ? JSON.parse(JSON.stringify(hurtz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : hurtz
      const isCmd = body.startsWith(prf)
+     const query = args.slice(1).join(' ')
      const sender = self ? conn.user.jid : isGroup ? hurtz.participant : hurtz.key.remoteJid
      const botNumber = conn.user.jid
      const groupMetadata = isGroup ? await conn.groupMetadata(from) : ''
@@ -70,7 +73,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const groupId = isGroup ? groupMetadata.id : ''
      const isImageMsg = type == 'imageMessage' ? true : false
      const isVideoMsg = type == 'videoMessage' ? true : false
-     const dataImgQuote = isQuotedImage ? JSON.parse(JSON.stringify(hurtz.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage.caption)) : '{"Data":"Apasu :v"}'
+     // const dataImgQuote = isQuotedImage ? JSON.parse(JSON.stringify(hurtz.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage.caption)) : '{"Data":"Apasu :v"}'
      const battery = JSON.parse(fs.readFileSync('./lib/database/batt.json'))
 
      const isGrupMines = groupMines.includes(from)
@@ -244,22 +247,14 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const image = TypePsn.image
      const sticker = TypePsn.sticker
      // End line TypePsn 
-
-
      const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
-
-
      // console.log(JSON.parse(dataImgQuote))
      // if (self) return
      // console.log(hurtz)
-     if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', ' < ' + chalk.blueBright('CMD') + ' > ', time, color(body), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
-     if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(body), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
-     if (isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.blueBright('CMD') + '>', time, color(body), 'dari', color(pushname), 'di', color(groupName), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
-     if (!isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(body), 'dari', color(pushname), 'di', color(groupName), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
-
-
-
-
+     if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', ' < ' + chalk.blueBright('CMD') + ' > ', time, color(args[0]), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
+     if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color('pesan'), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
+     if (isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.blueBright('CMD') + '>', time, color(args[0]), 'dari', color(pushname), 'di', color(groupName), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
+     if (!isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color('pesan'), 'dari', color(pushname), 'di', color(groupName), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
 
      const db = JSON.parse(fs.readFileSync('./lib/new-chat/database.json'))
      // const from = '62857313534sa1@s.whatsapp.net'
@@ -311,7 +306,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           let output
           try {
                output = func((...args) => {
-                    INFOLOG(...args)
+                    // INFOLOG(...args)
                     balas(from, util.format(...args))
                }, exec, conn, Axios, moment, fs, process, mediaData, from, TypePsn, hurtz, Mimetype, anticol, mktemp, chat)
           } catch (e) {
@@ -338,7 +333,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           console.log('No error, lanjutkan..')
      }
      // console.log(hurtz)
-     if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
+     // if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
      if (type == 'extendedTextMessage' || type == 'conversation' || type == 'imageMessage') {
           if (cmd == `${prf}cure`) {
                const nomer_asal = body.slice(6).split('|')[0]
@@ -409,6 +404,11 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          });
                     })
                }).catch(e => ERRLOG(e))
+          } else if (cmd == `${prf}lirik` || cmd == `${prf}lyric`) {
+               lirik(query)
+                    .then((asw) => {
+                         balas(from, `*${query}*` + asw.result.lirik)
+                    }).catch(e => balas(from, `Lagu tidak ditemukan!`) && balas(nomerOwner[0], util.format(e)))
           } else if (cmd == `${prf}ttp`) {
                const text = body.slice(5)
                const colour = body.split('|')[1] || ''
@@ -506,7 +506,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (args.length === 1) return balas(from, `Penggunaan : *!advancedglow textnya*`)
                advancedglow(body.slice(14))
                     .then((rest) => {
-                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${puname}`)
+                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}futuristic`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!futuristic textnya*`)
@@ -1005,6 +1005,108 @@ ${hasil.grid}
                console.log(conn.generateMessageTag(true))
                conn.sendMessage(from, '*Pushname* : ' + pushname, TypePsn.text, { quoted: hurtz })
                console.log(cont)
+          } else if (cmd == `${prf}video`) {
+               if (args.length === 1) return balas(from, 'Kirim perintah *!video* _Judul video yang akan dicari_')
+               ytsr(query)
+                    .then(result => {
+                         let caption = `*Hasil pencarian from ${query}*\n\n_Note : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!getvideo urutan*\ncontoh : *!getvideo 2*_\n`
+                         for (let i = 0; i < result.length; i++) {
+                              caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title}\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views}\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp}\n*Perintah download* : _!getvideo ${result[i].id}_\n\n`
+                         }
+                         for (let j = 0; j < result.length; j++) {
+                              caption += `(#)${result[j].id}`
+                         }
+                         sendDariUrl(from, result[0].thumb, TypePsn.image, caption)
+                    })
+          } else if (cmd == `${prf}getvideo`) {
+               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!getvideo* _IdDownload_, atau *!getvideo NomerUrut*', id)
+               if (isQuotedImage) {
+                    if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getvideo _1_*`, id)
+                    const doi = quotedMsg.caption ? quotedMsg.caption : ''
+                    const pilur = doi.split('(#)')
+                    ytv(`https://youtu.be/${pilur[args[1]]}`)
+                         .then((res) => {
+                              const { dl_link, thumb, title, filesizeF, filesize } = res
+                              Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                                   .then((a) => {
+                                        if (Number(filesize) >= 40000) return hurtz.sendFileFromUrl(from, thumb, `thumb.jpg`, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, id)
+                                        const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+                                        sendDariUrl(from, thumb, TypePsn.image, captions)
+                                        sendDariUrl(from, dl_link, TypePsn.video, `Video telah terkirim ${pushname}`).catch(e => console.log && balas(from, `Terjadi kesalahan!`))
+                                   })
+
+                         })
+               } else {
+                    try {
+                         if (args.length === 1) return balas(from, `_Apabila tidak ditag hanya cantumkan ID bukan urutan!_  contoh : *!getvideo _Xis67a47s_*`)
+                         ytv(`https://youtu.be/${args[1]}`)
+                              .then((res) => {
+                                   const { dl_link, thumb, title, filesizeF, filesize } = res
+                                   Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                                        .then((a) => {
+                                             if (Number(filesize) >= 40000) return hurtz.sendFileFromUrl(from, thumb, `thumb.jpg`, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, id)
+                                             const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+                                             sendDariUrl(from, thumb, TypePsn.image, captions)
+                                             sendDariUrl(from, dl_link, TypePsn.video, `Video telah terkirim ${pushname}`).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
+                                        })
+
+                              })
+                    } catch (error) {
+                         console.log(error)
+                         balas(from, `Id Download salah!`)
+                    }
+               }
+          } else if (cmd == `${prf}musik` || cmd == `${prf}music`) {
+               if (args.length === 1) return balas(from, 'Kirim perintah *!musik* _Judul lagu yang akan dicari_')
+               ytsr(query)
+                    .then(result => {
+                         let caption = `*Hasil pencarian from ${query}*\n\n_Note : Apabila kesusahan mengambil data id, untuk download lagu tag pesan ini dan berikan perintah : *!getmusik urutan*\ncontoh : *!getmusik 2*_\n`
+                         for (let i = 0; i < result.length; i++) {
+                              caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title}\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views}\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp}\n*Perintah download* : _!getmusik ${result[i].id}_\n\n`
+                         }
+                         for (let j = 0; j < result.length; j++) {
+                              caption += `(#)${result[j].id}`
+                         }
+                         sendDariUrl(from, result[0].thumb, TypePsn.image, caption)
+                    })
+          } else if (cmd == `${prf}getmusik` || cmd == `${prf}getmusic`) {
+               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!getmusik* _IdDownload_, atau *!getmusik NomerUrut*', id)
+               if (isQuotedImage) {
+                    if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getmusik _1_*`, id)
+                    const doi = quotedMsg.caption ? quotedMsg.caption : ''
+                    const pilur = doi.split('(#)')
+                    yta(`https://youtu.be/${pilur[args[1]]}`)
+                         .then((res) => {
+                              const { dl_link, thumb, title, filesizeF, filesize } = res
+                              Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                                   .then((a) => {
+                                        if (Number(filesize) >= 40000) return hurtz.sendFileFromUrl(from, thumb, `thumb.jpg`, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, id)
+                                        const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+                                        sendDariUrl(from, thumb, TypePsn.image, captions)
+                                        sendDariUrl(from, dl_link, TypePsn.audio, '', { mimetype: Mimetype.mp4Audio }).catch(e => console.log && balas(from, `Terjadi kesalahan!`))
+                                   })
+
+                         })
+               } else {
+                    try {
+                         if (args.length === 1) return balas(from, `_Apabila tidak ditag hanya cantumkan ID bukan urutan!_  contoh : *!getmusik _Xis67a47s_*`)
+                         ytv(`https://youtu.be/${args[1]}`)
+                              .then((res) => {
+                                   const { dl_link, thumb, title, filesizeF, filesize } = res
+                                   Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                                        .then((a) => {
+                                             if (Number(filesize) >= 40000) return hurtz.sendFileFromUrl(from, thumb, `thumb.jpg`, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, id)
+                                             const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+                                             sendDariUrl(from, thumb, TypePsn.image, captions)
+                                             sendDariUrl(from, dl_link, TypePsn.audio, '', { mimetype: Mimetype.mp4Audio }).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
+                                        })
+
+                              })
+                    } catch (error) {
+                         console.log(error)
+                         balas(from, `Id Download salah!`)
+                    }
+               }
           } else if (cmd == `${prf}batt`) {
                const batt = fs.readFileSync('./lib/database/batt.json', 'utf-8')
                conn.sendMessage(from, '*Battery* : ' + batt, TypePsn.text, { quoted: hurtz })
@@ -1223,6 +1325,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          fs.unlinkSync(savedFilename)
                          fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
                     })
+                    return
                }
                if (savedFilename.slice(-4) === 'jpeg') {
                     sharp(savedFilename).resize({
@@ -1258,22 +1361,24 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                                    })
                               })
                          })
-               } else {
-                    exec(`ffmpeg -i ${savedFilename} -vcodec libwebp -vf scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=${myfps} -lossless 0 -loop 0 -preset default -ss 00:00:00 -t 00:00:${ending} -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`, (err, stdout, stderr) => {
-                         if (err) throw new TypeError(err)
-                         exec(`webpmux -set exif ./media/sticker/data.exif ./media/sticker/${filename}.webp -o ./media/sticker/${filename}-done.webp`, (err, stdout, stderr) => {
-                              if (err) {
-                                   console.error(err);
-                                   return
-                              }
-                              const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                              conn.sendMessage(from, buff, TypePsn.sticker)
-                              fs.unlinkSync(savedFilename)
-                              fs.unlinkSync(`./media/sticker/${filename}.webp`)
-                              fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
-                         })
-                    })
+                    return
                }
+
+               exec(`ffmpeg -i ${savedFilename} -vcodec libwebp -vf scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=${myfps} -lossless 0 -loop 0 -preset default -ss 00:00:00 -t 00:00:${ending} -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`, (err, stdout, stderr) => {
+                    if (err) throw new TypeError(err)
+                    exec(`webpmux -set exif ./media/sticker/data.exif ./media/sticker/${filename}.webp -o ./media/sticker/${filename}-done.webp`, (err, stdout, stderr) => {
+                         if (err) {
+                              console.error(err);
+                              return
+                         }
+                         const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
+                         conn.sendMessage(from, buff, TypePsn.sticker)
+                         fs.unlinkSync(savedFilename)
+                         fs.unlinkSync(`./media/sticker/${filename}.webp`)
+                         fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
+                    })
+               })
+
           } else if (cmd == `${prf}runtime`) {
                function format(seconds) {
                     function pad(s) {
@@ -1328,9 +1433,7 @@ Legend :
 💛 : Fitur member dan limit +2
 🔴 : Fitur VIP dan limit +5
 
-
-_Note : Bot ini multiprefix namun prefix utamanya adalah !_
-
+----------------------------------------
 
 📲 *Versi WA* : _${conn.user.phone.wa_version}_
 🔋  *Batre* : _${batteryNow}% ${isCas}_
@@ -1414,6 +1517,23 @@ _[Memanipulasi teks dan atau gambar]_
 💚 !googleKeyword <teks1|teks2|teks3>
 💛 !gtaV <TagGambar>
 
+*Fitur Search*
+
+💚 !yts <Judul Video/Musik> _[Pencarian Youtube]_
+💚 !lirik <Judul lagu> _[Cari Lirik Lagu]_
+💚 !video <Judul Video> _[Pencarian lagu]_
+| ⚪ !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
+💚 !musik <Judul Lagu> _[Pencarian lagu]_
+| ⚪ !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
+
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗
                     `
                conn.sendMessage(from, strMenu, TypePsn.text, {
                     quoted: hurtz,
