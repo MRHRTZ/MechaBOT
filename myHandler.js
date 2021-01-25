@@ -356,7 +356,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                ytsr(body.slice(5)).then(res => {
                     let captions = `*YOUTUBE SEARCH : ${body.slice(5)}*\n\n`
                     for (let i = 0; i < res.length; i++) {
-                         const { id, author, title, ago, views, desc, duration, timestamp, url} = res[i]
+                         const { id, author, title, ago, views, desc, duration, timestamp, url } = res[i]
                          captions += `
 ___________________________________________
 
@@ -370,7 +370,7 @@ ___________________________________________
 *Link* : ${url}
 `
                     }
-               sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
+                    sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
                })
           } else if (cmd == `${prf}play`) {
                if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
@@ -409,7 +409,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          });
                     })
                }).catch(e => ERRLOG(e))
-          } else if (cmd == `${prf}ttp` || cmd == `${prf}tosticker` || cmd == `${prf}tostiker`) {
+          } else if (cmd == `${prf}ttp`) {
                const text = body.slice(5)
                const colour = body.split('|')[1] || ''
                text2img(text, colour)
@@ -421,13 +421,38 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                               responseEncoding: 'binary'
                          }).then(({ data }) => {
                               fs.writeFileSync(`./media/text-${filename}.png`, data)
-                              exec(`cwebp ./media/text-${filename}.png -o ./media/outtext-${filename}.png`, (err, stdout, stderr) => {
-                                   if (err) throw new TypeError(err)
-                                   const buff = fs.readFileSync(`./media/outtext-${filename}.png`)
-                                   conn.sendMessage(from, buff, TypePsn.sticker)
-                                   fs.unlinkSync(`./media/outtext-${filename}.png`)
-                                   fs.unlinkSync(`./media/text-${filename}.png`)
+                              sharp(`./media/text-${filename}.png`).resize({
+                                   width: 512,
+                                   height: 512,
+                                   fit: sharp.fit.contain,
+                                   background: {
+                                        r: 0,
+                                        g: 0,
+                                        b: 0,
+                                        alpha: 0
+                                   }
                               })
+                                   .webp()
+                                   .toBuffer()
+                                   .then((rest) => {
+                                        fs.writeFile(`./media/sticker/${filename}.webp`, rest, (err) => {
+                                             if (err) {
+                                                  console.error(err);
+                                                  return
+                                             }
+                                             exec(`webpmux -set exif ./media/sticker/data.exif ./media/sticker/${filename}.webp -o ./media/sticker/${filename}-done.webp`, (err, stdout, stderr) => {
+                                                  if (err) {
+                                                       console.error(err);
+                                                       return
+                                                  }
+                                                  const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
+                                                  conn.sendMessage(from, buff, TypePsn.sticker)
+                                                  fs.unlinkSync(`./media/text-${filename}.png`)
+                                                  fs.unlinkSync(`./media/sticker/${filename}.webp`)
+                                                  fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
+                                             })
+                                        })
+                                   })
                          }).catch(console.log)
                     })
           } else if (cmd == `${prf}fakereply`) {
@@ -436,11 +461,11 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const pesan_bot = body.split('|')[2]
                conn.sendMessage(from, pesan_bot, TypePsn.text, {
                     quoted: {
-                         key: { remoteJid: nomer_asal.replace(/ /g,'').replace('@','') + '@s.whatsapp.net', fromMe: false },
+                         key: { remoteJid: nomer_asal.replace(/ /g, '').replace('@', '') + '@s.whatsapp.net', fromMe: false },
                          message: { conversation: pesan }
                     },
-                    contextInfo: { mentionedJid: [ nomer_asal ]}
-               })/*.then(a => console.log(a.message))*/
+                    contextInfo: { mentionedJid: [nomer_asal] }
+               })
           } else if (cmd == `${prf}pitch`) {
                if (!isQuotedAudio) return balas(from, `Tidak ada audio/vn yg di tag!`)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/convert/${filename}`);
@@ -563,25 +588,25 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }).catch(console.log)
           } else if (cmd == `${prf}marvel`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!marvel textnya|text kedua*`)
-                    const textsec = body.split('|')[1] || 'MECHA'
-                    marvel(body.slice(8).split('|')[0], textsec)
-                         .then((rest) => {
-                              sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
-                         }).catch(console.log)
-               } else if (cmd == `${prf}phub`) {
-                    if (args.length === 1) return balas(from, `Penggunaan : *!phub textnya|text kedua*`)
-                    const textsec = body.split('|')[1] || 'MECHA'
-                    phub(body.slice(6).split('|')[0], textsec)
-                         .then((rest) => {
-                              sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
-                         }).catch(console.log)
-               } else if (cmd == `${prf}glitch`) {
-                    if (args.length === 1) return balas(from, `Penggunaan : *!glitch textnya|text kedua*`)
-                    const textsec = body.split('|')[1] || 'MECHA'
-                    glitch(body.slice(8).split('|')[0], textsec)
-                         .then((rest) => {
-                              sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
-                         }).catch(console.log)
+               const textsec = body.split('|')[1] || 'MECHA'
+               marvel(body.slice(8).split('|')[0], textsec)
+                    .then((rest) => {
+                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                    }).catch(console.log)
+          } else if (cmd == `${prf}phub`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!phub textnya|text kedua*`)
+               const textsec = body.split('|')[1] || 'MECHA'
+               phub(body.slice(6).split('|')[0], textsec)
+                    .then((rest) => {
+                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                    }).catch(console.log)
+          } else if (cmd == `${prf}glitch`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!glitch textnya|text kedua*`)
+               const textsec = body.split('|')[1] || 'MECHA'
+               glitch(body.slice(8).split('|')[0], textsec)
+                    .then((rest) => {
+                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                    }).catch(console.log)
           } else if (cmd == `${prf}brokecard`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
@@ -1172,10 +1197,17 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                }
           } else if (cmd == `${prf}stiker` || cmd == `${prf}sticker`) {
+               let packstik
+               let authorstik
+               if (args[1] == 'wm') {
+                    packstik = body.slice(8).split('|')[0] || 'Created By MechaBOT'
+                    authorstik = body.split('|')[1] || 'Follow Insta Dev @hzzz.formech_'
+               } else {
+                    packstik = 'Created By MechaBOT'
+                    authorstik = 'Follow Insta Dev @hzzz.formech_'
+               }
                const myfps = body.split('-fps ')[1] || '12'
                const ending = body.split('-end ')[1] || '10'
-               const packstik = body.slice(8).split('|')[0] || 'Created By MechaBOT'
-               const authorstik = body.split('|')[1] || 'Follow Insta Dev @hzzz.formech_'
                createExif(packstik, authorstik)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/sticker/${filename}`);
                const sizestik = getFilesize(savedFilename)
@@ -1191,7 +1223,6 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          fs.unlinkSync(savedFilename)
                          fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
                     })
-                    return;
                }
                if (savedFilename.slice(-4) === 'jpeg') {
                     sharp(savedFilename).resize({
@@ -1227,33 +1258,22 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                                    })
                               })
                          })
-                    return
-               }
-               exec(`ffmpeg -i ${savedFilename} -vcodec libwebp -vf scale=500:500,setsar=1,fps=fps=${myfps} -lossless 0 -loop 0 -preset default -ss 00:00:00 -t 00:00:${ending} -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`, (err, stdout, stderr) => {
-                    if (err) {
-                         console.error(err);
-                         return;
-                    }
-                    exec(`webpmux -set exif ./media/sticker/data.exif ./media/sticker/${filename}.webp -o ./media/sticker/${filename}-done.webp`, (err, stdout, stderr) => {
-                         if (err) {
-                              console.error(err);
-                              return
-                         }
-                         const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                         conn.sendMessage(from, buff, TypePsn.sticker, { quoted: customQuote(`*Size asal* : ${sizestik}\n*Sticker Pack* : ${packstik}\n*Author* : ${authorstik}`) })
-                         // console.log(stdout)
-                         fs.unlinkSync(savedFilename)
-                         fs.unlinkSync(`./media/sticker/${filename}.webp`)
-                         fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
+               } else {
+                    exec(`ffmpeg -i ${savedFilename} -vcodec libwebp -vf scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=${myfps} -lossless 0 -loop 0 -preset default -ss 00:00:00 -t 00:00:${ending} -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`, (err, stdout, stderr) => {
+                         if (err) throw new TypeError(err)
+                         exec(`webpmux -set exif ./media/sticker/data.exif ./media/sticker/${filename}.webp -o ./media/sticker/${filename}-done.webp`, (err, stdout, stderr) => {
+                              if (err) {
+                                   console.error(err);
+                                   return
+                              }
+                              const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
+                              conn.sendMessage(from, buff, TypePsn.sticker)
+                              fs.unlinkSync(savedFilename)
+                              fs.unlinkSync(`./media/sticker/${filename}.webp`)
+                              fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
+                         })
                     })
-               })
-               fs.unlinkSync(`./media/sticker/${filename}.webp`)
-               // console.log(savedFilename)
-               // console.log(conn)
-               // fs.writeFileSync('./conn.json', util.format(conn))
-               // const imagena = fs.readFileSync('./undefined.jpeg')
-               // await conn.sendMessage(from, imagena, TypePsn.image, { mimetype: Mimetype.jpeg })
-               // console.log(buffer_tikel)
+               }
           } else if (cmd == `${prf}runtime`) {
                function format(seconds) {
                     function pad(s) {
@@ -1349,6 +1369,7 @@ _Note : Bot ini multiprefix namun prefix utamanya adalah !_
 💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_
 💚 !trigger <@TagMember> _[Efek triggered]_
 💚 !tomedia <TagStiker> _[Stikergif ke video]_
+💚 !ttp <TEXT> _[Text To Sticker]_
 
 *Fitur Admin* 
 
@@ -1396,7 +1417,7 @@ _[Memanipulasi teks dan atau gambar]_
                     `
                conn.sendMessage(from, strMenu, TypePsn.text, {
                     quoted: hurtz,
-                    contextInfo: { mentionedJid: [ nomerOwner[0] ] }
+                    contextInfo: { mentionedJid: [nomerOwner[0]] }
                })
           }
      }
