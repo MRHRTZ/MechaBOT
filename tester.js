@@ -1,4 +1,4 @@
-const mysession = 'mecha'//'MRHRTZ'
+const mysession = /*'mecha'*/'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode-terminal')
 const fs = require('fs')

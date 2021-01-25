@@ -338,7 +338,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           console.log('No error, lanjutkan..')
      }
      // console.log(hurtz)
-     // if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
+     if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
      if (type == 'extendedTextMessage' || type == 'conversation' || type == 'imageMessage') {
           if (cmd == `${prf}cure`) {
                const nomer_asal = body.slice(6).split('|')[0]
@@ -351,23 +351,49 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                          message: { conversation: pesan }
                     }
                }).then(a => console.log(a.message))
+          } else if (cmd == `${prf}yts`) {
+               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!yts* _Video/Musik/Channel YT_')
+               ytsr(body.slice(5)).then(res => {
+                    let captions = `*YOUTUBE SEARCH : ${body.slice(5)}*\n\n`
+                    for (let i = 0; i < res.length; i++) {
+                         const { id, author, title, ago, views, desc, duration, timestamp, url} = res[i]
+                         captions += `
+___________________________________________
+
+*ID* : ${id}
+*Title* : ${title}
+*Duration* : ${timestamp}
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
+*Description* : ${desc}
+*Link* : ${url}
+`
+                    }
+               sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
+               })
           } else if (cmd == `${prf}play`) {
                if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
-               const playy = await Axios.get(`http://nzcha-apii.herokuapp.com/ytsearch?q=${encodeURIComponent(body.slice(6))}`)
-               const mulaikah = playy.data.result[0].url
+               const play = await ytsr(body.slice(6))
+               const mulaikah = play[0].url
                yta(mulaikah).then((resyt3) => {
                     const { dl_link, thumb, title, filesizeF } = resyt3
+                    const { author, ago, views, desc, timestamp } = play[0]
                     INFOLOG(title)
-                    //Send Thumb
                     Axios.get(thumb, {
                          responseType: 'arraybuffer'
                     }).then(({ data }) => {
                          const buffer_thumbyt3 = Buffer.from(data, 'base64')
                          const capt_yt3 = `*Data telah didapatkan!*
 
-*Judul* : ${title}
+*Title* : ${title}
+*Duration* : ${timestamp}
 *Type* : MP3
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
 *Filesize* : ${filesizeF}
+*Description* : ${desc ? desc : '-'}
 
 _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          conn.sendMessage(from, buffer_thumbyt3, TypePsn.image, { mimetype: Mimetype.jpeg, caption: capt_yt3, quoted: hurtz })
@@ -412,7 +438,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     quoted: {
                          key: { remoteJid: nomer_asal.replace(/ /g,'').replace('@','') + '@s.whatsapp.net', fromMe: false },
                          message: { conversation: pesan }
-                    }
+                    },
+                    contextInfo: { mentionedJid: [ nomer_asal ]}
                })/*.then(a => console.log(a.message))*/
           } else if (cmd == `${prf}pitch`) {
                if (!isQuotedAudio) return balas(from, `Tidak ada audio/vn yg di tag!`)
@@ -772,7 +799,7 @@ ${hasil.grid}
                     // console.log('cnth1')
                     const pepe = await conn.getProfilePicture(sender)
                     let image = await canvacord.Canvas.trigger(pepe);
-                    createExif('Created By MechaBOT', 'Follow Insta Dev @hanif.thetakeovers_')
+                    createExif('Created By MechaBOT', 'Follow Insta Dev @hzzz.formech_')
                     fs.writeFile('./media/effect/triggered.gif', image, () => {
                          exec(`ffmpeg -i ./media/effect/triggered.gif -vcodec libwebp -vf fps=fps=30 -lossless 0 -loop 0 -pix_fmt yuv420p -preset default -an -vsync 0 -s 512:512 ./media/effect/triggered.webp`, (err, stdout, stderr) => {
                               if (err) throw new TypeError(err)
@@ -789,7 +816,7 @@ ${hasil.grid}
                } else if (/@[0-9]/gi.test(args[1])) {
                     const pepe = await conn.getProfilePicture(args[1].replace('@', '') + '@s.whatsapp.net')
                     let image = await canvacord.Canvas.trigger(pepe);
-                    createExif('Created By MechaBOT', 'Follow Insta Dev @hanif.thetakeovers_')
+                    createExif('Created By MechaBOT', 'Follow Insta Dev @hzzz.formech_')
                     fs.writeFile('./media/effect/triggered.gif', image, () => {
                          exec(`ffmpeg -i ./media/effect/triggered.gif -vcodec libwebp -vf fps=fps=30 -lossless 0 -loop 0 -pix_fmt yuv420p -preset default -an -vsync 0 -s 512:512 ./media/effect/triggered.webp`, (err, stdout, stderr) => {
                               if (err) throw new TypeError(err)
@@ -806,7 +833,7 @@ ${hasil.grid}
                } else if (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(args[1])) {
                     let image = await canvacord.Canvas.trigger(args[1]);
                     console.log('cnth2')
-                    createExif('Created By MechaBOT', 'Follow Insta Dev @hanif.thetakeovers_')
+                    createExif('Created By MechaBOT', 'Follow Insta Dev @hzzz.formech_')
                     fs.writeFile('./media/effect/triggered.gif', image, () => {
                          exec(`ffmpeg -i ./media/effect/triggered.gif -vcodec webp -loop 0 -pix_fmt yuv420p ./media/effect/triggered.webp`, (err, stdout, stderr) => {
                               if (err) throw new TypeError(err)
@@ -1148,7 +1175,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const myfps = body.split('-fps ')[1] || '12'
                const ending = body.split('-end ')[1] || '10'
                const packstik = body.slice(8).split('|')[0] || 'Created By MechaBOT'
-               const authorstik = body.split('|')[1] || 'Follow Insta Dev @hanif.thetakeovers_'
+               const authorstik = body.split('|')[1] || 'Follow Insta Dev @hzzz.formech_'
                createExif(packstik, authorstik)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/sticker/${filename}`);
                const sizestik = getFilesize(savedFilename)
@@ -1367,7 +1394,6 @@ _[Memanipulasi teks dan atau gambar]_
 💛 !gtaV <TagGambar>
 
                     `
-               balas(from, strMenu)
                conn.sendMessage(from, strMenu, TypePsn.text, {
                     quoted: hurtz,
                     contextInfo: { mentionedJid: [ nomerOwner[0] ] }
