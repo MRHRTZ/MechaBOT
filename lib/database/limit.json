@@ -1,0 +1,43 @@
+[
+  {
+    "active": true,
+    "key": 1,
+    "limit": 20,
+    "number": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "active": false,
+    "key": 2,
+    "limit": -999999999987,
+    "number": "6283853046084@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 3,
+    "limit": 25
+  },
+  {
+    "active": true,
+    "key": 4,
+    "limit": 0,
+    "number": "⁨Cli⁩@s.whatsapp.net"
+  },
+  {
+    "active": false,
+    "key": 5,
+    "limit": 0,
+    "number": "6285157793599@s.whatsapp.net"
+  },
+  {
+    "active": false,
+    "key": 6,
+    "limit": 0,
+    "number": "⁨Me@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 7,
+    "limit": 0,
+    "number": "6283853046084"
+  }
+]

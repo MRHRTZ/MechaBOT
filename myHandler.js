@@ -1,28 +1,30 @@
-const { createExif } = require('./lib/create-exif')
 const chalk = require('chalk')
 const moment = require('moment')
-const { getFilesize, lirik } = require('./lib/func')
 const fs = require('fs')
 const util = require('util')
 const os = require('os')
 const Table = require('cli-table')
 const sharp = require('sharp')
+const google = require('google-it')
 const speed = require('performance-now')
-const { text2img } = require('./lib/text2img')
 const canvacord = require("canvacord");
+const mktemp = require('mktemp')
+const emoji = require('node-emoji')
+const time = moment().format('DD/MM HH:mm:ss')
+const { getUser, getPost, searchUser, searchHastag } = require('./lib/insta')
+const { createExif } = require('./lib/create-exif')
+const { getFilesize, lirik, ImageSearch } = require('./lib/func')
+const { text2img } = require('./lib/text2img')
 const { baseURI, ytsr, yta, ytv, buffer2Stream, stream2Buffer, noop } = require('./lib/ytdl')
 const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { exec, spawn } = require('child_process')
 const { webp2mp4File, reverseVideoFile, mp42mp3, mp32mp4, uploadwebp, webp2mp4Url, apng2webpUrl } = require('./lib/converter')
-const mktemp = require('mktemp')
 const { getStikerLine } = require('./lib/stickerline')
 const { default: Axios } = require('axios')
 const { kode } = require('./lib/kodebhs')
-const emoji = require('node-emoji')
 const { Grid } = require('minesweeperjs')
 const { advancedglow, futuristic, cloud, blackpink, sand, scifi, dropwater, codmw, bokeh, neon, thunder, horrorblood, firework, bloodglass, neonlight, marvel, phub, glitch, brokeCard, iphone, underwater, drawing, burningFire, semok, harryPotter, horrorHouse, coffee, battlefield, googleKeyword, gunBanner, gtaV, dota } = require('./lib/image-manipulation')
-const { relativeTimeRounding } = require('moment')
-const time = moment().format('DD/MM HH:mm:ss')
+
 
 function INFOLOG(info) {
      console.log('\x1b[1;34m~\x1b[1;37m>>', '[\x1b[1;33mINF\x1b[1;37m]', time, color(info))
@@ -51,14 +53,14 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const self = hurtz.key.fromMe
      const isGroup = from.endsWith('@g.us')
      const type = Object.keys(hurtz.message)[0]
-     const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo.quotedMessage)[0] : ''
+     // const typeQuoted = self ? '' : type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo.quotedMessage)[0] : '' || ''
      const body = type == 'conversation' ? hurtz.message.conversation : type == 'extendedTextMessage' ? hurtz.message.extendedTextMessage.text : type == 'imageMessage' ? hurtz.message.imageMessage.caption : type == 'stickerMessage' ? 'Sticker' : type == 'audioMessage' ? 'Audio' : type == 'videoMessage' ? hurtz.message.videoMessage.caption : type == 'documentMessage' ? 'document' : hurtz.message
      const args = body.split(' ')//
      const cmd = body.toLowerCase().split(' ')[0] || ''
      const prf = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/gi) : '-'
      const anticol = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g
      const isMedia = (type === 'imageMessage' || type === 'videoMessage')
-     const quotedMsg = type === 'extendedTextMessage' ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage[typeQuoted] : ''
+     const quotedMsg = type === 'extendedTextMessage' ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : ''
      const isQuotedImage = type === 'extendedTextMessage' && konten.includes('imageMessage')
      const isQuotedVideo = type === 'extendedTextMessage' && konten.includes('videoMessage')
      const isQuotedSticker = type === 'extendedTextMessage' && konten.includes('stickerMessage')
@@ -75,8 +77,113 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const isVideoMsg = type == 'videoMessage' ? true : false
      // const dataImgQuote = isQuotedImage ? JSON.parse(JSON.stringify(hurtz.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage.caption)) : '{"Data":"Apasu :v"}'
      const battery = JSON.parse(fs.readFileSync('./lib/database/batt.json'))
-
      const isGrupMines = groupMines.includes(from)
+
+     function pushing(obj) {
+          fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
+     }
+
+     function pushLimit(Jid, amount) {
+          amount = Number(amount)
+          const own = '6285559038021@s.whatsapp.net'
+          const owner = own == Jid ? true : false
+          let data = []
+          let limit = 30
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number === Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               obj.push({
+                    active: true,
+                    key: obj.length + 1,
+                    limit: limit,
+                    number: Jid
+               })
+               pushing(obj)
+          } else if (data.length > 0) {
+               if (owner) return [{ Status: true, Key: 0, Num: own, limit: '∞' }]
+               if (data[0].limit <= 0) {
+                    for (let o of obj) {
+                         if (o.number == Jid) {
+                              o.active = false
+                         }
+                    }
+               } else {
+                    for (let o of obj) {
+                         if (o.number == Jid) {
+                              o.limit = data[0].limit - amount
+                         }
+                    }
+               }
+          }
+          pushing(obj)
+          return data
+     }
+
+     function giftLimit(Jid, amount) {
+          amount = Number(amount)
+          let data = []
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               obj.push({
+                    active: true,
+                    key: obj.length + 1,
+                    limit: amount,
+                    number: Jid
+               })
+               pushing(obj)
+          } else if (data.length > 0) {
+               for (let o of obj) {
+                    if (o.number == Jid) {
+                         o.active = true
+                         o.limit = o.limit + amount
+                    }
+               }
+          }
+          pushing(obj)
+          return data
+     }
+
+     function resetAllLimit(amount) {
+          amount = Number(amount)
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let i in obj) {
+               obj[i].limit = amount
+          }
+          pushing(obj)
+          return { status: true, limit: amount }
+     }
+
+     function cekLimit(Jid, amount) {
+          amount = Number(amount)
+          let data = []
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               obj.push({
+                    active: true,
+                    key: obj.length + 1,
+                    limit: amount,
+                    number: Jid
+               })
+               pushing(obj)
+               return true
+          }
+          pushing(obj)
+          return data[0].Status
+     }
 
      function reset() {
           var g = new Grid({ width: 10, height: 10, name: "Standart grid", nbbombs: 10 })
@@ -237,7 +344,10 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      }
 
      function customQuote(isi) {
-          return { key: { fromMe: true }, message: { conversation: isi } }
+          return {
+               key: { remoteJid: '0@s.whatsapp.net', fromMe: false },
+               message: { conversation: isi }
+          }
      }
 
      // Tipe pesan
@@ -251,7 +361,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      // console.log(JSON.parse(dataImgQuote))
      // if (self) return
      // console.log(hurtz)
-     if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', ' < ' + chalk.blueBright('CMD') + ' > ', time, color(args[0]), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
+     if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.blueBright('CMD') + '>', time, color(args[0]), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
      if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color('pesan'), 'dari', color(pushname), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
      if (isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.blueBright('CMD') + '>', time, color(args[0]), 'dari', color(pushname), 'di', color(groupName), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
      if (!isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color('pesan'), 'dari', color(pushname), 'di', color(groupName), 'ID Chat', color(from), 'Urutan', color(urutan_pesan))
@@ -346,8 +456,68 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                          message: { conversation: pesan }
                     }
                }).then(a => console.log(a.message))
+          } else if (cmd == `${prf}gift`) {
+               if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
+               if (args.length < 3) return balas(from, `Format !gift @tagmember jumlah`)
+               const jidna = args[1].replace('@', '') + '@s.whatsapp.net'
+               const gift = giftLimit(jidna, Number(args[2]))
+               INFOLOG(gift)
+               conn.sendMessage(from, `Selamat ${'@' + args[1].replace('@', '')} 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('LIMIT GIFT [ MechaBot ]'), contextInfo: { mentionedJid: [jidna] } })
+          } else if (cmd == `${prf}take`) {
+               if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
+               if (args.length === 1) return balas(from, `Format !take @tagmember`)
+               const jidna = args[1].replace('@', '') + '@s.whatsapp.net'
+               const gift = pushLimit(jidna, 999999999999)
+               INFOLOG(gift)
+               conn.sendMessage(from, `Sayangnya limit ${'@' + args[1].replace('@', '')} telah diambil 😔❌\n\n\`\`\`Limit anda telah dikosongkan ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('LIMIT TAKE [ MechaBot ]'), contextInfo: { mentionedJid: [jidna] } })
+          } else if (cmd == `${prf}ceklim`) {
+               return balas(from, util.format(cekLimit(sender, 30)))
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               const hem = pushLimit(sender, 1)
+               balas(from, util.format(hem))
+          } else if (cmd == `${prf}limit`) {
+               const argsu = args[1] || ''
+               if (argsu.includes('@')) {
+                    const hi = pushLimit(args[1].replace('@', '') + '@s.whatsapp.net', 0)
+                    const capt = `Hai ${args[1]} ☺️
+     
+*Limit anda sekarang* : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
+
+\`\`\`Limit akan direset tiap hari jam 6 pagi! ingin gift limit 100? follow instagram owner @hzzz.formech\_ dan konfirmasikan ke @6285559038021\`\`\`\n\nHave a nice day!✨
+                    `
+                    conn.sendMessage(from, capt, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0], args[1].replace('@', '') + '@s.whatsapp.net'] }
+                    })
+               } else {
+                    const hi = pushLimit(sender, 0)
+                    const capt = `Hai ${pushname} ☺️
+
+*Limit anda sekarang* : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
+
+\`\`\`Limit akan direset tiap hari jam 6 pagi! ingin gift limit 100? follow instagram owner @hzzz.formech\_ dan konfirmasikan ke @6285559038021\`\`\`\n\nHave a nice day!✨
+               `
+                    conn.sendMessage(from, capt, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+               }
           } else if (cmd == `${prf}yts`) {
-               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!yts* _Video/Musik/Channel YT_')
+               if (args.length === 1) return balas(from, 'Kirim perintah *!yts* _Video/Musik/Channel YT_')
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                ytsr(body.slice(5)).then(res => {
                     let captions = `*YOUTUBE SEARCH : ${body.slice(5)}*\n\n`
                     for (let i = 0; i < res.length; i++) {
@@ -369,6 +539,14 @@ ___________________________________________
                })
           } else if (cmd == `${prf}play`) {
                if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const play = await ytsr(body.slice(6))
                const mulaikah = play[0].url
                yta(mulaikah).then((resyt3) => {
@@ -405,11 +583,28 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                }).catch(e => ERRLOG(e))
           } else if (cmd == `${prf}lirik` || cmd == `${prf}lyric`) {
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                lirik(query)
                     .then((asw) => {
                          balas(from, `*${query}*` + asw.result.lirik)
                     }).catch(e => balas(from, `Lagu tidak ditemukan!`) && balas(nomerOwner[0], util.format(e)))
           } else if (cmd == `${prf}ttp`) {
+               if (args.length === 1) return balas(from, `Masukan teksnya!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const text = body.slice(5)
                const colour = body.split('|')[1] || ''
                text2img(text, colour)
@@ -456,6 +651,16 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          }).catch(console.log)
                     })
           } else if (cmd == `${prf}fakereply`) {
+               if (true) return balas(from, `Maaf kamu bukan member VIP :(`)
+               if (args.length === 1) return balas(from, `Format salah!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 5)
                const nomer_asal = body.slice(11).split('|')[0]
                const pesan = body.split('|')[1]
                const pesan_bot = body.split('|')[2]
@@ -468,6 +673,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                })
           } else if (cmd == `${prf}pitch`) {
                if (!isQuotedAudio) return balas(from, `Tidak ada audio/vn yg di tag!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/convert/${filename}`);
                const output = './media/convert/' + moment().unix() + '.mp3'
                exec(`ffmpeg -i ${savedFilename} -filter_complex "asetrate=48000*2^(${args[1]}/12),atempo=1/2^(${args[1]}/12)" ${output}`, (err, stdout, stderr) => {
@@ -477,6 +690,44 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     fs.unlinkSync(output)
                     return
                })
+          } else if (cmd == `${prf}igstalk`) {
+               if (args.length === 1) return balas(from, 'Kirim perintah *!igStalk @username*\nContoh *!igStalk @hanif_az.sq.61*')
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               await getUser(args[1].replace('@', '')).then((user) => {
+                    const { biography, subscribersCount, subscribtions, postsCount, fullName, username, profilePicHD, isPrivate, isVerified, posts } = user
+                    const priv_ = isPrivate ? "✅" : "❌"
+                    const verif_ = isVerified ? "✅" : "❌"
+                    let isi_post = ``
+                    for (let i = 0; i < user.posts.length; i++) {
+                         const vid_post_ = user.posts[i].isVideo ? "✅" : "❌"
+                         isi_post += `
+================================
+Capt : ${user.posts[i].caption}
+Url : ${user.posts[i].url}
+Timestamp : ${new Date(user.posts[i].timestamp * 1000)}
+Video : ${vid_post_}
+                         `
+                    }
+                    const swtich_ = isPrivate ? "Mohon maaf akun ini private" : isi_post
+                    const captuserig = `➣ *Nama* : ${fullName}
+➣ *Username* : ${username}
+➣ *Terverifikasi* : ${verif_}
+➣ *Akun Private* : ${priv_}
+➣ *Jumlah Followers* : ${subscribersCount}
+➣ *Jumlah Following* : ${subscribtions}
+➣ *Jumlah Postingan* : ${postsCount}
+➣ *Biodata* : ${biography}
+➣ *Post* : ${swtich_ ? swtich_ : '-'}
+               `
+                    sendDariUrl(from, profilePicHD, TypePsn.image, captuserig)
+               })
           } else if (cmd == `${prf}tts`) {
                if (args.length === 1) {
                     balas(from, `Masukan Kode Negara dan teks!\n\nContoh : *!tts id Halo\n\nUntuk melihat kode negara lainnya silahkan ketik *!listkodebahasa*`)
@@ -485,6 +736,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     balas(from, `Masukan teksnya! atau tag pesan yg sudah ada.`)
                     return
                }
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                try {
                     const gtts = require('node-gtts')(args[1]);
                     gtts.save('./media/tts/wehh.wav', body.slice(8), function () {
@@ -504,90 +763,210 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                balas(from, kode)
           } else if (cmd == `${prf}advancedglow`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!advancedglow textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                advancedglow(body.slice(14))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}futuristic`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!futuristic textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                futuristic(body.slice(12))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}cloud`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!cloud textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                cloud(body.slice(7))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}blackpink`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!blackpink textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                blackpink(body.slice(11))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}sand`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!sand textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                sand(body.slice(6))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}scifi`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!scifi textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                scifi(body.slice(7))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}dropwater`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!dropwater textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                dropwater(body.slice(11))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}codmw`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!codmw textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                codmw(body.slice(7))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}bokeh`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!bokeh textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                bokeh(body.slice(7))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}neon`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!neon textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                neon(body.slice(6))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}thunder`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!thunder textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                thunder(body.slice(9))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}horrorblood`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!horrorblood textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                horrorblood(body.slice(13))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}firework`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!firework textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                firework(body.slice(10))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}bloodglass`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!bloodglass textnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                bloodglass(body.slice(12))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}marvel`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!marvel textnya|text kedua*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const textsec = body.split('|')[1] || 'MECHA'
                marvel(body.slice(8).split('|')[0], textsec)
                     .then((rest) => {
@@ -595,6 +974,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }).catch(console.log)
           } else if (cmd == `${prf}phub`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!phub textnya|text kedua*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const textsec = body.split('|')[1] || 'MECHA'
                phub(body.slice(6).split('|')[0], textsec)
                     .then((rest) => {
@@ -602,6 +989,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }).catch(console.log)
           } else if (cmd == `${prf}glitch`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!glitch textnya|text kedua*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const textsec = body.split('|')[1] || 'MECHA'
                glitch(body.slice(8).split('|')[0], textsec)
                     .then((rest) => {
@@ -609,6 +1004,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }).catch(console.log)
           } else if (cmd == `${prf}brokecard`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                brokeCard(savedFilename)
                     .then((rest) => {
@@ -620,6 +1023,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}iphone`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                iphone(savedFilename)
                     .then((rest) => {
@@ -631,6 +1042,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}underwater`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                underwater(savedFilename)
                     .then((rest) => {
@@ -642,6 +1061,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}drawing`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                drawing(savedFilename)
                     .then((rest) => {
@@ -653,6 +1080,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}burningfire`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                burningFire(savedFilename)
                     .then((rest) => {
@@ -664,6 +1099,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}smoke`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!smoke teksnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                semok(body.slice(7))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
@@ -672,6 +1115,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}harrypotter`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!harrypotter teksnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                harryPotter(body.slice(13))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
@@ -680,6 +1131,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}horrorhouse`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!horrorhouse teksnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                horrorHouse(body.slice(13))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
@@ -688,6 +1147,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}coffee`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!coffee teksnya*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                coffee(body.slice(8))
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
@@ -696,6 +1163,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}battlefield`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!battlefield teks1|teks2*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                battlefield(body.slice(13).split('|')[0], body.split('|')[1])
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
@@ -704,6 +1179,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}googlekeyword`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!googleKeyword teks1|teks2|teks3*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                googleKeyword(body.slice(15).split('|')[0], body.split('|')[1], body.split('|')[2])
                     .then((rest) => {
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
@@ -712,6 +1195,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}gtav`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                gtaV(savedFilename)
                     .then((rest) => {
@@ -723,6 +1214,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}minesweeper`) {
                if (isGrupMines) return balas(from, `Game minesweeper telah aktif sebelumnya!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                groupMines.push(from)
                fs.writeFileSync('./lib/database/group-minesweeper.json', JSON.stringify(groupMines, null, 2))
                reset(`./lib/database/minesweep-${from}.json`)
@@ -817,11 +1316,27 @@ ${hasil.grid}
                     fs.unlinkSync(savedFilename)
                })
           } else if (cmd == `${prf}getpp`) {
+               if (args.length === 1) return balas(from, `Penggunaan *!getpp* @tagMember`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const profil = await conn.getProfilePicture(args[1].replace('@', '') + '@s.whatsapp.net')
                sendDariUrl(from, profil, TypePsn.image, `Nihh profilnya`)
           } else if (cmd == `${prf}trigger`) {
                if (args.length === 1) {
-                    // console.log('cnth1')
+                    if (!cekLimit(sender, 30)) {
+                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                              quoted: hurtz,
+                              contextInfo: { mentionedJid: [nomerOwner[0]] }
+                         })
+                         return
+                    }
+                    pushLimit(sender, 1)
                     const pepe = await conn.getProfilePicture(sender)
                     let image = await canvacord.Canvas.trigger(pepe);
                     createExif('Created By MechaBOT', 'Follow Insta Dev @hzzz.formech_')
@@ -839,6 +1354,14 @@ ${hasil.grid}
                          })
                     })
                } else if (/@[0-9]/gi.test(args[1])) {
+                    if (!cekLimit(sender, 30)) {
+                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                              quoted: hurtz,
+                              contextInfo: { mentionedJid: [nomerOwner[0]] }
+                         })
+                         return
+                    }
+                    pushLimit(sender, 1)
                     const pepe = await conn.getProfilePicture(args[1].replace('@', '') + '@s.whatsapp.net')
                     let image = await canvacord.Canvas.trigger(pepe);
                     createExif('Created By MechaBOT', 'Follow Insta Dev @hzzz.formech_')
@@ -856,6 +1379,14 @@ ${hasil.grid}
                          })
                     })
                } else if (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(args[1])) {
+                    if (!cekLimit(sender, 30)) {
+                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                              quoted: hurtz,
+                              contextInfo: { mentionedJid: [nomerOwner[0]] }
+                         })
+                         return
+                    }
+                    pushLimit(sender, 1)
                     let image = await canvacord.Canvas.trigger(args[1]);
                     console.log('cnth2')
                     createExif('Created By MechaBOT', 'Follow Insta Dev @hzzz.formech_')
@@ -875,6 +1406,14 @@ ${hasil.grid}
                }
           } else if (cmd == `${prf}apk`) {
                if (args.length === 1) return balas(from, `Masukan nama apk nyah!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                searchApk(body.slice(5)).then(res => {
                     let captions = '*Menampilkan list apk*'
                     for (let i = 0; i < res.length; i++) {
@@ -890,6 +1429,14 @@ ${hasil.grid}
                }).catch(() => balas(from, `APK mungkin tidak ada!`))
           } else if (cmd == `${prf}getapk`) {
                if (args.length === 1) return balas(from, `Masukan nama download apk nya!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                try {
                     getApk('https://rexdlfile.com/index.php?id=' + body.slice(8)).then(res => {
                          let caption = `*${res.title.toUpperCase()}*\n`
@@ -911,6 +1458,14 @@ ${hasil.grid}
           } else if (cmd == `${prf}getapkdirect`) {
                if (args.length === 1) return balas(from, `Masukan nama download apk nya!`)
                if (args.length === 2) return balas(from, `penggunaan : *!getapkdirect <urutan> <download id>*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)     
                try {
                     getApkReal('https://rexdlfile.com/index.php?id=' + body.slice(16)).then(res => {
                          let caption = `*DOWNLOADING ${res.title.toUpperCase()}!*`
@@ -941,6 +1496,14 @@ ${hasil.grid}
                balas(from, `Berhasil menambah ${args[1].replace('@', '')} ke blacklist user timestamp!`)
           } else if (cmd == `${prf}antidelete`) {
                if (args.length === 1) return balas(from, `Gunakan perintah *!antidelete aktif* atau *!antidelete mati*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                if (args[1] == 'aktif') {
                     if (dataRevoke.includes(from)) return balas(from, `Fitur ini telah diaktifkan sebelumnya!`)
                     dataRevoke.push(from)
@@ -952,6 +1515,8 @@ ${hasil.grid}
                     dataRevoke.splice(index, 1)
                     fs.writeFileSync('./lib/database/RevokedGroup.json', JSON.stringify(dataRevoke, null, 2))
                     balas(from, `Pesan anti hapus berhasil dinonaktifkan di grup ${groupMetadata.subject} ❌`)
+               } else {
+                    balas(from, `Penggunaan *!antidelete <aktif/mati>*`)
                }
           } else if (cmd == `${prf}unblacklist`) {
                if (args.length === 1) return balas(from, `invalid params :)`)
@@ -1007,6 +1572,14 @@ ${hasil.grid}
                console.log(cont)
           } else if (cmd == `${prf}video`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!video* _Judul video yang akan dicari_')
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                ytsr(query)
                     .then(result => {
                          let caption = `*Hasil pencarian from ${query}*\n\n_Note : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!getvideo urutan*\ncontoh : *!getvideo 2*_\n`
@@ -1020,9 +1593,17 @@ ${hasil.grid}
                     })
           } else if (cmd == `${prf}getvideo`) {
                if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!getvideo* _IdDownload_, atau *!getvideo NomerUrut*', id)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                if (isQuotedImage) {
                     if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getvideo _1_*`, id)
-                    const doi = quotedMsg.caption ? quotedMsg.caption : ''
+                    const doi = quotedMsg.imageMessage.caption ? quotedMsg.imageMessage.caption : ''
                     const pilur = doi.split('(#)')
                     ytv(`https://youtu.be/${pilur[args[1]]}`)
                          .then((res) => {
@@ -1058,6 +1639,14 @@ ${hasil.grid}
                }
           } else if (cmd == `${prf}musik` || cmd == `${prf}music`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!musik* _Judul lagu yang akan dicari_')
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                ytsr(query)
                     .then(result => {
                          let caption = `*Hasil pencarian from ${query}*\n\n_Note : Apabila kesusahan mengambil data id, untuk download lagu tag pesan ini dan berikan perintah : *!getmusik urutan*\ncontoh : *!getmusik 2*_\n`
@@ -1071,9 +1660,17 @@ ${hasil.grid}
                     })
           } else if (cmd == `${prf}getmusik` || cmd == `${prf}getmusic`) {
                if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!getmusik* _IdDownload_, atau *!getmusik NomerUrut*', id)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 2)
                if (isQuotedImage) {
                     if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getmusik _1_*`, id)
-                    const doi = quotedMsg.caption ? quotedMsg.caption : ''
+                    const doi = quotedMsg.imageMessage.caption ? quotedMsg.imageMessage.caption : ''
                     const pilur = doi.split('(#)')
                     yta(`https://youtu.be/${pilur[args[1]]}`)
                          .then((res) => {
@@ -1129,6 +1726,15 @@ ${hasil.grid}
                conn.sendMessage(from, hurtz.key.remoteJid, TypePsn.text, { quoted: hurtz })
           } else if (cmd == `${prf}reverse`) {
           } else if (cmd == `${prf}ytmp4`) {
+               if (args.length === 1) return balas(from, `Penggunaan *!ytmp4 <Linkyt>*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const args_yt4 = body.slice(7)
                ytv(args_yt4).then((resyt4) => {
                     const { dl_link, thumb, title, filesizeF } = resyt4
@@ -1160,6 +1766,15 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          .catch(e => ERRLOG(e))
                })
           } else if (cmd == `${prf}ytmp3`) {
+               if (args.length === 1) balas(from, `Penggunaan *!ytmp3 <linkyt>*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const args_yt3 = body.slice(7)
                yta(args_yt3).then((resyt3) => {
                     const { dl_link, thumb, title, filesizeF } = resyt3
@@ -1191,6 +1806,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                }).catch(e => ERRLOG(e))
           } else if (cmd == `${prf}tomp4`) {
                if (!isQuotedAudio) return balas(from, `Harus tag pesan audio!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/convert/${filename}`);
                const output = './media/convert/' + moment().unix() + '.mp4'
                mp32mp4(savedFilename, './media/sticker/docs.png', output)
@@ -1206,6 +1829,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
           } else if (cmd == `${prf}tomp3`) {
                if (!isQuotedVideo) return balas(from, `Tidak ada video yg di tag!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/convert/${filename}`);
                const output = './media/convert/' + moment().unix() + '.mp3'
                mp42mp3(savedFilename, output)
@@ -1240,9 +1871,27 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     conn.sendMessage(from, result, TypePsn.sticker, { mimetype: Mimetype.webp })
                })
           } else if (cmd == `${prf}hidetag`) {
+               if (true) return balas(from, `Maaf kamu bukan member VIP :(`)
+               if (args.length === 1) return balas(from, `Format salah!`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 5)
                hidetag(from, body.slice(9))
           } else if (cmd == `${prf}tomedia`) {
                if (!isQuotedSticker) return balas(from, `Mohon hanya tag stiker! bukan media lain.`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/sticker/${filename}`);
                if (mediaData.message.stickerMessage.isAnimated) {
                     webp2mp4File(savedFilename).then(async (rest) => {
@@ -1299,6 +1948,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                }
           } else if (cmd == `${prf}stiker` || cmd == `${prf}sticker`) {
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                let packstik
                let authorstik
                if (args[1] == 'wm') {
@@ -1393,14 +2050,48 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                var uptime = process.uptime();
                balas(from, `Waktu bot aktif / telah berjalan selama *${format(uptime)}*`)
           } else if (cmd == `${prf}title`) {
+               if (args.length === 1) balas(from, `Penggunaan *!title <Nama Gc Baru>*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const subjeknya = body.slice(7)
                await conn.groupUpdateSubject(from, subjeknya)
           } else if (cmd == `${prf}desc`) {
+               if (args.length === 1) balas(from, `Penggunaan *!desc <Deskripsi Gc Baru>*`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                const descnya = body.slice(6)
                await conn.groupUpdateDescription(from, descnya)
           } else if (cmd == `${prf}mutegrup`) {
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                await conn.groupSettingChange(from, GroupSettingChange.messageSend, true)
           } else if (cmd == `${prf}unmutegrup`) {
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
                await conn.groupSettingChange(from, GroupSettingChange.messageSend, false)
           } else if (cmd == `${prf}sambutan`) {
                if (args[1] == 'aktif') {
@@ -1413,6 +2104,43 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     fs.writeFileSync('./lib/data_sambutan.json', JSON.stringify(sambutan, null, 2))
                     conn.sendMessage(from, `Fitur sambutan telah dinonaktifkan pada grup ${groupMetadata.subject}!`)
                }
+          } else if (cmd == `${prf}gambar` || cmd == `${prf}image` || cmd == `${prf}foto`) {
+               if (args.length === 1) return balas(from, `Kirim perintah pencarian gambar google dengan cara ketik perintah :\n*!gambar* _Query search_\nContoh :\n*!gambar* _Mobil_`)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               ImageSearch(query)
+                    .then((result) => {
+                         let acak = Math.floor(Math.random() * result.length)
+                         sendDariUrl(from, result[acak], TypePsn.image, `*Hasil Pencarian dari ${query}*`)
+                    }).catch(() => balas(from, `*Tidak bisa menemukan gambar* : ${query}`))
+          } else if (cmd == `${prf}google`) {
+               if (args.length === 1) return balas(from, `Kirim perintah Google search dengan cara ketik perintah :\n*!search* _Query search_\nContoh :\n*!search* _Detik News hari ini_`)
+               if (query == undefined || query == ' ') return balas(from, `_Kesalahan tidak bisa menemukan hasil from ${query}_`, id)
+               if (!cekLimit(sender, 30)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               google({ 'query': query, 'disableConsole': true }).then(results => {
+                    let captserch = `_*Hasil Pencarian Google dari*_ ${query}\n`
+                    for (let i = 0; i < results.length; i++) {
+                         captserch += `\n\n===================================\n\n`
+                         captserch += `\n*Judul* : ${results[i].title}\n*Deskripsi* : ${results[i].snippet}\n*Link* : ${results[i].link}\n`
+                    }
+                    balas(from, captserch);
+               }).catch(e => {
+                    ERRLOG(e)
+                    balas(nomerOwner, e);
+               })
           } else if (cmd == `${prf}push`) {
                console.log(conn.getName())
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
@@ -1456,14 +2184,18 @@ Legend :
 
 *Fitur Games*
 
-💚 !minesweeper
+💛 !minesweeper
  | ⚪ isi <x y>
 
-*Fitur Media & Download*
+*Fitur Social Media & Download*
 
+💚 !igstalk <@username> _[Melihat Profile Instagram]_
 💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_
 💚 !listkodebahasa _[Menampilkan list kode bahasa]_
 💚 !tomp3 <TagVideo> _[Extract video ke audio]_
+💚 !pitch <Nomer dari -10 sampai 10> _[Merubah Pitch Suara]_
+💚 !getpp <@tagmember> _[Mengambil Foto Profil]_
+💛 !play <Judul Lagu> _[Memainkan lagu dari YT]_
 💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_
 💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_
 
@@ -1519,12 +2251,15 @@ _[Memanipulasi teks dan atau gambar]_
 
 *Fitur Search*
 
+💚 !apk <Nama Aplikasi/Game> _[Mencari APP / GAME APK]_
+| 💚 !getapk <Id Download> _[Melihat detail dan link download]_
+| 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
 💚 !yts <Judul Video/Musik> _[Pencarian Youtube]_
 💚 !lirik <Judul lagu> _[Cari Lirik Lagu]_
 💚 !video <Judul Video> _[Pencarian lagu]_
-| ⚪ !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
+| 💛 !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
 💚 !musik <Judul Lagu> _[Pencarian lagu]_
-| ⚪ !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
+| 💛 !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
 
 *[NOTE]*
 

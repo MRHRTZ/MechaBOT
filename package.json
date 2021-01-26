@@ -18,6 +18,8 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "fluent-ffmpeg": "^2.1.2",
+    "g-i-s": "^2.1.6",
+    "google-it": "^1.6.1",
     "jsdom": "^16.4.0",
     "minesweeperjs": "^1.0.0",
     "mktemp": "^1.0.0",
