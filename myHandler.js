@@ -96,6 +96,8 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const isAdmin = adminGroups.includes(sender)
      const isBotAdmin = adminGroups.includes(botNumber)
 
+     if (cmd == 'tes') return balas(from, `Oke ada..`)
+
      function gif2mp4Url(url) {
           return new Promise((resolve, reject) => {
                Axios.get(`https://ezgif.com/gif-to-mp4?url=${url}`)
@@ -207,6 +209,17 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           }
           pushing(obj)
           return data
+     }
+
+     function addAllLimit(amount) {
+          amount = Number(amount)
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let i in obj) {
+               obj[i].Status = true
+               obj[i].limit = obj[i].limit + amount
+          }
+          pushing(obj)
+          return { status: true, limit: Number(amount) }
      }
 
      function resetAllLimit(amount) {
@@ -393,10 +406,10 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
      const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
 
-     module.exports = getName = (conn, sender) =>{
-          const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
-          return hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
-     }
+     // module.exports = getName = (conn, sender) =>{
+     //      const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+     //      return hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
+     // }
 
      if (chat.presences) { // receive presence updates -- composing, available, etc.
           Object.values(chat.presences).forEach(presence => {
@@ -510,7 +523,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           console.log('No error, lanjutkan..')
      }
      // console.log(hurtz)
-     if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
+     // if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
      if (type != 'stickerMessage') {
           if (cmd == `${prf}cure`) {
                const nomer_asal = body.slice(6).split('|')[0]
@@ -523,6 +536,14 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                          message: { conversation: pesan }
                     }
                }).then(a => console.log(a.message))
+          } else if (cmd == `${prf}refuel`) {
+               if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
+               if (args.length < 2) return balas(from, `Format !reset <jumlah>`)
+               if (!Number(args[1])) return balas(from, `${args[1]} bukan termasuk angka!`)
+               const jidna = args[1].replace('@', '') + '@s.whatsapp.net'
+               const add = addAllLimit(Number(args[1]))
+               INFOLOG(add)
+               conn.sendMessage(from, `Pengisian ulang semua sukses untuk limit ${add.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('LIMIT GIFT [ MechaBot ]') })
           } else if (cmd == `${prf}reset`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length < 2) return balas(from, `Format !reset <jumlah>`)
@@ -531,7 +552,6 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                const reset = resetAllLimit(Number(args[1]))
                INFOLOG(reset)
                conn.sendMessage(from, `Reset sukses untuk limit ${reset.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('LIMIT GIFT [ MechaBot ]'), contextInfo: { mentionedJid: [jidna] } })
-          
           } else if (cmd == `${prf}gift`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length < 3) return balas(from, `Format !gift @tagmember jumlah`)
@@ -2295,7 +2315,7 @@ Legend :
 ⚪ !menu _[Menampilkan seluruh menu]_
 ⚪ !runtime _[Menampilkan waktu bot berjalan]_
 ⚪ !limit _[Menampilkan limit]_
-⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]
+⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]_
 
 *Fitur VIP*
 
@@ -2366,10 +2386,11 @@ _[Memanipulasi teks dan atau gambar]_
 
 *Owner Feature*
 
-💗 !leave
-💗 !reset
-💗 !restart
-💗 !gift
+💗 !refuel <jumlah> _[Isi ulang semua limit]_
+💗 !leave _[Keluar grup]_
+💗 !reset <jumlah> _[Reset semua limit]_
+💗 !restart _[Restart bot]_
+💗 !gift <@tagMember> <jumlah> _[Gift limit]_
 
 *[NOTE]*
 

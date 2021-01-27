@@ -4,7 +4,7 @@ const qrcode = require('qrcode-terminal')
 const fs = require('fs')
 const chalk = require('chalk')
 const moment = require('moment')
-const { getName } = require('./myHandler')
+// const { getName } = require('./myHandler')
 const time = moment().format('DD/MM HH:mm:ss')
 let blokir = []
 
@@ -59,7 +59,8 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
 
      conn.on('group-participants-update', async(update) => {
-          INFOLOG(getName(conn, update.participants[0]) + ' Telah ' + update.action == 'remove' ? 'Keluar' : update.action == 'add' ? 'Masuk Grup' : update.action == 'promote' ? 'Menjadi Admin' : update.action == 'demote' ? 'Dihapus admin' : update.action + ' Di ' + update.jid)
+          // INFOLOG(getName(conn, update.participants[0]) + ' Telah ' + update.action == 'remove' ? 'Keluar' : update.action == 'add' ? 'Masuk Grup' : update.action == 'promote' ? 'Menjadi Admin' : update.action == 'demote' ? 'Dihapus admin' : update.action + ' Di ' + update.jid)
+          INFOLOG(update)
           if (update.action == 'add') {
                
           }

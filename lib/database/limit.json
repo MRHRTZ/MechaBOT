@@ -85,7 +85,7 @@
   {
     "active": true,
     "key": 13,
-    "limit": 92,
+    "limit": 88,
     "number": "27631999892@s.whatsapp.net",
     "Status": true
   },
@@ -120,7 +120,7 @@
   {
     "active": true,
     "key": 18,
-    "limit": 92,
+    "limit": 87,
     "number": "265998901485@s.whatsapp.net",
     "Status": true
   },
@@ -137,5 +137,95 @@
     "limit": 92,
     "number": "923201801931@s.whatsapp.net",
     "Status": true
+  },
+  {
+    "active": true,
+    "key": 21,
+    "limit": 26,
+    "number": "265885224333@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 22,
+    "limit": 28,
+    "number": "265991248964@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 23,
+    "limit": 30,
+    "number": "6285796692494@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 24,
+    "limit": 28,
+    "number": "265884671397@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 25,
+    "limit": 25,
+    "number": "6281907290301@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 26,
+    "limit": 30,
+    "number": "6281344291903@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 27,
+    "limit": 30,
+    "number": "6281946983575@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 28,
+    "limit": 30,
+    "number": "6289636006352@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 29,
+    "limit": 30,
+    "number": "6285228931732@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 30,
+    "limit": 30,
+    "number": "60172098131@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 31,
+    "limit": 26,
+    "number": "6281337632063@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 32,
+    "limit": 30,
+    "number": "6289673766582@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 33,
+    "limit": 27,
+    "number": "62895328768282@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 34,
+    "limit": 30,
+    "number": "27784529215@s.whatsapp.net"
+  },
+  {
+    "active": true,
+    "key": 35,
+    "limit": 30,
+    "number": "6281265375118@s.whatsapp.net"
   }
 ]
