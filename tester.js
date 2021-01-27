@@ -4,16 +4,17 @@ const qrcode = require('qrcode-terminal')
 const fs = require('fs')
 const chalk = require('chalk')
 const moment = require('moment')
+const { getName } = require('./myHandler')
 const time = moment().format('DD/MM HH:mm:ss')
 let blokir = []
 
 
 function INFOLOG(info) {
-     console.log('\x1b[1;34m~\x1b[1;37m>>', '[\x1b[1;33mINF\x1b[1;37m]', time, color(info))
+     console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
 }
 
 function ERRLOG(e) {
-     console.log('\x1b[1;31m~\x1b[1;37m>>', '[\x1b[1;31mERROR\x1b[1;37m]', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
+     console.log('\x1b[1;31m~\x1b[1;37m>>', '<\x1b[1;31mERROR\x1b[1;37m>', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
 }
 
 require('./myHandler')
@@ -55,6 +56,13 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           }
           const hurtz = chat.messages.all()[0];
           require('./myHandler')(GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat)
+     })
+
+     conn.on('group-participants-update', async(update) => {
+          INFOLOG(getName(conn, update.participants[0]) + ' Telah ' + update.action == 'remove' ? 'Keluar' : update.action == 'add' ? 'Masuk Grup' : update.action == 'promote' ? 'Menjadi Admin' : update.action == 'demote' ? 'Dihapus admin' : update.action + ' Di ' + update.jid)
+          if (update.action == 'add') {
+               
+          }
      })
 
      conn.on('close', ({ reason, isReconnecting }) => (

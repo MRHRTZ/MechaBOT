@@ -9,8 +9,11 @@ const google = require('google-it')
 const speed = require('performance-now')
 const canvacord = require("canvacord");
 const mktemp = require('mktemp')
+const cheerio = require('cheerio')
+const FormData = require('form-data')
 const emoji = require('node-emoji')
 const time = moment().format('DD/MM HH:mm:ss')
+const translate = require('@vitalets/google-translate-api');
 const { getUser, getPost, searchUser, searchHastag } = require('./lib/insta')
 const { createExif } = require('./lib/create-exif')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
@@ -27,11 +30,11 @@ const { advancedglow, futuristic, cloud, blackpink, sand, scifi, dropwater, codm
 
 
 function INFOLOG(info) {
-     console.log('\x1b[1;34m~\x1b[1;37m>>', '[\x1b[1;33mINF\x1b[1;37m]', time, color(info))
+     console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
 }
 
 function ERRLOG(e) {
-     console.log('\x1b[1;31m~\x1b[1;37m>>', '[\x1b[1;31mERROR\x1b[1;37m]', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
+     console.log('\x1b[1;31m~\x1b[1;37m>>', '<\x1b[1;31mERROR\x1b[1;37m>', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
 }
 
 module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
@@ -52,32 +55,84 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const TypePsn = MessageType
      const self = hurtz.key.fromMe
      const isGroup = from.endsWith('@g.us')
-     const type = Object.keys(hurtz.message)[0]
-     // const typeQuoted = self ? '' : type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo.quotedMessage)[0] : '' || ''
-     const body = type == 'conversation' ? hurtz.message.conversation : type == 'extendedTextMessage' ? hurtz.message.extendedTextMessage.text : type == 'imageMessage' ? hurtz.message.imageMessage.caption : type == 'stickerMessage' ? 'Sticker' : type == 'audioMessage' ? 'Audio' : type == 'videoMessage' ? hurtz.message.videoMessage.caption : type == 'documentMessage' ? 'document' : hurtz.message
+     let type = Object.keys(hurtz.message)[0]
+     type = type === 'extendedTextMessage' && hurtz.message.extendedTextMessage.text.includes('@') ? type = 'mentionedText' : type
+     const body = type == 'conversation' ? hurtz.message.conversation : type == 'mentionedText' ? hurtz.message.extendedTextMessage.text : type == 'extendedTextMessage' ? hurtz.message.extendedTextMessage.text : type == 'imageMessage' ? hurtz.message.imageMessage.caption : type == 'stickerMessage' ? 'Sticker' : type == 'audioMessage' ? 'Audio' : type == 'videoMessage' ? hurtz.message.videoMessage.caption : type == 'documentMessage' ? 'document' : hurtz.message
      const args = body.split(' ')//
      const cmd = body.toLowerCase().split(' ')[0] || ''
      const prf = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/gi) : '-'
      const anticol = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g
      const isMedia = (type === 'imageMessage' || type === 'videoMessage')
-     const quotedMsg = type === 'extendedTextMessage' ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : ''
+     // const quotedMsg = type === 'extendedTextMessage' ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : ''
      const isQuotedImage = type === 'extendedTextMessage' && konten.includes('imageMessage')
      const isQuotedVideo = type === 'extendedTextMessage' && konten.includes('videoMessage')
      const isQuotedSticker = type === 'extendedTextMessage' && konten.includes('stickerMessage')
      const isQuotedAudio = type === 'extendedTextMessage' && konten.includes('audioMessage')
      const mediaData = type === 'extendedTextMessage' ? JSON.parse(JSON.stringify(hurtz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : hurtz
+     const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo.quotedMessage)[0] : ''
+     // const typeQuoted = '' 
+     
+     const bodyQuoted = typeQuoted == 'conversation' ? mediaData.message.conversation : typeQuoted == 'extendedTextMessage' ? mediaData.message.extendedTextMessage.text : typeQuoted == 'imageMessage' ? mediaData.message.imageMessage.caption : typeQuoted == 'stickerMessage' ? 'Sticker' : typeQuoted == 'audioMessage' ? 'Audio' : typeQuoted == 'videoMessage' ? mediaData.message.videoMessage.caption : typeQuoted == 'documentMessage' ? 'document' : mediaData.message
      const isCmd = body.startsWith(prf)
      const query = args.slice(1).join(' ')
      const sender = self ? conn.user.jid : isGroup ? hurtz.participant : hurtz.key.remoteJid
      const botNumber = conn.user.jid
+     const noSym = /[-\s+]/g
      const groupMetadata = isGroup ? await conn.groupMetadata(from) : ''
      const groupName = isGroup ? groupMetadata.subject : ''
      const groupId = isGroup ? groupMetadata.id : ''
      const isImageMsg = type == 'imageMessage' ? true : false
      const isVideoMsg = type == 'videoMessage' ? true : false
-     // const dataImgQuote = isQuotedImage ? JSON.parse(JSON.stringify(hurtz.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage.caption)) : '{"Data":"Apasu :v"}'
+     const isOwnerGroup = (await conn.groupMetadata(from)).owner == sender.replace('@s.whatsapp.net', '@c.us') ? true : false
      const battery = JSON.parse(fs.readFileSync('./lib/database/batt.json'))
      const isGrupMines = groupMines.includes(from)
+     let adminGroups = []
+     const metadata = await conn.groupMetadata(from)
+     for (let adm of metadata.participants) {
+          if (adm.isAdmin) {
+               adminGroups.push(adm.jid)
+          }
+     }
+     const isAdmin = adminGroups.includes(sender)
+     const isBotAdmin = adminGroups.includes(botNumber)
+
+     function gif2mp4Url(url) {
+          return new Promise((resolve, reject) => {
+               Axios.get(`https://ezgif.com/gif-to-mp4?url=${url}`)
+                    .then(({ data }) => {
+                         const $ = cheerio.load(data)
+                         const bodyFormThen = new FormData()
+                         const file = $('input[name="file"]').attr('value')
+                         const token = $('input[name="token"]').attr('value')
+                         const convert = $('input[name="file"]').attr('value')
+                         const gotdata = {
+                              file: file,
+                              token: token,
+                              convert: convert
+                         }
+                         bodyFormThen.append('file', gotdata.file)
+                         bodyFormThen.append('token', gotdata.token)
+                         bodyFormThen.append('convert', gotdata.convert)
+                         Axios({
+                              method: 'post',
+                              url: 'https://ezgif.com/gif-to-mp4/' + gotdata.file,
+                              data: bodyFormThen,
+                              headers: {
+                                   'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
+                              }
+                         }).then(({ data }) => {
+                              const $ = cheerio.load(data)
+                              const result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
+                              resolve({
+                                   status: true,
+                                   message: "Created By MRHRTZ",
+                                   result: result
+                              })
+                         }).catch(reject)
+                    })
+                    .catch(reject);
+          })
+     }
 
      function pushing(obj) {
           fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
@@ -96,6 +151,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                }
           }
           if (data.length === 0) {
+               balas(from, `Nomor anda atau pengirim telah diverifikasi mohon ulangi perintah tersebut!`)
                obj.push({
                     active: true,
                     key: obj.length + 1,
@@ -133,6 +189,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                }
           }
           if (data.length === 0) {
+               balas(from, `Nomor anda atau pengirim telah diverifikasi mohon ulangi perintah tersebut!`)
                obj.push({
                     active: true,
                     key: obj.length + 1,
@@ -156,10 +213,11 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           amount = Number(amount)
           let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
           for (let i in obj) {
+               obj[i].Status = true
                obj[i].limit = amount
           }
           pushing(obj)
-          return { status: true, limit: amount }
+          return { status: true, limit: Number(amount) }
      }
 
      function cekLimit(Jid, amount) {
@@ -172,6 +230,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                }
           }
           if (data.length === 0) {
+               balas(from, `Nomor anda atau pengirim telah diverifikasi mohon ulangi perintah tersebut!`)
                obj.push({
                     active: true,
                     key: obj.length + 1,
@@ -334,6 +393,10 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
      const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
 
+     module.exports = getName = (conn, sender) =>{
+          const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+          return hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
+     }
 
      if (chat.presences) { // receive presence updates -- composing, available, etc.
           Object.values(chat.presences).forEach(presence => {
@@ -348,6 +411,10 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                key: { remoteJid: '0@s.whatsapp.net', fromMe: false },
                message: { conversation: isi }
           }
+     }
+
+     function customTag(isi) {
+          return { mentionedJid: [isi] }
      }
 
      // Tipe pesan
@@ -406,7 +473,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
      }
      // Object.defineProperty(hurtz, "message.extendedTextMessage.text", {value:"Emm"})
      // if (!self) return
-
+     
 
      if (body.startsWith('> ') && sender == '6285559038021@s.whatsapp.net') {
           INFOLOG(pushname, 'mencoba execute perintah')
@@ -443,8 +510,8 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
           console.log('No error, lanjutkan..')
      }
      // console.log(hurtz)
-     // if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
-     if (type == 'extendedTextMessage' || type == 'conversation' || type == 'imageMessage') {
+     if (sender != '6285559038021@s.whatsapp.net'/* || !self*/) return
+     if (type != 'stickerMessage') {
           if (cmd == `${prf}cure`) {
                const nomer_asal = body.slice(6).split('|')[0]
                const pesan = body.split('|')[1]
@@ -456,6 +523,15 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                          message: { conversation: pesan }
                     }
                }).then(a => console.log(a.message))
+          } else if (cmd == `${prf}reset`) {
+               if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
+               if (args.length < 2) return balas(from, `Format !reset <jumlah>`)
+               if (!Number(args[1])) return balas(from, `${args[1]} bukan termasuk angka!`)
+               const jidna = args[1].replace('@', '') + '@s.whatsapp.net'
+               const reset = resetAllLimit(Number(args[1]))
+               INFOLOG(reset)
+               conn.sendMessage(from, `Reset sukses untuk limit ${reset.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('LIMIT GIFT [ MechaBot ]'), contextInfo: { mentionedJid: [jidna] } })
+          
           } else if (cmd == `${prf}gift`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length < 3) return balas(from, `Format !gift @tagmember jumlah`)
@@ -482,6 +558,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                const hem = pushLimit(sender, 1)
                balas(from, util.format(hem))
           } else if (cmd == `${prf}limit`) {
+               // console.log(body)
                const argsu = args[1] || ''
                if (argsu.includes('@')) {
                     const hi = pushLimit(args[1].replace('@', '') + '@s.whatsapp.net', 0)
@@ -509,6 +586,7 @@ module.exports = handle = async (GroupSettingChange, Mimetype, MessageType, conn
                     })
                }
           } else if (cmd == `${prf}yts`) {
+               // console.log(body)
                if (args.length === 1) return balas(from, 'Kirim perintah *!yts* _Video/Musik/Channel YT_')
                if (!cekLimit(sender, 30)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
@@ -593,7 +671,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                pushLimit(sender, 1)
                lirik(query)
                     .then((asw) => {
-                         balas(from, `*${query}*` + asw.result.lirik)
+                         balas(from, `*[ ${query} ]*\n\n` + asw.result.lirik)
                     }).catch(e => balas(from, `Lagu tidak ditemukan!`) && balas(nomerOwner[0], util.format(e)))
           } else if (cmd == `${prf}ttp`) {
                if (args.length === 1) return balas(from, `Masukan teksnya!`)
@@ -759,7 +837,7 @@ Video : ${vid_post_}
                     console.log(e)
                     balas(from, `Terdapat kesalahan! mungkin data bahasa salah. silahkan ketik *!listkodebahasa* untuk melihat kode bahasa.\n\nFormat : *!tts <kodebhs> <teks>*\nContoh : *!tts id Halo kamu*`)
                }
-          } else if (cmd == `${prf}listkodebahasa*`) {
+          } else if (cmd == `${prf}listkodebahasa`) {
                balas(from, kode)
           } else if (cmd == `${prf}advancedglow`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!advancedglow textnya*`)
@@ -1091,7 +1169,10 @@ Video : ${vid_post_}
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                burningFire(savedFilename)
                     .then((rest) => {
-                         sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
+                         gif2mp4Url(rest.result)
+                              .then(re => {
+                                   sendDariUrl(from, re.result, TypePsn.video, `Dah jadi ni ${pushname}`, { mimetype: Mimetype.gif })
+                              }).catch(e => console.log(e))
                          fs.unlinkSync(savedFilename)
                     }).catch(e => {
                          fs.unlinkSync(savedFilename)
@@ -1465,7 +1546,7 @@ ${hasil.grid}
                     })
                     return
                }
-               pushLimit(sender, 1)     
+               pushLimit(sender, 1)
                try {
                     getApkReal('https://rexdlfile.com/index.php?id=' + body.slice(16)).then(res => {
                          let caption = `*DOWNLOADING ${res.title.toUpperCase()}!*`
@@ -1603,8 +1684,7 @@ ${hasil.grid}
                pushLimit(sender, 2)
                if (isQuotedImage) {
                     if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getvideo _1_*`, id)
-                    const doi = quotedMsg.imageMessage.caption ? quotedMsg.imageMessage.caption : ''
-                    const pilur = doi.split('(#)')
+                    const pilur = bodyQuoted.split('(#)')
                     ytv(`https://youtu.be/${pilur[args[1]]}`)
                          .then((res) => {
                               const { dl_link, thumb, title, filesizeF, filesize } = res
@@ -1670,8 +1750,7 @@ ${hasil.grid}
                pushLimit(sender, 2)
                if (isQuotedImage) {
                     if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getmusik _1_*`, id)
-                    const doi = quotedMsg.imageMessage.caption ? quotedMsg.imageMessage.caption : ''
-                    const pilur = doi.split('(#)')
+                    const pilur = bodyQuoted.split('(#)')
                     yta(`https://youtu.be/${pilur[args[1]]}`)
                          .then((res) => {
                               const { dl_link, thumb, title, filesizeF, filesize } = res
@@ -1709,7 +1788,7 @@ ${hasil.grid}
                conn.sendMessage(from, '*Battery* : ' + batt, TypePsn.text, { quoted: hurtz })
                console.log(batt)
           } else if (cmd == `${prf}searchmsg`) {
-               const searched = await conn.searchMessages(body.slice(11).split('|')[0], body.split('|')[1], body.split('|')[2], body.split('|')[3])
+               const searched = await conn.searchMessages(query, from, 25, 1)
                console.log(searched)
                for (let i = 0; i < searched.messages.length; i++) {
                     conn.sendMessage(from, `Ketemu!`, TypePsn.text, { quoted: searched.messages[i] }).catch(() => {
@@ -2093,6 +2172,39 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                }
                pushLimit(sender, 1)
                await conn.groupSettingChange(from, GroupSettingChange.messageSend, false)
+          } else if (cmd == `${prf}translate`) {
+               if (args.length === 1) return balas(from, `Tidak ada kode bahasa!\n\npenggunaan : *!translate <kode bahasa> <teks>*\nContoh : *!translate id how are you*\n\nUntuk kode bahasa bisa dilihat di *!listkodebahasa*`)
+               if (args.length === 2) {
+                    if (type != 'extendedTextMessage') return balas(from, `Mohon tag pesan apabila hanya memasukan kode bahasa!`)
+                    translate(bodyQuoted, { to: args[1] }).then(res => {
+                         balas(from, res.text)
+                    }).catch(err => {
+                         console.error(err);
+                    });
+               } else {
+                    translate(args.slice(2).join(' '), { to: args[1] }).then(res => {
+                         balas(from, res.text)
+                    }).catch(err => {
+                         console.error(err);
+                    });
+               }
+          } else if (cmd == `${prf}linkgrup` || cmd == `${prf}linkgrup`) {
+               if (!isGroup) return balas(from, `Harus didalam grup!`)
+               if (!isBotAdmin) return balas(from, `Maaf Bot harus dijadikan admin terlebih dahulu!`)
+               const linkgc = await conn.groupInviteCode(from)
+               balas(from, `Link grup ${metadata.subject} : https://chat.whatsapp.com/${linkgc}`)
+          } else if (cmd == `${prf}add`) {
+               if (!isGroup) return balas(from, `Harus didalam grup!`)
+               if (!isAdmin) return balas(from, `Maaf anda bukan admin`)
+               if (!isBotAdmin) return balas(from, `Maaf Bot harus dijadikan admin terlebih dahulu!`)
+               if (args.length === 1) return balas(from, `Masukan Nomer`)
+               const data = args[1].replace(noSym, '')
+               conn.groupAdd(from, [data + '@s.whatsapp.net'])
+                    .then(() => conn.sendMessage(from, `Sukses menambahkan @${data}`), TypePsn.text, { quoted: customQuote('GROUP ADD PARTICIPANT'), contextInfo: { mentionedJid: [data + '@s.whatsapp.net'] } })
+                    .catch((e) => {
+                         console.log(e)
+                         balas(from, `Gagal memasukan member!`)
+                    })
           } else if (cmd == `${prf}sambutan`) {
                if (args[1] == 'aktif') {
                     sambutan.push(groupMetadata.id)
@@ -2147,11 +2259,16 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const performa = speed()
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
+               const hi = pushLimit(sender, 0)
                const latensi = speed() - performa
                const strMenu = `    (っ◔◡◔)っ 🤖 MENU MECHABOT 🤖 
 
 
-Contact My WhatsApp : @6285559038021
+Hii ${pushname} ✨
+Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
+
+💌 Contact My WhatsApp : @6285559038021 
+📮 Follow My Instagram : hzzz.formech_
 
 Legend :
 
@@ -2163,6 +2280,7 @@ Legend :
 
 ----------------------------------------
 
+
 📲 *Versi WA* : _${conn.user.phone.wa_version}_
 🔋  *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
@@ -2172,10 +2290,12 @@ Legend :
 🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 
-*Info Bot*
+*Free Features & Info*
 
 ⚪ !menu _[Menampilkan seluruh menu]_
 ⚪ !runtime _[Menampilkan waktu bot berjalan]_
+⚪ !limit _[Menampilkan limit]_
+⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]
 
 *Fitur VIP*
 
@@ -2218,31 +2338,13 @@ Legend :
 
 _[Memanipulasi teks dan atau gambar]_
 
-💚 !advancedglow <teksnya>
-💚 !futuristic <teksnya>
-💚 !cloud <teksnya>
-💚 !blackpink <teksnya>
-💚 !sand <teksnya>
-💚 !scifi <teksnya>
-💚 !dropwater <teksnya>
-💚 !codmw <teksnya>
-💚 !bokeh <teksnya>
-💚 !neon <teksnya>
-💚 !thunder <teksnya>
-💚 !horrorblood <teksnya>
-💚 !firework <teksnya>
-💚 !bloodglass <teksnya>
-💚 !neonlight <teksnya>
-💚 !marvel <teks1|teks2>
-💚 !phub <teks1|teks2>
-💚 !glitch <teks1|teks2>
 💛 !brokeCard <TagGambar>
 💛 !iphone <TagGambar>
 💛 !underwater <TagGambar>
 💛 !drawing <TagGambar>
-💛 !burningFire <TagGambar>
-💚 !semok <teksnya>
-💚 !harryPotter <Teksnya>
+💛 !burningfire <TagGambar>
+💚 !smoke <teksnya>
+💚 !harrypotter <Teksnya>
 💚 !horrorHouse <teksnya>
 💚 !coffee <teksnya>
 💚 !battlefield <teks1|teks2>
@@ -2255,11 +2357,19 @@ _[Memanipulasi teks dan atau gambar]_
 | 💚 !getapk <Id Download> _[Melihat detail dan link download]_
 | 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
 💚 !yts <Judul Video/Musik> _[Pencarian Youtube]_
+💚 !google <Teks> _[Pencarian Google]_
 💚 !lirik <Judul lagu> _[Cari Lirik Lagu]_
 💚 !video <Judul Video> _[Pencarian lagu]_
 | 💛 !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
 💚 !musik <Judul Lagu> _[Pencarian lagu]_
 | 💛 !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
+
+*Owner Feature*
+
+💗 !leave
+💗 !reset
+💗 !restart
+💗 !gift
 
 *[NOTE]*
 

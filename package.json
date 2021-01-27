@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/baileys": "^3.4.1",
+    "@vitalets/google-translate-api": "^5.0.0",
     "axios": "^0.21.1",
     "canvacord": "^5.0.8",
     "chalk": "^4.1.0",
     "cli-table": "^0.3.4",
     "crypto": "^1.0.1",
+    "discord-canvas": "^1.4.1",
     "express": "^4.17.1",
     "fluent-ffmpeg": "^2.1.2",
     "g-i-s": "^2.1.6",

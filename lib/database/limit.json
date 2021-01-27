@@ -2,42 +2,140 @@
   {
     "active": true,
     "key": 1,
-    "limit": 20,
-    "number": "6285559038021@s.whatsapp.net"
+    "limit": 92,
+    "number": "6285559038021@s.whatsapp.net",
+    "Status": true
   },
   {
     "active": false,
     "key": 2,
-    "limit": -999999999987,
-    "number": "6283853046084@s.whatsapp.net"
+    "limit": 92,
+    "number": "6283853046084@s.whatsapp.net",
+    "Status": true
   },
   {
     "active": true,
     "key": 3,
-    "limit": 25
+    "limit": 92,
+    "Status": true
   },
   {
     "active": true,
     "key": 4,
-    "limit": 0,
-    "number": "⁨Cli⁩@s.whatsapp.net"
+    "limit": 92,
+    "number": "⁨Cli⁩@s.whatsapp.net",
+    "Status": true
   },
   {
     "active": false,
     "key": 5,
-    "limit": 0,
-    "number": "6285157793599@s.whatsapp.net"
+    "limit": 92,
+    "number": "6285157793599@s.whatsapp.net",
+    "Status": true
   },
   {
     "active": false,
     "key": 6,
-    "limit": 0,
-    "number": "⁨Me@s.whatsapp.net"
+    "limit": 92,
+    "number": "⁨Me@s.whatsapp.net",
+    "Status": true
   },
   {
     "active": true,
     "key": 7,
-    "limit": 0,
-    "number": "6283853046084"
+    "limit": 92,
+    "number": "6283853046084",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 8,
+    "limit": 92,
+    "number": "6281586597779@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 9,
+    "limit": 92,
+    "number": "265991114164@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 10,
+    "limit": 92,
+    "number": "265997865036@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 11,
+    "limit": 92,
+    "number": "265888352168@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 12,
+    "limit": 92,
+    "number": "6282334750298@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 13,
+    "limit": 92,
+    "number": "27631999892@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 14,
+    "limit": 92,
+    "number": "265886024089@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 15,
+    "limit": 92,
+    "number": "265993360146@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 16,
+    "limit": 92,
+    "number": "6282137228602@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 17,
+    "limit": 92,
+    "number": "27632122007@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 18,
+    "limit": 92,
+    "number": "265998901485@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": true,
+    "key": 19,
+    "limit": 92,
+    "number": "6285797957303@s.whatsapp.net",
+    "Status": true
+  },
+  {
+    "active": false,
+    "key": 20,
+    "limit": 92,
+    "number": "923201801931@s.whatsapp.net",
+    "Status": true
   }
 ]
