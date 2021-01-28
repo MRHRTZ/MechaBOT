@@ -1,10 +1,16 @@
-const mysession = 'mecha'//'MRHRTZ'
-const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
-const qrcode = require('qrcode-terminal')
 const fs = require('fs')
+const zezi = (JSON.parse(fs.readFileSync('./src/settings.json'))).Sesi;
+let sesi
+// for (let se of zezi) {
+//      if (conn.user.jid == se.Jid) {
+//           sesi = se.Name
+//      }
+// }
+const mysession = process.argv.slice(2).join('-') || 'mecha'///*'mecha'*/'MRHRTZ'
+const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
+const qrcode = require('qrcode')
 const chalk = require('chalk')
 const moment = require('moment')
-// const { getName } = require('./myHandler')
 const time = moment().format('DD/MM HH:mm:ss')
 let blokir = []
 
@@ -27,8 +33,13 @@ nocache('./revokeHandler', module => INFOLOG(`${module} Telah diupdate!`))
 
 const mulai = async (sesi, conn = new WAConnection()) => {
 
+     conn.regenerateQRIntervalMs = null
      conn.on('qr', qr => {
-          qrcode.generate(qr, { small: true })
+          qrcode.toDataURL(qr, { scale: 8 }, (err, Durl) => {
+               const data = Durl.replace(/^data:image\/png;base64,/, '')
+               // console.log(url)
+               fs.writeFileSync(`./media/qrcode/${sesi}.png`, data, 'base64')
+          })
           console.log(`[ ${moment().format('HH:mm:ss')} ] Silahkan scan,,`)
      })
 
@@ -55,14 +66,15 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                return
           }
           const hurtz = chat.messages.all()[0];
-          require('./myHandler')(GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat)
+          const setting = require('./src/settings.json')
+          require('./myHandler')(setting, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat)
      })
 
-     conn.on('group-participants-update', async(update) => {
+     conn.on('group-participants-update', async (update) => {
           // INFOLOG(getName(conn, update.participants[0]) + ' Telah ' + update.action == 'remove' ? 'Keluar' : update.action == 'add' ? 'Masuk Grup' : update.action == 'promote' ? 'Menjadi Admin' : update.action == 'demote' ? 'Dihapus admin' : update.action + ' Di ' + update.jid)
-          INFOLOG(update)
+          INFOLOG(update.jid + ' : ' + update.action)
           if (update.action == 'add') {
-               
+
           }
      })
 

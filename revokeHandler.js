@@ -4,12 +4,20 @@ const moment = require('moment')
 const time = moment().format('DD/MM HH:mm:ss')
 const exec = require('child_process').exec
 const { createExif } = require('./lib/create-exif')
+const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 function ERRLOG(e) {
      return console.log('()\x1b[1;37m->', '<\x1b[1;31mERROR\x1b[1;37m>', time, color(e))
 }
 
+
 module.exports = revokejs = async (WA_MESSAGE_STUB_TYPES, hurtz, conn, Mimetype, MessageType) => {
      try {
+          let sesi
+          for (let se of settings.Sesi) {
+               if (conn.user.jid == se.Jid) {
+                    sesi = se.Name
+               }
+          }
           const from = hurtz.key.remoteJid
           const messageStubType = WA_MESSAGE_STUB_TYPES[hurtz.messageStubType] || 'MESSAGE'
           const dataRevoke = JSON.parse(fs.readFileSync('./lib/database/RevokedGroup.json'))
@@ -19,7 +27,7 @@ module.exports = revokejs = async (WA_MESSAGE_STUB_TYPES, hurtz, conn, Mimetype,
                const isGroup = hurtz.key.remoteJid.endsWith('@g.us') ? true : false
                const sender = hurtz.key.fromMe ? conn.user.jid : isGroup ? hurtz.participant : hurtz.key.remoteJid
                let int
-               let infoMSG = JSON.parse(fs.readFileSync('./lib/database/msgInfo.json'))
+               let infoMSG = JSON.parse(fs.readFileSync('./lib/database/msgInfo-' + sesi + '.json'))
                const id_deleted = hurtz.key.id
                const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
                const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
