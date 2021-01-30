@@ -2686,11 +2686,27 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                console.log(conn.getName())
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
                const hi = pushLimit(sender, 0)
-               const strMenu = `Hii ${pushname} ✨
+               const performa = speed()
+               const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
+               const batteryNow = battery[1].value
+               const latensi = speed() - performa
+               const info = ` *[ INFO MECHABOT ]*
+
+📲 *Versi WA* : _${conn.user.phone.wa_version}_
+🔋 *Batre* : _${batteryNow}% ${isCas}_
+💻 *Host* : _${os.hostname()}_
+📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${conn.user.phone.os_version}_
+⚖️ *Ram Usage* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB_
+🧿 *Platform* : _${os.platform()}_
+🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
+⚡ *Speed Process* : _${latensi.toFixed(4)}_
+
+     *[ MENU UTAMA ]*`
+               const strMenu = `${isGroup ? '          (    🤖 MENU MECHABOT 🤖    )' + `\n\n` : ''}Hii ${pushname} ✨
 Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 
-💌 Contact My WhatsApp : 085559038021 
-📮 Follow My Instagram : hzzz.formech_
+💌 Contact My WhatsApp : ${isGroup ? '@6285559038021' : '085559038021'} 
+📮 Follow My Instagram : @hzzz.formech_
 
 ⚪ : Fitur member tanpa limit
 🔷 : Fitur admin dan limit +1
@@ -2698,6 +2714,7 @@ Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 💛 : Fitur member dan limit +2
 🔴 : Fitur VIP dan limit +5
 
+${isGroup ? info + `\n` : ''}
 ⚪ !menu _[Menampilkan menu utama]_
 ⚪ !menuinfo _[Menampilkan info dan menu bot untuk informasi]_
 ⚪ !menuvip _[Menampilkan menu untuk member VIP]_
@@ -2705,7 +2722,16 @@ Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 ⚪ !menumedia _[Menampilkan menu download media dan sosmed]_
 ⚪ !menuother _[Menampilkan menu lebih banyak fitur]_
 ⚪ !menustiker _[Menampilkan menu fitur stiker]_
-⚪ !menuowner _[Menampilkan menu khusus owner bot]_ ${String.fromCharCode(Number('M3CH4'.replace(/[A-Z]gi/,'')))}`
+⚪ !menuowner _[Menampilkan menu khusus owner bot]_ ${String.fromCharCode(Number('M3CH4'.replace(/[A-Z]gi/,'')))}
+
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`
                const ranid = "M3CH4" + Crypto.randomBytes(13).toString('hex').toUpperCase() 
                let expired = ''
                for (let index = 0; index <= 10; index++) { expired += 9 }
@@ -2720,7 +2746,7 @@ Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
                         groupJid: '6285559038021-1605869468@g.us',
                         inviteCode: 'KVc2MuopydYJ1cJmiXhxie',
                         inviteExpiration: moment().add(100000, 'years').unix(),
-                        groupName: '(    🤖 MENU MECHABOT 🤖    ) ',
+                        groupName: '(    🤖 MENU MECHABOT 🤖    )',
                         jpegThumbnail: fs.readFileSync('./img.jpeg'),
                         caption: strMenu
                       }
@@ -2728,12 +2754,7 @@ Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
                     messageTimestamp: moment().unix(),
                     status: 'SERVER_ACK'
                   }
-               conn.relayWAMessage(mymasag)
-               // conn.sendMessage(from, 'strMenu', TypePsn.text, {
-               //      detectLinks: true,
-               //      quoted: hurtz,
-               //      contextInfo: { mentionedJid: [nomerOwner[0]] }
-               // })
+               isGroup ? conn.sendMessage(from, strMenu, TypePsn.text, { detectLinks: true, quoted: hurtz, contextInfo: { mentionedJid: [nomerOwner[0]] } }) : conn.relayWAMessage(mymasag)
           }
      }
 }
