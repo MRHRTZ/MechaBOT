@@ -1,6 +1,6 @@
                     /*\*    Bismillahirrahmanirrahim    *\*/
 
-                                index = 'tester'
+                                index = 'mecha'
                               require(`./${index}`)
                               
 

@@ -7,6 +7,6 @@
     }
   ],
   "Maintenace": true,
-  "MessageConsole": false,
+  "MessageConsole": true,
   "IDConsole": false
 }

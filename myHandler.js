@@ -15,7 +15,9 @@ const FormData = require('form-data')
 const emoji = require('node-emoji')
 const time = moment().format('DD/MM HH:mm:ss')
 const remote = require('remote-file-size')
+const Crypto = require('crypto')
 const translate = require('@vitalets/google-translate-api');
+const { proto } = require('@adiwajshing/baileys/WAMessage/WAMessage')
 const { getUser, getPost, searchUser, searchHastag } = require('./lib/insta')
 const { createExif } = require('./lib/create-exif')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
@@ -45,7 +47,9 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           if (conn.user.jid == se.Jid) {
                sesi = se.Name
           }
-     } 
+     }
+     const a = await conn.generateLinkPreview('https://google.com')
+     const extna = new proto.ExtendedTextMessage({ nno: 0 })
      const mt = settings.Maintenace
      const msgout = settings.MessageConsole
      const idlog = settings.IDConsole
@@ -87,7 +91,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { thumbnailMessage: 'MRHRTZ Jangan diganti error ntar nangid :v' })[0] : ''
      // const typeQuoted = '' 
      const bodyQuoted = typeQuoted == 'conversation' ? mediaData.message.conversation : typeQuoted == 'extendedTextMessage' ? mediaData.message.extendedTextMessage.text : typeQuoted == 'imageMessage' ? mediaData.message.imageMessage.caption : typeQuoted == 'stickerMessage' ? 'Sticker' : typeQuoted == 'audioMessage' ? 'Audio' : typeQuoted == 'videoMessage' ? mediaData.message.videoMessage.caption : typeQuoted == 'documentMessage' ? 'document' : typeQuoted == 'thumbnailMessage' ? mediaData : mediaData.message
-     // console.log(body)
+     // console.log(JSON.stringify(hurtz))
      const isCmd = body.startsWith(prf)
      const query = args.slice(1).join(' ')
      const sender = self ? conn.user.jid : isGroup ? hurtz.participant : hurtz.key.remoteJid
@@ -178,7 +182,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                }
                obj.push(pusheh)
                pushing(obj)
-               return [pusheh]
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
           } else if (data.length > 0) {
                if (owner) return [{ Status: true, Key: 0, Num: own, limit: '∞' }]
                if (data[0].limit <= 0) {
@@ -212,12 +216,12 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                const pusheh = {
                     active: true,
                     key: obj.length + 1,
-                    limit: limit,
+                    limit: amount,
                     number: Jid
                }
                obj.push(pusheh)
                pushing(obj)
-               return [pusheh]
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
           } else if (data.length > 0) {
                for (let o of obj) {
                     if (o.number == Jid) {
@@ -247,7 +251,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                }
                obj.push(pusheh)
                pushing(obj)
-               return [pusheh]
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
           } else if (data.length > 0) {
                for (let o of obj) {
                     if (o.number == Jid) {
@@ -274,12 +278,11 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      function resetAllLimit(amount) {
           amount = Number(amount)
           let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let i in obj) {
-               if (obj[i].limit <= amount) {
-                    obj[i].Status = true
-                    obj[i].limit = amount
-               }
-          }
+          // for (let i in obj) {
+          //      obj[i].Status = true
+          //      obj[i].limit = amount
+          // }
+          obj = []
           pushing(obj)
           return { status: true, limit: Number(amount) }
      }
@@ -565,7 +568,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      }
 
      if (hurtz.message.conversation == null) {
-          console.log('No error, lanjutkan..')
+          INFOLOG('SENDING CUSTOM MENU')
      }
      // console.log(hurtz)
      const mtchat = mt ? sender != nomerOwner[0] : false
@@ -623,6 +626,46 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                }
                const hem = pushLimit(sender, 1)
                balas(from, util.format(hem))
+          } else if (cmd == `${prf}searchig` || cmd == `${prf}igsearch`) {
+               try {
+                    await searchUser(query).then((us) => {
+                        let searchigcapt = `*Hasil pencarian user instagram ${query}*\n\n`
+                        for (let i = 0; i < us.length; i++) {
+                            searchigcapt += `
+    ◼️ *Urutan* : ${us[i].number}
+    ◼️ *Username* : ${us[i].username}
+    ◼️ *Nama Lengkap* : ${us[i].name}
+    ◼️ *Id Story Terbaru* : ${us[i].latest_reel}
+    ◼️ *Terverifikasi* : ${us[i].is_verified ? "✅" : "❌"}
+    ◼️ *Akun Private* : ${us[i].is_private ? "✅" : "❌"}
+                            `
+                        }
+                        sendDariUrl(from, us[0].pic, TypePsn.image, searchigcapt)
+                    })
+               } catch (e) {
+                    console.log(e)
+               }
+          } else if (cmd == `${prf}ig`){
+               try {
+                   if (args.length === 1) return balas(from, 'Kirim perintah *!ig <linkIg>* untuk contoh silahkan kirim perintah *!readme*', id)
+                   if (!args[1].includes('instagram.com')) return balas(from, `Url bukan dari instagram!`)
+                   let arrBln = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"]
+                   const idRegex = /([-_0-9A-Za-z]{11})/
+                   const idIGG = args[1].match(idRegex)
+                   await getPost(idIGG[0]).then((post) => {
+                       let a = new Date(post.date * 1000)
+                       const jam = a.getHours()
+                       const menit = a.getMinutes()
+                       const bulan = a.getMonth()
+                       const tanggal = a.getDate()
+                       const tahun = a.getFullYear()
+                       const captig = `*Media berhasil terkirim!*\n\n*Username* : ${post.owner_user}\n*Waktu Publish* : ${jam}:${menit} ${tanggal}-${arrBln[bulan - 1]}-${tahun}\n*Capt* : ${post.capt}`
+                       sendDariUrl(from, post.url, post.isVideo ? TypePsn.video : TypePsn.image, captig)
+                    // console.log(post)
+                   })
+               } catch (err) {
+                   ERRLOG(err)
+               }
           } else if (cmd == `${prf}limit`) {
                // console.log(body)
                const argsu = args[1] || ''
@@ -1673,19 +1716,19 @@ ${hasil.grid}
                          process.exit(2);
                     }
                     pm2.start({
-                         script: 'tester.js',         // Script to be run
+                         script: 'mecha.js',         // Script to be run
                          name: args[1],
                          args: args[1],
                          max_memory_restart: '5000M'   // Optional: Restarts your app if it reaches 100Mo
                     }, function (err, apps) {
                          pm2.disconnect();   // Disconnects from PM2
                          if (err) throw err
-                         settings.Sesi.push({ Jid: args[2].replace('@','') + '@s.whatsapp.net', Sesi: args[1] })
+                         settings.Sesi.push({ Jid: args[2].replace('@', '') + '@s.whatsapp.net', Sesi: args[1] })
                          balas(from, `Mohon tunggu 10 detik..`)
-                         setTimeout(function() {
+                         setTimeout(function () {
                               if (fs.existsSync('./media/qrcode/' + args[1] + '.png')) {
                                    const should = fs.readFileSync('./media/qrcode/' + args[1] + '.png')
-                                   conn.sendMessage(from, should, TypePsn.image, { contextInfo: { mentionedJid: [args[2].replace('@','') + '@s.whatsapp.net']}, caption: `Scan qrnya khusus untuk nomor @${args[2].replace('@','')}` })
+                                   conn.sendMessage(from, should, TypePsn.image, { contextInfo: { mentionedJid: [args[2].replace('@', '') + '@s.whatsapp.net'] }, caption: `Scan qrnya khusus untuk nomor @${args[2].replace('@', '')}` })
                                    INFOLOG('Sukses menambah bot ' + args[1])
                                    balas(from, `Bot ${args[1]} telah didaftarkan / online ✅`)
                               } else {
@@ -1814,7 +1857,7 @@ ${hasil.grid}
                pushLimit(sender, 1)
                ytsr(query)
                     .then(result => {
-                         let caption = `*Hasil pencarian from ${query}*\n\n_Note : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!getvideo urutan*\ncontoh : *!getvideo 2*_\n`
+                         let caption = `*Hasil pencarian dari ${query}*\n\nNote : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!getvideo urutan*\ncontoh : *!getvideo 2*\n`
                          for (let i = 0; i < result.length; i++) {
                               caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title}\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views}\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp}\n*Perintah download* : _!getvideo ${result[i].id}_\n\n`
                          }
@@ -1883,7 +1926,7 @@ ${hasil.grid}
                pushLimit(sender, 1)
                ytsr(query)
                     .then(result => {
-                         let caption = `*Hasil pencarian from ${query}*\n\n_Note : Apabila kesusahan mengambil data id, untuk download lagu tag pesan ini dan berikan perintah : *!getmusik urutan*\ncontoh : *!getmusik 2*_\n`
+                         let caption = `*Hasil pencarian dar ${query}*\n\nNote : Apabila kesusahan mengambil data id, untuk download lagu tag pesan ini dan berikan perintah : *!getmusik urutan*\ncontoh : *!getmusik 2*\n`
                          for (let i = 0; i < result.length; i++) {
                               caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title}\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views}\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp}\n*Perintah download* : _!getmusik ${result[i].id}_\n\n`
                          }
@@ -2003,6 +2046,13 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          })
                     })
                          .catch(e => ERRLOG(e))
+               })
+          } else if (cmd == `${prf}warnai`) {
+               const savedMedia = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
+               exec(`curl -F "image=@${savedMedia}" -H "api-key:c7e56944-336a-4bfe-ae81-bc579f4c7047" https://api.deepai.org/api/colorizer `, (err, stdout, stderr) => {
+                    const data = JSON.parse(stdout)
+                    sendDariUrl(from, data.output_url, TypePsn.image)
+                    fs.unlinkSync(`./media/effect/${filename}`)
                })
           } else if (cmd == `${prf}ytmp3`) {
                if (args.length === 1) balas(from, `Penggunaan *!ytmp3 <linkyt>*`)
@@ -2464,34 +2514,12 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     ERRLOG(e)
                     balas(nomerOwner, e);
                })
-          } else if (cmd == `${prf}linkgrupmecha` || cmd == `${prf}linkgroupmecha`) {
-               conn.groupInviteCode('6285559038021-1605869468@g.us').then(code => balas(from, `_Join Mecha Group : [ https://chat.whatsapp.com/${code} ]_`)).catch(console.log)
-          } else if (cmd == `${prf}push`) {
-               console.log(conn.getName())
-          } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
+          } else if (cmd == `${prf}menuinfo`){
                const performa = speed()
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
-               const hi = pushLimit(sender, 0)
                const latensi = speed() - performa
-               const strMenu = `             (    🤖 MENU MECHABOT 🤖    ) 
-
-Hii ${pushname} ✨
-Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
-
-💌 Contact My WhatsApp : @6285559038021 
-📮 Follow My Instagram : hzzz.formech_
-
-Map >>
-
-⚪ : Fitur member tanpa limit
-🔷 : Fitur admin dan limit +1
-💚 : Fitur member dan limit +1
-💛 : Fitur member dan limit +2
-🔴 : Fitur VIP dan limit +5
-
-----------------------------------------
-
+               const info = ` *[ INFO MECHABOT ]*
 
 📲 *Versi WA* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
@@ -2502,27 +2530,54 @@ Map >>
 🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 
-*Free Features & Info*
-
-⚪ !menu _[Menampilkan seluruh menu]_
-⚪ !runtime _[Menampilkan waktu bot berjalan]_
 ⚪ !limit _[Menampilkan limit]_
-⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]_
+⚪ !runtime _[Menampilkan waktu bot berjalan]_
 ⚪ !linkgrupmecha _[Menampilkan Link Grup Bot Mecha]_
 
-*Fitur VIP*
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`
+               balas(from, info)
+          } else if (cmd == `${prf}menuvip`) {
+               balas(from, `  *[ Fitur VIP ]*
 
 🔴 !hidetag <teksnya>
 🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>
 
-*Fitur Games*
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`)
+          } else if (cmd == `${prf}menugame`) {
+               balas(from, ` *[ Fitur Games ]*
 
 💛 !minesweeper
  | ⚪ isi <x y>
 
-*Fitur Social Media & Download*
+ *[NOTE]*
 
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`)
+          } else if (cmd == `${prf}menumedia`) {
+               balas(from, `  *[ Fitur Social Media & Download ]*
+
+⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]_
 💚 !igstalk <@username> _[Melihat Profile Instagram]_
+💚 !igsearch <@username> _[Mencari Profile Instagram]_
+💚 !ig <https://linkig> _[IG Downloader]_
 💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_
 💚 !listkodebahasa _[Menampilkan list kode bahasa]_
 💚 !tomp3 <TagVideo> _[Extract video ke audio]_
@@ -2532,14 +2587,35 @@ Map >>
 💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_
 💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_
 
-*Fitur stiker*
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`)
+          } else if (cmd == `${prf}menustiker` || cmd == `${prf}menusticker`) {
+               balas(from, `*[ Fitur stiker ]*
 
 💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_
 💚 !trigger <@TagMember> _[Efek triggered]_
 💚 !tomedia <TagStiker> _[Stikergif ke video]_
 💚 !ttp <TEXT> _[Text To Sticker]_
 
-*Fitur Admin* 
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`)
+          } else if (cmd == `${prf}menuother`) {
+               balas(from, ` *[Fitur lainnya]*
+               
+               
+     *[ Fitur Admin ]* 
 
 🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_
 🔷 !title <teksnya> _[Mengubah judul grup]_
@@ -2547,12 +2623,12 @@ Map >>
 🔷 !mutegrup _[Setting group chat hanya admin]_
 🔷 !unmutegrup _[Setting group chat untuk semua member]_
 
-*Fitur Gacha*
+     *[ Fitur Gacha ]*
 
 💚 !cecan _[Random ciwi cantik]_
 💚 !cogan _[Random cowo ganteng]_
 
-*Fitur imagemaker*
+     *[ Fitur imagemaker ]*
 
 💛 !brokeCard <TagGambar>
 💛 !iphone <TagGambar>
@@ -2567,7 +2643,7 @@ Map >>
 💚 !googleKeyword <teks1|teks2|teks3>
 💛 !gtaV <TagGambar>
 
-*Fitur Search*
+     *[ Fitur Search ]*
 
 💚 !apk <Nama Aplikasi/Game> _[Mencari APP / GAME APK]_
 | 💚 !getapk <Id Download> _[Melihat detail dan link download]_
@@ -2580,7 +2656,16 @@ Map >>
 💚 !musik <Judul Lagu> _[Pencarian lagu]_
 | 💛 !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
 
-*Owner Feature*
+*[NOTE]*
+
+> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
+> _Bot ini multiprefix namun prefix utamanya adalah !_
+> _Format memakai <> itu sebagai petunjuk untuk diisikan_
+> _Gunakan bot dengan bijak_
+
+╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗`)
+          } else if (cmd == `${prf}menuowner`) {
+               balas(from, `  *[ Menu OwnerBot ]*
 
 💗 !refuel <jumlah> _[Isi ulang semua limit]_
 💗 !leave _[Keluar grup]_
@@ -2594,22 +2679,61 @@ Map >>
 💗 !listbot _[Melihat semua user bot]_
 💗 > <query> _[Perintah untuk execute command yang terbatas dan teratur]_
 💗 >> <query> _[Perintah untuk execute command prompt / terminal]_
-💗 >>> <query> _[Perintah untuk execute function dalam code bot]_
+💗 >>> <query> _[Perintah untuk execute function dalam code bot]_`)
+          } else if (cmd == `${prf}linkgrupmecha` || cmd == `${prf}linkgroupmecha`) {
+               conn.groupInviteCode('6285559038021-1605869468@g.us').then(code => balas(from, `_Join Mecha Group : [ https://chat.whatsapp.com/${code} ]_`)).catch(console.log)
+          } else if (cmd == `${prf}push`) {
+               console.log(conn.getName())
+          } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
+               const hi = pushLimit(sender, 0)
+               const strMenu = `Hii ${pushname} ✨
+Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 
-*[NOTE]*
+💌 Contact My WhatsApp : 085559038021 
+📮 Follow My Instagram : hzzz.formech_
 
-> _Ini termasuk Bot DGC ChatBot V4 lalu ganti nama jadi MechaBot_
-> _Bot ini multiprefix namun prefix utamanya adalah !_
-> _Format memakai <> itu sebagai petunjuk untuk diisikan_
-> _Gunakan bot dengan bijak_
+⚪ : Fitur member tanpa limit
+🔷 : Fitur admin dan limit +1
+💚 : Fitur member dan limit +1
+💛 : Fitur member dan limit +2
+🔴 : Fitur VIP dan limit +5
 
-╰╼ _MechaBOT ©2020 ᴍᴀᴅᴇ ʙʏ_ 💗
-                    `
-               conn.sendMessage(from, strMenu, TypePsn.text, {
-                    detectLinks: true,
-                    quoted: hurtz,
-                    contextInfo: { mentionedJid: [nomerOwner[0]] }
-               })
+⚪ !menu _[Menampilkan menu utama]_
+⚪ !menuinfo _[Menampilkan info dan menu bot untuk informasi]_
+⚪ !menuvip _[Menampilkan menu untuk member VIP]_
+⚪ !menugame _[Menampilkan menu game]_
+⚪ !menumedia _[Menampilkan menu download media dan sosmed]_
+⚪ !menuother _[Menampilkan menu lebih banyak fitur]_
+⚪ !menustiker _[Menampilkan menu fitur stiker]_
+⚪ !menuowner _[Menampilkan menu khusus owner bot]_ ${String.fromCharCode(Number('M3CH4'.replace(/[A-Z]gi/,'')))}`
+               const ranid = "M3CH4" + Crypto.randomBytes(13).toString('hex').toUpperCase() 
+               let expired = ''
+               for (let index = 0; index <= 10; index++) { expired += 9 }
+               const mymasag = {
+                    key: {
+                      remoteJid: from,
+                      fromMe: true,
+                      id: ranid
+                    },
+                    message: {
+                      groupInviteMessage: {
+                        groupJid: '6285559038021-1605869468@g.us',
+                        inviteCode: 'KVc2MuopydYJ1cJmiXhxie',
+                        inviteExpiration: moment().add(100000, 'years').unix(),
+                        groupName: '(    🤖 MENU MECHABOT 🤖    ) ',
+                        jpegThumbnail: fs.readFileSync('./img.jpeg'),
+                        caption: strMenu
+                      }
+                    },
+                    messageTimestamp: moment().unix(),
+                    status: 'SERVER_ACK'
+                  }
+               conn.relayWAMessage(mymasag)
+               // conn.sendMessage(from, 'strMenu', TypePsn.text, {
+               //      detectLinks: true,
+               //      quoted: hurtz,
+               //      contextInfo: { mentionedJid: [nomerOwner[0]] }
+               // })
           }
      }
 }
