@@ -1,8 +1,8 @@
 [
   "battery",
   {
-    "value": "55",
-    "live": "true",
+    "value": "28",
+    "live": "false",
     "powersave": "false"
   },
   null

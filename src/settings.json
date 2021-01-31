@@ -6,7 +6,9 @@
       "Name": "mecha"
     }
   ],
+  "Debug": false,
   "Maintenace": true,
   "MessageConsole": true,
-  "IDConsole": false
+  "IDConsole": false,
+  "Limit": 30
 }

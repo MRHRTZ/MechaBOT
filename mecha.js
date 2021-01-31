@@ -6,7 +6,7 @@ let sesi
 //           sesi = se.Name
 //      }
 // }
-const mysession = process.argv.slice(2).join('-') || 'MRHRTZ'///*'mecha'*/'MRHRTZ'
+const mysession = process.argv[2] || 'MRHRTZ'///*'mecha'*/'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode')
 const chalk = require('chalk')
@@ -33,8 +33,8 @@ nocache('./revokeHandler', module => INFOLOG(`${module} Telah diupdate!`))
 
 const mulai = async (sesi, conn = new WAConnection()) => {
 
-     conn.regenerateQRIntervalMs = null
      conn.on('qr', qr => {
+          conn.regenerateQRIntervalMs = null
           qrcode.toDataURL(qr, { scale: 8 }, (err, Durl) => {
                const data = Durl.replace(/^data:image\/png;base64,/, '')
                // console.log(url)
