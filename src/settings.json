@@ -8,7 +8,7 @@
   ],
   "Debug": false,
   "Maintenace": true,
-  "MessageConsole": true,
-  "IDConsole": false,
+  "MessageConsole": false,
+  "IDConsole": true,
   "Limit": 30
 }

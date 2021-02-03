@@ -25,7 +25,9 @@ function ERRLOG(e) {
 
 require('./myHandler')
 require('./revokeHandler')
+require('./groupManager')
 nocache('./myHandler', module => INFOLOG(`${module} Telah diupdate!`))
+nocache('./groupManager', module => INFOLOG(`${module} Telah diupdate!`))
 nocache('./revokeHandler', module => INFOLOG(`${module} Telah diupdate!`))
 
 // global.conn = new WAConnection()
@@ -73,9 +75,8 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      conn.on('group-participants-update', async (update) => {
           // INFOLOG(getName(conn, update.participants[0]) + ' Telah ' + update.action == 'remove' ? 'Keluar' : update.action == 'add' ? 'Masuk Grup' : update.action == 'promote' ? 'Menjadi Admin' : update.action == 'demote' ? 'Dihapus admin' : update.action + ' Di ' + update.jid)
           INFOLOG(update.jid + ' : ' + update.action)
-          if (update.action == 'add') {
-
-          }
+          const setting = require('./src/settings.json')
+          require('./groupManager')(setting, GroupSettingChange, Mimetype, MessageType, conn, update)
      })
 
      conn.on('close', ({ reason, isReconnecting }) => (
@@ -110,7 +111,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
  * @param {function} cb <optional> 
  */
 function nocache(module, cb = () => { }) {
-     console.log('Module', `'${module}'`, 'is now being watched for changes')
+     INFOLOG('Module', `${module}`, 'sedang diperhatikan untuk perubahan')
      fs.watchFile(require.resolve(module), async () => {
           await uncache(require.resolve(module))
           cb(module)
