@@ -1,12 +1,30 @@
+// const app = require('express')();
+// const http = require('http').Server(app);
+// const io = require('socket.io')(http);
+// const port = process.env.PORT || 5050;
 const fs = require('fs')
 const zezi = (JSON.parse(fs.readFileSync('./src/settings.json'))).Sesi;
 let sesi
+
+// io.on('connection', (socket) => {
+//      // socket.on('chat message', msg => {
+//      //      io.emit('chat message', msg);
+//      // });
+//      app.get('/', (req, res) => {
+//           res.sendFile(__dirname + '/index.html');
+//      });
+// });
+
+// http.listen(port, () => {
+//      console.log(`Socket.IO server running at http://localhost:${port}/`);
+// });
+
 // for (let se of zezi) {
 //      if (conn.user.jid == se.Jid) {
 //           sesi = se.Name
 //      }
 // }
-const mysession = process.argv[2] || 'MRHRTZ'///*'mecha'*/'MRHRTZ'
+const mysession = process.argv[2] || 'mecha'///*'mecha'*/'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode')
 const chalk = require('chalk')

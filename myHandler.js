@@ -7,6 +7,7 @@ const chalk = require('chalk')
 const mktemp = require('mktemp')
 const Crypto = require('crypto')
 const moment = require('moment')
+const request = require('request')
 const cheerio = require('cheerio')
 const Table = require('cli-table')
 const google = require('google-it')
@@ -34,7 +35,7 @@ const { tiktok } = require('./lib/tiktok')
 const { kode } = require('./lib/kodebhs')
 const { Grid } = require('minesweeperjs')
 
-moment.tz.setDefault('Asia/Jakarta').locale('id')
+// moment.tz.setDefault('Asia/Jakarta').locale('id')
 
 function INFOLOG(info) {
      console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
@@ -470,16 +471,21 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           })
      }
 
-     async function sendDariUrl(dari, url, type, text) {
+     function sendDariUrl(dari, url, type, text) {
           if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(url)) return console.error(`Not a valid url!`)
           const caption = text || ''
-          const buffData = await Axios.request({
-               method: 'GET',
+          request({
                url: url,
-               responseType: 'arraybuffer',
-               responseEncoding: 'binary'
-          });
-          conn.sendMessage(dari, buffData.data, type, { quoted: hurtz, caption: caption })
+               encoding: null
+          }, (err, resp, buffer) => {
+               conn.sendMessage(dari, buffer, type, { quoted: hurtz, caption: caption })
+          })
+          // const buffData = await Axios.request({
+          //      method: 'GET',
+          //      url: url,
+          //      responseType: 'arraybuffer',
+          //      responseEncoding: 'binary'
+          // });
      }
 
      async function sendStikerDariUrl(dari, url) {
@@ -608,6 +614,11 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           INFOLOG('SENDING CUSTOM MENU')
      }
      // console.log(hurtz)
+
+
+     if (from == '6285559038021-1605869468@g.us') return
+
+
      const mtchat = mt ? sender != nomerOwner[0] : false
      if (mtchat) return
      if (type != 'stickerMessage') {
@@ -841,6 +852,22 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     .then((asw) => {
                          balas(from, `*[ ${query} ]*\n\n` + asw.result.lirik)
                     }).catch(e => balas(from, `Lagu tidak ditemukan!`) && balas(nomerOwner[0], util.format(e)))
+          } else if (cmd == `${prf}pinterest`) {
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               if (args.length === 1) return balas(from, `Penggunaan *!Pinterest <teks>*`)
+               const teksnya = "https://api.fdci.se/rep.php?gambar=" + query;
+               Axios.get(teksnya)
+                    .then((result) => {
+                         const b = JSON.parse(JSON.stringify(result.data));
+                         const hasil = b[Math.floor(Math.random() * b.length)]
+                         sendDariUrl(from, hasil, TypePsn.image, `Pencarian pinterest : ${query}`)
+                    })
           } else if (cmd == `${prf}ttp`) {
                if (args.length === 1) return balas(from, `Masukan teksnya!`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -3071,8 +3098,9 @@ Map >>
 💚 !cecan _[Random ciwi cantik]_
 💚 !cogan _[Random cowo ganteng]_
 
-     *[ Fitur imagemaker ]*
+     *[ Fitur Image Manipulate ]*
 
+💚 !warnai <TagGambar> _[Mewarnai gambar hitam putih]_
 💛 !brokeCard <TagGambar>
 💛 !iphone <TagGambar>
 💛 !underwater <TagGambar>
@@ -3111,6 +3139,7 @@ Map >>
 | 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
 💚 !yts <Judul Video/Musik> _[Pencarian Youtube]_
 💚 !google <Teks> _[Pencarian Google]_
+💚 !pinterest <Teks> _[Pencarian Pinterest]_
 💚 !lirik <Judul lagu> _[Cari Lirik Lagu]_
 💚 !video <Judul Video> _[Pencarian lagu]_
 | 💛 !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
