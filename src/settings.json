@@ -8,7 +8,8 @@
   ],
   "Debug": false,
   "Maintenace": true,
-  "MessageConsole": false,
+  "MessageConsole": true,
   "IDConsole": true,
-  "Limit": 30
+  "Limit": 30,
+  "Reset_Time": 1612998000
 }

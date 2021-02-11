@@ -22,12 +22,12 @@ const { advancedglow, futuristic, cloud, blackpink, sand, scifi, dropwater, codm
 const { webp2mp4File, reverseVideoFile, mp42mp3, mp32mp4, uploadwebp, webp2mp4Url, apng2webpUrl } = require('./lib/converter')
 const { baseURI, ytsr, yta, ytv, buffer2Stream, stream2Buffer, noop } = require('./lib/ytdl')
 const { getUser, getPost, searchUser, searchHastag } = require('./lib/insta')
-const { proto } = require('@adiwajshing/baileys/WAMessage/WAMessage')
 const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
 const { getStikerLine } = require('./lib/stickerline')
 const { createExif } = require('./lib/create-exif')
 const { addContact } = require('./lib/savecontact')
+const { pinterest } = require('./lib/pinterest')
 const { exec, spawn } = require('child_process')
 const { text2img } = require('./lib/text2img')
 const { default: Axios } = require('axios')
@@ -53,8 +53,6 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                sesi = se.Name
           }
      }
-     const a = await conn.generateLinkPreview('https://google.com')
-     const extna = new proto.ExtendedTextMessage({ nno: 0 })
      const mt = settings.Maintenace
      const msgout = settings.MessageConsole
      const idlog = settings.IDConsole
@@ -91,9 +89,11 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      const isQuotedVideo = type === 'extendedTextMessage' && konten.includes('videoMessage')
      const isQuotedSticker = type === 'extendedTextMessage' && konten.includes('stickerMessage')
      const isQuotedAudio = type === 'extendedTextMessage' && konten.includes('audioMessage')
-     const mediaData = type === 'extendedTextMessage' ? JSON.parse(JSON.stringify(hurtz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : hurtz
      const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { thumbnailMessage: 'MRHRTZ Jangan diganti error ntar nangid :v' })[0] : type
-     const ment = mediaData.message[(typeQuoted == 'mentionedText') ? 'extendedTextMessage' : (typeQuoted == 'thumbnailMessage') ? 'extendedTextMessage' : typeQuoted].contextInfo || '' //.contextInfo
+     const mediaData = type === 'extendedTextMessage' ? (typeQuoted === 'thumbnailMessage' ? hurtz : JSON.parse(JSON.stringify(hurtz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo) : hurtz
+     // const ment = ''
+     // console.log(body)
+     // const ment = mediaData.message[(typeQuoted == 'mentionedText') ? 'extendedTextMessage' : (typeQuoted == 'thumbnailMessage') ? 'extendedTextMessage' : typeQuoted].contextInfo || '' //.contextInfo
      // console.log(ment)
      const bodyQuoted = typeQuoted == 'conversation' ? mediaData.message.conversation : typeQuoted == 'extendedTextMessage' ? mediaData.message.extendedTextMessage.text : typeQuoted == 'imageMessage' ? mediaData.message.imageMessage.caption : typeQuoted == 'stickerMessage' ? 'Sticker' : typeQuoted == 'audioMessage' ? 'Audio' : typeQuoted == 'videoMessage' ? mediaData.message.videoMessage.caption : typeQuoted == 'documentMessage' ? 'document' : typeQuoted == 'thumbnailMessage' ? mediaData : mediaData.message
      settings.Debug ? console.log(JSON.stringify(hurtz)) : ''
@@ -549,6 +549,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      const isBlacklist = db_black.includes(from.replace('@s.whatsapp.net', ''))
      const MessageSelf = `Hai ${pushname} 👋🏻\n\n*MRHRTZ* sedang sibuk sekarang\nmohon tinggalkan pesan disini dan dia akan segera membalas!.\n-\n*MRHRTZ* is busy right now\nplease leave a message here and he will reply right away!`
      // const MessageSelf = `Hai ${pushname} 👋🏻\n\n*JUMATAN DULUUUUUU!!!*`
+
      if (isExist && isPrivateChat && !self && !isBlacklist) {
           const index = db.number.indexOf(from)
           const isNow = db.timestamp_after[index] <= now
@@ -583,13 +584,13 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           INFOLOG(pushname, 'mencoba execute perintah')
           let type = Function
           if (/await/.test(body)) type = AsyncFunction
-          let func = new type('print', 'exec', 'conn', 'Axios', 'moment', 'fs', 'process', 'mediaData', 'from', 'TypePsn', 'hurtz', 'Mimetype', 'anticol', 'mktemp', 'chat', body.slice(2))
+          let func = new type('print', 'yta', 'ytsr', 'exec', 'conn', 'Axios', 'moment', 'fs', 'process', 'mediaData', 'from', 'TypePsn', 'hurtz', 'Mimetype', 'anticol', 'mktemp', 'chat', body.slice(2))
           let output
           try {
                output = func((...args) => {
                     // INFOLOG(...args)
                     balas(from, util.format(...args))
-               }, exec, conn, Axios, moment, fs, process, mediaData, from, TypePsn, hurtz, Mimetype, anticol, mktemp, chat)
+               }, yta, ytsr, exec, conn, Axios, moment, fs, process, mediaData, from, TypePsn, hurtz, Mimetype, anticol, mktemp, chat)
           } catch (e) {
                await balas(from, '*Error unexpected* : \n\n' + util.format(e))
           }
@@ -803,9 +804,10 @@ _________________________________________
                }
                pushLimit(sender, 2)
                const play = await ytsr(body.slice(6))
+               if (play.length === 0) return balas(from, `${query} tidak dapat ditemukan!`)
                const mulaikah = play[0].url
                yta(mulaikah).then((resyt3) => {
-                    const { dl_link, thumb, title, filesizeF } = resyt3
+                    const { dl_link, thumb, title } = resyt3
                     const { author, ago, views, desc, timestamp } = play[0]
                     INFOLOG(title)
                     Axios.get(thumb, {
@@ -834,11 +836,15 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                                    INFOLOG(`DAPAT DATA AUDIO : ${title}`)
                                    conn.sendMessage(from, buffer_yt3, TypePsn.audio, { mimetype: Mimetype.mp4Audio, quoted: hurtz })
                               }).catch(ex => {
+                                   balas(from, `Terdapat kesalahan saat mengambil lagu ${query}.`)
                                    ERRLOG(ex);
                               });
                          })
                     })
-               }).catch(e => ERRLOG(e))
+               }).catch(e => {
+                    balas(from, `Terdapat kesalahan saat mengambil lagu ${query}.`)
+                    ERRLOG(e)
+               })
           } else if (cmd == `${prf}lirik` || cmd == `${prf}lyric`) {
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
@@ -861,13 +867,11 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     return
                }
                if (args.length === 1) return balas(from, `Penggunaan *!Pinterest <teks>*`)
-               const teksnya = "https://api.fdci.se/rep.php?gambar=" + query;
-               Axios.get(teksnya)
-                    .then((result) => {
-                         const b = JSON.parse(JSON.stringify(result.data));
-                         const hasil = b[Math.floor(Math.random() * b.length)]
-                         sendDariUrl(from, hasil, TypePsn.image, `Pencarian pinterest : ${query}`)
-                    })
+               pinterest(query).then((res) => {
+                    const random = res[Math.floor(Math.random() * res.length)]
+                    sendDariUrl(from, random, TypePsn.image, `Pencarian pinterest : ${query}`)
+                    // console.log(random)
+               })
           } else if (cmd == `${prf}ttp`) {
                if (args.length === 1) return balas(from, `Masukan teksnya!`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -2597,7 +2601,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                }
                pushLimit(sender, 5)
                hidetag(from, body.slice(9))
-          } else if (cmd == `${prf}tomedia`) {
+          } else if (cmd == `${prf}tomedia` || cmd == `${prf}toimg` || cmd == `${prf}toimage`) {
                if (!isQuotedSticker) return balas(from, `Mohon hanya tag stiker! bukan media lain.`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
@@ -2674,7 +2678,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                let packstik
                let authorstik
                if (args[1] == 'wm') {
-                    packstik = body.slice(8).split('|')[0] || 'Created By MechaBOT'
+                    if (!isVIP) return balas(from, 'Maaf hanya untuk VIP yachh!')
+                    packstik = body.slice(10).split('|')[0] || 'Created By MechaBOT'
                     authorstik = body.split('|')[1] || 'Follow Insta Dev @hzzz.formech_'
                } else {
                     packstik = 'Created By MechaBOT'
@@ -2752,17 +2757,22 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                })
 
           } else if (cmd == `${prf}runtime`) {
-               function format(seconds) {
-                    function pad(s) {
-                         return (s < 10 ? '0' : '') + s;
-                    }
-                    var hours = Math.floor(seconds / (60 * 60));
-                    var minutes = Math.floor(seconds % (60 * 60) / 60);
-                    var seconds = Math.floor(seconds % 60);
-                    return pad(hours) + ' Jam ' + pad(minutes) + ' Menit ' + pad(seconds) + ' Detik'
-               }
                var uptime = process.uptime();
-               balas(from, `Waktu bot aktif / telah berjalan selama *${format(uptime)}*`)
+               const date = new Date(uptime * 1000);
+               const days = date.getUTCDate() - 1,
+                    hours = date.getUTCHours(),
+                    minutes = date.getUTCMinutes(),
+                    seconds = date.getUTCSeconds(),
+                    milliseconds = date.getUTCMilliseconds();
+               let segments = [];
+               if (days > 0) segments.push(days + ' Hari');
+               if (hours > 0) segments.push(hours + ' Jam');
+               if (minutes > 0) segments.push(minutes + ' Menit');
+               if (seconds > 0) segments.push(seconds + ' Detik');
+               if (milliseconds > 0) segments.push(milliseconds + ' milidetik');
+               const dateString = segments.join(', ');
+               INFOLOG("Uptime: " + dateString);
+               balas(from, `Waktu bot aktif / telah berjalan selama *${dateString}*`)
           } else if (cmd == `${prf}title`) {
                if (args.length === 1) balas(from, `Penggunaan *!title <Nama Gc Baru>*`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -2832,16 +2842,9 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     return
                }
                pushLimit(sender, 1)
-               const items = ["cecan indo rambut panjang", "beautiful russian girl", "cecan indo pap rambut pendek", "cewek indo pap remaja rambut pendek", "cewe cantik", "sma jilbob", "sma hot"];
-               const cewe = items[Math.floor(Math.random() * items.length)];
-               const urlciw = "https://api.fdci.se/rep.php?gambar=" + cewe;
-
-               Axios.get(urlciw)
-                    .then((result) => {
-                         const b = JSON.parse(JSON.stringify(result.data));
-                         const cewek = b[Math.floor(Math.random() * b.length)]
-                         sendDariUrl(from, cewek, TypePsn.image, `Ciwi nya ${pushname}`)
-                    })
+               const cecan = JSON.parse(fs.readFileSync('./lib/database/cecan.json'))
+               const ciwi = Math.floor(Math.random() * cecan.length)
+               sendDariUrl(from, cecan[ciwi], TypePsn.image, `Ciwi nya ${pushname}`)
           } else if (cmd == `${prf}cogan` || cmd == `${prf}cowok` || cmd == `${prf}cowo`) {
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
@@ -2851,16 +2854,9 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     return
                }
                pushLimit(sender, 1)
-               const items = ["handsome boy", "cowo ganteng", "cogan"];
-               const cewe = items[Math.floor(Math.random() * items.length)];
-               const urlciw = "https://api.fdci.se/rep.php?gambar=" + cewe;
-
-               Axios.get(urlciw)
-                    .then((result) => {
-                         const b = JSON.parse(JSON.stringify(result.data));
-                         const cewek = b[Math.floor(Math.random() * b.length)]
-                         sendDariUrl(from, cewek, TypePsn.image, `Ciwi nya ${pushname}`)
-                    })
+               const cogan = JSON.parse(fs.readFileSync('./lib/database/cogan.json'))
+               const cowo = Math.floor(Math.random() * cogan.length)
+               sendDariUrl(from, cogan[cowo], TypePsn.image, `Cowo nya ${pushname}`)
           } else if (cmd == `${prf}linkgrup` || cmd == `${prf}linkgrup`) {
                if (!isGroup) return balas(from, `Harus didalam grup!`)
                if (!isBotAdmin) return balas(from, `Maaf Bot harus dijadikan admin terlebih dahulu!`)
