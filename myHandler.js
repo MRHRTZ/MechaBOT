@@ -24,6 +24,7 @@ const { baseURI, ytsr, yta, ytv, buffer2Stream, stream2Buffer, noop } = require(
 const { getUser, getPost, searchUser, searchHastag } = require('./lib/insta')
 const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
+const { generateStr } = require('./lib/stringGenerator')
 const { getStikerLine } = require('./lib/stickerline')
 const { createExif } = require('./lib/create-exif')
 const { addContact } = require('./lib/savecontact')
@@ -89,7 +90,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      const isQuotedVideo = type === 'extendedTextMessage' && konten.includes('videoMessage')
      const isQuotedSticker = type === 'extendedTextMessage' && konten.includes('stickerMessage')
      const isQuotedAudio = type === 'extendedTextMessage' && konten.includes('audioMessage')
-     const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { thumbnailMessage: 'MRHRTZ Jangan diganti error ntar nangid :v' })[0] : type
+     const typeQuoted = type === 'extendedTextMessage' ? Object.keys(hurtz.message.extendedTextMessage.contextInfo ? (hurtz.message.extendedTextMessage.contextInfo.quotedMessage ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { mentionedText: 'Created By MRHRTZ' }) : { thumbnailMessage: 'MRHRTZ Jangan diganti error ntar nangid :v' })[0] : type
      const mediaData = type === 'extendedTextMessage' ? (typeQuoted === 'thumbnailMessage' ? hurtz : JSON.parse(JSON.stringify(hurtz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo) : hurtz
      // const ment = ''
      // console.log(body)
@@ -122,6 +123,8 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      }
      const isAdmin = adminGroups.includes(sender)
      const isBotAdmin = adminGroups.includes(botNumber)
+
+     const datatoken = JSON.parse(fs.readFileSync('./lib/database/token-limit.json'))
 
      if (cmd == 'tes') return balas(from, `Oke ada..`)
 
@@ -463,7 +466,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           const grup = await conn.groupMetadata(from)
           let member = []
           grup.participants.forEach(result => {
-               member.push(result.id.replace('@c.us', '@s.whatsapp.net'))
+               member.push(result.jid)
           })
           conn.sendMessage(from, text, TypePsn.text, {
                text: text,
@@ -693,6 +696,35 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                }
                const hem = pushLimit(sender, 1)
                balas(from, util.format(hem))
+          } else if (cmd == `${prf}claim` || cmd == `${prf}token`) {
+               if (args.length === 1) return balas(from, `Mohon masukan tokennya..`)
+               if (args[1] === 'generate') {
+                    if (!isOwner) return balas(from, `Hanya owner untuk generating!`)
+                    if (args.length === 2) return balas(from, `Masukan nominal nya..`)
+                    const generator = generateStr()
+                    const nominal = Number(args[2])
+                    datatoken.push({
+                         string: generator,
+                         nominal: Number(nominal)
+                    })
+                    balas(from, `Terima kasih telah menggunakan MechaBOT 😇\n\n*Token : ${generator}*\n\n\`\`\`Penggunaan : !claim <token>\nContoh : !claim XXXX-XXXX-XXXX-XXXX\`\`\`\n\n\n_Note : Token untuk tambah limit ini hanya berfungsi untuk satu kali klaim saja!_`)
+                    fs.writeFileSync('./lib/database/token-limit.json', JSON.stringify(datatoken, null, 2))
+               } else {
+                    let verificationToken = []
+                    for (let outdatatoken of datatoken) {
+                         verificationToken.push(outdatatoken.string)
+                    }
+                    console.log(verificationToken)
+                    if (verificationToken.includes(args[1].toUpperCase())) {
+                         const tokenIndex = verificationToken.indexOf(args[1])
+                         giftLimit(sender, Number(datatoken[tokenIndex].nominal))
+                         conn.sendMessage(from, `Selamat yaa ${'@' + sender.replace('@s.whatsapp.net','')} 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${datatoken[tokenIndex].nominal} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('Success Claim Token [ MechaBot ]'), contextInfo: { mentionedJid: [sender] } })
+                         datatoken.splice(tokenIndex, 1)
+                         fs.writeFileSync('./lib/database/token-limit.json', JSON.stringify(datatoken, null, 2))
+                    } else {
+                         balas(from, `Sepertinya token yang anda masukan.. 😕 mohon coba lagi!\n\n\n_Tidak punya token? follow & dm instagram @hzzz.formech_ untuk mendapatkannya._`)
+                    }
+               }
           } else if (cmd == `${prf}searchig` || cmd == `${prf}igsearch`) {
                try {
                     await searchUser(query).then((us) => {
@@ -2320,27 +2352,30 @@ ${hasil.grid}
                                         })
                                    })
                          })
+                         .catch(error => {
+                              console.log(error)
+                              balas(from, `Terdapat kesalahan!`)
+                         })
                } else {
-                    try {
-                         if (args.length === 1) return balas(from, `_Apabila tidak ditag hanya cantumkan ID bukan urutan!_  contoh : *!getvideo _Xis67a47s_*`)
-                         ytv(`https://youtu.be/${args[1]}`)
-                              .then((res) => {
-                                   const { dl_link, thumb, title, filesizeF, filesize } = res
-                                   Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-                                        .then((a) => {
-                                             remote(dl_link, (e, o) => {
-                                                  if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
-                                                  const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                                                  sendDariUrl(from, thumb, TypePsn.image, captions)
-                                                  sendDariUrl(from, dl_link, TypePsn.video, `Video telah terkirim ${pushname}`).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
-                                             })
+                    if (args.length === 1) return balas(from, `_Apabila tidak ditag hanya cantumkan ID bukan urutan!_  contoh : *!getvideo _Xis67a47s_*`)
+                    ytv(`https://youtu.be/${args[1]}`)
+                         .then((res) => {
+                              const { dl_link, thumb, title, filesizeF, filesize } = res
+                              Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                                   .then((a) => {
+                                        remote(dl_link, (e, o) => {
+                                             if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                             const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+                                             sendDariUrl(from, thumb, TypePsn.image, captions)
+                                             sendDariUrl(from, dl_link, TypePsn.video, `Video telah terkirim ${pushname}`).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
                                         })
+                                   })
 
-                              })
-                    } catch (error) {
-                         console.log(error)
-                         balas(from, `Id Download salah!`)
-                    }
+                         })
+                         .catch(error => {
+                              console.log(error)
+                              balas(from, `Terdapat kesalahan!`)
+                         })
                }
           } else if (cmd == `${prf}musik` || cmd == `${prf}music`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!musik* _Judul lagu yang akan dicari_')
@@ -2390,27 +2425,29 @@ ${hasil.grid}
                                    })
 
                          })
+                         .catch(error => {
+                              console.log(error)
+                              balas(from, `Terdapat kesalahan!!`)
+                         })
                } else {
-                    try {
-                         if (args.length === 1) return balas(from, `_Apabila tidak ditag hanya cantumkan ID bukan urutan!_  contoh : *!getmusik _Xis67a47s_*`)
-                         ytv(`https://youtu.be/${args[1]}`)
-                              .then((res) => {
-                                   const { dl_link, thumb, title, filesizeF, filesize } = res
-                                   Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-                                        .then((a) => {
-                                             remote(dl_link, (e, o) => {
-                                                  if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
-                                                  const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                                                  sendDariUrl(from, thumb, TypePsn.image, captions)
-                                                  sendDariUrl(from, dl_link, TypePsn.audio, '', { mimetype: Mimetype.mp4Audio }).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
-                                             })
+                    if (args.length === 1) return balas(from, `_Apabila tidak ditag hanya cantumkan ID bukan urutan!_  contoh : *!getmusik _Xis67a47s_*`)
+                    yta(`https://youtu.be/${args[1]}`)
+                         .then((res) => {
+                              const { dl_link, thumb, title, filesizeF, filesize } = res
+                              Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                                   .then((a) => {
+                                        remote(dl_link, (e, o) => {
+                                             if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                             const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+                                             sendDariUrl(from, thumb, TypePsn.image, captions)
+                                             sendDariUrl(from, dl_link, TypePsn.audio, '', { mimetype: Mimetype.mp4Audio }).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
                                         })
-
-                              })
-                    } catch (error) {
-                         console.log(error)
-                         balas(from, `Id Download salah!`)
-                    }
+                                   })
+                         })
+                         .catch((error) => {
+                              console.log(error)
+                              balas(from, `Terdapat kesalahan!!`)
+                         })
                }
           } else if (cmd == `${prf}batt`) {
                const batt = fs.readFileSync('./lib/database/batt.json', 'utf-8')
@@ -2755,7 +2792,6 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
                     })
                })
-
           } else if (cmd == `${prf}runtime`) {
                var uptime = process.uptime();
                const date = new Date(uptime * 1000);

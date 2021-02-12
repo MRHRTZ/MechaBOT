@@ -1,8 +1,16 @@
 const { default: Axios } = require('axios');
 const fs = require('fs');
+const moment = require('moment')
+const time = moment().format('DD/MM HH:mm:ss')
+
 
 module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, MessageType, conn, update) => {
      // console.log(update)
+
+     function INFOLOG(info) {
+          console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
+     }
+
      const database = JSON.parse(fs.readFileSync('./lib/database/welcomer-leaver.json'))
      const sample = {
           jid: '6285559038021-1603688917@g.us',
@@ -30,9 +38,9 @@ module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, Me
           });
           conn.sendMessage(dari, buffData.data, type, { contextInfo: { mentionedJid: [ people ] }, caption: caption })
      }
-     console.log(update)
+     // console.log(update)
      if (!database.includes(from)) return
-     console.log('ada')
+     // console.log('ada')
      if (action == 'remove') {
           sendDariUrl(from, profile, MessageType.image, `Selamat tinggal @${people.replace(/@s.whatsapp.net/,'')}, semoga tenang dialam sana. 😇`)         
      } else if (action == 'add') {
