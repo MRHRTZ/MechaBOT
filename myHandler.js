@@ -26,6 +26,7 @@ const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
 const { generateStr } = require('./lib/stringGenerator')
 const { getStikerLine } = require('./lib/stickerline')
+const { fbdl, ttdl, jadwaltv } = require('./lib/hurtzcrafter')
 const { createExif } = require('./lib/create-exif')
 const { addContact } = require('./lib/savecontact')
 const { pinterest } = require('./lib/pinterest')
@@ -127,6 +128,16 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      const datatoken = JSON.parse(fs.readFileSync('./lib/database/token-limit.json'))
 
      if (cmd == 'tes') return balas(from, `Oke ada..`)
+
+     function getFilesizeFromBytes(bytes) {
+          if (bytes >= 1073741824) { bytes = (bytes / 1073741824).toFixed(2) + " GB"; }
+          else if (bytes >= 1048576) { bytes = (bytes / 1048576).toFixed(2) + " MB"; }
+          else if (bytes >= 1024) { bytes = (bytes / 1024).toFixed(2) + " KB"; }
+          else if (bytes > 1) { bytes = bytes + " bytes"; }
+          else if (bytes == 1) { bytes = bytes + " byte"; }
+          else { bytes = "0 bytes"; }
+          return bytes;
+     }
 
      function gif2mp4Url(url) {
           return new Promise((resolve, reject) => {
@@ -474,7 +485,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           })
      }
 
-     function sendDariUrl(dari, url, type, text) {
+     async function sendDariUrl(dari, url, type, text) {
           if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(url)) return console.error(`Not a valid url!`)
           const caption = text || ''
           request({
@@ -718,7 +729,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                     if (verificationToken.includes(args[1].toUpperCase())) {
                          const tokenIndex = verificationToken.indexOf(args[1])
                          giftLimit(sender, Number(datatoken[tokenIndex].nominal))
-                         conn.sendMessage(from, `Selamat yaa ${'@' + sender.replace('@s.whatsapp.net','')} 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${datatoken[tokenIndex].nominal} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('Success Claim Token [ MechaBot ]'), contextInfo: { mentionedJid: [sender] } })
+                         conn.sendMessage(from, `Selamat yaa ${'@' + sender.replace('@s.whatsapp.net', '')} 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${datatoken[tokenIndex].nominal} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('Success Claim Token [ MechaBot ]'), contextInfo: { mentionedJid: [sender] } })
                          datatoken.splice(tokenIndex, 1)
                          fs.writeFileSync('./lib/database/token-limit.json', JSON.stringify(datatoken, null, 2))
                     } else {
@@ -826,7 +837,7 @@ _________________________________________
                     sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
                })
           } else if (cmd == `${prf}play`) {
-               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
+               if (args.length === 1) return balas(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -1070,6 +1081,117 @@ Video : ${vid_post_}
                }
           } else if (cmd == `${prf}listkodebahasa`) {
                balas(from, kode)
+          } else if (cmd == `${prf}jadwaltv`) {
+               if (args.length === 1) return balas(from, `Mohon masukan channel tv..`)
+               const channelna = query
+               let stasiun = [
+                    "rcti",
+                    "nettv",
+                    "antv",
+                    "gtv",
+                    "indosiar",
+                    "inewstv",
+                    "kompastv",
+                    "metrotv",
+                    "mnctv",
+                    "rtv",
+                    "sctv",
+                    "trans7",
+                    "transtv",
+                    "tvone",
+                    "tvri"
+               ]
+               let isist = `*Channel yang tersedia* :\n\n`
+               for (let i = 0; i < stasiun.length; i++) {
+                    isist += `➣  ${stasiun[i]}\n`
+               }
+               try {
+
+                    // const tv_switch = stasiun[0]
+                    Axios.get('https://www.jadwaltv.net/channel/' + channelna)
+                         .then(({ data }) => {
+                              const $ = cheerio.load(data)
+                              let isitable1 = []
+                              let isitable2 = []
+                              $('div > div > table:nth-child(3) > tbody > tr').each(function (i, result) {
+                                   isitable1.push({
+                                        jam: result.children[0].children[0].data,
+                                        tayang: result.children[1].children[0].data
+                                   })
+                              })
+                              // console.log(isitable1)
+                              $('div > div > table:nth-child(5) > tbody > tr').each(function (i, result) {
+                                   isitable2.push({
+                                        jam: result.children[0].children[0].data,
+                                        tayang: result.children[1].children[0].data
+                                   })
+                              })
+                              const semuatable = []
+
+                              for (let i = 0; i < isitable1.length; i++) {
+                                   semuatable.push(isitable1[i])
+                              }
+                              for (let i = 0; i < isitable2.length; i++) {
+                                   semuatable.push(isitable2[i])
+                              }
+                              // console.log(semuatable)
+                              let daftartay = `*Menampilkan daftar tayang channel ${channelna}*\n\n`
+                              for (let i = 0; i < semuatable.length; i++) {
+                                   daftartay += `${semuatable[i].jam}  ${semuatable[i].tayang}\n`
+                              }
+                              balas(from, daftartay)
+                              // console.log(semuatable)
+                         })
+                         .catch((e) => {
+                              balas(from, isist)
+                              // console.log(e)
+                         })
+               } catch (e) {
+                    balas(from, isist)
+                    console.log(e)
+               }
+          } else if (cmd == `${prf}fb` || cmd == `${prf}facebook`) {
+               if (args.length === 1) return balas(from, `Mohon masukan url facebook...`)
+               fbdl(args[1])
+                    .then((res) => {
+                         remote(res.download[0], (e, o) => {
+                              Axios.get(`https://tinyurl.com/api-create.php?url=${res.download.length > 1 ? res.download[1] : res.download[0]}`)
+                                   .then((a) => {
+                                        const size = getFilesizeFromBytes(o)
+                                        let captions = `*Data Berhasil didapatkan*
+
+*Title* : ${res.title}
+*Ext* : MP4
+*Filesize* : ${size}
+${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video melebihi batas size disajikan dalam bentuk link._' : ''}`
+                                        console.log(o)
+                                        if (Number(o) < 100000000) {
+                                             sendDariUrl(from, res.download[0], TypePsn.video, captions)
+                                        } else {
+                                             balas(from, captions)
+                                        }
+                                   })
+                         })
+                    })
+                    .catch(e => {
+                         console.log(e)
+                         balas(from, `Terdapat kesalahan! mungkin video private atau link tidak valid.`)
+                    })
+          } else if (cmd == `${prf}twitter` || cmd == `${prf}tt`) {
+               if (args.length === 1) return balas(from, `Mohon masukan url twitter...`)
+               ttdl(args[1])
+                    .then(res => {
+                         console.log(res)
+                         let captions = `*Data Berhasil didapatkan*
+                    
+*Title* : ${res.title}
+*Capt* : ${res.quote}`
+                         sendDariUrl(from, res.download, TypePsn.video, captions)
+                    })
+                    .catch(e => {
+                         console.log(e)
+                         balas(from, `Terdapat kesalahan saat mengambil data video! mungkin url tidak valid.`)
+                    })
           } else if (cmd == `${prf}advancedglow`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!advancedglow textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -2041,6 +2163,7 @@ ${hasil.grid}
                pushLimit(sender, 1)
                searchApk(body.slice(5)).then(res => {
                     let captions = '*Menampilkan list apk*'
+                    // console.log(res)
                     for (let i = 0; i < res.length; i++) {
                          captions += `
 
@@ -2327,7 +2450,7 @@ ${hasil.grid}
                          sendDariUrl(from, result[0].thumb, TypePsn.image, caption)
                     })
           } else if (cmd == `${prf}getvideo`) {
-               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!getvideo* _IdDownload_, atau *!getvideo NomerUrut*', id)
+               if (args.length === 1) return balas(from, 'Kirim perintah *!getvideo* _IdDownload_, atau *!getvideo NomerUrut*')
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -2337,7 +2460,7 @@ ${hasil.grid}
                }
                pushLimit(sender, 2)
                if (isQuotedImage) {
-                    if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getvideo _1_*`, id)
+                    if (!Number(args[1])) return balas(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getvideo _1_*`)
                     const pilur = bodyQuoted.split('(#)')
                     ytv(`https://youtu.be/${pilur[args[1]]}`)
                          .then((res) => {
@@ -2399,7 +2522,7 @@ ${hasil.grid}
                          sendDariUrl(from, result[0].thumb, TypePsn.image, caption)
                     })
           } else if (cmd == `${prf}getmusik` || cmd == `${prf}getmusic`) {
-               if (args.length === 1) return hurtz.reply(from, 'Kirim perintah *!getmusik* _IdDownload_, atau *!getmusik NomerUrut*', id)
+               if (args.length === 1) return balas(from, 'Kirim perintah *!getmusik* _IdDownload_, atau *!getmusik NomerUrut*')
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset setiap jam 6 pagi\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -2409,7 +2532,7 @@ ${hasil.grid}
                }
                pushLimit(sender, 2)
                if (isQuotedImage) {
-                    if (!Number(args[1])) return hurtz.reply(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getmusik _1_*`, id)
+                    if (!Number(args[1])) return balas(from, `_Apabila ditag hanya cantumkan nomer urutan bukan ID Download!_  contoh : *!getmusik _1_*`)
                     const pilur = bodyQuoted.split('(#)')
                     yta(`https://youtu.be/${pilur[args[1]]}`)
                          .then((res) => {
@@ -2482,35 +2605,39 @@ ${hasil.grid}
                pushLimit(sender, 1)
                const args_yt4 = body.slice(7)
                ytv(args_yt4).then((resyt4) => {
-                    const { dl_link, thumb, title, filesizeF } = resyt4
+                    const { dl_link, thumb, title, filesize } = resyt4
                     INFOLOG(title)
                     //Send Thumb
                     Axios.get(thumb, {
                          responseType: 'arraybuffer'
                     }).then(({ data }) => {
-                         remote(dl_link, (e, o) => {
-                              const buffer_thumbyt4 = Buffer.from(data, 'base64')
-                              const capt_yt4 = `*Data telah didapatkan!*
+                         Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                              .then((a) => {
+                                   remote(dl_link, (e, o) => {
+                                        if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                        const buffer_thumbyt4 = Buffer.from(data, 'base64')
+                                        const capt_yt4 = `*Data telah didapatkan!*
 
 *Judul* : ${title}
 *Type* : MP4
 *Filesize* : ${sizer(o)}
 
 _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
-                              conn.sendMessage(from, buffer_thumbyt4, TypePsn.image, { mimetype: Mimetype.jpeg, caption: capt_yt4, quoted: hurtz })
-                              //Send MP4
-                              Axios.get(dl_link, {
-                                   responseType: 'arraybuffer'
-                              }).then(response => {
-                                   const buffer_yt4 = Buffer.from(response.data, 'base64');
-                                   INFOLOG(`DAPAT DATA VIDEO : ${title}`)
-                                   conn.sendMessage(from, buffer_yt4, TypePsn.video, { mimetype: Mimetype.mp4, quoted: hurtz })
-                              }).catch(ex => {
-                                   ERRLOG(ex);
-                              });
-                         })
+                                        conn.sendMessage(from, buffer_thumbyt4, TypePsn.image, { mimetype: Mimetype.jpeg, caption: capt_yt4, quoted: hurtz })
+                                        //Send MP4
+                                        Axios.get(dl_link, {
+                                             responseType: 'arraybuffer'
+                                        }).then(response => {
+                                             const buffer_yt4 = Buffer.from(response.data, 'base64');
+                                             INFOLOG(`DAPAT DATA VIDEO : ${title}`)
+                                             conn.sendMessage(from, buffer_yt4, TypePsn.video, { mimetype: Mimetype.mp4, quoted: hurtz })
+                                        }).catch(ex => {
+                                             ERRLOG(ex);
+                                        });
+                                   })
+                              })
+                              .catch(e => ERRLOG(e))
                     })
-                         .catch(e => ERRLOG(e))
                })
           } else if (cmd == `${prf}warnai`) {
                const savedMedia = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
@@ -2531,35 +2658,39 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                pushLimit(sender, 1)
                const args_yt3 = body.slice(7)
                yta(args_yt3).then((resyt3) => {
-                    const { dl_link, thumb, title, filesizeF } = resyt3
+                    const { dl_link, thumb, title, filesize } = resyt3
                     INFOLOG(title)
                     //Send Thumb
                     Axios.get(thumb, {
                          responseType: 'arraybuffer'
                     }).then(({ data }) => {
-                         remote(dl_link, (e, o) => {
-                              const buffer_thumbyt3 = Buffer.from(data, 'base64')
-                              const capt_yt3 = `*Data telah didapatkan!*
+                         Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                              .then((a) => {
+                                   remote(dl_link, (e, o) => {
+                                        if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                        const buffer_thumbyt3 = Buffer.from(data, 'base64')
+                                        const capt_yt3 = `*Data telah didapatkan!*
      
 *Judul* : ${title}
 *Type* : MP3
 *Filesize* : ${sizer(o)}
 
 _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
-                              conn.sendMessage(from, buffer_thumbyt3, TypePsn.image, { mimetype: Mimetype.jpeg, caption: capt_yt3, quoted: hurtz })
-                              //Send MP3
-                              Axios.get(dl_link, {
-                                   responseType: 'arraybuffer'
-                              }).then(response => {
-                                   const buffer_yt3 = Buffer.from(response.data, 'base64');
-                                   INFOLOG(`DAPAT DATA AUDIO : ${title}`)
-                                   conn.sendMessage(from, buffer_yt3, TypePsn.audio, { mimetype: Mimetype.mp4Audio, quoted: hurtz })
-                              }).catch(ex => {
-                                   ERRLOG(ex);
-                              });
-                         })
-                    })
-               }).catch(e => ERRLOG(e))
+                                        conn.sendMessage(from, buffer_thumbyt3, TypePsn.image, { mimetype: Mimetype.jpeg, caption: capt_yt3, quoted: hurtz })
+                                        //Send MP3
+                                        Axios.get(dl_link, {
+                                             responseType: 'arraybuffer'
+                                        }).then(response => {
+                                             const buffer_yt3 = Buffer.from(response.data, 'base64');
+                                             INFOLOG(`DAPAT DATA AUDIO : ${title}`)
+                                             conn.sendMessage(from, buffer_yt3, TypePsn.audio, { mimetype: Mimetype.mp4Audio, quoted: hurtz })
+                                        }).catch(ex => {
+                                             ERRLOG(ex);
+                                        });
+                                   })
+                              })
+                    }).catch(e => ERRLOG(e))
+               })
           } else if (cmd == `${prf}tomp4`) {
                if (!isQuotedAudio) return balas(from, `Harus tag pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -3097,6 +3228,8 @@ Map >>
 💚 !igstalk <@username> _[Melihat Profile Instagram]_
 💚 !igsearch <@username> _[Mencari Profile Instagram]_
 💚 !ig <https://linkig> _[IG Downloader]_
+💚 !twitter <https://linktwitter> _[Twitter Video Downloader]_
+💚 !facebook <https://linkfacebook> _[Facebook Video Downloader]_
 💚 !tiktok <https://linktiktok> _[Tiktok Downloader]_
 💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_
 💚 !listkodebahasa _[Menampilkan list kode bahasa]_
@@ -3228,7 +3361,7 @@ Map >>
                               }
                          }
                     },
-                    messageTimestamp: moment.unix()
+                    messageTimestamp: new Date() / 1000
                }
                const content = await conn.prepareMessageContent(
                     strMenu,
