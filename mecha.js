@@ -129,7 +129,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
  * @param {function} cb <optional> 
  */
 function nocache(module, cb = () => { }) {
-     INFOLOG('Module', `${module}`, 'sedang diperhatikan untuk perubahan')
+     INFOLOG(`Module ${module} sedang diperhatikan terhadap perubahan`)
      fs.watchFile(require.resolve(module), async () => {
           await uncache(require.resolve(module))
           cb(module)
