@@ -739,7 +739,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                     for (let outdatatoken of datatoken) {
                          verificationToken.push(outdatatoken.string)
                     }
-                    console.log(verificationToken)
+                    // console.log(verificationToken)
                     if (verificationToken.includes(args[1].toUpperCase())) {
                          const tokenIndex = verificationToken.indexOf(args[1])
                          giftLimit(sender, Number(datatoken[tokenIndex].nominal))
