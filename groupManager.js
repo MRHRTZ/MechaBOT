@@ -51,9 +51,7 @@ module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, Me
           conn.sendMessage(dari, buffData.data, type, { contextInfo: { mentionedJid: [people] }, caption: caption })
      }
      if (database.includes(from)) {
-          try {
                const titlegc = (await conn.groupMetadata(from)).subject
-               const profile = await conn.getProfilePicture(people)
                INFOLOG('INFO GRUP!')
                let partisipan = []
                const dataparts = (await conn.groupMetadata(from)).participants
@@ -61,117 +59,113 @@ module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, Me
                     partisipan.push(parts.jid)
                }
                if (action == 'remove') {
-                    text = ['Goodbye:(', 'RIP', 'Berduka', 'Knp Keluar:(', 'Miss You :)']
-                    const image = await new Canvas.Goodbye()
-                         .setText('title', text[Math.floor(Math.random() * text.length)])
-                         .setUsername(pushname)
-                         .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
-                         // .setMemberCount(partisipan.indexOf(people))
-                         .setGuildName(titlegc)
-                         .setAvatar(profile)
-                         .setColor("border", "#" + colour[acak])
-                         .setColor("username-box", "#" + colour[acak])
-                         .setColor("discriminator-box", "#" + colour[acak])
-                         .setColor("message-box", "#" + colour[acak])
-                         .setColor("title", "#" + colour[acak])
-                         .setColor("avatar", "#" + colour[acak])
-                         .setBackground(bg[acakbg].download_url)
-                         .toAttachment();
-                    fs.writeFile('./media/effect/leave.png', image.toBuffer(), (e) => {
-                         if (e) return console.log(e)
-                         const buffer = fs.readFileSync('./media/effect/leave.png')
-                         conn.sendMessage(from, buffer, MessageType.image, { caption:  `Selamat tinggal @${people.replace(/@s.whatsapp.net/, '')}, semoga tenang dialam sana. 😇`, contextInfo: { mentionedJid: [people] } })
-                         fs.unlinkSync('./media/effect/leave.png')
-                    })
+                    conn.getProfilePicture(people)
+                         .then(async(profile) => {
+                              text = ['Goodbye:(', 'RIP', 'See You Again', 'Knp Keluar:(', 'Miss You :)']
+                              const image = await new Canvas.Goodbye()
+                                   .setText('title', text[Math.floor(Math.random() * text.length)])
+                                   .setUsername(pushname)
+                                   .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
+                                   // .setMemberCount(partisipan.indexOf(people))
+                                   .setGuildName(titlegc)
+                                   .setAvatar(profile)
+                                   .setColor("border", "#" + colour[acak])
+                                   .setColor("username-box", "#" + colour[acak])
+                                   .setColor("discriminator-box", "#" + colour[acak])
+                                   .setColor("message-box", "#" + colour[acak])
+                                   .setColor("title", "#" + colour[acak])
+                                   .setColor("avatar", "#" + colour[acak])
+                                   .setBackground(bg[acakbg].download_url)
+                                   .toAttachment();
+                              fs.writeFile('./media/effect/leave.png', image.toBuffer(), (e) => {
+                                   if (e) return console.log(e)
+                                   const buffer = fs.readFileSync('./media/effect/leave.png')
+                                   conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat tinggal @${people.replace(/@s.whatsapp.net/, '')}, semoga tenang dialam sana. 😇`, contextInfo: { mentionedJid: [people] } })
+                                   fs.unlinkSync('./media/effect/leave.png')
+                              })
+                         })
+                         .catch(async(e) => {
+                              ERRLOG(e)
+                              const profile = pepelist[Math.floor(Math.random() * pepelist.length)]
+                              text = ['Goodbye:(', 'RIP', 'Berduka', 'Knp Keluar:(', 'Miss You :)']
+                              const image = await new Canvas.Goodbye()
+                                   .setText('title', text[Math.floor(Math.random() * text.length)])
+                                   .setUsername(pushname)
+                                   .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
+                                   // .setMemberCount(partisipan.indexOf(people))
+                                   .setGuildName(titlegc)
+                                   .setAvatar(profile)
+                                   .setColor("border", "#" + colour[acak])
+                                   .setColor("username-box", "#" + colour[acak])
+                                   .setColor("discriminator-box", "#" + colour[acak])
+                                   .setColor("message-box", "#" + colour[acak])
+                                   .setColor("title", "#" + colour[acak])
+                                   .setColor("avatar", "#" + colour[acak])
+                                   .setBackground(bg[acakbg].download_url)
+                                   .toAttachment();
+                              fs.writeFile('./media/effect/leave.png', image.toBuffer(), (e) => {
+                                   if (e) return console.log(e)
+                                   const buffer = fs.readFileSync('./media/effect/leave.png')
+                                   conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat tinggal @${people.replace(/@s.whatsapp.net/, '')}, semoga tenang dialam sana. 😇`, contextInfo: { mentionedJid: [people] } })
+                                   fs.unlinkSync('./media/effect/leave.png')
+                              })
+                         })
                } else if (action == 'add') {
-                    text = ['Haii', 'Haloo', 'Moga Betah', 'Met Datang', 'Nice']
-                    const image = await new Canvas.Welcome()
-                         .setText('title', text[Math.floor(Math.random() * text.length)])
-                         .setUsername(pushname)
-                         .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
-                         .setMemberCount(partisipan.indexOf(people))
-                         .setGuildName(titlegc)
-                         .setAvatar(profile)
-                         .setColor("border", "#" + colour[acak])
-                         .setColor("username-box", "#" + colour[acak])
-                         .setColor("discriminator-box", "#" + colour[acak])
-                         .setColor("message-box", "#" + colour[acak])
-                         .setColor("title", "#" + colour[acak])
-                         .setColor("avatar", "#" + colour[acak])
-                         .setBackground(bg[acakbg].download_url)
-                         .toAttachment();
-                    fs.writeFile('./media/effect/welcome.png', image.toBuffer(), (e) => {
-                         if (e) return console.log(e)
-                         const buffer = fs.readFileSync('./media/effect/welcome.png')
-                         conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat datang digrup ${titlegc} @${people.replace(/@s.whatsapp.net/, '')}, semoga betah disini ya 😉`, contextInfo: { mentionedJid: [people] } })
-                         fs.unlinkSync('./media/effect/welcome.png')
-                    })
+                    conn.getProfilePicture(people)
+                         .then(async(profile) => {
+                              text = ['Haii', 'Haloo', 'Moga Betah', 'Met Datang', 'Nice']
+                              const image = await new Canvas.Welcome()
+                                   .setText('title', text[Math.floor(Math.random() * text.length)])
+                                   .setUsername(pushname)
+                                   .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
+                                   .setMemberCount(partisipan.indexOf(people))
+                                   .setGuildName(titlegc)
+                                   .setAvatar(profile)
+                                   .setColor("border", "#" + colour[acak])
+                                   .setColor("username-box", "#" + colour[acak])
+                                   .setColor("discriminator-box", "#" + colour[acak])
+                                   .setColor("message-box", "#" + colour[acak])
+                                   .setColor("title", "#" + colour[acak])
+                                   .setColor("avatar", "#" + colour[acak])
+                                   .setBackground(bg[acakbg].download_url)
+                                   .toAttachment();
+                              fs.writeFile('./media/effect/welcome.png', image.toBuffer(), (e) => {
+                                   if (e) return console.log(e)
+                                   const buffer = fs.readFileSync('./media/effect/welcome.png')
+                                   conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat datang digrup ${titlegc} @${people.replace(/@s.whatsapp.net/, '')}, semoga betah disini ya 😉`, contextInfo: { mentionedJid: [people] } })
+                                   fs.unlinkSync('./media/effect/welcome.png')
+                              })
+                         })
+                         .catch(async(e) => {
+                              ERRLOG(e)
+                              const profile = pepelist[Math.floor(Math.random() * pepelist.length)]
+                              text = ['Haii', 'Haloo', 'Moga Betah', 'Met Datang', 'Nice']
+                              const image = await new Canvas.Welcome()
+                                   .setText('title', text[Math.floor(Math.random() * text.length)])
+                                   .setUsername(pushname)
+                                   .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
+                                   .setMemberCount(partisipan.indexOf(people))
+                                   .setGuildName(titlegc)
+                                   .setAvatar(profile)
+                                   .setColor("border", "#" + colour[acak])
+                                   .setColor("username-box", "#" + colour[acak])
+                                   .setColor("discriminator-box", "#" + colour[acak])
+                                   .setColor("message-box", "#" + colour[acak])
+                                   .setColor("title", "#" + colour[acak])
+                                   .setColor("avatar", "#" + colour[acak])
+                                   .setBackground(bg[acakbg].download_url)
+                                   .toAttachment();
+                              fs.writeFile('./media/effect/welcome.png', image.toBuffer(), (e) => {
+                                   if (e) return console.log(e)
+                                   const buffer = fs.readFileSync('./media/effect/welcome.png')
+                                   conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat datang digrup ${titlegc} @${people.replace(/@s.whatsapp.net/, '')}, semoga betah disini ya 😉`, contextInfo: { mentionedJid: [people] } })
+                                   fs.unlinkSync('./media/effect/welcome.png')
+                              })
+                         })
                } else if (action == 'promote') {
                     conn.sendMessage(from, `Jabatan @${people.replace(/@s.whatsapp.net/, '')} telah dinaikan menjadi admin. 😄`, MessageType.text, { contextInfo: { mentionedJid: [people] } })
                } else if (action == 'demote') {
                     conn.sendMessage(from, `Jabatan @${people.replace(/@s.whatsapp.net/, '')} telah dihapus dari admin. 😔`, MessageType.text, { contextInfo: { mentionedJid: [people] } })
                }
-          } catch (e) {
-               ERRLOG(e)
-               const titlegc = (await conn.groupMetadata(from)).subject
-               const profile = await conn.getProfilePicture(people)
-               INFOLOG('INFO GRUP!')
-               let partisipan = []
-               const dataparts = (await conn.groupMetadata(from)).participants
-               for (let parts of dataparts) {
-                    partisipan.push(parts.jid)
-               }
-               if (action == 'remove') {
-                    text = ['Goodbye:(', 'RIP', 'Berduka', 'Knp Keluar:(', 'Miss You :)']
-                    const image = await new Canvas.Goodbye()
-                         .setText('title', text[Math.floor(Math.random() * text.length)])
-                         .setUsername(pushname)
-                         .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
-                         // .setMemberCount(partisipan.indexOf(people))
-                         .setGuildName(titlegc)
-                         .setAvatar(profile)
-                         .setColor("border", "#" + colour[acak])
-                         .setColor("username-box", "#" + colour[acak])
-                         .setColor("discriminator-box", "#" + colour[acak])
-                         .setColor("message-box", "#" + colour[acak])
-                         .setColor("title", "#" + colour[acak])
-                         .setColor("avatar", "#" + colour[acak])
-                         .setBackground(bg[acakbg].download_url)
-                         .toAttachment();
-                    fs.writeFile('./media/effect/leave.png', image.toBuffer(), (e) => {
-                         if (e) return console.log(e)
-                         const buffer = fs.readFileSync('./media/effect/leave.png')
-                         conn.sendMessage(from, buffer, MessageType.image, { caption:  `Selamat tinggal @${people.replace(/@s.whatsapp.net/, '')}, semoga tenang dialam sana. 😇`, contextInfo: { mentionedJid: [people] } })
-                         fs.unlinkSync('./media/effect/leave.png')
-                    })
-               } else if (action == 'add') {
-                    text = ['Haii', 'Haloo', 'Moga Betah', 'Met Datang', 'Nice']
-                    const image = await new Canvas.Welcome()
-                         .setText('title', text[Math.floor(Math.random() * text.length)])
-                         .setUsername(pushname)
-                         .setDiscriminator(people.replace(/@s.whatsapp.net/, '').slice(5, 9))
-                         .setMemberCount(partisipan.indexOf(people))
-                         .setGuildName(titlegc)
-                         .setAvatar(profile)
-                         .setColor("border", "#" + colour[acak])
-                         .setColor("username-box", "#" + colour[acak])
-                         .setColor("discriminator-box", "#" + colour[acak])
-                         .setColor("message-box", "#" + colour[acak])
-                         .setColor("title", "#" + colour[acak])
-                         .setColor("avatar", "#" + colour[acak])
-                         .setBackground(bg[acakbg].download_url)
-                         .toAttachment();
-                    fs.writeFile('./media/effect/welcome.png', image.toBuffer(), (e) => {
-                         if (e) return console.log(e)
-                         const buffer = fs.readFileSync('./media/effect/welcome.png')
-                         conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat datang digrup ${titlegc} @${people.replace(/@s.whatsapp.net/, '')}, semoga betah disini ya 😉`, contextInfo: { mentionedJid: [people] } })
-                         fs.unlinkSync('./media/effect/welcome.png')
-                    })
-               } else if (action == 'promote') {
-                    conn.sendMessage(from, `Jabatan @${people.replace(/@s.whatsapp.net/, '')} telah dinaikan menjadi admin. 😄`, MessageType.text, { contextInfo: { mentionedJid: [people] } })
-               } else if (action == 'demote') {
-                    conn.sendMessage(from, `Jabatan @${people.replace(/@s.whatsapp.net/, '')} telah dihapus dari admin. 😔`, MessageType.text, { contextInfo: { mentionedJid: [people] } })
-               }
-          }
      }
 }
