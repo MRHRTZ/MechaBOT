@@ -26,7 +26,8 @@ const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
 const { generateStr } = require('./lib/stringGenerator')
 const { getStikerLine } = require('./lib/stickerline')
-const { fbdl, ttdl, jadwaltv } = require('./lib/hurtzcrafter')
+const { fbdl, ttdl } = require('./lib/hurtzcrafter')
+const { harta, hartacustom } = require('./lib/harta')
 const { createExif } = require('./lib/create-exif')
 const { addContact } = require('./lib/savecontact')
 const { pinterest } = require('./lib/pinterest')
@@ -36,6 +37,7 @@ const { default: Axios } = require('axios')
 const { tiktok } = require('./lib/tiktok')
 const { kode } = require('./lib/kodebhs')
 const { Grid } = require('minesweeperjs')
+const { chord } = require('./lib/chord')
 
 // moment.tz.setDefault('Asia/Jakarta').locale('id')
 
@@ -574,7 +576,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      }
      if (kunci_pesan.includes(body.toLowerCase())) {
           const index_kunci = kunci_pesan.indexOf(body.toLowerCase())
-          conn.sendMessage(from, response_db[index_kunci].response, TypePsn.text, response_db[index_kunci].reply ? { quoted: hurtz } : { })
+          conn.sendMessage(from, response_db[index_kunci].response, TypePsn.text, response_db[index_kunci].reply ? { quoted: hurtz } : {})
      }
 
 
@@ -662,6 +664,68 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                          message: { conversation: pesan }
                     }
                }).then(a => console.log(a.message))
+          } else if (cmd == `${prf}harta` || cmd == `${prf}tahta` || cmd == `${prf}hartatahta` || cmd == `${prf}ht`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!harta <teks>*\nContoh : *!harta pulsa*`)
+               waiter()
+               harta(query)
+                    .then((result) => {
+                         const buffer = fs.readFileSync(result)
+                         conn.sendMessage(from, buffer, TypePsn.image, { quoted: hurtz, caption: `Harta tahta ${query}` })
+                         fs.unlinkSync(result)
+                    })
+                    .catch((e) => {
+                         console.log(e)
+                         balas(from, `Maaf kak ada kesalahan`)
+                    })
+          } else if (cmd == `${prf}hartacustom` || cmd == `${prf}tahtacustom` || cmd == `${prf}hartatahtacustom` || cmd == `${prf}hc`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!hartacustom <teks1>|<teks2>|<teks3>*\nContoh : *!hartacustom harta|tahta|pulsa*`)
+               waiter()
+               hartacustom(query.split('|')[0], query.split('|')[1], query.split('|')[2])
+                    .then((result) => {
+                         const buffer = fs.readFileSync(result)
+                         conn.sendMessage(from, buffer, TypePsn.image, { quoted: hurtz, caption: `Harta tahta ${query}` })
+                         fs.unlinkSync(result)
+                    })
+                    .catch((e) => {
+                         console.log(e)
+                         balas(from, `Maaf kak ada kesalahan`)
+                    })
+          } else if (cmd == `${prf}nulis` || cmd == `${prf}magernulis`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!nulis <teks>*\nContoh : *!nulis hmm*`)
+               const diTulis = query
+               const panjangKalimat = diTulis.replace(/(\S+\s*){1,10}/g, '$&\n')
+               const panjangBaris = panjangKalimat.split('\n').slice(0, 30).join('\n')
+               spawn('convert', [
+                    './src/kertas.jpg',
+                    '-font',
+                    './src/Nisaa.ttf',
+                    '-size',
+                    '1024x784',
+                    '-pointsize',
+                    '20',
+                    '-interline-spacing',
+                    '-7.5',
+                    '-annotate',
+                    '+344+142',
+                    panjangBaris,
+                    './src/tulisan.jpg'
+               ])
+                    .on('error', () => balas(from, `Terdapat kesalahan!`))
+                    .on('exit', () => {
+                         const buffer = fs.readFileSync('./src/tulisan.jpg')
+                         conn.sendMessage(from, buffer, TypePsn.image, { quoted: hurtz, caption: 'Udah ditulis buat ' + pushname })
+                    })
+          } else if (cmd == `${prf}chord` || cmd == `${prf}kord`) {
+               if (args.length === 1) return balas(from, `Masukan lagunya!`)
+               chord(query)
+               .then((data) => {
+                    INFOLOG('CHORD : ' + data.title.replace('&#8211;','-'))
+                    balas(from, `*${data.title.replace('&#8211;','-')}*\n${data.chord}`)
+               })
+               .catch((e) => {
+                    console.log(e)
+                    balas(from, `Chord lagu tersebut tidak ditemukan!`)
+               })
           } else if (cmd == `${prf}refuel`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length < 2) return balas(from, `Format !reset <jumlah>`)
@@ -732,7 +796,8 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                          string: generator,
                          nominal: Number(nominal)
                     })
-                    balas(from, `Terima kasih telah menggunakan MechaBOT 😇\n\n*Token : ${generator}*\n\n\`\`\`Penggunaan : !claim <token>\nContoh : !claim XXXX-XXXX-XXXX-XXXX\`\`\`\n\n\n\n_Note : Token untuk tambah limit ini hanya berfungsi untuk satu kali klaim saja! dan untuk klaim silahkan kirim pesan digrup bot atau chat bot langsung [ wa.me/${conn.user.jid.replace('@s.whatsapp.net','')} ]_`)
+                    INFOLOG(`Generate Token : ${generator}`)
+                    balas(from, `Terima kasih telah menggunakan MechaBOT 😇\n\n*Token : ${generator}*\n\n\`\`\`Penggunaan : !claim <token>\nContoh : !claim XXXX-XXXX-XXXX-XXXX\`\`\`\n\n\n\n_Note : Token untuk tambah limit ini hanya berfungsi untuk satu kali klaim saja! dan untuk klaim silahkan kirim pesan digrup bot atau chat bot langsung [ wa.me/${conn.user.jid.replace('@s.whatsapp.net', '')} ]_`)
                     fs.writeFileSync('./lib/database/token-limit.json', JSON.stringify(datatoken, null, 2))
                } else {
                     let verificationToken = []
@@ -743,10 +808,12 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
                     if (verificationToken.includes(args[1].toUpperCase())) {
                          const tokenIndex = verificationToken.indexOf(args[1])
                          giftLimit(sender, Number(datatoken[tokenIndex].nominal))
+                         INFOLOG(`Sukses Claim ${args[1]}`)
                          conn.sendMessage(from, `Selamat yaa ${'@' + sender.replace('@s.whatsapp.net', '')} 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${datatoken[tokenIndex].nominal} ketik !limit untuk cek limit kamu.\`\`\``, TypePsn.text, { quoted: customQuote('Success Claim Token [ MechaBot ]'), contextInfo: { mentionedJid: [sender] } })
                          datatoken.splice(tokenIndex, 1)
                          fs.writeFileSync('./lib/database/token-limit.json', JSON.stringify(datatoken, null, 2))
                     } else {
+                         INFOLOG(`Failed Claim : ${query}`)
                          balas(from, `Sepertinya token yang anda masukan.. 😕 mohon coba lagi!\n\n\n_Tidak punya token? follow & dm instagram @hzzz.formech_ untuk mendapatkannya._`)
                     }
                }
@@ -979,7 +1046,7 @@ Contoh :
                } else if (args[1] == 'hapus' || args[1] == 'delete') {
                     if (args.length < 3) return balas(from, `Masukan Kunci pertanyaan dan respon!\n\nContoh : *!respon tambahtanpatag Hai|Hai Juga!*`)
                     const index_kunci = kunci_pesan.indexOf(body.split(' ').slice(2).join(' ').toLowerCase())
-                    console.log(kunci_pesan, 'dat:'+body.split(' ').slice(2).join(' ').toLowerCase(), kunci_pesan.indexOf(body.split(' ').slice(2).join(' ').toLowerCase()))
+                    console.log(kunci_pesan, 'dat:' + body.split(' ').slice(2).join(' ').toLowerCase(), kunci_pesan.indexOf(body.split(' ').slice(2).join(' ').toLowerCase()))
                     if (index_kunci === -1) return balas(from, `Kunci pesan tersebut tidak ditemukan!\n\nUntuk melihat daftar respon bot\nKetik : *!respon list*`)
                     response_db.splice(index_kunci, 1)
                     fs.writeFileSync('./lib/database/response.json', JSON.stringify(response_db, null, 2))
@@ -987,7 +1054,7 @@ Contoh :
                } else if (args[1] == 'list') {
                     let captions_list = `*Menampilkan seluruh respon bot*\n\nTotal Response : ${response_db.length}\n\n`
                     for (let i = 0; i < response_db.length; i++) {
-                         captions_list += `\nNO : ${1+i}\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response}\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`
+                         captions_list += `\nNO : ${1 + i}\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response}\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`
                     }
                     balas(from, captions_list)
                }
@@ -3463,6 +3530,8 @@ Map >>
 
      *[ Fitur Image Manipulate ]*
 
+💚 !harta <teks> _[Gambar Harta Tahta]_
+💚 !nulis <teks> _[Nulis di kertas]_
 💚 !warnai <TagGambar> _[Mewarnai gambar hitam putih]_
 💛 !brokeCard <TagGambar>
 💛 !iphone <TagGambar>
@@ -3497,6 +3566,7 @@ Map >>
 
      *[ Fitur Search ]*
 
+💚 !chord <lagu> _[Mencari Chord Musik]_
 💚 !apk <Nama Aplikasi/Game> _[Mencari APP / GAME APK]_
 | 💚 !getapk <Id Download> _[Melihat detail dan link download]_
 | 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
