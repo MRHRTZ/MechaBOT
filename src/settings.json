@@ -11,5 +11,9 @@
   "MessageConsole": false,
   "IDConsole": true,
   "Limit": 30,
-  "Reset_Time": 1612998000
+  "Reset_Time": 1612998000,
+  "Vote": {
+    "Max": 5,
+    "Expired": 2
+  }
 }

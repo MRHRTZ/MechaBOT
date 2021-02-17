@@ -546,7 +546,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      // End line TypePsn 
      const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}-${moment().milliseconds()}-${Crypto.randomBytes(2).toString('hex').toUpperCase()}`
      const waiter = () => {
-          conn.sendMessage(from, `⏲️ _Mohon tunggu sebentar, sedang memproses data. ⏲️_`, TypePsn.text, { quoted: hurtz })
+          conn.sendMessage(from, `⏲️ _Mohon tunggu sebentar, sedang memproses data.._`, TypePsn.text, { quoted: hurtz })
      }
      // console.log(JSON.parse(dataImgQuote))
      // if (self) return
@@ -555,6 +555,14 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(msgout ? body : 'pesan'), 'dari', color(pushname), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
      if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.blueBright('CMD') + '>', time, color(args[0]), 'dari', color(pushname), 'di', color(groupName), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
      if (!isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(msgout ? body : 'pesan'), 'dari', color(pushname), 'di', color(groupName), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
+
+     let db_votes = fs.existsSync(`./lib/database/vote/${from}.json`) ? JSON.parse(fs.readFileSync(`./lib/database/vote/${from}.json`)) : { status: true, expired_on: null }
+     // console.log(db_votes.expired_on, moment().unix())
+     if (db_votes.expired_on != null && Number(db_votes.expired_on) <= moment().unix()) {
+          INFOLOG('Expired Vote')
+          conn.sendMessage(from, `*Voting expired dan dibatalkan ❌*`, TypePsn.text)
+          fs.unlinkSync(`./lib/database/vote/${from}.json`)
+     }
 
      const db = JSON.parse(fs.readFileSync('./lib/new-chat/database.json'))
      // const from = '62857313534sa1@s.whatsapp.net'
@@ -647,7 +655,7 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      // console.log(hurtz)
 
 
-     if (from == '6285559038021-1605869468@g.us') return
+     // if (from == '6285559038021-1605869468@g.us') return
 
 
      const mtchat = mt ? sender != nomerOwner[0] : false
@@ -718,14 +726,14 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           } else if (cmd == `${prf}chord` || cmd == `${prf}kord`) {
                if (args.length === 1) return balas(from, `Masukan lagunya!`)
                chord(query)
-               .then((data) => {
-                    INFOLOG('CHORD : ' + data.title.replace('&#8211;','-'))
-                    balas(from, `*${data.title.replace('&#8211;','-')}*\n${data.chord}`)
-               })
-               .catch((e) => {
-                    console.log(e)
-                    balas(from, `Chord lagu tersebut tidak ditemukan!`)
-               })
+                    .then((data) => {
+                         INFOLOG('CHORD : ' + data.title.replace('&#8211;', '-'))
+                         balas(from, `*${data.title.replace('&#8211;', '-')}*\n${data.chord}`)
+                    })
+                    .catch((e) => {
+                         console.log(e)
+                         balas(from, `Chord lagu tersebut tidak ditemukan!`)
+                    })
           } else if (cmd == `${prf}refuel`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length < 2) return balas(from, `Format !reset <jumlah>`)
@@ -1108,7 +1116,7 @@ Contoh :
                                                        return
                                                   }
                                                   const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                                                  conn.sendMessage(from, buff, TypePsn.sticker)
+                                                  conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                                                   fs.unlinkSync(`./media/text-${filename}.png`)
                                                   fs.unlinkSync(`./media/sticker/${filename}.webp`)
                                                   fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
@@ -2117,6 +2125,159 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                          fs.unlinkSync(savedFilename)
                          console.log(e)
                     })
+          } else if (args[0].toLowerCase() == `votestart` || args[0].toLowerCase() == `startvote`) {
+               if (args.length < 3) return conn.sendMessage(from, `Penggunaan : *votestart <@tagMember> <Alasan>*\nContoh : votestart @6285559038021 maenin bot`, TypePsn.text, { contextInfo: { mentionedJid: ['6285559038021@s.whatsapp.net'] }, quoted: hurtz })
+               const filepathvote = `${from}.json`
+               const pathdb = './lib/database/vote'
+               if (fs.existsSync(pathdb + '/' + filepathvote)) return balas(from, `Sesi voting telah aktif digrup ini sebelumnya!`)
+               let listed = []
+               const expiredvote = moment().add(Number(settings.Vote.Expired), 'minutes').unix()
+               const seeData = fs.readdirSync(pathdb)
+               for (let i in seeData) {
+                    listed.push(seeData[i].replace('.json', ''))
+               }
+               if (!listed.includes(from)) {
+                    const objekvote = {
+                         status: true,
+                         creator: pushname,
+                         id_creator: sender,
+                         expired_on: expiredvote,
+                         target: args[1],
+                         reason: args.slice(2).join(' '),
+                         pushvote: []
+                    }
+                    fs.writeFile(pathdb + '/' + filepathvote, JSON.stringify(objekvote, null, 2), (e) => {
+                         if (e) return console.log(e)
+                         conn.sendMessage(from, `*Memulai voting!*\n\nMax Vote : ${settings.Vote.Max} Orang\nTarget : ${args[1]}\nAlasan : ${args.slice(2).join(' ')}\nExpired time : ${settings.Vote.Expired} menit\n\n_Note : Max vote dan expired time bisa disetting dengan ketik *votesetting*_\n\nAnda bisa vote dengan ketik *vote* atau *devote*\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``, TypePsn.text, { contextInfo: { mentionedJid: [args[1].replace('@', '') + '@s.whatsapp.net'] }, quoted: hurtz })
+                    })
+               }
+          } else if (args[0].toLowerCase() == `votesetting` || args[0].toLowerCase() == `votesettings`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *votesetting <max vote>|<waktu expired>*\nContoh : *votesetting 10|1*\n\n_Note : Waktu expired dalam satuan menit!_`)
+               settings.Vote.Max = Number(query.split('|')[0])
+               settings.Vote.Expired = Number(query.split('|')[1])
+               fs.writeFile('./src/settings.json', JSON.stringify(settings, null, 2), (e) => {
+                    if (e) return balas(from, `Gagal save data!`)
+                    balas(from, `Pengaturan vote telah diupdate ✅`)
+               })
+          } else if (args[0].toLowerCase() == `vote`) {
+               const filepathvote = `${from}.json`
+               const pathdb = './lib/database/vote'
+               let listed = []
+               const seeData = fs.readdirSync(pathdb)
+               for (let i in seeData) {
+                    listed.push(seeData[i].replace('.json', ''))
+               }
+               if (!listed.includes(from)) {
+                    balas(from, `Mau vote apa om? ketik dulu *votestart* untuk lihat penggunaanya.`)
+               } else {
+                    let db_vote = JSON.parse(fs.readFileSync(pathdb + '/' + filepathvote))
+                    for (let numvote of db_vote.pushvote) {
+                         if (numvote.number == sender) return balas(from, `Kamu telah vote untuk sesi ini ❌`)
+                    }
+                    if (db_vote.pushvote.length === Number(settings.Vote.Max)) {
+                         let posi = []
+                         let nega = []
+                         for (let data of db_vote.pushvote) {
+                              if (data.purpose == '✅') {
+                                   posi.push(data.name)
+                              } else if (data.purpose == '❌') {
+                                   nega.push(data.name)
+                              }
+                         }
+                         if (posi.length >= nega.length) {
+                              conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n_Mengeksekusi ${db_vote.target} ..._`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+                              fs.unlinkSync(pathdb + '/' + filepathvote)
+                         } else if (posi.length <= nega.length) {
+                              conn.sendMessage(from, `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n`, TypePsn.text, { quoted: hurtz })
+                              fs.unlinkSync(pathdb + '/' + filepathvote)
+                         }
+                         return
+                    }
+                    db_vote.expired_on = moment().add(Number(settings.Vote.Expired), 'minutes').unix()
+                    db_vote.pushvote.push({
+                         name: pushname,
+                         number: sender,
+                         purpose: "✅"
+                    })
+                    fs.writeFile(pathdb + '/' + filepathvote, JSON.stringify(db_vote, null, 2), (e) => {
+                         if (e) return console.log(e)
+                         let caption_vote = ''
+                         for (let i = 0; i < db_vote.pushvote.length; i++) {
+                              caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose}\n`
+                         }
+                         conn.sendMessage(from, `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+                    })
+               }
+          } else if (args[0].toLowerCase() == `devote`) {
+               const filepathvote = `${from}.json`
+               const pathdb = './lib/database/vote'
+               let listed = []
+               const seeData = fs.readdirSync(pathdb)
+               for (let i in seeData) {
+                    listed.push(seeData[i].replace('.json', ''))
+               }
+               if (!listed.includes(from)) {
+                    balas(from, `Mau vote apa om? ketik dulu *votestart* untuk lihat penggunaanya.`)
+               } else {
+                    let db_vote = JSON.parse(fs.readFileSync(pathdb + '/' + filepathvote))
+                    for (let numvote of db_vote.pushvote) {
+                         if (numvote.number == sender) return balas(from, `Kamu telah vote untuk sesi ini ❌`)
+                    }
+                    if (db_vote.pushvote.length === Number(settings.Vote.Max)) {
+                         let posi = []
+                         let nega = []
+                         for (let data of db_vote.pushvote) {
+                              if (data.purpose == '✅') {
+                                   posi.push(data.name)
+                              } else if (data.purpose == '❌') {
+                                   nega.push(data.name)
+                              }
+                         }
+                         if (posi.length >= nega.length) {
+                              conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n_Mengeksekusi ${db_vote.target} ..._`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+                              fs.unlinkSync(pathdb + '/' + filepathvote)
+                         } else if (posi.length <= nega.length) {
+                              conn.sendMessage(from, `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}`, TypePsn.text, { quoted: hurtz })
+                              fs.unlinkSync(pathdb + '/' + filepathvote)
+                         }
+                         return
+                    }
+                    db_vote.expired_on = moment().add(Number(settings.Vote.Expired), 'minutes').unix()
+                    db_vote.pushvote.push({
+                         name: pushname,
+                         number: sender,
+                         purpose: "❌"
+                    })
+                    fs.writeFile(pathdb + '/' + filepathvote, JSON.stringify(db_vote, null, 2), (e) => {
+                         if (e) return console.log(e)
+                         let caption_vote = ''
+                         for (let i = 0; i < db_vote.pushvote.length; i++) {
+                              caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose}\n`
+                         }
+                         conn.sendMessage(from, `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+                    })
+               }
+          } else if (args[0].toLowerCase() == `votelist` || args[0].toLowerCase() == `listvote`) {
+               const filepathvote = `${from}.json`
+               const pathdb = './lib/database/vote'
+               let listed = []
+               const seeData = fs.readdirSync(pathdb)
+               for (let i in seeData) {
+                    listed.push(seeData[i].replace('.json', ''))
+               }
+               if (!listed.includes(from)) {
+                    balas(from, `Tidak bisa menampilkan list vote karena tidak ada sesi vote!`)
+               } else {
+                    let db_vote = JSON.parse(fs.readFileSync(pathdb + '/' + filepathvote))
+                    for (let numvote of db_vote.pushvote) {
+                         if (numvote.number == sender) return balas(from, `Kamu telah vote untuk sesi ini ❌`)
+                    }
+                    let caption_vote = ''
+                    for (let i = 0; i < db_vote.pushvote.length; i++) {
+                         caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose}\n`
+                    }
+                    conn.sendMessage(from, `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+               }
           } else if (cmd == `${prf}minesweeper`) {
                if (isGrupMines) return balas(from, `Game minesweeper telah aktif sebelumnya!`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -2175,6 +2336,8 @@ ${hasil.grid}
                const strMineWon = `*Diisi oleh ${pushname}*
      
      Status : ✅ You Won! 💚
+
+Selamat, Gift limit 500 telah ditambahkan!
      
      (10x10)    ||    10 BOM
 ${hasil.grid}
@@ -2194,6 +2357,7 @@ ${hasil.grid}
                     fs.writeFileSync('./lib/database/group-minesweeper.json', JSON.stringify(groupMines, null, 2))
                } else if (hasil.status == 'win') {
                     balas(from, strMineWon, TypePsn.text)
+                    giftLimit(sender, 500)
                     groupMines.splice(index, 1)
                     fs.writeFileSync('./lib/database/group-minesweeper.json', JSON.stringify(groupMines, null, 2))
                }
@@ -2222,6 +2386,7 @@ ${hasil.grid}
 *Music* : ${json.meta.music}
 *Hastag* : ${hastagtik}
 `
+                         if (json.res.loc.slice(-3) == 'csv') return balas(from, `Media ini tidak mendukung! mohon masukan link lain.`)
                          const buff = fs.readFileSync(json.res.loc)
                          conn.sendMessage(from, buff, TypePsn.video, { quoted: hurtz, caption: capt_tikt })
                          fs.unlinkSync(json.res.loc)
@@ -2260,7 +2425,7 @@ ${hasil.grid}
                                         if (err) throw new TypeError(err)
                                         INFOLOG('Success Generate Image & Exif')
                                         const buff = fs.readFileSync('./media/effect/triggered-done.webp')
-                                        conn.sendMessage(from, buff, TypePsn.sticker)
+                                        conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                                         fs.unlinkSync('./media/effect/triggered.gif')
                                         fs.unlinkSync('./media/effect/triggered.webp')
                                         fs.unlinkSync('./media/effect/triggered-done.webp')
@@ -2296,7 +2461,7 @@ ${hasil.grid}
                                         if (err) throw new TypeError(err)
                                         INFOLOG('Success Generate Exif Metadata')
                                         const buff = fs.readFileSync('./media/effect/triggered-done.webp')
-                                        conn.sendMessage(from, buff, TypePsn.sticker)
+                                        conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                                         fs.unlinkSync('./media/effect/triggered.gif')
                                         fs.unlinkSync('./media/effect/triggered.webp')
                                         fs.unlinkSync('./media/effect/triggered-done.webp')
@@ -2316,7 +2481,7 @@ ${hasil.grid}
                                              if (err) throw new TypeError(err)
                                              INFOLOG('Success Generate Exif Metadata')
                                              const buff = fs.readFileSync('./media/effect/triggered-done.webp')
-                                             conn.sendMessage(from, buff, TypePsn.sticker)
+                                             conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                                              fs.unlinkSync('./media/effect/triggered.gif')
                                              fs.unlinkSync('./media/effect/triggered.webp')
                                              fs.unlinkSync('./media/effect/triggered-done.webp')
@@ -2343,7 +2508,7 @@ ${hasil.grid}
                               exec(`webpmux -set exif ./media/sticker/data.exif ./media/effect/triggered.webp -o ./media/effect/triggered-done.webp`, (err, stdout, stderr) => {
                                    if (err) throw new TypeError(err)
                                    const buff = fs.readFileSync('./media/effect/triggered-done.webp')
-                                   conn.sendMessage(from, buff, TypePsn.sticker)
+                                   conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                                    fs.unlinkSync('./media/effect/triggered.gif')
                                    fs.unlinkSync('./media/effect/triggered.webp')
                                    fs.unlinkSync('./media/effect/triggered-done.webp')
@@ -3121,7 +3286,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                               return
                          }
                          const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                         conn.sendMessage(from, buff, TypePsn.sticker)
+                         conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                          fs.unlinkSync(savedFilename)
                          fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
                     })
@@ -3153,7 +3318,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                                              return
                                         }
                                         const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                                        conn.sendMessage(from, buff, TypePsn.sticker)
+                                        conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                                         console.log(stdout)
                                         fs.unlinkSync(savedFilename)
                                         fs.unlinkSync(`./media/sticker/${filename}.webp`)
@@ -3172,7 +3337,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                               return
                          }
                          const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                         conn.sendMessage(from, buff, TypePsn.sticker)
+                         conn.sendMessage(from, buff, TypePsn.sticker, { quoted: hurtz })
                          fs.unlinkSync(savedFilename)
                          fs.unlinkSync(`./media/sticker/${filename}.webp`)
                          fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
@@ -3470,8 +3635,19 @@ Map >>
 
      *[ Fitur VIP ]*
 
-🔴 !hidetag <teksnya>
-🔴 !fakereply <@TagMember|Pesan orang|Pesan bot>
+🔴 !hidetag <teksnya> _[Tag orang tanpa terlihat sedang tag]_
+🔴 !fakereply <@TagMember|Pesan orang|Pesan bot> _[Balas pesan palsu]_
+🔴 !sticker wm <Pack>|<Author> _[Sticker custom watermark]_
+
+     *[ Fitur Voting ]*
+
+Note : Khusus fitur ini tanpa prefix!
+
+⚪ votelist _[Melihat list vote]_
+💚 votesetting <Maksimal vote>|<Waktu expired vote> _[Pengaturan vote]_
+💚 votestart <@tagMember> <Alasan> _[Memulai sesi voting]_
+ | ⚪ vote _[Vote jika setuju]_
+ | ⚪ devote _[Vote jika tidak setuju]_ 
 
      *[ Fitur Games ]*
 
