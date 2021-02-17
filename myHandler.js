@@ -2278,6 +2278,263 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                     }
                     conn.sendMessage(from, `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
                }
+          } else if (cmd == `${prf}charalist` || cmd == `${prf}charlist`) {	
+          	    let outlistchar = `*Listing character on the database*\n\n`
+                for (var i = 0; i < charlist.length; i++) {
+                    outlistchar += `➣  ${charlist[i].full_name}\n`
+                }
+                balas(from, outlistchar)
+          } else if (cmd == `${prf}charaguess`) {
+                if (args[1] == 'start') {
+                    if (isCharsesi) {
+                        balas(from, `This group was enabled the chara game before!`)
+                    } else {
+                        charasession.push(from)
+                        fs.writeFileSync('./lib/charasession.json', JSON.stringify(charasession, null, 2))
+                        balas(from, 'Chara game was enable in this group! will send randomly after 15 message and you should guess that.')
+                    }
+                }   
+          } else if (cmd == `${prf}addchara`) {
+                if (args.length === 1) return balas(from, `Please add chara query!\nex : *!addchara naruto*`)
+                const qChar = body.slice(10)
+                await charaCheck(qChar)
+                .then((ress) => {
+                    let isCharaAva = ''
+                    for (var i = 0; i < charlist.length; i++) {
+                        if (charlist[i].full_name === ress.name) {
+                            isCharaAva += 'true'
+                        } else {
+                            
+                        }
+                    }
+                    if (isCharaAva === 'true') {
+                       balas(from, `Sorry chara ${qChar} has been added to database!`)
+                    } else {
+                        charlist.push({
+                            full_name: ress.name,
+                            keyword: qChar
+                        })
+                        fs.writeFileSync('./lib/charlist.json', JSON.stringify(charlist, null, 2))
+                        balas(from, ress.message)
+                    }
+                })    
+                .catch(e => {
+                    balas(from, e.message)
+                })   
+          } else if (cmd == `${prf}gallery`) {    
+                const fsGaleryOne = fs.readdirSync('./lib/chara_galery')
+                const isExistGalery = fsGaleryOne.includes(sender + '.json') ? true : false
+                const mentionedgalr = hurtz.message.extendedTextMessage.contextInfo.mentionedJid[0]
+                if (!isExistGalery) {
+                    await hurtz.getProfilePicture(sender)
+                    .then((prop) => {
+                        if (prop == '' || prop == undefined) {
+                        	const urlgalr = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
+                        	sendDariUrl(from, urlgalr, TypePsn.image , `Cannot display empty galery!` )
+                        } else {
+                        	sendDariUrl(from, prop, TypePsn.image, `Cannot display empty galery!`)
+                        }       
+                    })
+                } else if (mentionedgalr && !fsGaleryOne.includes(mentionedgalr + '.json')) {
+                    const userGallery = mentionedgalr
+                    if (!fsGaleryOne.includes(userGallery + '.json')) { 
+                        await hurtz.getProfilePicture(sender)
+                        .then((prop) => {
+                            if (prop == '' || prop == undefined) {
+                        	const urlgalr = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
+                        	sendDariUrl(from, urlgalr, TypePsn.image, `Cannot display empty galery!`)
+                        } else {
+                        	sendDariUrl(from, prop, TypePsn.image, `Cannot display empty galery!`)
+                        }       
+                        })
+                    }
+                } else if (mentionedgalr) {
+                        const showGaleryOne = JSON.parse(fs.readFileSync('./lib/chara_galery/' + mentionedgalr + '.json'))
+                        let GaleryCoreOne = `*Show Galery Chara Anime ${showGaleryOne.name}*
+
+*Total Chara Claimed* : ${showGaleryOne.animes.length} character
+
+*Last Claim Chara* :
+➣ *Name* : ${showGaleryOne.animes[showGaleryOne.animes.length - 1].name}
+➣ *ID* : ${showGaleryOne.animes[showGaleryOne.animes.length - 1].url.replace('https://myanimelist.net/character/','').split('/')[0]}
+➣ *Description* : ${showGaleryOne.animes[showGaleryOne.animes.length - 1].full_desc.replace('\n','').split(' ').slice(0, 15).join(' ') + ' ...'}
+
+                    `
+                    for (var i = 0; i < showGaleryOne.animes.length; i++) {
+                        GaleryCoreOne += `
+________________________________________
+
+➣ *Name* : ${showGaleryOne.animes[i].name}
+➣ *ID* : ${showGaleryOne.animes[i].url.replace('https://myanimelist.net/character/','').split('/')[0]}
+➣ *Description* : ${showGaleryOne.animes[i].full_desc.replace('\n','').split(' ').slice(0, 15).join(' ') + ' ...'}
+
+`
+                        }
+
+                        sendDariUrl(from, showGaleryOne.animes[showGaleryOne.animes.length - 1].image[0], TypePsn.image, `${GaleryCoreOne}`)
+
+                } else {
+                    const showGalery = JSON.parse(fs.readFileSync('./lib/chara_galery/' + sender + '.json'))
+                    let GaleryCore = `*Show Galery Chara Anime ${showGalery.name}*
+
+*Total Chara Claimed* : ${showGalery.animes.length} character
+
+*Last Claim Chara* :
+➣ *Name* : ${showGalery.animes[showGalery.animes.length - 1].name}
+➣ *ID* : ${showGalery.animes[showGalery.animes.length - 1].url.replace('https://myanimelist.net/character/','').split('/')[0]}
+➣ *Description* : ${showGalery.animes[showGalery.animes.length - 1].full_desc.replace('\n','').split(' ').slice(0, 15).join(' ') + ' ...'}
+
+                    `
+                    for (var i = 0; i < showGalery.animes.length; i++) {
+                        GaleryCore += `
+________________________________________
+
+➣ *Name* : ${showGalery.animes[i].name}
+➣ *Url* : ${showGalery.animes[i].url.replace('https://myanimelist.net/character/','').split('/')[0]}
+➣ *Description* : ${showGalery.animes[i].full_desc.replace('\n','').split(' ').slice(0, 15).join(' ') + ' ...'}
+
+`
+                    }
+
+                    sendDariUrl(from, showGalery.animes[showGalery.animes.length - 1].image[0], TypePsn.image, `${GaleryCore}`)
+                    
+                }   
+          } else if (cmd == `${prf}claim`) { 
+                if (args.length === 1) return balas(from, `Please use command:\n*!claim _chara name_*\nEx: *!claim naruto*`)
+                const read_carg = fs.readdirSync('./lib/chara_galery')
+                const galeryPath = './lib/chara_galery/' + sender + '.json'
+                const detectNumChar = read_carg.includes(sender + '.json') ? true : false
+                const buffGalery = detectNumChar ? JSON.parse(fs.readFileSync(galeryPath)) : ''
+                try {
+                    let stringCorrect = ``
+                    const charbuffSplited = buffChara.chara_name.split(' ')
+                    for (var i = 0; i < charbuffSplited.length; i++) {
+                        stringCorrect += `${charbuffSplited[i]}|`
+                    }
+                    const correctChat = new RegExp(stringCorrect.slice(0, -1), 'gi')
+                    if (buffChara.claimed_by_sender.length > 0) return await conn.sendMessage(from, `This character was claimed by ${pushname}\n\nWait for appear random chara again to claiming!`, TypePsn.text)
+                    if (buffChara.status !== 'active') return conn.sendMessage(from, `You cannot claiming because charagame not active in this group\ntype *!charagame enable* to activate this!`, TypePsn.text)
+                    if (!correctChat.test(body.slice(7))) return conn.sendMessage(from, `Oops sorry wrong character name! also try to guess last name if first name doesn't correct.`, TypePsn.text)
+                    if (!detectNumChar) {
+                        if (buffGalery.status !== 'active' && fs.existsSync('./lib/chara_galery/' + sender + '.json')) return balas(from, `Double claim not allowed!`)
+                        const galery_obj = {
+                            status: 'active',
+                            sender: sender,
+                            name: pushname,
+                            animes: []
+                        }
+                        fs.writeFileSync(galeryPath, JSON.stringify(galery_obj, null, 2), (e) => {
+                        	if(e){
+                        		console.log(e)
+                        		return
+                        	}
+                            const buffChara = JSON.parse(fs.readFileSync('./lib/chara/' + from + '.json'))
+                            const buffGalery = JSON.parse(fs.readFileSync('./lib/chara_galery/' + sender + '.json'))
+                            buffGalery.animes.push(buffChara.anime_result)
+                            fs.writeFile(galeryPath, JSON.stringify(buffGalery, null, 2), (e) => {
+                            	if(e){
+                            		console.log(e)
+                            		return
+                            	}
+                                const buffGalery = JSON.parse(fs.readFileSync('./lib/chara_galery/' + sender + '.json'))
+                                const buffChara = JSON.parse(fs.readFileSync('./lib/chara/' + from + '.json'))
+                                buffChara.claimed_by_name.push(pushname)
+                                buffChara.claimed_by_sender.push(sender)
+                                buffChara.claimed_keyword.push(body.slice(7))
+                                fs.writeFileSync('./lib/chara/' + from + '.json', JSON.stringify(buffChara, null, 2))
+                                let outGalery = `*Chara found for your first time claiming ${pushname}*\n\n`
+                                outGalery += `________________________________________
+
+➣ *Name* : ${buffChara.anime_result.name}
+➣ *Description* : ${buffChara.anime_result.full_desc}
+➣ *Link Detail* : ${buffChara.anime_result.url}`
+                            if (false) {
+                                balas(from, `You must claim some chara to display galery!`)
+                            } else {
+                               sendDariUrl(from, buffChara.anime_result.image[0], TypePsn.text, outGalery)
+                            }
+                            buffGalery.status = 'unactive'  
+                            buffChara.claimed_by_name.push(pushname)
+                            buffChara.claimed_by_sender.push(sender)
+                            buffChara.claimed_keyword.push(body.slice(7))
+                            buffGalery.status = 'unactive'  
+                            fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2))
+                            fs.writeFileSync(galeryPath, JSON.stringify(buffGalery, null, 2))
+                            })
+                        })
+                    } else {
+                        if (buffGalery.status !== 'active') return balas(from, `Double claim not allowed!`)
+                            buffGalery.animes.push(buffChara.anime_result)
+                            fs.writeFile(galeryPath, JSON.stringify(buffGalery, null, 2), (e) => {
+                            	if(e){
+                            		console.log(e)
+                            		return
+                            	
+                            	} //.then(() => {
+                                const buffGalery = JSON.parse(fs.readFileSync('./lib/chara_galery/' + sender + '.json'))
+                                const buffChara = JSON.parse(fs.readFileSync('./lib/chara/' + from + '.json'))
+                                let outGalery = `*Correct Chara ${pushname}!*\n\n`
+                                outGalery += `________________________________________
+
+➣ *Name* : ${buffChara.anime_result.name}
+➣ *Description* : ${buffChara.anime_result.full_desc}
+➣ *Link Detail* : ${buffChara.anime_result.url}
+
+`
+                            if (false) {
+                                balas(from, `You must claim some chara to display galery!`)
+                            } else {
+                                sendDariUrl(from, buffChara.anime_result.image[0], TypePsn.text, outGalery)
+                            }
+
+                            buffChara.claimed_by_name.push(pushname)
+                            buffChara.claimed_by_sender.push(sender)
+                            buffChara.claimed_keyword.push(correctChat)
+                            buffGalery.status = 'unactive'  
+                            fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2))
+                            fs.writeFileSync(galeryPath, JSON.stringify(buffGalery, null, 2))
+                            })
+                        //})
+                    } 
+                } catch (e) {
+                    console.log(e)
+                    balas(from, `${e}`)
+                }   
+          } else if (cmd == `${prf}charagame`) {
+                if (args.length === 1) return balas(from, `Please use command:\n*!charagame enable*\nor\n*!charagame disable*`)
+                try {
+                    if (args[1] == 'enable') {
+                        if (buffChara.status === 'active') return balas(from, `Your group has been enable this chara game before`)
+                        const charDirObj = {
+                                status: 'active',
+                                claimed_keyword: [],
+                                claimed_by_name: [],
+                                claimed_by_sender: [],
+                                anime_result: '',
+                                chara_name: '',
+                                groupId: chat.id,
+                                msgID: [],
+                                messages: []
+                            }
+                        fs.writeFile(CharaPath, JSON.stringify(charDirObj, null, 2), (e) => {
+                        	if(e){
+                        		console.log(e)
+                        		return
+                        	}
+                            balas(from, `Chara games now activated in this grup ✅\n\nThis will send anime randomly every 15 chat messages! and you have to guess that with type :\n*!claim _anime name_*\nEx : *!claim naruto*`)
+                        })
+                    } if (args[1] == 'disable') {
+                        if (!isExistCharPath) return balas(from, `Please enable first if you want disabling this chara game!`)
+                        if (buffChara.status === 'active') {
+                            buffChara.status = 'unactive'
+                            fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2))
+                            balas(from, `Chara games now disabled in this group ❌`)
+                        }
+                    }
+                } catch (e) {
+                    console.log(e)
+                    balas(from, `${e}`)
+                } 	
           } else if (cmd == `${prf}minesweeper`) {
                if (isGrupMines) return balas(from, `Game minesweeper telah aktif sebelumnya!`)
                if (!cekLimit(sender, settings.Limit)) {
