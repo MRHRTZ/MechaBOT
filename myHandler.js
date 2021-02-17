@@ -514,7 +514,158 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
           });
           conn.sendMessage(dari, buffData.data, TypePsn.sticker)
      }
+     
+     async function sendDariUrlNoReply(dari, url, type, text) {
+          if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(url)) return console.error(`Not a valid url!`)
+          const caption = text || ''
+          request({
+               url: url,
+               encoding: null
+          }, (err, resp, buffer) => {
+               conn.sendMessage(dari, buffer, type, { caption: caption })
+          })
+     }
+     
+       /* Chara Game */
+       //Function
+       async function charaCheck(query) {
+             return new Promise((resolve, reject) => {
+                  const char = query
+                  Axios.get('https://myanimelist.net/character.php?cat=character&q=' + char)
+                  .then(({ data }) => {
+                       const $ = cheerio.load(data)
+                       const selector = '#content > table > tbody > tr:nth-child(1) > td > a'
+                       const small = $('#content > table > tbody > tr:nth-child(1) > td:nth-child(2) > small').text()
+                       const name = $(selector).text() + ' ' + small
+                       const url = $(selector).attr('href')
+                       resolve({
+                            status: 200,
+                            name: name,
+                            message: `Found chara ${name} and added to database!`
+                       })
 
+                  }).catch(e => reject({
+                       status: 404,
+                       message: `Character ${query} was not found!`
+                  }))
+             })
+        }
+
+        async function chara(query) {
+             return new Promise((resolve, reject) => {
+                  const char = query
+                  Axios.get('https://myanimelist.net/character.php?cat=character&q=' + char)
+                  .then(({ data }) => {
+                       const $ = cheerio.load(data)
+                       const selector = '#content > table > tbody > tr:nth-child(1) > td > a'
+                       const small = $('#content > table > tbody > tr:nth-child(1) > td:nth-child(2) > small').text()
+                       const name = $(selector).text() + ' ' + small
+                       const url = $(selector).attr('href')
+                       let manga = []
+                       selector_mov = '#content > table > tbody > tr:nth-child(1) > td:nth-child(3) > small > a'
+                       let serial = []
+                       $(selector_mov).get().map((res) => {
+                            const name = $(res).text()
+                            const url = 'https://myanimelist.net' + $(res).attr('href')
+                            serial.push({
+                                 Anime: name,
+                                 url: url
+                            })
+                       })
+                       let grab_frinst = $('#content > table > tbody > tr:nth-child(1) > td > small > div > a')
+                       if ($(`${grab_frinst}`).attr('href') === undefined) {
+                       } else {
+                            manga.push({
+                                 name: $(grab_frinst).text(),
+                                 url: 'https://myanimelist.net' + $(`${grab_frinst}`).attr('href')
+                            })
+                       }
+
+                       Axios.get(url)
+                       .then(({ data }) => {
+                            let imgs = []
+                            const $ = cheerio.load(data)
+                            const res_desc = $('#content > table > tbody > tr > td:nth-child(2)').text().split('\n\n\n\n\n\t  ')[1].split('            \n        \n')[0].replace(')',')\n')
+                            $('#content > table > tbody > tr > td.borderClass > div > a > img').get().map((rest) => {
+                                 imgs.push($(rest).attr('data-src'))
+                            })
+                            const elseimg = ['https://mrhrtz-wabot.000webhostapp.com/cooltext372748737425114.png']
+                            const sendImg = imgs.length > 0 ? imgs : elseimg
+                            const result = {
+                                 status: 200,
+                                 name: name,
+                                 image: sendImg,
+                                 full_desc: res_desc,
+                                 url: url,
+                                 anime: serial,
+                                 manga: manga
+                            }
+                            resolve(result)
+                       }).catch(reject)
+                  }).catch(e => reject({
+                       status: 404,
+                       message: `Character ${query} was not found!`
+                  }))
+             })
+        }
+     
+        //Validasi
+        let characounter = JSON.parse(fs.readFileSync('./lib/characounter.json'))
+        let charasession = JSON.parse(fs.readFileSync('./lib/charasession.json'))
+        const isCharsesi = charasession.includes(from) ? true : false
+        let charlist = JSON.parse(fs.readFileSync('./lib/charlist.json'))
+        let chargame = JSON.parse(fs.readFileSync('./lib/chargame.json'))
+        const CharaPath = './lib/chara/' + from + '.json'
+        let dirChar = fs.readdirSync('./lib/chara')
+        let PathC = []
+        for (var i = 0; i < dirChar.length; i++) {
+            PathC.push(dirChar[i].replace('.json',''))
+        }
+        let isExistCharPath = PathC.includes(from) ? true : false
+        let buffChara = isExistCharPath ? JSON.parse(fs.readFileSync(CharaPath)) : ''
+
+        if (isExistCharPath && body) {
+            if (buffChara.status === 'active') {
+                buffChara.msgID.push(from)
+                buffChara.messages.push(body)
+                fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2))
+                let afterLength = 10
+                if (buffChara.messages.length == 9) {
+                    const getCharInt = buffChara.chara_name.toLowerCase().indexOf(body.toLowerCase())
+                }
+                if (buffChara.messages.length == afterLength) {
+                    buffChara.chara_name = charlist[Math.floor(Math.random() * charlist.length + 1)].keyword
+                    buffChara.msgID = []
+                    buffChara.messages = []
+                    buffChara.claimed_by_sender = []
+                    buffChara.claimed_by_name = []
+                    buffChara.claimed_keyword = []
+                    fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2))
+                    const buffGaleryDir = fs.readdirSync('./lib/chara_galery')
+                    for (var i = 0; i < buffGaleryDir.length; i++) {
+                        const buffGaleryLoop = JSON.parse(fs.readFileSync('./lib/chara_galery/' + buffGaleryDir[i]))
+                        buffGaleryLoop.status = 'active'
+                        fs.writeFileSync('./lib/chara_galery/' + buffGaleryDir[i], JSON.stringify(buffGaleryLoop, null, 2))
+                    }
+                    chara(buffChara.chara_name).then((char) => {
+                        buffChara.anime_result = char
+                        fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2))
+                        const contentChar = `*Guess this chara*
+
+*anime* : ${char.anime.length != 0 ? char.anime[0].Anime : '_Cannot display anime_'}
+*manga* : ${char.manga.length != 0 ? char.manga[0].name : '_Cannot display manga_'}
+
+Type *!claim _anime name_* to guessing!
+
+Ex : *!claim naruto*
+`
+                        sendDariUrlNoReply(from, char.image[0], TypePsn.image, `${contentChar}`)
+                        console.log(char.image[0])
+                        INFOLOG(`New Character Appear : ${buffChara.chara_name}`)
+                    })
+                }
+            } 
+        } 
      //End Of Func!
      const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
      const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
