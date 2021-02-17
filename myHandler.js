@@ -2240,6 +2240,29 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                     }).catch(e => {
                          console.log(e)
                     })
+	     } else if (cmd == `${prf}upstory`) {
+		     if (!isOwner) return balas(from, `Owner Only!`)
+		     if (args.length === 1) return balas(from, `Perintah !upstory <text/image/video> <caption>`)
+		     if (args[1] == 'txt') {
+			     const snaptext = `${args[2]}`
+			     conn.sendMessage('status@broadcast', snaptext, TypePsn.text)
+			     balas(from, 'Berhasil Upstory Text!')
+		     } else if (args[1] == `img`) {
+			     const captImg = `${args[2]}`
+			     const snapFileImg = await conn.downloadAndSaveMediaMessage(mediaData, `./media/${filename}`);
+			     await conn.sendMessage('status@broadcast', fs.readFileSync(snapFileImg), TypePsn.image, {caption: captImg})
+			     balas(from, 'Berhasil Upstory Image!')
+			     fs.unlinkSync(snapFileImg)
+		     } else if (args[1] == `vid`) {
+			     const captVid = `${args[2]}`
+			     const durasiSwVid = mediaData.message.videoMessage.seconds
+			     if (durasiSwVid > 30) return reply(from, 'Durasi Maksimal 30 Detik!')
+			     balas(from, 'Uploading...')
+			     const snapFileVid = await conn.downloadAndSaveMediaMessage(mediaData, `./media/${filename}`);
+			     await conn.sendMessage('status@broadcast', fs.readFileSync(snapFileVid), TypePsn.video, {mimetype: Mimetype.mp4, caption: captVid})
+			     balas(from, 'Berhasil Upstory Video!')
+			     fs.unlinkSync(snapFileVid)
+		     }
           } else if (cmd == `${prf}savekontak`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length === 1) return balas(from, `Penggunaan *!savekontak <nama|nomer>*`)
@@ -4058,6 +4081,13 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Fitur Games ]*
 
+➣ *!charagame* _enable/disable_
+➣ *!addchara* _Nama Character_
+➣ *!claim* _Nama Character_
+➣ *!gallery* / *!gallery* _@tagUser_
+➣ *!charalist*
+
+
 💛 !minesweeper
  | ⚪ isi <x y>
 
@@ -4164,6 +4194,7 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Owner Feature ]*
 
+💗 !upstory <?txt>/<?img>/<?vid> <caption> _[Update Story]_
 💗 !refuel <jumlah> _[Isi ulang semua limit]_
 💗 !leave _[Keluar grup]_
 💗 !reset <jumlah> _[Reset semua limit]_
