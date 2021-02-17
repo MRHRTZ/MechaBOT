@@ -557,7 +557,6 @@ module.exports = handle = async (setting, GroupSettingChange, Mimetype, MessageT
      if (!isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(msgout ? body : 'pesan'), 'dari', color(pushname), 'di', color(groupName), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
 
      let db_votes = fs.existsSync(`./lib/database/vote/${from}.json`) ? JSON.parse(fs.readFileSync(`./lib/database/vote/${from}.json`)) : { status: true, expired_on: null }
-     // console.log(db_votes.expired_on, moment().unix())
      if (db_votes.expired_on != null && Number(db_votes.expired_on) <= moment().unix()) {
           INFOLOG('Expired Vote')
           conn.sendMessage(from, `*Voting expired dan dibatalkan ❌*`, TypePsn.text)
@@ -3813,7 +3812,8 @@ Note : Khusus fitur ini tanpa prefix!
                     { quoted: hurtz }
                )
                conn.prepareMessageFromContent(from, content, { quoted: hurtz })
-               conn.relayWAMessage(custhumb)
+               // conn.relayWAMessage(custhumb)
+               conn.sendMessage(from, strMenu, TypePsn.text, { quoted: customQuote('			(    🤖 MENU MECHABOT V1.3.2 🤖    )') })
           }
      }
 }
