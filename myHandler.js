@@ -3637,7 +3637,7 @@ Map >>
 
 🔴 !hidetag <teksnya> _[Tag orang tanpa terlihat sedang tag]_
 🔴 !fakereply <@TagMember|Pesan orang|Pesan bot> _[Balas pesan palsu]_
-🔴 !sticker wm <Pack>|<Author> _[Sticker custom watermark]_
+🔴 !sticker wm <Pack>|<Author> _[Sticker custom watermarkgit]_
 
      *[ Fitur Voting ]*
 
