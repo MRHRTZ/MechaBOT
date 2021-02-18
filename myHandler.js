@@ -3190,6 +3190,28 @@ ${hasil.grid}
                          pm2.disconnect()
                     })
                })
+	     } else if (cmd == `${prf}startbot` || cmd == `${prf}mulaibot`){
+               if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
+		     if (args.length !== 2) return balas(from, `Perintah !startbot <namasesi>`)
+		     pm2.connect(function (err) {
+			     if (err) {
+				     console.error(err);
+				     process.exit(2);
+			     }
+			pm2.start({
+		 	     script: 'mecha.js',		// Script to be run
+      		     name: args[1],
+  			     max_memory_restart: '5000M'		// Optional: Restarts your app if it reaches 100Mb
+			     }, function (err, apps) {
+				     if (err) {
+					     pm2.disconnect();		// Disconnects from PM2
+					     balas(from, `Error, mungkin sesi tidak tersedia atau telah terhapus sebelumnya!`)
+					return		
+				     } 
+				     INFOLOG('Sukses Memulaikan BOT ' + args[1])
+				     balas(from, `BOT ${args[1]} telah online kembali.`)	
+			     });
+		     })
           } else if (cmd == `${prf}stopbot`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length !== 2) return balas(from, `Penggunaan *!stopbot* <namasesi>`)
@@ -4305,6 +4327,7 @@ Note : Khusus fitur ini tanpa prefix!
 💗 !tambahbot <namasesi> <@tagYgMauJadiBot> _[Tambah bot baru / jalankan]_
 💗 !vip <add/delete/list> <@tagMember> _[Mengaudit Member VIP]_
 💗 !maintenance <Set Untuk Maintenance BOT>
+💗 !startbot <namasesi> _[Memulaikan bot kembali]_
 💗 !stopbot <namasesi> _[Memberhentikan bot]_
 💗 !hapusbot <namasesi> _[Menghapus bot]_
 💗 !listbot _[Melihat semua user bot]_
