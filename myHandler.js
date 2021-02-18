@@ -4121,6 +4121,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}push`) {
                console.log(conn.getName())
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
+               const penggunanya = JSON.parse('./lib/database/limit.json')
                const performa = speed()
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
@@ -4143,6 +4144,7 @@ Map >>
 
 ----------------------------------------
 
+👬 *Pengguna Bot Aktif* : ${penggunanya.length} Orang
 📲 *Versi WA* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
