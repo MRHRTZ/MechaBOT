@@ -34,8 +34,8 @@ module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, Me
      const people = update.participants[0]
      const action = update.action
      const fromMe = people == conn.user.jid ? true : false
-     const conts = fromMe ? conn.user.jid : conn.contacts[people] || { notify: jid.replace(/@.+/, '') }
-     const pushname = fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
+     const conts = fromMe ? conn.user.jid : conn.contacts[people] || { notify: jid.replace(/@.+/, '') } || people
+     const pushname = fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || people
 
      async function sendDariUrl(dari, url, type, text) {
           if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(url)) return console.error(`Not a valid url!`)

@@ -15,5 +15,8 @@
   "Vote": {
     "Max": 5,
     "Expired": 2
+  },
+  "Tebak_Gambar": {
+    "Max": 320
   }
 }
