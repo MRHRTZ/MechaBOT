@@ -4386,6 +4386,7 @@ Note : Khusus fitur ini tanpa prefix!
                )
                conn.prepareMessageFromContent(from, content, { quoted: hurtz })
                // conn.relayWAMessage(custhumb)
+               // Fix
                conn.sendMessage(from, strMenu, TypePsn.text, { quoted: customQuote('			(    🤖 MENU MECHABOT V1.3.2 🤖    )') , contextInfo: { mentionedJid: [nomerOwner[0]] } })
           }
      }
