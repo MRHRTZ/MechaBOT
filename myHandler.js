@@ -650,7 +650,7 @@ Contoh : *!guess naruto*
      let db_tebak = fs.existsSync(`./lib/tebak-gambar/${from}.json`) ? JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`)) : { status: true, expired_on: null }
      if (db_tebak.expired_on != null && Number(db_tebak.expired_on) <= moment().unix()) {
           INFOLOG('Expired Tebak Gambar')
-          conn.sendMessage(from, `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max} detik 😔\n\nDimulai oleh : ${db_tebak.name} ( @${db_tebak.number.replace('@s.whatsapp.net', '')} )\nPesan terdeteksi : ${db_tebak.listed.length}\n\nMulai lagi? ketik *!tebakgambar* 😊`, TypePsn.text, { contextInfo: { mentionedJid: [db_tebak.number] } })
+          conn.sendMessage(from, `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max} detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${db_tebak.name} ( @${db_tebak.number.replace('@s.whatsapp.net', '')} )\nPesan terdeteksi : ${db_tebak.listed.length}\n\nMulai lagi? ketik *!tebakgambar* 😊`, TypePsn.text, { contextInfo: { mentionedJid: [db_tebak.number] } })
           fs.unlinkSync(`./lib/tebak-gambar/${from}.json`)
      }
 
@@ -2368,7 +2368,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                               }
                          }
                          if (posi.length >= nega.length) {
-                              conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n_Mengeksekusi ${db_vote.target} ..._`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+                              conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n*${db_vote.target} ${db_vote.reason}!*`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
                               fs.unlinkSync(pathdb + '/' + filepathvote)
                          } else if (posi.length <= nega.length) {
                               conn.sendMessage(from, `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}`, TypePsn.text, { quoted: hurtz })
@@ -2403,9 +2403,6 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                     balas(from, `Tidak bisa menampilkan list vote karena tidak ada sesi vote!`)
                } else {
                     let db_vote = JSON.parse(fs.readFileSync(pathdb + '/' + filepathvote))
-                    for (let numvote of db_vote.pushvote) {
-                         if (numvote.number == sender) return balas(from, `Kamu telah vote untuk sesi ini ❌`)
-                    }
                     let caption_vote = ''
                     for (let i = 0; i < db_vote.pushvote.length; i++) {
                          caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose}\n`
@@ -2959,7 +2956,7 @@ ${hasil.grid}
 *Deskripsi* : ${res[i].desc}
                               `
                     }
-                    sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
+                    balas(from, captions)
                }).catch(() => balas(from, `APK mungkin tidak ada!`))
           } else if (cmd == `${prf}getapk`) {
                if (args.length === 1) return balas(from, `Masukan nama download apk nya!`)
@@ -3426,6 +3423,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                })
           } else if (cmd == `${prf}warnai`) {
+			  return balas(from, `Fitur ini masih perbaikan`)
                const savedMedia = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                exec(`curl -F "image=@${savedMedia}" -H "api-key:c7e56944-336a-4bfe-ae81-bc579f4c7047" https://api.deepai.org/api/colorizer `, (err, stdout, stderr) => {
                     const data = JSON.parse(stdout)
@@ -4012,7 +4010,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(datana, null, 2))
                if (badan.includes(datana.data.answer.toLowerCase())) {
                     INFOLOG('Jawaban benar oleh : ' + pushname)
-                    const ngacak = Math.floor(Math.random() * 11) + 1
+                    const ngacak = Math.floor(Math.random() * 20) + 1
                     giftLimit(sender, ngacak)
                     balas(from, `Selamat! ${pushname} anda benar 😊 request limit anda telah ditambahkan sebesar ${ngacak} ✅\n\nMau main lagi? ketik : *!tebakgambar*`)
                     fs.unlinkSync(`./lib/tebak-gambar/${from}.json`)
@@ -4109,7 +4107,10 @@ Map >>
 🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 🕴 *Status Maintenance* : ${settings.Maintenace ? '✅' : '❌'}
-🤖 *Join Mecha Group* : [ https://chat.whatsapp.com/KVc2MuopydYJ1cJmiXhxie ]
+🤖 *Join Mecha Group* : 
+
+[ https://chat.whatsapp.com/KVc2MuopydYJ1cJmiXhxie ] S1
+[ https://chat.whatsapp.com/BGz644tprlY0Ee539LUW3m ] S2
 
      *[ Free Features & Info ]*
 

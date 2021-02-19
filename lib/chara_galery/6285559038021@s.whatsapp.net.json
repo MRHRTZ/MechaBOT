@@ -1,5 +1,5 @@
 {
-  "status": "unactive",
+  "status": "active",
   "sender": "6285559038021@s.whatsapp.net",
   "name": "MRHRTZ@kali:~#",
   "animes": [
@@ -1784,6 +1784,489 @@
           "url": "https://myanimelist.net/manga/598/Fairy_Tail"
         }
       ]
+    },
+    {
+      "status": 200,
+      "name": "Miyamoto, Musashi ",
+      "image": [
+        "https://cdn.myanimelist.net/images/characters/4/278163.jpg",
+        "https://cdn.myanimelist.net/r/42x62/images/manga/1/188819.jpg?s=a21cde4619243a4b41cb5b2862abeae2"
+      ],
+      "full_desc": "Musashi Miyamoto (宮本 武蔵)\nMiyamoto Musashi is the product of a massive cloning project to clone one of the fathers of martial arts in Japan. Like the original Musashi, he's an expert Japanese swordsman and rōnin.",
+      "url": "https://myanimelist.net/character/125931/Musashi_Miyamoto",
+      "anime": [
+        {
+          "Anime": "Fate/Grand Order",
+          "url": "https://myanimelist.net/anime/36064/Fate_Grand_Order"
+        },
+        {
+          "Anime": "Sengoku Basara Ni",
+          "url": "https://myanimelist.net/anime/6634/Sengoku_Basara_Ni"
+        },
+        {
+          "Anime": "Gun-dou Musashi",
+          "url": "https://myanimelist.net/anime/1200/Gun-dou_Musashi"
+        },
+        {
+          "Anime": "Samurai Flamenco",
+          "url": "https://myanimelist.net/anime/19365/Samurai_Flamenco"
+        },
+        {
+          "Anime": "Hyakka Ryouran: Samurai Bride",
+          "url": "https://myanimelist.net/anime/15377/Hyakka_Ryouran__Samurai_Bride"
+        },
+        {
+          "Anime": "Hyakka Ryouran: Samurai Bride Specials",
+          "url": "https://myanimelist.net/anime/19255/Hyakka_Ryouran__Samurai_Bride_Specials"
+        },
+        {
+          "Anime": "Mutsu Enmei Ryuu Gaiden: Shura no Toki",
+          "url": "https://myanimelist.net/anime/340/Mutsu_Enmei_Ryuu_Gaiden__Shura_no_Toki"
+        },
+        {
+          "Anime": "Kenyuu Densetsu Yaiba",
+          "url": "https://myanimelist.net/anime/2335/Kenyuu_Densetsu_Yaiba"
+        },
+        {
+          "Anime": "Detective Conan OVA 01: Conan vs. Kid vs. Yaiba",
+          "url": "https://myanimelist.net/anime/1369/Detective_Conan_OVA_01__Conan_vs_Kid_vs_Yaiba"
+        },
+        {
+          "Anime": "Jikuu Tantei Genshi-kun",
+          "url": "https://myanimelist.net/anime/2281/Jikuu_Tantei_Genshi-kun"
+        },
+        {
+          "Anime": "Bomberman Jetters",
+          "url": "https://myanimelist.net/anime/751/Bomberman_Jetters"
+        },
+        {
+          "Anime": "Samurai Champloo",
+          "url": "https://myanimelist.net/anime/205/Samurai_Champloo"
+        },
+        {
+          "Anime": "Eyeshield 21",
+          "url": "https://myanimelist.net/anime/15/Eyeshield_21"
+        },
+        {
+          "Anime": "Eyeshield 21",
+          "url": "https://myanimelist.net/anime/15/Eyeshield_21"
+        },
+        {
+          "Anime": "Samurai Spirits 2: Asura Zanmaden",
+          "url": "https://myanimelist.net/anime/839/Samurai_Spirits_2__Asura_Zanmaden"
+        },
+        {
+          "Anime": "Samurai Spirits: Haten Gouma no Shou",
+          "url": "https://myanimelist.net/anime/2591/Samurai_Spirits__Haten_Gouma_no_Shou"
+        }
+      ],
+      "manga": [
+        {
+          "name": "Baki-dou",
+          "url": "https://myanimelist.net/manga/72299/Baki-dou"
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "name": "Kiato ",
+      "image": [
+        "https://cdn.myanimelist.net/images/characters/5/360126.jpg",
+        "https://cdn.myanimelist.net/r/42x62/images/anime/2/88336.jpg?s=299272de3f0215b1106eb0c5cc51b84c",
+        "https://cdn.myanimelist.net/r/42x62/images/manga/2/166254.jpg?s=6ea78a5f0d73eefc5b7887a9db691eaf",
+        "https://cdn.myanimelist.net/images/voiceactors/2/38511.jpg",
+        "https://cdn.myanimelist.net/images/voiceactors/2/61090.jpg",
+        "https://cdn.myanimelist.net/images/voiceactors/2/51138.jpg"
+      ],
+      "full_desc": "Kiato  (キアト)\nKiato is a priest of the Seabed Temple.\r\n\r\n",
+      "url": "https://myanimelist.net/character/162619/Kiato",
+      "anime": [
+        {
+          "Anime": "Black Clover",
+          "url": "https://myanimelist.net/anime/34572/Black_Clover"
+        }
+      ],
+      "manga": [
+        {
+          "name": "Black Clover",
+          "url": "https://myanimelist.net/manga/86337/Black_Clover"
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "name": "Izaya ",
+      "image": [
+        "https://cdn.myanimelist.net/images/characters/7/326408.jpg",
+        "https://cdn.myanimelist.net/r/42x62/images/anime/2/25413.jpg?s=1f847529fe4b2e6b5dfe47253f677554",
+        "https://cdn.myanimelist.net/images/voiceactors/1/27601.jpg",
+        "https://cdn.myanimelist.net/images/voiceactors/1/49188.jpg"
+      ],
+      "full_desc": "Izaya  (イザヤ)\nShe lives on Asuka Island and is Maya's grandmother. Despite the fact she looks short, she is actually very tall when she stands up straight.",
+      "url": "https://myanimelist.net/character/34794/Izaya",
+      "anime": [
+        {
+          "Anime": "One Piece Movie 5: Norowareta Seiken",
+          "url": "https://myanimelist.net/anime/463/One_Piece_Movie_5__Norowareta_Seiken"
+        },
+        {
+          "Anime": "Planetarian: Hoshi no Hito",
+          "url": "https://myanimelist.net/anime/33190/Planetarian__Hoshi_no_Hito"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten: Onoroke Chakapoko",
+          "url": "https://myanimelist.net/anime/31552/Durararax2_Ten__Onoroke_Chakapoko"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou: Watashi no Kokoro wa Nabe Moyou",
+          "url": "https://myanimelist.net/anime/30191/Durararax2_Shou__Watashi_no_Kokoro_wa_Nabe_Moyou"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou: Watashi no Kokoro wa Nabe Moyou",
+          "url": "https://myanimelist.net/anime/30191/Durararax2_Shou__Watashi_no_Kokoro_wa_Nabe_Moyou"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou: Watashi no Kokoro wa Nabe Moyou",
+          "url": "https://myanimelist.net/anime/30191/Durararax2_Shou__Watashi_no_Kokoro_wa_Nabe_Moyou"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten: Onoroke Chakapoko",
+          "url": "https://myanimelist.net/anime/31552/Durararax2_Ten__Onoroke_Chakapoko"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten: Onoroke Chakapoko",
+          "url": "https://myanimelist.net/anime/31552/Durararax2_Ten__Onoroke_Chakapoko"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou: Watashi no Kokoro wa Nabe Moyou",
+          "url": "https://myanimelist.net/anime/30191/Durararax2_Shou__Watashi_no_Kokoro_wa_Nabe_Moyou"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten: Onoroke Chakapoko",
+          "url": "https://myanimelist.net/anime/31552/Durararax2_Ten__Onoroke_Chakapoko"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou: Watashi no Kokoro wa Nabe Moyou",
+          "url": "https://myanimelist.net/anime/30191/Durararax2_Shou__Watashi_no_Kokoro_wa_Nabe_Moyou"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou: Watashi no Kokoro wa Nabe Moyou",
+          "url": "https://myanimelist.net/anime/30191/Durararax2_Shou__Watashi_no_Kokoro_wa_Nabe_Moyou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten: Onoroke Chakapoko",
+          "url": "https://myanimelist.net/anime/31552/Durararax2_Ten__Onoroke_Chakapoko"
+        },
+        {
+          "Anime": "Durarara!!",
+          "url": "https://myanimelist.net/anime/6746/Durarara"
+        },
+        {
+          "Anime": "Durarara!! Specials",
+          "url": "https://myanimelist.net/anime/8408/Durarara_Specials"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu: Dufufufu!!",
+          "url": "https://myanimelist.net/anime/32915/Durararax2_Ketsu__Dufufufu"
+        },
+        {
+          "Anime": "Durarara!!x2 Shou",
+          "url": "https://myanimelist.net/anime/23199/Durararax2_Shou"
+        },
+        {
+          "Anime": "Durarara!!x2 Ten",
+          "url": "https://myanimelist.net/anime/27831/Durararax2_Ten"
+        },
+        {
+          "Anime": "Durarara!!x2 Ketsu",
+          "url": "https://myanimelist.net/anime/27833/Durararax2_Ketsu"
+        }
+      ],
+      "manga": []
     }
   ]
 }

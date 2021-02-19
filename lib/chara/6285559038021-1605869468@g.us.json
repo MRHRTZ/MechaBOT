@@ -1,0 +1,51 @@
+{
+  "status": "unactive",
+  "claimed_keyword": [],
+  "claimed_by_name": [],
+  "claimed_by_sender": [],
+  "anime_result": {
+    "status": 200,
+    "name": "Iino, Miko ",
+    "image": [
+      "https://cdn.myanimelist.net/images/characters/16/376603.jpg",
+      "https://cdn.myanimelist.net/r/42x62/images/anime/1764/106659.jpg?s=c2775925f1660fba10d3ada5f3cc9e61",
+      "https://cdn.myanimelist.net/r/42x62/images/manga/3/188896.jpg?s=ad55274598b35a27b6ba6391552a5674",
+      "https://cdn.myanimelist.net/r/42x62/images/manga/2/215758.jpg?s=c0ce53b9c395e76998a28b61acb858fa",
+      "https://cdn.myanimelist.net/r/42x62/images/manga/1/217435.jpg?s=cf827d15c5998f67c3966daf85861c98",
+      "https://cdn.myanimelist.net/r/42x62/images/manga/3/215419.jpg?s=6df6c7dd22b23c30217aaf5ed6771b4c",
+      "https://cdn.myanimelist.net/images/voiceactors/2/60637.jpg",
+      "https://cdn.myanimelist.net/images/voiceactors/1/48728.jpg"
+    ],
+    "full_desc": "Miko Iino (伊井野 ミコ)\nA student who ran against Miyuki Shirogane for student council president position.\r\n\r\nAfter Shirogane defeated her, he offered her a position on the student council, and she accepted.\r\n\r\nDue to her father being a judge in the Supreme Court and her mother working in an international humanitarian support group, Miko has lived in a frequently empty household. She would begin to blame her parent's busy schedules on there being too many bad people in the world causing her to develop her sense of justice. Her obsession in doing what's right and correcting those who are doing wrong led to her being bullied throughout her school life.",
+    "url": "https://myanimelist.net/character/152052/Miko_Iino",
+    "anime": [
+      {
+        "Anime": "Kaguya-sama wa Kokurasetai?: Tensai-tachi no Renai Zunousen",
+        "url": "https://myanimelist.net/anime/40591/Kaguya-sama_wa_Kokurasetai__Tensai-tachi_no_Renai_Zunousen"
+      },
+      {
+        "Anime": "Kaguya-sama wa Kokurasetai?: Tensai-tachi no Renai Zunousen",
+        "url": "https://myanimelist.net/anime/40591/Kaguya-sama_wa_Kokurasetai__Tensai-tachi_no_Renai_Zunousen"
+      },
+      {
+        "Anime": "Kaguya-sama wa Kokurasetai?: Tensai-tachi no Renai Zunousen",
+        "url": "https://myanimelist.net/anime/40591/Kaguya-sama_wa_Kokurasetai__Tensai-tachi_no_Renai_Zunousen"
+      }
+    ],
+    "manga": [
+      {
+        "name": "Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai ZunousenKaguya-sama wo KataritaiKaguya-sama wa Kokurasetai: Shuuchiin Gakuen NanafushigiKaguya-sama wa Kokurasetai: Doujin-ban",
+        "url": "https://myanimelist.net/manga/90125/Kaguya-sama_wa_Kokurasetai__Tensai-tachi_no_Renai_Zunousen"
+      }
+    ]
+  },
+  "chara_name": "miko iino",
+  "msgID": [
+    "6285559038021-1605869468@g.us",
+    "6285559038021-1605869468@g.us"
+  ],
+  "messages": [
+    "*Ayo tebak karakter ini!*\n\n*anime* : Kaguya-sama wa Kokurasetai?: Tensai-tachi no Renai Zunousen\n*manga* : Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai ZunousenKaguya-sama wo KataritaiKaguya-sama wa Kokurasetai: Shuuchiin Gakuen NanafushigiKaguya-sama wa Kokurasetai: Doujin-ban\n\nKetik : *!guess <Nama karakter>* untuk menebak!\n\nContoh : *!guess naruto*\n",
+    "!charagame mati"
+  ]
+}

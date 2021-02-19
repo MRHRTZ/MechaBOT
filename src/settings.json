@@ -7,7 +7,7 @@
     }
   ],
   "Debug": false,
-  "Maintenace": true,
+  "Maintenace": false,
   "MessageConsole": false,
   "IDConsole": true,
   "Limit": 30,
@@ -17,6 +17,6 @@
     "Expired": 2
   },
   "Tebak_Gambar": {
-    "Max": 320
+    "Max": 60
   }
 }
