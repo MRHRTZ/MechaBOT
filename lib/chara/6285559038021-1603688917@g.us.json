@@ -1,22 +1,138 @@
 {
-  "status": "active",
-  "claimed_keyword": [],
-  "claimed_by_name": [],
-  "claimed_by_sender": [],
-  "anime_result": "",
-  "chara_name": "Sakura",
+  "status": "unactive",
+  "claimed_keyword": [
+    {}
+  ],
+  "claimed_by_name": [
+    "MRHRTZ@kali:~#"
+  ],
+  "claimed_by_sender": [
+    "6285559038021@s.whatsapp.net"
+  ],
+  "anime_result": {
+    "status": 200,
+    "name": "Juvia (Edolas) ",
+    "image": [
+      "https://cdn.myanimelist.net/images/characters/16/140513.jpg",
+      "https://cdn.myanimelist.net/r/42x62/images/anime/5/18179.jpg?s=0d4093cd27486f2d1b1e75eb7332e729",
+      "https://cdn.myanimelist.net/r/42x62/images/manga/3/198604.jpg?s=f08271ccda4a4dc6d90cd0c38f48f89d",
+      "https://cdn.myanimelist.net/images/voiceactors/1/54693.jpg",
+      "https://cdn.myanimelist.net/images/voiceactors/2/48137.jpg",
+      "https://cdn.myanimelist.net/images/voiceactors/3/809.jpg"
+    ],
+    "full_desc": "Juvia (Edolas)\n  (ジュビア)Juvia (Edolas) is a member of the Edolas Fairy Tail Guild and the Edolas counterpart of Juvia Lockser. In Edolas, Juvia likes, but has no super crush on Gray Surge. Instead, Gray has the super crush on her. She turns down a mission with him because he wears too much clothing. She was seen explaining some parts of Edolas and not agreeing to what Gray says. She's very skillful in hand to hand combat. She beat half of the Edolas Royal Army soldiers without Magic.",
+    "url": "https://myanimelist.net/character/51085/Juvia_Edolas",
+    "anime": [
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail Movie 2: Dragon Cry",
+        "url": "https://myanimelist.net/anime/30778/Fairy_Tail_Movie_2__Dragon_Cry"
+      },
+      {
+        "Anime": "Fairy Tail (2014)",
+        "url": "https://myanimelist.net/anime/22043/Fairy_Tail_2014"
+      },
+      {
+        "Anime": "Fairy Tail OVA (2016)",
+        "url": "https://myanimelist.net/anime/32930/Fairy_Tail_OVA_2016"
+      },
+      {
+        "Anime": "Fairy Tail: Final Series",
+        "url": "https://myanimelist.net/anime/35972/Fairy_Tail__Final_Series"
+      },
+      {
+        "Anime": "Fairy Tail x Rave",
+        "url": "https://myanimelist.net/anime/18393/Fairy_Tail_x_Rave"
+      },
+      {
+        "Anime": "Fairy Tail OVA",
+        "url": "https://myanimelist.net/anime/9982/Fairy_Tail_OVA"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail Movie 1: Houou no Miko",
+        "url": "https://myanimelist.net/anime/12049/Fairy_Tail_Movie_1__Houou_no_Miko"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail Movie 1: Houou no Miko",
+        "url": "https://myanimelist.net/anime/12049/Fairy_Tail_Movie_1__Houou_no_Miko"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail OVA",
+        "url": "https://myanimelist.net/anime/9982/Fairy_Tail_OVA"
+      },
+      {
+        "Anime": "Fairy Tail: Final Series",
+        "url": "https://myanimelist.net/anime/35972/Fairy_Tail__Final_Series"
+      },
+      {
+        "Anime": "Fairy Tail (2014)",
+        "url": "https://myanimelist.net/anime/22043/Fairy_Tail_2014"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail OVA",
+        "url": "https://myanimelist.net/anime/9982/Fairy_Tail_OVA"
+      },
+      {
+        "Anime": "Fairy Tail: Final Series",
+        "url": "https://myanimelist.net/anime/35972/Fairy_Tail__Final_Series"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail (2014)",
+        "url": "https://myanimelist.net/anime/22043/Fairy_Tail_2014"
+      },
+      {
+        "Anime": "Fairy Tail: Final Series",
+        "url": "https://myanimelist.net/anime/35972/Fairy_Tail__Final_Series"
+      },
+      {
+        "Anime": "Fairy Tail OVA",
+        "url": "https://myanimelist.net/anime/9982/Fairy_Tail_OVA"
+      },
+      {
+        "Anime": "Fairy Tail",
+        "url": "https://myanimelist.net/anime/6702/Fairy_Tail"
+      },
+      {
+        "Anime": "Fairy Tail (2014)",
+        "url": "https://myanimelist.net/anime/22043/Fairy_Tail_2014"
+      }
+    ],
+    "manga": [
+      {
+        "name": "Fairy Tail",
+        "url": "https://myanimelist.net/manga/598/Fairy_Tail"
+      }
+    ]
+  },
+  "chara_name": "juvia",
   "msgID": [
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
-    "6285559038021-1603688917@g.us",
     "6285559038021-1603688917@g.us",
     "6285559038021-1603688917@g.us",
     "6285559038021-1603688917@g.us",
@@ -25,22 +141,11 @@
     "6285559038021-1603688917@g.us"
   ],
   "messages": [
-    "git status",
-    "!tebakgambar",
-    "*Tebak gambar diatas ini*\n\nAnda mempunyai waktu 60 detik untuk menebak gambar tersebut.\n\n_Note : untuk mengubah detik ketik *!tebaksetting*_\n\n*CLUE* :   _ e _ e _ a _   _ a _ _ a _ a _\n\n```Sedang menunggu jawaban...```",
-    "Maaf sesi tebak gambar sedang berlangsung",
-    "!tebakgambar",
-    "Maaf sesi tebak gambar sedang berlangsung",
-    "Pemairantam bajan",
-    "*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari 60 detik 😔\n\nDimulai oleh : MRHRTZ@kali:~# ( @6285559038021 )\nPesan terdeteksi : 2\n\nMulai lagi? ketik *!tebakgambar* 😊",
-    "!tebakgambar",
-    "*Tebak gambar diatas ini*\n\nAnda mempunyai waktu 240 detik untuk menebak gambar tersebut.\n\n_Note : untuk mengubah detik ketik *!tebaksetting*_\n\n*CLUE* :   _ a _ a _   i _ a _\n\n```Sedang menunggu jawaban...```",
-    "Kalak ipar",
-    "Kakak ipar",
-    "Selamat! MRHRTZ@kali:~# anda benar 😊 request limit anda telah ditambahkan sebesar 3 ✅\n\nMau main lagi? ketik : *!tebakgambar*",
-    "!tebaksettings 320",
-    "Pengaturan tebak gambar telah diperbaharui ✅",
-    "!tebaksettings 320",
-    "Pengaturan tebak gambar telah diperbaharui ✅"
+    "*Ayo tebak karakter ini!*\n\n*anime* : Fairy Tail\n*manga* : Fairy Tail\n\nKetik : *!guess <Nama karakter>* untuk menebak!\n\nContoh : *!guess naruto*\n",
+    "!guess juvia",
+    "!gallery",
+    "*Selamat karakter benar MRHRTZ@kali:~#!*\n\n________________________________________\n\n➣ *Nama* : Juvia (Edolas) \n➣ *Deskripsi* : Juvia (Edolas)\n  (ジュビア)Juvia (Edolas) is a member of the Edolas Fairy Tail Guild and the Edolas counterpart of Juvia Lockser. In Edolas, Juvia likes, but has no super crush on Gray Surge. Instead, Gray has the super crush on her. She turns down a mission with him because he wears too much clothing. She was seen explaining some parts of Edolas and not agreeing to what Gray says. She's very skillful in hand to hand combat. She beat half of the Edolas Royal Army soldiers without Magic.\n➣ *Link Detail* : https://myanimelist.net/character/51085/Juvia_Edolas\n\n",
+    "*Show Galery Chara Anime MRHRTZ@kali:~#*\n\n*Total Karakter Terklaim* : 7 character\n\n*Terakhir karakter terklaim* :\n➣ *Nama* : Juvia (Edolas) \n➣ *ID* : 51085\n➣ *Deskripsi* : Juvia (Edolas)  (ジュビア)Juvia (Edolas) is a member of the Edolas Fairy Tail Guild and ...\n\n                    \n________________________________________\n\n➣ *Nama* : Sakura \n➣ *ID* : 176523\n➣ *Deskripsi* : Sakura  (サクラ)Sakura is the youngest daughter of Sumeragi and Ikona and the youngest child ...\n\n\n________________________________________\n\n➣ *Nama* : Minami, Tsuyoshi (Ace Killer)\n➣ *ID* : 129815\n➣ *Deskripsi* : Tsuyoshi Minami (南 烈)Tsuyoshi Minami is the captain of Toyotama High School and one of ...\n\n\n________________________________________\n\n➣ *Nama* : Hinata \n➣ *ID* : 140063\n➣ *Deskripsi* : Hinata  (ヒナタ)Hair color: Yellow\r\nEyes: Blue\r\n\r\nSpirit of sunflowers. Hinata is always very cheerful and looks ...\n\n\n________________________________________\n\n➣ *Nama* : Sasuke (Clockwork Ninja)\n➣ *ID* : 37593\n➣ *Deskripsi* : Sasuke  (サスケ)Hometown: Iga\r\nFunction: Ninja\r\nCreator: Monoshirii\r\nTitle: Clockwork Ninja\r\nArmaments: Kunai, Firecracker Bomb\r\n\r\nThe powerful \"Clockwork Ninja\" created ...\n\n\n________________________________________\n\n➣ *Nama* : Kahono \n➣ *ID* : 161825\n➣ *Deskripsi* : Kahono  (カホノ)Kahono is a priestess of the Seabed Temple.\r\n\r\n(Source: Black Clover Wiki) ...\n\n\n________________________________________\n\n➣ *Nama* : Yue (Yue)\n➣ *ID* : 45759\n➣ *Deskripsi* : Yue  Yue is a student of Naozumi. He has loved Miyabi's piano playing since ...\n\n\n________________________________________\n\n➣ *Nama* : Juvia (Edolas) \n➣ *ID* : 51085\n➣ *Deskripsi* : Juvia (Edolas)  (ジュビア)Juvia (Edolas) is a member of the Edolas Fairy Tail Guild and ...\n\n",
+    "!charagame disable"
   ]
 }

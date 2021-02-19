@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node runner.js",
-    "build_windows": "npm install --global windows-build-tools && choco install python2 && choco install wget && choco install libwebp && choco install curl && choco install ffmpeg && npm config set python 'C:\\Python27\\python.exe'",
-    "build_linux": "sudo add-apt-repository ppa:fkrull/deadsnakes sudo apt-get update sudo apt-get install python2.6 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.6 20 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 10 sudo update-alternatives --config python && sudo apt-get install libwebp-dev && sudo apt-get install wget && sudo apt-get install ffmpeg && sudo apt-get install curl",
+    "build_windows": "npm config set unsafe-perm true && npm i -g tiktok-scraper && npm i -g carbon-now-cli && npm install --global windows-build-tools && choco install python2 && choco install wget && choco install libwebp && choco install curl && choco install ffmpeg && npm config set python 'C:\\Python27\\python.exe'",
+    "build_linux": "npm config set unsafe-perm true && npm i -g tiktok-scraper && npm i -g carbon-now-cli && sudo add-apt-repository ppa:fkrull/deadsnakes sudo apt-get update sudo apt-get install python2.6 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.6 20 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 10 sudo update-alternatives --config python && sudo apt-get install libwebp-dev && sudo apt-get install wget && sudo apt-get install ffmpeg && sudo apt-get install curl",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
