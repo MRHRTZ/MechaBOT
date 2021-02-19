@@ -2425,7 +2425,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                               }
                          }
                          if (posi.length >= nega.length) {
-                              conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n_Mengeksekusi ${db_vote.target} ..._`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
+                              conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n*${db_vote.target} ${db_vote.reason}!*`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
                               fs.unlinkSync(pathdb + '/' + filepathvote)
                          } else if (posi.length <= nega.length) {
                               conn.sendMessage(from, `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}`, TypePsn.text, { quoted: hurtz })
@@ -3013,7 +3013,7 @@ ${hasil.grid}
 *Deskripsi* : ${res[i].desc}
                               `
                     }
-                    sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
+                    balas(from, captions)
                }).catch(() => balas(from, `APK mungkin tidak ada!`))
           } else if (cmd == `${prf}getapk`) {
                if (args.length === 1) return balas(from, `Masukan nama download apk nya!`)
@@ -3480,6 +3480,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                })
           } else if (cmd == `${prf}warnai`) {
+			  return balas(from, `Fitur ini masih perbaikan`)
                const savedMedia = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                exec(`curl -F "image=@${savedMedia}" -H "api-key:c7e56944-336a-4bfe-ae81-bc579f4c7047" https://api.deepai.org/api/colorizer `, (err, stdout, stderr) => {
                     const data = JSON.parse(stdout)
@@ -4179,7 +4180,11 @@ Map >>
 🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 🕴 *Status Maintenance* : ${settings.Maintenace ? '✅' : '❌'}
+<<<<<<< HEAD
 🤖 *Join Mecha Group* :
+=======
+🤖 *Join Mecha Group* : 
+>>>>>>> f5d4675739fd9612cef496fb03aa8b08822851bc
 
 [ https://chat.whatsapp.com/KVc2MuopydYJ1cJmiXhxie ] S1
 [ https://chat.whatsapp.com/BGz644tprlY0Ee539LUW3m ] S2
