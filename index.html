@@ -1,94 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-     <title>Socket.IO chat</title>
-     <style>
-          body {
-               margin: 0;
-               padding-bottom: 3rem;
-               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-          }
-
-          #form {
-               background: rgba(0, 0, 0, 0.15);
-               padding: 0.25rem;
-               position: fixed;
-               bottom: 0;
-               left: 0;
-               right: 0;
-               display: flex;
-               height: 3rem;
-               box-sizing: border-box;
-               backdrop-filter: blur(10px);
-          }
-
-          #input {
-               border: none;
-               padding: 0 1rem;
-               flex-grow: 1;
-               border-radius: 2rem;
-               margin: 0.25rem;
-          }
-
-          #input:focus {
-               outline: none;
-          }
-
-          #form>button {
-               background: #333;
-               border: none;
-               padding: 0 1rem;
-               margin: 0.25rem;
-               border-radius: 3px;
-               outline: none;
-               color: #fff;
-          }
-
-          #messages {
-               list-style-type: none;
-               margin: 0;
-               padding: 0;
-          }
-
-          #messages>li {
-               padding: 0.5rem 1rem;
-          }
-
-          #messages>li:nth-child(odd) {
-               background: #efefef;
-          }
-     </style>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>MechaBOT</title>
 </head>
 
 <body>
-     <button onclick="myFunction()">Click me</button>
-     <ul id="mess"></ul>
+     <canvas id=c>
+          <h1 style="position:fixed; top:0; left:0; color: white;">Hola</h1>
+     </canvas>
+     <script type="text/javascript">
+          var w = c.width = window.innerWidth,
+               h = c.height = window.innerHeight,
+               ctx = c.getContext('2d'),
 
-     <script src="/socket.io/socket.io.js"></script>
-     <script>
-          var socket = io();
+               opts = {
 
-          function myFunction() {
-               text = 'Haoli'
-               var node = document.createElement("LI");
-               var textnode = document.createTextNode(text);
-               node.appendChild(textnode);
-               document.getElementById("mess").appendChild(node);
+                    len: 20,
+                    count: 50,
+                    baseTime: 10,
+                    addedTime: 10,
+                    dieChance: .05,
+                    spawnChance: 1,
+                    sparkChance: .1,
+                    sparkDist: 10,
+                    sparkSize: 2,
+
+                    color: 'hsl(hue,100%,light%)',
+                    baseLight: 50,
+                    addedLight: 10, // [50-10,50+10]
+                    shadowToTimePropMult: 6,
+                    baseLightInputMultiplier: .01,
+                    addedLightInputMultiplier: .02,
+
+                    cx: w / 2,
+                    cy: h / 2,
+                    repaintAlpha: .04,
+                    hueChange: .1
+               },
+
+               tick = 0,
+               lines = [],
+               dieX = w / 2 / opts.len,
+               dieY = h / 2 / opts.len,
+
+               baseRad = Math.PI * 2 / 6;
+
+          ctx.fillStyle = 'black';
+          ctx.fillRect(0, 0, w, h);
+
+          function loop() {
+
+               window.requestAnimationFrame(loop);
+
+               ++tick;
+
+               ctx.globalCompositeOperation = 'source-over';
+               ctx.shadowBlur = 0;
+               ctx.fillStyle = 'rgba(0,0,0,alp)'.replace('alp', opts.repaintAlpha);
+               ctx.fillRect(0, 0, w, h);
+               ctx.globalCompositeOperation = 'lighter';
+
+               if (lines.length < opts.count && Math.random() < opts.spawnChance)
+                    lines.push(new Line);
+
+               lines.map(function (line) {
+                    line.step();
+               });
           }
 
-          function klik() {
-               //socket.emit('fungsi klik', 'INPUTAN')
-               document.getElementById('messages').innerHTML('HI')
-          }
+          function Line() {
 
-          /*socket.on('fungsi klik', function (msg) {
-               var item = document.createElement('li');
-               item.textContent = msg;
-               messages.appendChild(item);
-               window.scrollTo(0, document.body.scrollHeight);
-          });*/
+               this.reset();
+          }
+          Line.prototype.reset = function () {
+
+               this.x = 0;
+               this.y = 0;
+               this.addedX = 0;
+               this.addedY = 0;
+
+               this.rad = 0;
+
+               this.lightInputMultiplier = opts.baseLightInputMultiplier + opts.addedLightInputMultiplier * Math
+                    .random();
+
+               this.color = opts.color.replace('hue', tick * opts.hueChange);
+               this.cumulativeTime = 0;
+
+               this.beginPhase();
+          }
+          Line.prototype.beginPhase = function () {
+
+               this.x += this.addedX;
+               this.y += this.addedY;
+
+               this.time = 0;
+               this.targetTime = (opts.baseTime + opts.addedTime * Math.random()) | 0;
+
+               this.rad += baseRad * (Math.random() < .5 ? 1 : -1);
+               this.addedX = Math.cos(this.rad);
+               this.addedY = Math.sin(this.rad);
+
+               if (Math.random() < opts.dieChance || this.x > dieX || this.x < -dieX || this.y > dieY || this.y < -
+                    dieY)
+                    this.reset();
+          }
+          Line.prototype.step = function () {
+
+               ++this.time;
+               ++this.cumulativeTime;
+
+               if (this.time >= this.targetTime)
+                    this.beginPhase();
+
+               var prop = this.time / this.targetTime,
+                    wave = Math.sin(prop * Math.PI / 2),
+                    x = this.addedX * wave,
+                    y = this.addedY * wave;
+
+               ctx.shadowBlur = prop * opts.shadowToTimePropMult;
+               ctx.fillStyle = ctx.shadowColor = this.color.replace('light', opts.baseLight + opts.addedLight *
+                    Math.sin(this.cumulativeTime * this.lightInputMultiplier));
+               ctx.fillRect(opts.cx + (this.x + x) * opts.len, opts.cy + (this.y + y) * opts.len, 2, 2);
+
+               if (Math.random() < opts.sparkChance)
+                    ctx.fillRect(opts.cx + (this.x + x) * opts.len + Math.random() * opts.sparkDist * (Math
+                              .random() < .5 ? 1 : -1) - opts.sparkSize / 2, opts.cy + (this.y + y) * opts.len +
+                         Math
+                         .random() * opts.sparkDist * (Math.random() < .5 ? 1 : -1) - opts.sparkSize / 2, opts
+                         .sparkSize, opts.sparkSize)
+          }
+          loop();
+
+          window.addEventListener('resize', function () {
+
+               w = c.width = window.innerWidth;
+               h = c.height = window.innerHeight;
+               ctx.fillStyle = 'black';
+               ctx.fillRect(0, 0, w, h);
+
+               opts.cx = w / 2;
+               opts.cy = h / 2;
+
+               dieX = w / 2 / opts.len;
+               dieY = h / 2 / opts.len;
+          });
      </script>
+     <style type="text/css">
+          canvas {
+               position: absolute;
+               top: 0;
+               left: 0;
+          }
+     </style>
 </body>
 
 </html>
