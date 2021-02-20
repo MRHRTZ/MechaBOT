@@ -80,6 +80,7 @@ function restartCode() {
 
 
 const vip = JSON.parse(fs.readFileSync('./lib/database/vip.json'))
+const expvip = JSON.parse(fs.readFileSync('./lib/database/expvip.json'))
 
 function pushing(obj) {
      fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
@@ -4032,7 +4033,13 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (args[1] == 'add') {
                     const ji = args[2].replace('@', '') + '@s.whatsapp.net'
                     if (args.length === 2) return balas(from, `Mohon tag membernya!`)
+                    if (args.length === 3) return balas(from, `Masukan data hari!`)
                     vip.push(ji)
+                    expvip.push({
+                         nomer: ji,
+                         expired_on: Number(args[3])
+                    })
+                    fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
                     fs.writeFileSync('./lib/database/vip.json', JSON.stringify(vip, null, 2))
                     balas(from, `Anda telah menjadi VIP ✅`)
                } else if (args[1] == 'delete') {
