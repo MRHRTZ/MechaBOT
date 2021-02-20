@@ -86,6 +86,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                return
           }
           const hurtz = chat.messages.all()[0];
+          if (!hurtz.key) return
           const setting = require('./src/settings.json')
           require('./myHandler')(setting, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat)
      })

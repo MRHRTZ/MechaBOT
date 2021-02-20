@@ -52,6 +52,10 @@ function ERRLOG(e) {
      console.log('\x1b[1;31m~\x1b[1;37m>>', '<\x1b[1;31mERROR\x1b[1;37m>', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
 }
 
+function restartCode() {
+     const datanow = fs.readFileSync('./myHandler.js', 'utf-8')
+     fs.writeFileSync('./myHandler.js', datanow)
+}
 // function getDuplicatesArr(data) {
 //      return data.filter((value, index) => data.indexOf(value) === index);
 // }
@@ -59,6 +63,21 @@ function ERRLOG(e) {
 // const dataSetting = JSON.parse(fs.readFileSync('./src/settings.json'))
 
 /*-------------  Function Without Message Trigger   --------------*/
+// let datamo
+// var y = setInterval(function () {
+//      datamo = moment().unix()
+//      datateb = db_tebak.expired_on < moment().unix()
+//      // If the count down is finished, write some text
+//      if (db_tebak.expired_on != null && db_tebak.expired_on < moment().unix()) {
+//           clearInterval(y)
+// INFOLOG('Expired Tebak Gambar')
+// db_tebak.status = false
+// fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
+// restartCode()
+//      }
+// }, 1000);
+
+
 
 const vip = JSON.parse(fs.readFileSync('./lib/database/vip.json'))
 
@@ -251,8 +270,8 @@ settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 global.countResetLimit
 
 var x = setInterval(function () {
-     
-     var countDownDate = settings.Reset_Time 
+
+     var countDownDate = settings.Reset_Time
      // Get today's date and time
      var now = new Date().getTime();
 
@@ -278,8 +297,7 @@ var x = setInterval(function () {
                     settings.Reset_Time = newCountReset
                     settings.Reset_Status = true
                     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-                    const datanow = fs.readFileSync('./myHandler.js', 'utf-8')
-                    fs.writeFileSync('./myHandler.js', datanow)
+                    restartCode()
                })
      }
 }, 1000);
@@ -325,9 +343,9 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
      const body = type == 'conversation' ? hurtz.message.conversation : type == 'mentionedText' ? hurtz.message.extendedTextMessage.text : type == 'extendedTextMessage' ? hurtz.message.extendedTextMessage.text : type == 'imageMessage' ? hurtz.message.imageMessage.caption : type == 'stickerMessage' ? 'Sticker' : type == 'audioMessage' ? 'Audio' : type == 'videoMessage' ? hurtz.message.videoMessage.caption : type == 'documentMessage' ? 'document' : '[ NOT FOUND BODY @MechaBOT ]'//hurtz.message
      const args = body.split(' ')
      const cmd = body.toLowerCase().split(' ')[0] || ''
-     const prf = /^[°•π*÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ? cmd.match(/^[°•π*÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/gi) : '-'
+     const prf = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/gi) : '-'
      const anticol = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g
-     const isMedia = (type === 'imageMessage' || type === 'videoMessage' || type === 'documentMessage')
+     const isMedia = (type === 'imageMessage' || type === 'videoMessage')
      const isQuotedImage = type === 'extendedTextMessage' && konten.includes('imageMessage')
      const isQuotedVideo = type === 'extendedTextMessage' && konten.includes('videoMessage')
      const isQuotedSticker = type === 'extendedTextMessage' && konten.includes('stickerMessage')
@@ -364,6 +382,52 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
      }
      const isAdmin = adminGroups.includes(sender)
      const isBotAdmin = adminGroups.includes(botNumber)
+
+     let datateb
+     // if (cmd == `${prf}sissawaktu` || cmd == `${prf}sissa`) {
+     //      balas(from, `*Waktu tersisa* : ${sisawaktu}`)
+     // }
+     // let sisawaktu
+     var y = setInterval(function () {
+          if (!fs.existsSync(`./lib/tebak-gambar/${from}.json`)) return
+          let db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
+          var countDownDate = db_tebak.expired_on
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+          // Time calculations for days, hours, minutes and seconds
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          // Display the result in the element with id="demo"
+          const countReset = `${minutes}:${seconds}`
+          datateb = countReset + db_tebak.status
+          {
+               db_tebak.remaining = countReset
+               fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
+          }
+          // console.log(countReset)
+          // If the count down is finished, write some text
+          if (distance < 0) {
+               clearInterval(y);
+               INFOLOG('Expired Tebak Gambar')
+               fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
+               // restartCode()
+               conn.sendMessage(from, `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max} detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${db_tebak.name} ( @${db_tebak.number.replace('@s.whatsapp.net', '')} )\nPesan terdeteksi : ${db_tebak.listed.length}\n\nMulai lagi? ketik *!tebakgambar* 😊`, TypePsn.text, { contextInfo: { mentionedJid: [db_tebak.number] } })
+               fs.unlinkSync(`./lib/tebak-gambar/${from}.json`)
+          }
+     }, 1000);
+     // console.log(sisawaktu)
+     // if (fs.existsSync(`./lib/tebak-gambar/${from}.json`)) {
+     //      const db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
+     //      console.log(db_tebak.status + ' status line 415')
+     //      if (!db_tebak.status) {
+     //           INFOLOG('Handling Expired Tebak Gambar')
+
+     //      }
+     // }
 
      const datatoken = JSON.parse(fs.readFileSync('./lib/database/token-limit.json'))
 
@@ -704,12 +768,8 @@ Contoh : *!guess naruto*
           fs.unlinkSync(`./lib/database/vote/${from}.json`)
      }
 
-     let db_tebak = fs.existsSync(`./lib/tebak-gambar/${from}.json`) ? JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`)) : { status: true, expired_on: null }
-     if (db_tebak.expired_on != null && Number(db_tebak.expired_on) <= moment().unix()) {
-          INFOLOG('Expired Tebak Gambar')
-          conn.sendMessage(from, `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max} detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${db_tebak.name} ( @${db_tebak.number.replace('@s.whatsapp.net', '')} )\nPesan terdeteksi : ${db_tebak.listed.length}\n\nMulai lagi? ketik *!tebakgambar* 😊`, TypePsn.text, { contextInfo: { mentionedJid: [db_tebak.number] } })
-          fs.unlinkSync(`./lib/tebak-gambar/${from}.json`)
-     }
+
+
 
      const db = JSON.parse(fs.readFileSync('./lib/new-chat/database.json'))
      // const from = '62857313534sa1@s.whatsapp.net'
@@ -754,7 +814,7 @@ Contoh : *!guess naruto*
                balas(from, util.format(`*Error unexpected* :\n\n${error}`))
           }
      }
-     if (mtchat) return INFOLOG(`SEDANG DALAM MAINTENANCE`)
+     if (mtchat) return
      let response_db = JSON.parse(fs.readFileSync('./lib/database/response.json'))
      let kunci_pesan = []
      for (let datares of response_db) {
@@ -3412,6 +3472,10 @@ ${hasil.grid}
                               balas(from, `Terdapat kesalahan!!`)
                          })
                }
+          } else if (cmd == `${prf}sisa` || cmd == `${prf}sisawaktu`) {
+               if (!fs.existsSync(`./lib/tebak-gambar/${from}.json`)) return balas(from, `Sesi tebakgambar belum diaktifkan ❌\nketik *!tebakgambar* untuk memulai`)
+               const db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
+               balas(from, `*Waktu tersisa* = ${db_tebak.remaining}`)
           } else if (cmd == `${prf}batt`) {
                const batt = fs.readFileSync('./lib/database/batt.json', 'utf-8')
                conn.sendMessage(from, '*Battery* : ' + batt, TypePsn.text, { quoted: hurtz })
@@ -3480,7 +3544,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                })
           } else if (cmd == `${prf}warnai`) {
-			  return balas(from, `Fitur ini masih perbaikan`)
+               return balas(from, `Fitur ini masih perbaikan`)
                const savedMedia = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                exec(`curl -F "image=@${savedMedia}" -H "api-key:c7e56944-336a-4bfe-ae81-bc579f4c7047" https://api.deepai.org/api/colorizer `, (err, stdout, stderr) => {
                     const data = JSON.parse(stdout)
@@ -3730,7 +3794,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          fs.unlinkSync(`./media/sticker/${filename}-done.png`)
                     })
                }
-          } else if (cmd == `${prf}stiker` || cmd == `${prf}sticker` || cmd == `${prf}stikergif` || cmd == `${prf}stickergif`) {
+          } else if (cmd == `${prf}stiker` || cmd == `${prf}sticker` || cmd == `${prf}stikergif` || cmd == `${prf}stickergif` || cmd == `${prf}stickergift` || cmd == `${prf}stikergift`) {
+               if (!isMedia || !isQuotedImage || !isQuotedImage) return balas(from, `Mohon kirim gambar atau tag gambar dengan caption !stiker`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -4020,7 +4085,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                settings.Tebak_Gambar.Max = Number(args[1])
                fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
                balas(from, `Pengaturan tebak gambar telah diperbaharui ✅`)
-          } else if (cmd == `${prf}tebakgambar` || cmd == `${prf}gambartebak`) {
+          } else if (cmd == `${prf}tebak` || cmd == `${prf}tebakgambar` || cmd == `${prf}gambartebak`) {
                const reader = fs.readdirSync(`./lib/tebak-gambar/`)
                if (reader.includes(from + '.json')) {
                     balas(from, `Maaf sesi tebak gambar sedang berlangsung`)
@@ -4036,6 +4101,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }
                     pushLimit(sender, 5)
                     const nebak = await tebak_gambar()
+                    INFOLOG('Jawaban : ' + nebak.jawaban + `( ${from} )`)
                     const regextebak = new RegExp('[^aeiou ]', 'g')
                     request({
                          url: nebak.img,
@@ -4048,8 +4114,9 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                                         status: true,
                                         name: pushname,
                                         number: sender,
+                                        remaining: '',
+                                        expired_on: moment(new Date()).add(settings.Tebak_Gambar.Max, 'seconds').valueOf(),
                                         message: obe,
-                                        expired_on: moment().add(settings.Tebak_Gambar.Max, 'seconds').unix(),
                                         data: {
                                              img: nebak.img,
                                              answer: nebak.jawaban
@@ -4379,15 +4446,39 @@ Note : Khusus fitur ini tanpa prefix!
                     },
                     messageTimestamp: new Date() / 1000
                }
+               const custreph = {
+                    key: {
+                         remoteJid: from,
+                         fromMe: true,
+                         id: "M3CH4" + Crypto.randomBytes(13).toString('hex').toUpperCase()
+                    },
+                    message: {
+                         extendedTextMessage: {
+                              text: strMenu, previewType: 'NONE',
+                              contextInfo: {
+                                   stanzaId: '3EB04FF5CF9D',
+                                   participant: '0@s.whatsapp.net',
+                                   quotedMessage: {
+                                        conversation: '			(    🤖 MENU MECHABOT V1.3.2 🤖    )'
+                                   },
+                                   remoteJid: '6285559038021-1605869468@g.us',
+                                   mentionedJid: [ nomerOwner[0] ],
+                              }
+                         }
+                    },
+                    messageTimestamp: new Date() / 1000,
+                    status: 'ERROR',
+                    ephemeralOutOfSync: false
+               }
                const content = await conn.prepareMessageContent(
                     strMenu,
                     TypePsn.extendedText,
                     { quoted: hurtz }
                )
                conn.prepareMessageFromContent(from, content, { quoted: hurtz })
-               // conn.relayWAMessage(custhumb)
+               conn.relayWAMessage(custreph)
                // Fix
-               conn.sendMessage(from, strMenu, TypePsn.text, { quoted: customQuote('			(    🤖 MENU MECHABOT V1.3.2 🤖    )') , contextInfo: { mentionedJid: [nomerOwner[0]] } })
+               // conn.sendMessage(from, strMenu, TypePsn.text, { quoted: customQuote('			(    🤖 MENU MECHABOT V1.3.2 🤖    )'), contextInfo: { mentionedJid: [nomerOwner[0]] } })
           }
      }
 }

@@ -1,0 +1,120 @@
+[
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "5DBE146CF407091EC9C3ABE515049F70"
+    },
+    "message": {
+      "conversation": "Terus di paste lagi"
+    },
+    "messageTimestamp": "1613744542",
+    "status": "ERROR",
+    "participant": "6285736996646@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "0D16255FB24485FF2BCA1D44866AB207"
+    },
+    "message": {
+      "conversation": "Sampe 7000"
+    },
+    "messageTimestamp": "1613744545",
+    "status": "ERROR",
+    "participant": "6285736996646@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6281311850715-1605290009@g.us",
+      "fromMe": false,
+      "id": "6E4FA44078BDCEDDCA3B83F1D04E55DC"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "mengontol",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "566176863C61086A673CF268AB9A2FAA",
+          "participant": "6282393286384@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "yahahahahh:3"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1613744546",
+    "status": "ERROR",
+    "participant": "6285806947110@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6281311850715-1605290009@g.us",
+      "fromMe": false,
+      "id": "6419CF030341D2659D03D29D1D2B7E17"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Ar14OhT87B-RUO9WeVgOPwipdyqDI7dqhlonF5i4AUK_.enc",
+        "fileSha256": "u+NmE+f4Y4eJ74LDXcFQVmgx4pxFWVnZ12SQ82jyDNE=",
+        "fileEncSha256": "MvlKza3ISvKlF9t3oW+0S0DV3JSTZqNurUal3thZqFs=",
+        "mediaKey": "Z19w6ec/u0bJEgjEczY5tcmE1gpN/sKtVAbiBuifgr0=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/35013924_785984892264638_5310322120588291231_n.enc?oh=0cd4ae439adf222b872b7d5e316a91c3&oe=605B0598",
+        "fileLength": "966482",
+        "mediaKeyTimestamp": "1613640238",
+        "firstFrameLength": 3340,
+        "firstFrameSidecar": "qc4DEjQgTuwMSg==",
+        "isAnimated": true
+      }
+    },
+    "messageTimestamp": "1613744556",
+    "status": "ERROR",
+    "participant": "6285806947110@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6281311850715-1605290009@g.us",
+      "fromMe": false,
+      "id": "OBQRFJKPUOMSVBDEKFS7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Maaf Nakano Miku V6.3, Command *_Otewe* Tidak Terdaftar Di Dalam *_menu*!",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "VVK9W3ZGDAAGKC04IPYC",
+          "participant": "6289502992977@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "_Otewe nggak pake rem_"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1613744557",
+    "status": "ERROR",
+    "participant": "6283805191681@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1613222785@g.us",
+      "fromMe": false,
+      "id": "A9C79E779514FC81232A0F83B34954AF"
+    },
+    "message": {
+      "conversation": "Sepiring papeda"
+    },
+    "messageTimestamp": "1613744569",
+    "status": "ERROR",
+    "participant": "628975400701@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  }
+]
