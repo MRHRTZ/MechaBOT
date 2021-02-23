@@ -1,7 +1,7 @@
-// require('./lib/auto-reset-limit')
 const fs = require('fs')
 const os = require('os')
 const pm2 = require('pm2');
+const path = require('path')
 const util = require('util')
 const sharp = require('sharp')
 const chalk = require('chalk')
@@ -19,11 +19,12 @@ const remote = require('remote-file-size')
 const time = moment().format('DD/MM HH:mm:ss')
 const translate = require('@vitalets/google-translate-api');
 const { advancedglow, futuristic, cloud, blackpink, sand, scifi, dropwater, codmw, bokeh, thunder, horrorblood, firework, bloodglass, neonlight, marvel, phub, brokeCard, iphone, underwater, drawing, burningFire, semok, harryPotter, horrorHouse, coffee, battlefield, googleKeyword, gunBanner, gtaV, dota, shadow, beachFrame, summerFrame, natureFrame, glitch, rain, sea, neon, stars, wood, darklogo, nightsea, photoglitch, anaglyph, balloon, typographic, photosky, wanted, fireworkvideo, cooldesign, colorfuldesign, armydesign } = require('./lib/image-manipulation')
-const { voiceremover, webp2mp4File, reverseVideoFile, mp42mp3, mp32mp4, uploadwebp, webp2mp4Url, apng2webpUrl } = require('./lib/converter')
+const { toAudio, toVideo, toPTT, voiceremover, webp2mp4File, reverseVideoFile, mp42mp3, mp32mp4, uploadwebp, webp2mp4Url, apng2webpUrl } = require('./lib/converter')
 const { baseURI, ytsr, yta, ytv, buffer2Stream, stream2Buffer, noop } = require('./lib/ytdl')
 const { getUser, getPost, searchUser, searchHastag } = require('./lib/insta')
 const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
+const { herodetail, herolist } = require('./lib/mobile-legends')
 const { wiki, brainly, crawl } = require('./lib/crawler')
 const { generateStr } = require('./lib/stringGenerator')
 const { getStikerLine } = require('./lib/stickerline')
@@ -35,6 +36,7 @@ const { createExif } = require('./lib/create-exif')
 const { addContact } = require('./lib/savecontact')
 const { pinterest } = require('./lib/pinterest')
 const { exec, spawn } = require('child_process')
+const { download } = require('./lib/downloader')
 const { text2img } = require('./lib/text2img')
 const { default: Axios } = require('axios')
 const { tiktok } = require('./lib/tiktok')
@@ -77,10 +79,6 @@ function restartCode() {
 //      }
 // }, 1000);
 
-
-
-const vip = JSON.parse(fs.readFileSync('./lib/database/vip.json'))
-const expvip = JSON.parse(fs.readFileSync('./lib/database/expvip.json'))
 
 function pushing(obj) {
      fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
@@ -303,6 +301,25 @@ var x = setInterval(function () {
      }
 }, 1000);
 
+
+
+function getRemaining(endtime) {
+     const total = Date.parse(endtime) - Date.parse(new Date());
+     const seconds = Math.floor((total / 1000) % 60);
+     const minutes = Math.floor((total / 1000 / 60) % 60);
+     const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+     const days = Math.floor(total / (1000 * 60 * 60 * 24));
+     
+     return {
+          total,
+          days,
+          hours,
+          minutes,
+          seconds
+     };
+}
+
+
 module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
      let sesi
      for (let se of settings.Sesi) {
@@ -320,7 +337,7 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
      infoMSG.push(JSON.parse(JSON.stringify(hurtz)))
      fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
      const urutan_pesan = infoMSG.length
-     if (urutan_pesan === 5000) {
+     if (urutan_pesan === 2500) {
           infoMSG.splice(0, 4300)
           fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
      }
@@ -331,6 +348,9 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
           return
      }
      if (!hurtz.message) return
+     let vip = JSON.parse(fs.readFileSync('./lib/database/vip.json'))
+     let expvip = JSON.parse(fs.readFileSync('./lib/database/expvip.json'))
+
      const groupMines = JSON.parse(fs.readFileSync('./lib/database/group-minesweeper.json'))
      const dataRevoke = JSON.parse(fs.readFileSync('./lib/database/RevokedGroup.json'))
      const from = hurtz.key.remoteJid
@@ -384,11 +404,8 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
      const isAdmin = adminGroups.includes(sender)
      const isBotAdmin = adminGroups.includes(botNumber)
 
-     let datateb
-     // if (cmd == `${prf}sissawaktu` || cmd == `${prf}sissa`) {
-     //      balas(from, `*Waktu tersisa* : ${sisawaktu}`)
-     // }
-     // let sisawaktu
+     
+
      var y = setInterval(function () {
           if (!fs.existsSync(`./lib/tebak-gambar/${from}.json`)) return
           let db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
@@ -495,8 +512,14 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
      module.exports.resetAllLimit = resetAllLimit
 
 
-
-
+     /*---------------  Fungsi Refresh Trigger By Body  ------------------*/
+     if (body) {
+          for (let i = 0; i < expvip.length; i++) {
+               const mengsedih = getRemaining(new Date(expvip[i].expired_on))
+               expvip[i].remaining = `Tersisa ${mengsedih.days} hari`
+               fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
+          }
+     }
 
      function reset() {
           var g = new Grid({ width: 10, height: 10, name: "Standart grid", nbbombs: 10 })
@@ -720,7 +743,7 @@ Contoh : *!guess naruto*
           }
      }
      //End Of Func!
-     const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') } || sender
+     const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
      const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
 
      // module.exports = getName = (conn, sender) =>{
@@ -748,7 +771,7 @@ Contoh : *!guess naruto*
      }
 
      // End line TypePsn 
-     const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}-${moment().milliseconds()}-${Crypto.randomBytes(2).toString('hex').toUpperCase()}`
+     const filename = `${sender.replace('@s.whatsapp.net', '')}-${hurtz.key.id}`
      const waiter = () => {
           conn.sendMessage(from, `⏲️ _Mohon tunggu sebentar, sedang memproses data.._`, TypePsn.text, { quoted: hurtz })
      }
@@ -1428,13 +1451,13 @@ Video : ${vid_post_}
                pushLimit(sender, 1)
                try {
                     const gtts = require('node-gtts')(args[1]);
-                    gtts.save('./media/tts/wehh.wav', body.slice(8), function () {
-                         exec('ffmpeg -i ./media/tts/wehh.wav ./media/tts/wehh.mp3', (err, stdout, stderr) => {
+                    gtts.save(`./media/tts/${filename}.wav`, body.slice(8), function () {
+                         exec(`ffmpeg -i ./media/tts/${filename}.wav ./media/tts/${filename}.mp3`, (err, stdout, stderr) => {
                               if (err) throw new TypeError(err)
-                              const buff = fs.readFileSync('./media/tts/wehh.mp3')
+                              const buff = fs.readFileSync(`./media/tts/${filename}.mp3`)
                               conn.sendMessage(from, buff, TypePsn.audio, { mimetype: Mimetype.mp4Audio, ptt: true, quoted: hurtz })
-                              fs.unlinkSync('./media/tts/wehh.wav')
-                              fs.unlinkSync('./media/tts/wehh.mp3')
+                              fs.unlinkSync(`./media/tts/${filename}.wav`)
+                              fs.unlinkSync(`./media/tts/${filename}.mp3`)
                          })
                     })
                } catch (e) {
@@ -2297,6 +2320,64 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                     }).catch(e => {
                          console.log(e)
                     })
+          } else if (cmd == `${prf}heroml`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!herodetail* <nama hero>\nContoh : *!herodetail miya*`)
+               herodetail(query)
+                    .then((ress) => {
+                         const res = ress.result
+                         let capt = `*Hero Mobile Legends Details*
+
+*Nama* : ${res.hero_name}
+*Role* : ${res.role}
+*Quotes* : ${res.entrance_quotes}
+*Fitur Hero* : ${res.hero_feature}
+*Spesial* : ${res.speciality}
+*Rekomendasi Lane* : ${res.laning_recommendation}
+*Harga* : ${res.price.battle_point} (Battle point) | ${res.price.diamond} (Diamond) | ${res.price.hero_fragment} (Hero Fragment)
+*Tahun Rilis* : ${res.release_date}
+*Skill* : 
+*Durability* : ${res.skill.durability}
+*Offence* : ${res.skill.offense}
+*Skill Effect* : ${res.skill_effects}
+*Difficulty* : ${res.skill.difficulty}
+     
+*Movement Speed* : ${res.attributes.movement_speed}
+*Physical Attack* : ${res.attributes.physical_attack}
+*Magic Defense* : ${res.attributes.magic_defense}
+*Ability Crit Rate* : ${res.attributes.ability_crit_rate}
+*HP* : ${res.attributes.hp}
+*Mana* : ${res.attributes.mana}
+*Mana Regen* : ${res.attributes.mana_regen}
+*Story* : ${res.background_story}
+`
+                         sendDariUrl(from, res.image.split('/revision')[0], TypePsn.image, capt)
+                    })
+                    .catch((e) => {
+                         console.log(e)
+                         balas(from, `Maaf terdapat kesalahan!`)
+                    })
+          } else if (cmd == `${prf}herolist`) {
+               herolist()
+                    .then((res) => {
+                         // console.log(res)
+                         let captions = '*Menampilkan list hero mobile legends*\n\n'
+                         for (let i = 1; i < res.result.length; i++) {
+                              captions += `${i}. ${res.result[i]}\n`
+                         }
+                         balas(from, captions)
+                    })
+                    .catch((e) => {
+                         console.log(e)
+                         balas(from, `Maaf terdapat kesalahan!`)
+                    })
+          } else if (cmd == `${prf}owner`) {
+               const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
+                    + 'VERSION:3.0\n'
+                    + 'FN:MRHRTZ@kali:~#\n' // full name
+                    + 'ORG:MechaBOT Owner;\n' // the organization of the contact
+                    + 'TEL;type=CELL;type=VOICE;waid=6285559038021:+62 855 5903 8021\n' // WhatsApp ID + phone number
+                    + 'END:VCARD'
+               await conn.sendMessage(from, { displayname: "Jeff", vcard: vcard }, MessageType.contact)
           } else if (cmd == `${prf}upstory`) {
                if (!isOwner) return balas(from, `Owner Only!`)
                if (args.length === 1) return balas(from, `Perintah !upstory <text/image/video> <caption>`)
@@ -2311,14 +2392,6 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                     await conn.sendMessage('status@broadcast', fs.readFileSync(docsender), TypePsn.document, { mimetype: 'application/octet-stream' })
                     balas(from, 'Berhasil Upstory Document!')
                     fs.unlinkSync(docsender)
-               } else if (args[1] == `vcard`) {
-                    const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
-                         + 'VERSION:3.0\n'
-                         + 'FN:Jeff Singh\n' // full name
-                         + 'ORG:Ashoka Uni;\n' // the organization of the contact
-                         + 'TEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\n' // WhatsApp ID + phone number
-                         + 'END:VCARD'
-                    const sentMsg = await conn.sendMessage('status@broadcast', { displayname: "Jeff", vcard: vcard }, MessageType.contact)
                } else if (args[1] == `stk`) {
                     const captImg = `${query}`
                     const stksender = await conn.downloadAndSaveMediaMessage(mediaData, `./media/${filename}`);
@@ -3258,28 +3331,28 @@ ${hasil.grid}
                          pm2.disconnect()
                     })
                })
-	     } else if (cmd == `${prf}startbot` || cmd == `${prf}mulaibot`){
+          } else if (cmd == `${prf}startbot` || cmd == `${prf}mulaibot`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
-		     if (args.length !== 2) return balas(from, `Perintah !startbot <namasesi>`)
-		     pm2.connect(function (err) {
-			     if (err) {
-				     console.error(err);
-				     process.exit(2);
-			     }
-			pm2.start({
-		 	     script: 'mecha.js',		// Script to be run
-      		     name: args[1],
-  			     max_memory_restart: '5000M'		// Optional: Restarts your app if it reaches 100Mb
-			     }, function (err, apps) {
-				     if (err) {
-					     pm2.disconnect();		// Disconnects from PM2
-					     balas(from, `Error, mungkin sesi tidak tersedia atau telah terhapus sebelumnya!`)
-					return		
-				     } 
-				     INFOLOG('Sukses Memulaikan BOT ' + args[1])
-				     balas(from, `BOT ${args[1]} telah online kembali.`)	
-			     });
-		     })
+               if (args.length !== 2) return balas(from, `Perintah !startbot <namasesi>`)
+               pm2.connect(function (err) {
+                    if (err) {
+                         console.error(err);
+                         process.exit(2);
+                    }
+                    pm2.start({
+                         script: 'mecha.js',		// Script to be run
+                         name: args[1],
+                         max_memory_restart: '5000M'		// Optional: Restarts your app if it reaches 100Mb
+                    }, function (err, apps) {
+                         if (err) {
+                              pm2.disconnect();		// Disconnects from PM2
+                              balas(from, `Error, mungkin sesi tidak tersedia atau telah terhapus sebelumnya!`)
+                              return
+                         }
+                         INFOLOG('Sukses Memulaikan BOT ' + args[1])
+                         balas(from, `BOT ${args[1]} telah online kembali.`)
+                    });
+               })
           } else if (cmd == `${prf}stopbot`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`)
                if (args.length !== 2) return balas(from, `Penggunaan *!stopbot* <namasesi>`)
@@ -3690,7 +3763,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                }
                pushLimit(sender, 5)
                hidetag(from, body.slice(9))
-          } else if (cmd == `${prf}getvocal` || cmd == `${prf}getvokal` || cmd == `${prf}vocal` || cmd == `${prf}vokal`) {
+          } else if (cmd == `${prf}getvocals` || cmd == `${prf}getvokal` || cmd == `${prf}vocal` || cmd == `${prf}vokal`) {
                if (!isQuotedAudio) return balas(from, `Mohon tag atau reply pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\n_Ingin tambah limit 100 free? Follow Instagram Owner dan konfirmasi ke @6285559038021 untuk gift limit._`, TypePsn.text, {
@@ -3703,10 +3776,28 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                pushLimit(sender, 1)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`);
                voiceremover(savedFilename)
-                    .then((rest) => {
+                    .then(async (rest) => {
                          INFOLOG(`GOT VOCAL`)
+                         console.log(rest)
                          if (rest.error) return balas(from, `Terjadi kesalahan saat mengekstrak audio!`)
-                         sendDariUrl(from, rest.vocal_path, TypePsn.audio, '')
+                         const dl_dulu = await download(rest.vocal_path, `./media/effect/${filename}.mp3`)
+                         spawn('ffmpeg', [
+                              '-y',
+                              '-i', dl_dulu.result,
+                              '-vn',
+                              '-ac', '2',
+                              '-b:a', '128k',
+                              '-ar', '44100',
+                              '-f', 'mp3',
+                              `./media/effect/${filename}-out.mp3`
+                         ])
+                              .on('error', () => fs.unlinkSync(dl_dulu.result))
+                              .on('close', () => {
+                                   fs.unlinkSync(dl_dulu.result)
+                                   conn.sendMessage(from, fs.readFileSync(`./media/effect/${filename}-out.mp3`), TypePsn.audio)
+                                   if (fs.existsSync(`./media/effect/${filename}-out.mp3`)) fs.unlinkSync(`./media/effect/${filename}-out.mp3`)
+                              })
+                         // sendDariUrl(from, rest.vocal_path, TypePsn.audio, '')
                     })
                     .catch(e => {
                          console.log(e)
@@ -4050,35 +4141,44 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     balas(from, `Berhasil mengaktifkan mode maintenace ✅`)
                }
           } else if (cmd == `${prf}vip`) {
-               if (!isOwner) return balas(from, `Maaf anda bukan owner / pemilik bot ini`)
+               if (!isOwner) return balas(from, `Ingin VIP? Chat owner.. ketik *!owner*`)
                if (args.length === 1) return balas(from, `Penggunaan *!vip <add/delete/list> <@tagMember>*`)
                if (args[1] == 'add') {
+                    if (!isOwner) return balas(from, `Maaf anda bukan owner / pemilik bot ini`)
                     const ji = args[2].replace('@', '') + '@s.whatsapp.net'
                     if (args.length === 2) return balas(from, `Mohon tag membernya!`)
                     if (args.length === 3) return balas(from, `Masukan data hari!`)
                     vip.push(ji)
                     expvip.push({
-                         nomer: ji,
-                         expired_on: Number(args[3])
+                         number: ji,
+                         expired_on: moment(new Date()).add(Number(args[3]), 'days').valueOf(),
+                         remaining: ''
                     })
                     fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
                     fs.writeFileSync('./lib/database/vip.json', JSON.stringify(vip, null, 2))
-                    balas(from, `Anda telah menjadi VIP ✅`)
+                    conn.sendMessage(from, `${args[2]} telah menjadi VIP member ✅`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [ji] } })
                } else if (args[1] == 'delete') {
+                    if (!isOwner) return balas(from, `Maaf anda bukan owner / pemilik bot ini`)
                     const ji = args[2].replace('@', '') + '@s.whatsapp.net'
                     if (args.length === 2) return balas(from, `Mohon tag membernya!`)
-                    const index = vip.indexOf(ji)
-                    vip.splice(index, 1)
-                    fs.writeFileSync('./lib/database/vip.json', JSON.stringify(vip, null, 2))
-                    balas(from, `Member VIP anda telah dihapus ❌`)
+                    let vipl = []
+                    for (let i in expvip) {
+                         vipl.push(expvip[i].number)
+                    }
+                    const index = vipl.indexOf(ji)
+                    // console.log(index, ji, util.format(vipl))
+                    expvip.splice(index, 1)
+                    fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
+                    conn.sendMessage(from, `${args[2]} telah diberhentikan dari VIP member ❌`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [ji] } })
                } else if (args[1] == 'list') {
                     let content = `*[ Menampilkan list VIP member 💠 ]*\n\n*Terdapat ${vip.length} nomer*\n`
-                    let datavip = []
-                    for (let i = 0; i < vip.length; i++) {
-                         content += `\n${1 + i}. @${vip[i].replace('@s.whatsapp.net', '')}`
-                         datavip.push(vip[i])
+                    let listed_number = []
+                    for (let i = 0; i < expvip.length; i++) {
+                         const expair = getRemaining(new Date(expvip[i].expired_on))
+                         content += `\n${1 + i}. @${expvip[i].number.replace('@s.whatsapp.net','')} ( Tersisa ${expair.days} hari )`
+                         listed_number.push(expvip[i].number)
                     }
-                    conn.sendMessage(from, content, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: datavip } })
+                    conn.sendMessage(from, content, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: listed_number } })
                } else {
                     balas(from, `Penggunaan *!vip <add/delete/list> <@tagMember>*`)
                }
@@ -4276,11 +4376,7 @@ Map >>
 🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 🕴 *Status Maintenance* : ${settings.Maintenace ? '✅' : '❌'}
-<<<<<<< HEAD
 🤖 *Join Mecha Group* :
-=======
-🤖 *Join Mecha Group* : 
->>>>>>> f5d4675739fd9612cef496fb03aa8b08822851bc
 
 [ https://chat.whatsapp.com/KVc2MuopydYJ1cJmiXhxie ] S1
 [ https://chat.whatsapp.com/BGz644tprlY0Ee539LUW3m ] S2
@@ -4313,9 +4409,10 @@ Note : Khusus fitur ini tanpa prefix!
 
 🉐 !tebakgambar _[Mengaktifkan permainan tebak gambar]_
  | ⚪ <jawaban> _[Langsung ketik jawaban tanpa prefix]_
+ | ⚪ sisa _[Unuk melihat waktu tersisa untuk menjawab]_
 🉐 !charagame <enable/disable> _[Mengaktifkan character game]_
  | ⚪ !addchara <Nama Character> _[Menambah karakter anime]_
- | ⚪ !claim <Nama Character> _[Tebak untuk karakter yang bot kirim]_
+ | ⚪ !guess <Nama Character> _[Tebak untuk karakter yang bot kirim]_
  | ⚪ !gallery / !gallery <@tagUser> _[Melihat list galery karakter terklaim]_
  | ⚪ !charalist _[Melihat semua chara di database]_
 💛 !minesweeper _[Mengaktifkan game minesweeper]_
@@ -4409,18 +4506,20 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Fitur Search ]*
 
+💚 !heroml <nama hero> _[Menampilkan Detail Hero Mobile Legends]_
+ | ⚪ !herolist _[Menampilkan semua nama nama hero ML]_
 💚 !chord <lagu> _[Mencari Chord Musik]_
 💚 !apk <Nama Aplikasi/Game> _[Mencari APP / GAME APK]_
-| 💚 !getapk <Id Download> _[Melihat detail dan link download]_
-| 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
+ | 💚 !getapk <Id Download> _[Melihat detail dan link download]_
+ | 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
 💚 !yts <Judul Video/Musik> _[Pencarian Youtube]_
 💚 !google <Teks> _[Pencarian Google]_
 💚 !pinterest <Teks> _[Pencarian Pinterest]_
 💚 !lirik <Judul lagu> _[Cari Lirik Lagu]_
 💚 !video <Judul Video> _[Pencarian lagu]_
-| 💛 !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
+ | 💛 !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
 💚 !musik <Judul Lagu> _[Pencarian lagu]_
-| 💛 !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
+ | 💛 !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
 
      *[ Owner Feature ]*
 
@@ -4480,19 +4579,19 @@ Note : Khusus fitur ini tanpa prefix!
                     key: {
                          remoteJid: from,
                          fromMe: true,
-                         id: "M3CH4" + Crypto.randomBytes(13).toString('hex').toUpperCase()
+                         id: ranid
                     },
                     message: {
                          extendedTextMessage: {
                               text: strMenu, previewType: 'NONE',
                               contextInfo: {
-                                   stanzaId: '3EB04FF5CF9D',
+                                   stanzaId: '',
                                    participant: '0@s.whatsapp.net',
                                    quotedMessage: {
                                         conversation: '			(    🤖 MENU MECHABOT V1.3.2 🤖    )'
                                    },
                                    remoteJid: '6285559038021-1605869468@g.us',
-                                   mentionedJid: [ nomerOwner[0] ],
+                                   mentionedJid: [nomerOwner[0]],
                               }
                          }
                     },
