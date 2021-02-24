@@ -10,6 +10,7 @@
   "Maintenace": true,
   "MessageConsole": false,
   "IDConsole": true,
+  "PrivateChat": false,
   "Limit": 30,
   "Reset_Time": 1614207600000,
   "Reset_Status": false,

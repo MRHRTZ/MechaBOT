@@ -320,13 +320,13 @@ function getRemaining(endtime) {
 }
 
 
-module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
-     let sesi
-     for (let se of settings.Sesi) {
-          if (conn.user.jid == se.Jid) {
-               sesi = se.Name
-          }
-     }
+module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
+     // let sesi
+     // for (let se of settings.Sesi) {
+     //      if (conn.user.jid == se.Jid) {
+     //           sesi = se.Name
+     //      }
+     // }
      const mt = settings.Maintenace
      const msgout = settings.MessageConsole
      const idlog = settings.IDConsole
@@ -348,6 +348,7 @@ module.exports = handle = async (set, GroupSettingChange, Mimetype, MessageType,
           return
      }
      if (!hurtz.message) return
+
 
      let expvip = JSON.parse(fs.readFileSync('./lib/database/expvip.json'))
 
@@ -876,11 +877,35 @@ Contoh : *!guess naruto*
           fs.writeFileSync('./lib/new-chat/database.json', JSON.stringify(db, null, 2))
           INFOLOG(`Adding data!`)
      }
+
+
+     let muted = JSON.parse(fs.readFileSync('./lib/database/muted.json'))
      // Object.defineProperty(hurtz, "message.extendedTextMessage.text", {value:"Emm"})
      // if (!self) return
+     if (cmd == `${prf}mute` || cmd == `${prf}mute`) {
+          if (!isOwner) return balas(from, `Hanya untuk owner bot!`)
+          if (args.length) return balas(from, `Penggunaan : *!pc <aktif/mati>*`)
+          if (args[1] == 'aktif' || args[1] == 'enable') {
+               muted.push(from)
+               fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
+               balas(from, `Bot telah dimute pada chat ini ✅`)
+          } else if (args[1] == 'mati' || args[1] == 'disable') {
+               const indexmute = muted.indexOf(from)
+               if (indexmute == -1) return balas(from, `Bot ini sedang tidak dimute!`)
+               muted.splice(indexmute, 1)
+               fs.writeFileSync('./lib/database/muted.json', JSON.stringify(settings, null, 2))
+               balas(from, `Mute bot telah dinonaktifkan ❌`)
+          }
+     }
+     // const dataMuted = fs.readFileSync('./lib/database/muted.json')
+     if (muted.includes(from)) {
+          if (body.startsWith(prf)) {
+               INFOLOG(`Grup ${groupMetadata.subject} telah dimute`)
+          }
+          return
+     }
 
-
-
+     if (!settings.PrivateChat && !isOwner) return
      if (hurtz.message.conversation == null) {
           INFOLOG('SENDING CUSTOM MENU')
      }
@@ -928,6 +953,18 @@ Contoh : *!guess naruto*
                          console.log(e)
                          balas(from, `Maaf kak ada kesalahan`)
                     })
+          } else if (cmd == `${prf}pc` || cmd == `${prf}privatechat`) {
+               if (!isOwner) return balas(from, `Hanya untuk owner bot!`)
+               if (args.length) return balas(from, `Penggunaan : *!pc <aktif/mati>*`)
+               if (args[1] == 'aktif' || args[1] == 'enable') {
+                    settings.PrivateChat = true
+                    fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+                    balas(from, `Sekarang semua user bisa menggunakan bot di private chat ✅`)
+               } else if (args[1] == 'mati' || args[1] == 'disable') {
+                    settings.PrivateChat = true
+                    fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+                    balas(from, `Semua user tidak bisa menggunakan bot di private chat ❌`)
+               }
           } else if (cmd == `${prf}nulis` || cmd == `${prf}magernulis`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!nulis <teks>*\nContoh : *!nulis hmm*`)
                const diTulis = query
