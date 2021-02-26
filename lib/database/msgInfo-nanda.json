@@ -1,0 +1,110 @@
+[
+  {
+    "key": {
+      "remoteJid": "6281311850715-1605290009@g.us",
+      "fromMe": false,
+      "id": "AF6CC8F579E6E7CF93AF8519C0F97B6D"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AnQRieT-9hVV0PvaAAZlC_Y-NLL0g9H2e9r6tGRhDwzm.enc",
+        "mimetype": "image/jpeg",
+        "caption": "#sticker",
+        "fileSha256": "eK6h3sEQy62WZpiqQIjqx1+cBL8RW5Z6QDrZAFfNR68=",
+        "fileLength": "13789",
+        "height": 297,
+        "width": 359,
+        "mediaKey": "Z0II0pxh6b/5e5YmGlufW9s4DhHW0em+M+uh5QRAmWQ=",
+        "fileEncSha256": "BZVe4N0onFy2afFOz/I6C5StXGBj98gpIwesHZeuYdI=",
+        "directPath": "/v/t62.7118-24/40792860_427717358455990_6913026039333481745_n.enc?oh=0876bb7959df7329e65ee353bceec3fc&oe=6060E0E8",
+        "mediaKeyTimestamp": "1614309828",
+        "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIADwASAMBIgACEQEDEQH/xAAvAAACAwEBAAAAAAAAAAAAAAADBAABAgUGAQEBAQEAAAAAAAAAAAAAAAABAAID/9oADAMBAAIQAxAAAADg5MLG9XYmJo1CGtNErOjKTDRKyBoGh5gJsdOe+jhx2JyZl2wvtjq5K1MrsUEy5NEmpzQei81jpn0k8wy56L/DsezXnCNuEhf/xAAjEAACAwACAQQDAQAAAAAAAAABAgADERIhMRATIkEEQlFy/9oACAEBAAE/AORac4LGENhnuNBYxjMRFZz4ELWDyIycYo0x1CelNYYdy6g1HR4h+eSusKJwBHYluGVr8peOx6VVsVBjVNagHmBcbD/YCoyBkyDl9yut3GiPS/HYi8mgPESt8U5sYMxJEyyKLCc2WKNlOKsNqEGKo5MRASIAfbJzJ0vYhA46JWvyjNzYARltAI4Ng8wK/Q4nuVVWncQzsEAg7CzcCuGOrhAeBwxCwIBUzmqtKFC31f6l1lRRwGGtGKg04VJmov7gnkZYwP5NRGExQvvMxdfHiapTOShZa6VkMCpIUy8taeZGbGn0ezFJ5DsysaYANjjBDv8ATE7PZM/Wf//EAB0RAAMAAgIDAAAAAAAAAAAAAAABERIhAjEQQVH/2gAIAQIBAT8AUIma6NJCa+HSE1PDVMZ7I2jGLRBqjpxeimRRs//EABsRAAICAwEAAAAAAAAAAAAAAAABEBESITEC/9oACAEDAQE/AI2lcUdGtjSo4WWkZIbE49LZRiVH/9k="
+      }
+    },
+    "messageTimestamp": "1614309844",
+    "status": "ERROR",
+    "participant": "6285723730974@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6281311850715-1605290009@g.us",
+      "fromMe": false,
+      "id": "3EB0078FCBB716399DF3"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AmhBU20iZFs05fiiSBfVpLAuvLf1EwLfLMrPbhUKP26l.enc",
+        "fileSha256": "hSsY5u/u0ZDLefP/AeiwlTrMlzhveI2ccc0NGBDN+HA=",
+        "fileEncSha256": "We1P4O2phRS6JCIljLeyuOBmCxA22wiUQhqr/eApJU8=",
+        "mediaKey": "RLVt/kiqSO0jWhSxwXaINQu7nY6X/O5n6GB2g+iV2gQ=",
+        "mimetype": "image/webp",
+        "directPath": "/v/t62.15575-24/40772680_266736574824498_5574847457843295373_n.enc?oh=3114cca235258573619b8e63a7566241&oe=6060A2E0",
+        "fileLength": "12790",
+        "mediaKeyTimestamp": "1614309846",
+        "isAnimated": false,
+        "contextInfo": {
+          "stanzaId": "AF6CC8F579E6E7CF93AF8519C0F97B6D",
+          "participant": "6285723730974@s.whatsapp.net",
+          "quotedMessage": {
+            "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/AnQRieT-9hVV0PvaAAZlC_Y-NLL0g9H2e9r6tGRhDwzm.enc",
+              "mimetype": "image/jpeg",
+              "caption": "#sticker",
+              "fileSha256": "eK6h3sEQy62WZpiqQIjqx1+cBL8RW5Z6QDrZAFfNR68=",
+              "fileLength": "13789",
+              "height": 297,
+              "width": 359,
+              "mediaKey": "Z0II0pxh6b/5e5YmGlufW9s4DhHW0em+M+uh5QRAmWQ=",
+              "fileEncSha256": "BZVe4N0onFy2afFOz/I6C5StXGBj98gpIwesHZeuYdI=",
+              "directPath": "/v/t62.7118-24/40792860_427717358455990_6913026039333481745_n.enc?oh=0876bb7959df7329e65ee353bceec3fc&oe=6060E0E8",
+              "mediaKeyTimestamp": "1614309828",
+              "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIADwASAMBIgACEQEDEQH/xAAvAAACAwEBAAAAAAAAAAAAAAADBAABAgUGAQEBAQEAAAAAAAAAAAAAAAABAAID/9oADAMBAAIQAxAAAADg5MLG9XYmJo1CGtNErOjKTDRKyBoGh5gJsdOe+jhx2JyZl2wvtjq5K1MrsUEy5NEmpzQei81jpn0k8wy56L/DsezXnCNuEhf/xAAjEAACAwACAQQDAQAAAAAAAAABAgADERIhMRATIkEEQlFy/9oACAEBAAE/AORac4LGENhnuNBYxjMRFZz4ELWDyIycYo0x1CelNYYdy6g1HR4h+eSusKJwBHYluGVr8peOx6VVsVBjVNagHmBcbD/YCoyBkyDl9yut3GiPS/HYi8mgPESt8U5sYMxJEyyKLCc2WKNlOKsNqEGKo5MRASIAfbJzJ0vYhA46JWvyjNzYARltAI4Ng8wK/Q4nuVVWncQzsEAg7CzcCuGOrhAeBwxCwIBUzmqtKFC31f6l1lRRwGGtGKg04VJmov7gnkZYwP5NRGExQvvMxdfHiapTOShZa6VkMCpIUy8taeZGbGn0ezFJ5DsysaYANjjBDv8ATE7PZM/Wf//EAB0RAAMAAgIDAAAAAAAAAAAAAAABERIhAjEQQVH/2gAIAQIBAT8AUIma6NJCa+HSE1PDVMZ7I2jGLRBqjpxeimRRs//EABsRAAICAwEAAAAAAAAAAAAAAAABEBESITEC/9oACAEDAQE/AI2lcUdGtjSo4WWkZIbE49LZRiVH/9k="
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1614309848",
+    "status": "ERROR",
+    "participant": "6287875177636@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6281311850715-1605290009@g.us",
+      "fromMe": false,
+      "id": "QCBGJ6QRQG5E1K9SGCJ0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Fitur khusus member premium!, Ingin jadi member premium?\n\nBeli dengan owner seharga 15k/Bulan",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "AF6CC8F579E6E7CF93AF8519C0F97B6D",
+          "participant": "6285723730974@s.whatsapp.net",
+          "quotedMessage": {
+            "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/AnQRieT-9hVV0PvaAAZlC_Y-NLL0g9H2e9r6tGRhDwzm.enc",
+              "mimetype": "image/jpeg",
+              "caption": "#sticker",
+              "fileSha256": "eK6h3sEQy62WZpiqQIjqx1+cBL8RW5Z6QDrZAFfNR68=",
+              "fileLength": "13789",
+              "height": 297,
+              "width": 359,
+              "mediaKey": "Z0II0pxh6b/5e5YmGlufW9s4DhHW0em+M+uh5QRAmWQ=",
+              "fileEncSha256": "BZVe4N0onFy2afFOz/I6C5StXGBj98gpIwesHZeuYdI=",
+              "directPath": "/v/t62.7118-24/40792860_427717358455990_6913026039333481745_n.enc?oh=0876bb7959df7329e65ee353bceec3fc&oe=6060E0E8",
+              "mediaKeyTimestamp": "1614309828",
+              "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIADwASAMBIgACEQEDEQH/xAAvAAACAwEBAAAAAAAAAAAAAAADBAABAgUGAQEBAQEAAAAAAAAAAAAAAAABAAID/9oADAMBAAIQAxAAAADg5MLG9XYmJo1CGtNErOjKTDRKyBoGh5gJsdOe+jhx2JyZl2wvtjq5K1MrsUEy5NEmpzQei81jpn0k8wy56L/DsezXnCNuEhf/xAAjEAACAwACAQQDAQAAAAAAAAABAgADERIhMRATIkEEQlFy/9oACAEBAAE/AORac4LGENhnuNBYxjMRFZz4ELWDyIycYo0x1CelNYYdy6g1HR4h+eSusKJwBHYluGVr8peOx6VVsVBjVNagHmBcbD/YCoyBkyDl9yut3GiPS/HYi8mgPESt8U5sYMxJEyyKLCc2WKNlOKsNqEGKo5MRASIAfbJzJ0vYhA46JWvyjNzYARltAI4Ng8wK/Q4nuVVWncQzsEAg7CzcCuGOrhAeBwxCwIBUzmqtKFC31f6l1lRRwGGtGKg04VJmov7gnkZYwP5NRGExQvvMxdfHiapTOShZa6VkMCpIUy8taeZGbGn0ezFJ5DsysaYANjjBDv8ATE7PZM/Wf//EAB0RAAMAAgIDAAAAAAAAAAAAAAABERIhAjEQQVH/2gAIAQIBAT8AUIma6NJCa+HSE1PDVMZ7I2jGLRBqjpxeimRRs//EABsRAAICAwEAAAAAAAAAAAAAAAABEBESITEC/9oACAEDAQE/AI2lcUdGtjSo4WWkZIbE49LZRiVH/9k="
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1614309848",
+    "status": "ERROR",
+    "participant": "6287771818443@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  }
+]

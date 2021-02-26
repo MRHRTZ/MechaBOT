@@ -1,29 +1,4 @@
-// const app = require('express')();
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
-// const port = process.env.PORT || 5050;
 const fs = require('fs')
-const zezi = (JSON.parse(fs.readFileSync('./src/settings.json'))).Sesi;
-let sesi
-
-// io.on('connection', (socket) => {
-//      // socket.on('chat message', msg => {
-//      //      io.emit('chat message', msg);
-//      // });
-//      app.get('/', (req, res) => {
-//           res.sendFile(__dirname + '/index.html');
-//      });
-// });
-
-// http.listen(port, () => {
-//      console.log(`Socket.IO server running at http://localhost:${port}/`);
-// });
-
-// for (let se of zezi) {
-//      if (conn.user.jid == se.Jid) {
-//           sesi = se.Name
-//      }
-// }
 const mysession = process.argv[2] || 'mecha'///*'mecha'*/'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode')
@@ -31,6 +6,7 @@ const chalk = require('chalk')
 const moment = require('moment')
 const time = moment().format('DD/MM HH:mm:ss')
 let blokir = []
+
 
 
 function INFOLOG(info) {
@@ -72,6 +48,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      fs.existsSync('./sessions/' + sesi + '.sesi.json') && conn.loadAuthInfo('./sessions/' + sesi + '.sesi.json')
 
      conn.connect()
+     
 
      conn.on('chat-update', async (chat) => {
           if (chat.imgUrl) {
@@ -81,7 +58,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           // only do something when a new message is received
           if (!chat.hasNewMessage) {
                if (chat.messages) {
-                    // INFOLOG('updated message: ', chat.messages.first)
+                    INFOLOG('Chat baru di ' + chat.jid + ' sebanyak ' + chat.count + ' pesan.')
                }
                return
           }
@@ -98,9 +75,13 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           require('./groupManager')(setting, GroupSettingChange, Mimetype, MessageType, conn, update)
      })
 
-     conn.on('close', ({ reason, isReconnecting }) => (
+     conn.on('close', ({ reason, isReconnecting }) => {
           INFOLOG('TERDISKONEK! : ' + reason + ', ' + chalk.blue('Menkoneksi ulang : ' + isReconnecting))
-     ))
+          if (!isReconnecting){
+               INFOLOG('Shuting Down')
+               process.exit(1)
+          }
+     })
 
      conn.on('CB:action,,battery', json => {
           const batteryLevelStr = json[2][0][1].value

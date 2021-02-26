@@ -43,7 +43,7 @@ const { kode } = require('./lib/kodebhs')
 const { Grid } = require('minesweeperjs')
 const { chord } = require('./lib/chord')
 
-// moment.tz.setDefault('Asia/Jakarta').locale('id')
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 function INFOLOG(info) {
      console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
@@ -80,226 +80,7 @@ function restartCode() {
 
 let vip = JSON.parse(fs.readFileSync('./lib/database/vip.json'))
 
-function pushing(obj) {
-     fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
-}
-
-function pushLimit(Jid, amount) {
-     amount = Number(amount)
-     let data = []
-     let limit = 30
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let o of obj) {
-          if (o.number === Jid) {
-               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-          }
-     }
-     if (data.length === 0) {
-          const pusheh = {
-               active: true,
-               key: obj.length + 1,
-               limit: limit,
-               number: Jid
-          }
-          obj.push(pusheh)
-          pushing(obj)
-          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-     } else if (data.length > 0) {
-          if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
-          if (data[0].limit <= 0) {
-               for (let o of obj) {
-                    if (o.number == Jid) {
-                         o.active = false
-                    }
-               }
-          } else {
-               for (let o of obj) {
-                    if (o.number == Jid) {
-                         o.limit = data[0].limit - amount
-                    }
-               }
-          }
-     }
-     pushing(obj)
-     return data
-}
-
-function giftLimit(Jid, amount) {
-     amount = Number(amount)
-     let data = []
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let o of obj) {
-          if (o.number == Jid) {
-               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-          }
-     }
-     if (data.length === 0) {
-          const pusheh = {
-               active: true,
-               key: obj.length + 1,
-               limit: amount,
-               number: Jid
-          }
-          obj.push(pusheh)
-          pushing(obj)
-          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-     } else if (data.length > 0) {
-          for (let o of obj) {
-               if (o.number == Jid) {
-                    o.active = true
-                    o.limit = o.limit + amount
-               }
-          }
-     }
-     pushing(obj)
-     return data
-}
-
-function limitChecker(Jid, amount) {
-     amount = Number(amount)
-     let data = []
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let o of obj) {
-          if (o.number == Jid) {
-               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-          }
-     }
-     if (data.length === 0) {
-          const pusheh = {
-               active: true,
-               key: obj.length + 1,
-               limit: amount,
-               number: Jid
-          }
-          obj.push(pusheh)
-          pushing(obj)
-          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-     } else if (data.length > 0) {
-          for (let o of obj) {
-               if (o.limit > 0) {
-                    o.active = true
-               } else if (o.limit === 0) {
-                    o.active = false
-               }
-          }
-     }
-     pushing(obj)
-     return data
-}
-
-function takeLimit(Jid) {
-     let data = []
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let o of obj) {
-          if (o.number == Jid) {
-               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-          }
-     }
-     if (data.length === 0) {
-          const pusheh = {
-               active: true,
-               key: obj.length + 1,
-               limit: 0,
-               number: Jid
-          }
-          obj.push(pusheh)
-          pushing(obj)
-          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-     } else if (data.length > 0) {
-          for (let o of obj) {
-               if (o.number == Jid) {
-                    o.active = false
-                    o.limit = 0
-               }
-          }
-     }
-     pushing(obj)
-     return data
-}
-
-function addAllLimit(amount) {
-     amount = Number(amount)
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let i in obj) {
-          obj[i].active = true
-          obj[i].limit = obj[i].limit + amount
-     }
-     pushing(obj)
-     return { status: true, limit: Number(amount) }
-}
-
-async function resetAllLimit(amount) {
-     amount = Number(amount)
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let i in obj) {
-          if (obj[i].limit < amount) {
-               obj[i].Status = true
-               obj[i].limit = amount
-          }
-     }
-     pushing(obj)
-     return { status: true, limit: Number(amount) }
-}
-
-function cekLimit(Jid, amount) {
-     amount = Number(amount)
-     let data = []
-     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-     for (let o of obj) {
-          if (o.number == Jid) {
-               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-          }
-     }
-     if (data.length === 0) {
-          obj.push({
-               active: true,
-               key: obj.length + 1,
-               limit: amount,
-               number: Jid
-          })
-          pushing(obj)
-          return true
-     }
-     pushing(obj)
-     return data[0].Status
-}
-
 settings = JSON.parse(fs.readFileSync('./src/settings.json'))
-
-global.countResetLimit
-
-var x = setInterval(function () {
-
-     var countDownDate = settings.Reset_Time
-     // Get today's date and time
-     var now = new Date().getTime();
-
-     // Find the distance between now and the count down date
-     var distance = countDownDate - now;
-
-     // Time calculations for days, hours, minutes and seconds
-     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-     // Display the result in the element with id="demo"
-     const countReset = `${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
-     countResetLimit = countReset
-     // If the count down is finished, write some text
-     if (distance < 0) {
-          clearInterval(x);
-          INFOLOG('Waktunya Reset!');
-          resetAllLimit(settings.Limit)
-               .then(() => {
-                    const newCountReset = moment(settings.Reset_Time).add('24', 'hours').valueOf()
-                    settings.Reset_Time = newCountReset
-                    settings.Reset_Status = true
-                    fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-                    restartCode()
-               })
-     }
-}, 1000);
 
 
 
@@ -341,12 +122,303 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
           infoMSG.splice(0, 4300)
           fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
      }
+
+     let detect = JSON.parse(fs.readFileSync(__dirname + '/direct-message/detector.json'))
+     for (let i = 0; i < detect.length; i++) {
+          if (detect > 0) {
+               conn.sendMessage(detect[i].from, detect[i].pesan, detect[i].tipe)
+          }
+     }
+
+
      if (hurtz.key.remoteJid == 'status@broadcast') {
           // console.log(hurtz)
           // 1981092531
           // 4286747850
           return
      }
+     let fspam = fs.readdirSync('./lib/database/filterspam')
+
+     function addFspam(jid, num) {
+          settings.Switcher = false
+          fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+          let jidsp = []
+          const addseconds = moment(new Date).add(Number(num), 'seconds').valueOf()
+          for (let o of fspam) {
+               if (o === jid) {
+                    jidsp.push({ jid: o.jid, messageNum: o.messageNum, allow_time: o.allow_time })
+               }
+          }
+          if (jidsp.length === 0) {
+               fspamobj = {
+                    status: false,
+                    jid: jid,
+                    messageNum: Number(num)
+               }
+               fs.writeFileSync('./lib/database/filterspam/' + jid + '.json', JSON.stringify(fspamobj, null, 2))
+               // settings.Switcher = true
+               // fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+               return { status: false, jid: jid, messageNum: 1, allow_time: addseconds }
+          } else if (jidsp.length > 0) {
+               // if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
+               if (jidsp[0].allow_time >= new Date().getTime()) {
+                    for (let o in fspam) {
+                         if (fspam[o] == jid) {
+                              const parsedFspam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + jid + '.json'))
+                              parsedFspam.messageNum = Number(num)
+                              return jidsp[0]
+                         }
+                    }
+               } else {
+                    for (let o in fspam) {
+                         if (fspam[o] == jid) {
+                              const parsedFspam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + jid + '.json'))
+                              parsedFspam.messageNum = Number(num)
+                              return jidsp[0]
+                         }
+                    }
+               }
+          }
+          fs.writeFileSync('./lib/database/filterspam/' + jid + '.json', JSON.stringify(fspam, null, 2))
+          // settings.Switcher = true
+          // fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+     }
+
+     function pushing(obj) {
+          fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
+     }
+
+     function pushLimit(Jid, amount) {
+          amount = Number(amount)
+          let data = []
+          let limit = 30
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number === Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               const pusheh = {
+                    active: true,
+                    key: obj.length + 1,
+                    limit: limit,
+                    number: Jid
+               }
+               obj.push(pusheh)
+               pushing(obj)
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+          } else if (data.length > 0) {
+               if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
+               if (data[0].limit <= 0) {
+                    for (let o of obj) {
+                         if (o.number == Jid) {
+                              o.active = false
+                         }
+                    }
+               } else {
+                    for (let o of obj) {
+                         if (o.number == Jid) {
+                              o.limit = data[0].limit - amount
+                         }
+                    }
+               }
+          }
+          pushing(obj)
+          return data
+     }
+
+     function giftLimit(Jid, amount) {
+          amount = Number(amount)
+          let data = []
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               const pusheh = {
+                    active: true,
+                    key: obj.length + 1,
+                    limit: amount,
+                    number: Jid
+               }
+               obj.push(pusheh)
+               pushing(obj)
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+          } else if (data.length > 0) {
+               for (let o of obj) {
+                    if (o.number == Jid) {
+                         o.active = true
+                         o.limit = o.limit + amount
+                    }
+               }
+          }
+          pushing(obj)
+          return data
+     }
+
+     function limitChecker(Jid, amount) {
+          amount = Number(amount)
+          let data = []
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               const pusheh = {
+                    active: true,
+                    key: obj.length + 1,
+                    limit: amount,
+                    number: Jid
+               }
+               obj.push(pusheh)
+               pushing(obj)
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+          } else if (data.length > 0) {
+               for (let o of obj) {
+                    if (o.limit > 0) {
+                         o.active = true
+                    } else if (o.limit === 0) {
+                         o.active = false
+                    }
+               }
+          }
+          pushing(obj)
+          return data
+     }
+
+     function takeLimit(Jid) {
+          let data = []
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               const pusheh = {
+                    active: true,
+                    key: obj.length + 1,
+                    limit: 0,
+                    number: Jid
+               }
+               obj.push(pusheh)
+               pushing(obj)
+               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+          } else if (data.length > 0) {
+               for (let o of obj) {
+                    if (o.number == Jid) {
+                         o.active = false
+                         o.limit = 0
+                    }
+               }
+          }
+          pushing(obj)
+          return data
+     }
+
+     function addAllLimit(amount) {
+          amount = Number(amount)
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let i in obj) {
+               obj[i].active = true
+               obj[i].limit = obj[i].limit + amount
+          }
+          pushing(obj)
+          return { status: true, limit: Number(amount) }
+     }
+
+     async function resetAllLimit(amount) {
+          amount = Number(amount)
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let i in obj) {
+               if (obj[i].limit < amount) {
+                    obj[i].Status = true
+                    obj[i].limit = amount
+               }
+          }
+          pushing(obj)
+          return { status: true, limit: Number(amount) }
+     }
+
+     function cekLimit(Jid, amount) {
+          amount = Number(amount)
+          let data = []
+          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+               }
+          }
+          if (data.length === 0) {
+               obj.push({
+                    active: true,
+                    key: obj.length + 1,
+                    limit: amount,
+                    number: Jid
+               })
+               pushing(obj)
+               return true
+          }
+          pushing(obj)
+          return data[0].Status
+     }
+
+
+
+     // let switcherSpam = JSON.parse(fs.readFileSync('./lib/database/'))
+
+     var x = setInterval(function () {
+
+          for (let o in fspam) {
+               const parsedLoopSpam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + fspam[o]))
+               if (parsedLoopSpam.messageNum > 0) {
+                    if (!settings.Switcher) return
+                    parsedLoopSpam.status = false
+                    parsedLoopSpam.messageNum = parsedLoopSpam.messageNum - 1
+                    fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
+                    if (parsedLoopSpam.messageNum === 0 && !parsedLoopSpam.status) {
+                         parsedLoopSpam.status = true
+                         fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
+                    }
+               }
+          }
+
+
+          var countDownDate = settings.Reset_Time
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // Display the result in the element with id="demo"
+          const countReset = `${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
+          countResetLimit = countReset
+          // If the count down is finished, write some text
+          if (distance < 0) {
+               clearInterval(x);
+               INFOLOG('Waktunya Reset!');
+               resetAllLimit(settings.Limit)
+                    .then(() => {
+                         const newCountReset = moment(settings.Reset_Time).add('24', 'hours').valueOf()
+                         settings.Reset_Time = newCountReset
+                         settings.Reset_Status = true
+                         fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+                         restartCode()
+                    })
+          }
+     }, 1000);
      if (!hurtz.message) return
 
 
@@ -3277,6 +3349,8 @@ ${hasil.grid}
                     fs.writeFileSync('./lib/database/RevokedGroup.json', JSON.stringify(dataRevoke, null, 2))
                     balas(from, `Pesan anti hapus berhasil dinonaktifkan di grup ${groupMetadata.subject} ❌`)
                }
+          } else if (cmd == `b`) {
+               console.log(addFspam(sender))
           } else if (cmd == `${prf}infogrup` || cmd == `${prf}grupinfo`) {
                if (args.length === 1) return balas(from, `Gunakan perintah *!infogrup aktif* atau *!infogrup mati*`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -4347,8 +4421,46 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                conn.relayWAMessage(custhumb)
           } else if (cmd == `${prf}linkgrupmecha` || cmd == `${prf}linkgroupmecha`) {
                conn.groupInviteCode('6285559038021-1605869468@g.us').then(code => balas(from, `_Join Mecha Group : [ https://chat.whatsapp.com/${code} ]_`)).catch(console.log)
-          } else if (cmd == `${prf}push`) {
-               console.log(conn.getName())
+          } else if (cmd == `${prf}info` || cmd == `${prf}infobot`) {
+               const penggunanya = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+               const performa = speed()
+               const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
+               const batteryNow = battery[1].value
+               const hi = pushLimit(sender, 0)
+               const latensi = speed() - performa
+               var uptime = process.uptime();
+               const date = new Date(uptime * 1000);
+               const days = date.getUTCDate() - 1,
+                    hours = date.getUTCHours(),
+                    minutes = date.getUTCMinutes(),
+                    seconds = date.getUTCSeconds(),
+                    milliseconds = date.getUTCMilliseconds();
+               let segments = [];
+               if (days > 0) segments.push(days + ' Hari');
+               if (hours > 0) segments.push(hours + ' Jam');
+               if (minutes > 0) segments.push(minutes + ' Menit');
+               if (seconds > 0) segments.push(seconds + ' Detik');
+               if (milliseconds > 0) segments.push(milliseconds + ' milidetik');
+               const dateString = segments.join(', ');
+               const msgInfoBot = `     *[ Bot Status & Info ]*
+
+👬 *Pengguna Bot Aktif* : ${penggunanya.length} Orang
+👩‍🏫 *Waktu Bot Aktif* : ${dateString}
+⏲️ *Reset Limit Pada* : ${countResetLimit}
+📲 *Versi WA* : _${conn.user.phone.wa_version}_
+🔋 *Batre* : _${batteryNow}% ${isCas}_
+💻 *Host* : _${os.hostname()}_
+📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${conn.user.phone.os_version}_
+⚖️ *Ram Usage* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB_
+🧿 *Platform* : _${os.platform()}_
+🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
+⚡ *Speed Process* : _${latensi.toFixed(4)}_
+🕴 *Status Maintenance* : ${settings.Maintenace ? '✅' : '❌'}
+🤖 *Join Mecha Group* :
+
+[ https://chat.whatsapp.com/KVc2MuopydYJ1cJmiXhxie ] S1
+[ https://chat.whatsapp.com/BGz644tprlY0Ee539LUW3m ] S2`
+               balas(from, msgInfoBot)
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
                INFOLOG('Sending Menu')
                const penggunanya = JSON.parse(fs.readFileSync('./lib/database/limit.json'))

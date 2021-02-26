@@ -11,9 +11,10 @@
   "MessageConsole": false,
   "IDConsole": true,
   "PrivateChat": false,
-  "Limit": 30,
-  "Reset_Time": 1614207600000,
+  "Limit": 20,
+  "Reset_Time": 1614380400000,
   "Reset_Status": false,
+  "Switcher": false,
   "Vote": {
     "Max": 5,
     "Expired": 2
