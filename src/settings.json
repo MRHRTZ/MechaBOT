@@ -10,9 +10,10 @@
   "Maintenace": true,
   "MessageConsole": false,
   "IDConsole": true,
-  "PrivateChat": false,
+  "PrivateChat": true,
   "Limit": 20,
   "Reset_Time": 1614380400000,
+  "Reset_Read": "",
   "Reset_Status": false,
   "Switcher": false,
   "Vote": {

@@ -100,44 +100,7 @@ function getRemaining(endtime) {
      };
 }
 
-
-module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
-     // let sesi
-     // for (let se of settings.Sesi) {
-     //      if (conn.user.jid == se.Jid) {
-     //           sesi = se.Name
-     //      }
-     // }
-     const mt = settings.Maintenace
-     const msgout = settings.MessageConsole
-     const idlog = settings.IDConsole
-     if (!fs.existsSync('./lib/database/msgInfo-' + sesi + '.json')) {
-          fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify([]))
-     }
-     let infoMSG = JSON.parse(fs.readFileSync('./lib/database/msgInfo-' + sesi + '.json'))
-     infoMSG.push(JSON.parse(JSON.stringify(hurtz)))
-     fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
-     const urutan_pesan = infoMSG.length
-     if (urutan_pesan === 2500) {
-          infoMSG.splice(0, 4300)
-          fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
-     }
-
-     let detect = JSON.parse(fs.readFileSync(__dirname + '/direct-message/detector.json'))
-     for (let i = 0; i < detect.length; i++) {
-          if (detect > 0) {
-               conn.sendMessage(detect[i].from, detect[i].pesan, detect[i].tipe)
-          }
-     }
-
-
-     if (hurtz.key.remoteJid == 'status@broadcast') {
-          // console.log(hurtz)
-          // 1981092531
-          // 4286747850
-          return
-     }
-     let fspam = fs.readdirSync('./lib/database/filterspam')
+let fspam = fs.readdirSync('./lib/database/filterspam')
 
      function addFspam(jid, num) {
           settings.Switcher = false
@@ -371,56 +334,97 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
 
 
      // let switcherSpam = JSON.parse(fs.readFileSync('./lib/database/'))
+     // global.countResetLimit
+     // var x = setInterval(function () {
+     //      for (let o in fspam) {
+     //           const parsedLoopSpam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + fspam[o]))
+     //           if (parsedLoopSpam.messageNum > 0) {
+     //                if (!settings.Switcher) return
+     //                parsedLoopSpam.status = false
+     //                parsedLoopSpam.messageNum = parsedLoopSpam.messageNum - 1
+     //                fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
+     //                if (parsedLoopSpam.messageNum === 0 && !parsedLoopSpam.status) {
+     //                     parsedLoopSpam.status = true
+     //                     fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
+     //                }
+     //           }
+     //      }
 
-     var x = setInterval(function () {
 
-          for (let o in fspam) {
-               const parsedLoopSpam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + fspam[o]))
-               if (parsedLoopSpam.messageNum > 0) {
-                    if (!settings.Switcher) return
-                    parsedLoopSpam.status = false
-                    parsedLoopSpam.messageNum = parsedLoopSpam.messageNum - 1
-                    fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
-                    if (parsedLoopSpam.messageNum === 0 && !parsedLoopSpam.status) {
-                         parsedLoopSpam.status = true
-                         fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
-                    }
-               }
+     //      var countDownDate = settings.Reset_Time
+     //      // Get today's date and time
+     //      var now = new Date().getTime();
+
+     //      // Find the distance between now and the count down date
+     //      var distance = countDownDate - now;
+
+     //      // Time calculations for days, hours, minutes and seconds
+     //      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+     //      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+     //      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+     //      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          
+     //      // Display the result in the element with id="demo"
+     //      const countReset = `${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
+     //      settings.Reset_Read = countReset
+     //      console.log(countReset)
+     //      fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+     //      // countResetLimit = countReset
+     //      // If the count down is finished, write some text
+     //      if (distance < 0) {
+     //           clearInterval(x);
+     //           INFOLOG('Waktunya Reset!');
+     //           resetAllLimit(settings.Limit)
+     //                .then(() => {
+     //                     const newCountReset = moment(settings.Reset_Time).add('24', 'hours').valueOf()
+     //                     settings.Reset_Time = newCountReset
+     //                     settings.Reset_Status = true
+     //                     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+     //                     restartCode()
+     //                })
+     //      }
+     // }, 1000);
+
+
+module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
+     // let sesi
+     // for (let se of settings.Sesi) {
+     //      if (conn.user.jid == se.Jid) {
+     //           sesi = se.Name
+     //      }
+     // }
+     const mt = settings.Maintenace
+     const msgout = settings.MessageConsole
+     const idlog = settings.IDConsole
+     if (!fs.existsSync('./lib/database/msgInfo-' + sesi + '.json')) {
+          fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify([]))
+     }
+     let infoMSG = JSON.parse(fs.readFileSync('./lib/database/msgInfo-' + sesi + '.json'))
+     infoMSG.push(JSON.parse(JSON.stringify(hurtz)))
+     fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
+     const urutan_pesan = infoMSG.length
+     if (urutan_pesan === 2500) {
+          infoMSG.splice(0, 4300)
+          fs.writeFileSync('./lib/database/msgInfo-' + sesi + '.json', JSON.stringify(infoMSG, null, 2))
+     }
+
+     let detect = JSON.parse(fs.readFileSync(__dirname + '/direct-message/detector.json'))
+     for (let i = 0; i < detect.length; i++) {
+          if (detect > 0) {
+               conn.sendMessage(detect[i].from, detect[i].pesan, detect[i].tipe)
           }
+     }
 
 
-          var countDownDate = settings.Reset_Time
-          // Get today's date and time
-          var now = new Date().getTime();
-
-          // Find the distance between now and the count down date
-          var distance = countDownDate - now;
-
-          // Time calculations for days, hours, minutes and seconds
-          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          // Display the result in the element with id="demo"
-          const countReset = `${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
-          countResetLimit = countReset
-          // If the count down is finished, write some text
-          if (distance < 0) {
-               clearInterval(x);
-               INFOLOG('Waktunya Reset!');
-               resetAllLimit(settings.Limit)
-                    .then(() => {
-                         const newCountReset = moment(settings.Reset_Time).add('24', 'hours').valueOf()
-                         settings.Reset_Time = newCountReset
-                         settings.Reset_Status = true
-                         fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-                         restartCode()
-                    })
-          }
-     }, 1000);
+     if (hurtz.key.remoteJid == 'status@broadcast') {
+          // console.log(hurtz)
+          // 1981092531
+          // 4286747850
+          return
+     }
+     
      if (!hurtz.message) return
-
 
      let expvip = JSON.parse(fs.readFileSync('./lib/database/expvip.json'))
 
@@ -681,13 +685,27 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
      const isUrl = (url) => {
           return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
      }
-
+     // console.log(hurtz)
      function base64_encode(file) {
           // read binary data
           var bitmap = fs.readFileSync(file);
           // convert binary data to base64 encoded string
           return new Buffer.from(bitmap).toString('base64');
      }
+     /*
+     },
+  message: Message {
+    liveLocationMessage: LiveLocationMessage {
+      degreesLatitude: -7.0204266,
+      degreesLongitude: 107.5683538,
+
+        id: 'F88EE13D96317F65AF8A88C16E195F9F'
+  },
+  message: Message {
+    locationMessage: LocationMessage {
+      degreesLatitude: -7.01869947153263,
+      degreesLongitude: 107.56872653961182,
+     */
      // Function Send Message
      function sendFile(dari, path, type, options) {
           const buff = fs.readFileSync(path)
@@ -846,7 +864,7 @@ Contoh : *!guess naruto*
      // End line TypePsn 
      const filename = `${sender.replace('@s.whatsapp.net', '')}-${hurtz.key.id}`
      const waiter = () => {
-          conn.sendMessage(from, `⏲️ _Mohon tunggu sebentar, sedang memproses data.._`, TypePsn.text, { quoted: hurtz })
+          //conn.sendMessage(from, `⏲️ _Mohon tunggu sebentar, sedang memproses data.._`, TypePsn.text, { quoted: hurtz })
      }
      // console.log(JSON.parse(dataImgQuote))
      // if (self) return
@@ -855,6 +873,7 @@ Contoh : *!guess naruto*
      if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(msgout ? body : 'pesan'), 'dari', color(pushname), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
      if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>>', '<' + chalk.blueBright('CMD') + '>', time, color(args[0]), 'dari', color(pushname), 'di', color(groupName), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
      if (!isCmd && isGroup) console.log('\x1b[1;33m~\x1b[1;37m>>', '<' + chalk.greenBright('MSG') + '>', time, color(msgout ? body : 'pesan'), 'dari', color(pushname), 'di', color(groupName), `${idlog ? 'Chat ID ' + color(from) : 'Message ID ' + color(hurtz.key.id)}`, 'Urutan', color(urutan_pesan))
+
 
 
      /* ------------     On Time     ------------ */
@@ -881,6 +900,7 @@ Contoh : *!guess naruto*
      const MessageSelf = `Hai ${pushname} 👋🏻\n\n*MRHRTZ* sedang sibuk sekarang\nmohon tinggalkan pesan disini dan dia akan segera membalas!.\n-\n*MRHRTZ* is busy right now\nplease leave a message here and he will reply right away!`
      // const MessageSelf = `Hai ${pushname} 👋🏻\n\n*JUMATAN DULUUUUUU!!!*`
      const mtchat = mt ? sender != nomerOwner[0] : false
+
      if (body.startsWith('> ') && sender == '6285559038021@s.whatsapp.net') {
           INFOLOG(pushname, 'mencoba execute perintah')
           let type = Function
@@ -977,7 +997,7 @@ Contoh : *!guess naruto*
           return
      }
 
-     if (!settings.PrivateChat && !isOwner) return
+     // if (!isGroup && settings.PrivateChat === false) return
      if (hurtz.message.conversation == null) {
           INFOLOG('SENDING CUSTOM MENU')
      }
@@ -1027,13 +1047,13 @@ Contoh : *!guess naruto*
                     })
           } else if (cmd == `${prf}pc` || cmd == `${prf}privatechat`) {
                if (!isOwner) return balas(from, `Hanya untuk owner bot!`)
-               if (args.length) return balas(from, `Penggunaan : *!pc <aktif/mati>*`)
+               if (args.length === 1) return balas(from, `Penggunaan : *!pc <aktif/mati>*`)
                if (args[1] == 'aktif' || args[1] == 'enable') {
                     settings.PrivateChat = true
                     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
                     balas(from, `Sekarang semua user bisa menggunakan bot di private chat ✅`)
                } else if (args[1] == 'mati' || args[1] == 'disable') {
-                    settings.PrivateChat = true
+                    settings.PrivateChat = false
                     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
                     balas(from, `Semua user tidak bisa menggunakan bot di private chat ❌`)
                }
@@ -1126,7 +1146,7 @@ Contoh : *!guess naruto*
           } else if (cmd == `${prf}ceklim`) {
                return balas(from, util.format(cekLimit(sender, settings.Limit)))
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1218,7 +1238,7 @@ Contoh : *!guess naruto*
      
 *Limit anda sekarang* : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 
-_Limit akan direset dalam ${countResetLimit}_\n\n\`\`\`anda bisa jadi member vip unlimited dalam satu bulan.\`\`\`\n\nHave a nice day!✨
+_Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dalam satu bulan.\`\`\`\n\nHave a nice day!✨
                     `
                     conn.sendMessage(from, capt, TypePsn.text, {
                          quoted: hurtz,
@@ -1230,7 +1250,7 @@ _Limit akan direset dalam ${countResetLimit}_\n\n\`\`\`anda bisa jadi member vip
 
 *Limit anda sekarang* : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 
-_Limit akan direset dalam ${countResetLimit}_\n\n\`\`\`anda bisa jadi member vip unlimited dalam satu bulan.\`\`\`\n\nHave a nice day!✨
+_Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dalam satu bulan.\`\`\`\n\nHave a nice day!✨
                `
                     conn.sendMessage(from, capt, TypePsn.text, {
                          quoted: hurtz,
@@ -1241,7 +1261,7 @@ _Limit akan direset dalam ${countResetLimit}_\n\n\`\`\`anda bisa jadi member vip
                // console.log(body)
                if (args.length === 1) return balas(from, 'Kirim perintah *!yts* _Video/Musik/Channel YT_')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1267,10 +1287,68 @@ _________________________________________
                     }
                     sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
                })
+          } else if (cmd == `${prf}playv` || cmd == `${prf}playvideo`) {
+               if (args.length === 1) return balas(from, 'Kirim perintah *!playvideo* _Judul video yang akan dicari_')
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               waiter()
+               pushLimit(sender, 2)
+               const play = await ytsr(query)
+               if (play.length === 0) return balas(from, `${query} tidak dapat ditemukan!`)
+               const mulaikah = play[0].url
+               ytv(mulaikah).then((resyt3) => {
+                    const { dl_link, thumb, title } = resyt3
+                    const { author, ago, views, desc, timestamp } = play[0]
+                    INFOLOG(title)
+                    Axios.get(thumb, {
+                         responseType: 'arraybuffer'
+                    }).then(({ data }) => {
+                         remote(dl_link, async(e, o) => {
+                              const capt_yt4 = `*Data telah didapatkan!*
+
+*Title* : ${title}
+*Duration* : ${timestamp}
+*Type* : MP4
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
+*Filesize* : ${sizer(o)}
+*Description* : ${desc ? desc : '-'}
+
+_Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
+                              
+                              INFOLOG(`DAPAT DATA VIDEO : ${title} ( ${sizer(o)} )`)
+                              const filtermp4 = await Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                              const capt_yt4limited = `*Data telah didapatkan!*
+
+*Title* : ${title}
+*Duration* : ${timestamp}
+*Type* : MP3
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
+*Filesize* : ${sizer(o)}
+*Description* : ${desc ? desc : '-'}
+*Link* : ${filtermp4.data}
+
+_Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`
+                              if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, capt_yt4limited)
+                              sendDariUrl(from, dl_link, TypePsn.video, capt_yt4)
+                         })
+                    })
+               }).catch(e => {
+                    balas(from, `Terdapat kesalahan saat mengambil video ${query}.`)
+                    ERRLOG(e)
+               })
           } else if (cmd == `${prf}play`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1282,13 +1360,13 @@ _________________________________________
                if (play.length === 0) return balas(from, `${query} tidak dapat ditemukan!`)
                const mulaikah = play[0].url
                yta(mulaikah).then((resyt3) => {
-                    const { dl_link, thumb, title } = resyt3
+                    const { dl_link, thumb, title, filesize } = resyt3
                     const { author, ago, views, desc, timestamp } = play[0]
                     INFOLOG(title)
                     Axios.get(thumb, {
                          responseType: 'arraybuffer'
                     }).then(({ data }) => {
-                         remote(dl_link, (e, o) => {
+                         remote(dl_link, async(e, o) => {
                               const buffer_thumbyt3 = Buffer.from(data, 'base64')
                               const capt_yt3 = `*Data telah didapatkan!*
 
@@ -1302,13 +1380,28 @@ _________________________________________
 *Description* : ${desc ? desc : '-'}
 
 _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
+                              const filtermp3 = await Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                              const capt_yt3limited = `*Data telah didapatkan!*
+
+*Title* : ${title}
+*Duration* : ${timestamp}
+*Type* : MP3
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
+*Filesize* : ${sizer(o)}
+*Description* : ${desc ? desc : '-'}
+*Link* : ${filtermp3.data}
+
+_Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`
+                              INFOLOG(`DAPAT DATA AUDIO : ${title} ( ${sizer(o)} )`)
+                              if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, capt_yt3limited)
                               conn.sendMessage(from, buffer_thumbyt3, TypePsn.image, { mimetype: Mimetype.jpeg, caption: capt_yt3, quoted: hurtz })
                               //Send MP3
                               Axios.get(dl_link, {
                                    responseType: 'arraybuffer'
                               }).then(response => {
                                    const buffer_yt3 = Buffer.from(response.data, 'base64');
-                                   INFOLOG(`DAPAT DATA AUDIO : ${title}`)
                                    conn.sendMessage(from, buffer_yt3, TypePsn.audio, { mimetype: Mimetype.mp4Audio, quoted: hurtz })
                               }).catch(ex => {
                                    balas(from, `Terdapat kesalahan saat mengambil lagu ${query}.`)
@@ -1322,7 +1415,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                })
           } else if (cmd == `${prf}lirik` || cmd == `${prf}lyric`) {
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1335,7 +1428,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     }).catch(e => balas(from, `Lagu tidak ditemukan!`) && balas(nomerOwner[0], util.format(e)))
           } else if (cmd == `${prf}pinterest`) {
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1414,7 +1507,7 @@ Contoh :
           } else if (cmd == `${prf}ttp`) {
                if (args.length === 1) return balas(from, `Masukan teksnya!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1470,7 +1563,7 @@ Contoh :
                if (!isVIP) return balas(from, `Maaf kamu bukan member VIP :(`)
                if (args.length === 1) return balas(from, `Format salah!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1490,7 +1583,7 @@ Contoh :
           } else if (cmd == `${prf}pitch`) {
                if (!isQuotedAudio) return balas(from, `Tidak ada audio/vn yg di tag!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1509,7 +1602,7 @@ Contoh :
           } else if (cmd == `${prf}igstalk`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!igStalk @username*\nContoh *!igStalk @hanif_az.sq.61*')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1553,7 +1646,7 @@ Video : ${vid_post_}
                     return
                }
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1580,7 +1673,7 @@ Video : ${vid_post_}
           } else if (cmd == `${prf}jadwaltv`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!jadwaltv <Channel>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1657,7 +1750,7 @@ Video : ${vid_post_}
           } else if (cmd == `${prf}fb` || cmd == `${prf}facebook`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!facebook <https://linkfacebook>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1709,7 +1802,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}advancedglow`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!advancedglow textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1723,7 +1816,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}futuristic`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!futuristic textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1737,7 +1830,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}cloud`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!cloud textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1751,7 +1844,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}blackpink`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!blackpink textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1765,7 +1858,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}sand`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!sand textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1779,7 +1872,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}scifi`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!scifi textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1793,7 +1886,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}dropwater`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!dropwater textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1807,7 +1900,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}codmw`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!codmw textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1821,7 +1914,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}bokeh`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!bokeh textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1835,7 +1928,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}neon`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!neon textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1849,7 +1942,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}thunder`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!thunder textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1863,7 +1956,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}horrorblood`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!horrorblood textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1877,7 +1970,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}firework`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!firework textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1891,7 +1984,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}bloodglass`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!bloodglass textnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1905,7 +1998,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}marvel`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!marvel textnya|text kedua*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1920,7 +2013,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}phub`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!phub textnya|text kedua*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1935,7 +2028,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}glitch`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!glitch textnya|text kedua*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1950,7 +2043,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}rain`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1969,7 +2062,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}sea`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!sea <textnya>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1983,7 +2076,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}neon`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!neon <textnya>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -1997,7 +2090,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}stars`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!stars <textnya>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2011,7 +2104,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}wood`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!wood <textnya>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2025,7 +2118,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}darklogo`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!darklogo <textnya>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2039,7 +2132,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}brokecard`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2058,7 +2151,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}nightsea`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2077,7 +2170,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}photoglitch`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2096,7 +2189,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}anaglyph`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2115,7 +2208,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}balloon`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2134,7 +2227,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}typographic`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2153,7 +2246,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}photosky`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2173,7 +2266,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (args.length !== 2) return balas(from, `Penggunaan *!wanted <Nama|Harga>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2192,7 +2285,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}fireworkvideo`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2211,7 +2304,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}cooldesign`) {
                if (args.length === 1) return balas(from, `Penggunaan *!cooldesign <text>* (Sambil tag gambar)`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2227,7 +2320,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}colorfuldesign`) {
                if (args.length === 1) return balas(from, `Penggunaan *!colorfuldesign <text> (Sambil tag gambar)xt>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2243,7 +2336,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}armydesign`) {
                if (args.length === 1) return balas(from, `Penggunaan *!armydesign <text>* (Sambil tag gambar)`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2259,7 +2352,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}iphone`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2278,7 +2371,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}underwater`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2297,7 +2390,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}drawing`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2316,7 +2409,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}burningfire`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2338,7 +2431,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}smoke`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!smoke teksnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2354,7 +2447,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}harrypotter`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!harrypotter teksnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2370,7 +2463,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}horrorhouse`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!horrorhouse teksnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2386,7 +2479,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}coffee`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!coffee teksnya*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2402,7 +2495,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}battlefield`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!battlefield teks1|teks2*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2418,7 +2511,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}googlekeyword`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!googleKeyword teks1|teks2|teks3*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2545,7 +2638,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
           } else if (cmd == `${prf}gtav`) {
                if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -2958,7 +3051,7 @@ ________________________________________
           } else if (cmd == `${prf}charagame`) {
                if (args.length === 1) return balas(from, `Penggunaan : !charagame <aktif/mati>`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3001,7 +3094,7 @@ ________________________________________
           } else if (cmd == `${prf}minesweeper`) {
                if (isGrupMines) return balas(from, `Game minesweeper telah aktif sebelumnya!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3115,7 +3208,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}getpp`) {
                if (args.length === 1) return balas(from, `Penggunaan *!getpp* @tagMember`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3126,7 +3219,7 @@ ${hasil.grid}
                sendDariUrl(from, profil, TypePsn.image, `Nihh profilnya`)
           } else if (cmd == `${prf}trigger`) {
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3155,7 +3248,7 @@ ${hasil.grid}
                     }
                } else if (/@[0-9]/gi.test(args[1])) {
                     if (!cekLimit(sender, settings.Limit)) {
-                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                               quoted: hurtz,
                               contextInfo: { mentionedJid: [nomerOwner[0]] }
                          })
@@ -3212,7 +3305,7 @@ ${hasil.grid}
                     }
                } else if (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi.test(args[1])) {
                     if (!cekLimit(sender, settings.Limit)) {
-                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                               quoted: hurtz,
                               contextInfo: { mentionedJid: [nomerOwner[0]] }
                          })
@@ -3239,7 +3332,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}apk`) {
                if (args.length === 1) return balas(from, `Masukan nama apk nyah!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3263,7 +3356,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}getapk`) {
                if (args.length === 1) return balas(from, `Masukan nama download apk nya!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3292,7 +3385,7 @@ ${hasil.grid}
                if (args.length === 1) return balas(from, `Masukan nama download apk nya!`)
                if (args.length === 2) return balas(from, `penggunaan : *!getapkdirect <urutan> <download id>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3330,7 +3423,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}antidelete`) {
                if (args.length === 1) return balas(from, `Gunakan perintah *!antidelete aktif* atau *!antidelete mati*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3354,7 +3447,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}infogrup` || cmd == `${prf}grupinfo`) {
                if (args.length === 1) return balas(from, `Gunakan perintah *!infogrup aktif* atau *!infogrup mati*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3540,7 +3633,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}video`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!video* _Judul video yang akan dicari_')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3561,7 +3654,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}getvideo`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!getvideo* _IdDownload_, atau *!getvideo NomerUrut*')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3577,7 +3670,7 @@ ${hasil.grid}
                               Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                                    .then((a) => {
                                         remote(dl_link, (e, o) => {
-                                             if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                             if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                                              sendDariUrl(from, thumb, TypePsn.image, captions)
                                              sendDariUrl(from, dl_link, TypePsn.video, `Video telah terkirim ${pushname}`).catch(e => console.log && balas(from, `Terjadi kesalahan!`))
@@ -3612,7 +3705,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}musik` || cmd == `${prf}music`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!musik* _Judul lagu yang akan dicari_')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3633,7 +3726,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}getmusik` || cmd == `${prf}getmusic`) {
                if (args.length === 1) return balas(from, 'Kirim perintah *!getmusik* _IdDownload_, atau *!getmusik NomerUrut*')
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3649,7 +3742,7 @@ ${hasil.grid}
                               Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                                    .then((a) => {
                                         remote(dl_link, (e, o) => {
-                                             if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                             if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                                              sendDariUrl(from, thumb, TypePsn.image, captions)
                                              sendDariUrl(from, dl_link, TypePsn.audio, '', { mimetype: Mimetype.mp4Audio }).catch(e => console.log && balas(from, `Terjadi kesalahan!`))
@@ -3709,7 +3802,7 @@ ${hasil.grid}
           } else if (cmd == `${prf}ytmp4`) {
                if (args.length === 1) return balas(from, `Penggunaan *!ytmp4 <Linkyt>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3763,7 +3856,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}ytmp3`) {
                if (args.length === 1) balas(from, `Penggunaan *!ytmp3 <linkyt>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3808,7 +3901,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}tomp4`) {
                if (!isQuotedAudio) return balas(from, `Harus tag pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3831,7 +3924,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}tomp3`) {
                if (!isQuotedVideo && !isVideoMsg) return balas(from, `Tidak ada data video!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3868,7 +3961,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (!isVIP) return balas(from, `Maaf kamu bukan member VIP :(`)
                if (args.length === 1) return balas(from, `Format salah!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3879,7 +3972,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}getvocals` || cmd == `${prf}getvokal` || cmd == `${prf}vocal` || cmd == `${prf}vokal`) {
                if (!isQuotedAudio) return balas(from, `Mohon tag atau reply pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3919,7 +4012,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}getinstrument` || cmd == `${prf}getinstrumen` || cmd == `${prf}instrument` || cmd == `${prf}instrumen`) {
                if (!isQuotedAudio) return balas(from, `Mohon tag atau reply pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -3959,7 +4052,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}tomedia` || cmd == `${prf}toimg` || cmd == `${prf}toimage`) {
                if (!isQuotedSticker) return balas(from, `Mohon hanya tag stiker! bukan media lain.`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4022,9 +4115,9 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     })
                }
           } else if (cmd == `${prf}stiker` || cmd == `${prf}sticker` || cmd == `${prf}stikergif` || cmd == `${prf}stickergif` || cmd == `${prf}stickergift` || cmd == `${prf}stikergift` || cmd == `${prf}setiker` || cmd == `${prf}seticker` || cmd == `${prf}gif`) {
-               if (!isMedia && !isQuotedImage) return balas(from, `Mohon kirim gambar atau tag gambar dengan caption !stiker`)
+               // if (!isMedia && !isQuotedImage) return balas(from, `Mohon kirim gambar atau tag gambar dengan caption !stiker`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4115,7 +4208,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`)
                if (args.length === 1) balas(from, `Penggunaan *!title <Nama Gc Baru>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4128,7 +4221,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`)
                if (args.length === 1) balas(from, `Penggunaan *!desc <Deskripsi Gc Baru>*`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4140,7 +4233,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}mutegrup`) {
                if (!isAdmin) return balas(from, `Maaf anda bukan admin!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4151,7 +4244,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}unmutegrup`) {
                if (!isAdmin) return balas(from, `Maaf anda bukan admin!`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4177,7 +4270,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                }
           } else if (cmd == `${prf}cecan` || cmd == `${prf}cewek` || cmd == `${prf}cewe`) {
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4189,7 +4282,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                sendDariUrl(from, cecan[ciwi], TypePsn.image, `Ciwi nya ${pushname}`)
           } else if (cmd == `${prf}cogan` || cmd == `${prf}cowok` || cmd == `${prf}cowo`) {
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4295,7 +4388,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
           } else if (cmd == `${prf}gambar` || cmd == `${prf}image` || cmd == `${prf}foto`) {
                if (args.length === 1) return balas(from, `Kirim perintah pencarian gambar google dengan cara ketik perintah :\n*!gambar* _Query search_\nContoh :\n*!gambar* _Mobil_`)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4321,7 +4414,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     conn.sendMessage(from, `Ini dia 👆👆👆`, TypePsn.text, { quoted: datanya.message })
                } else {
                     if (!cekLimit(sender, settings.Limit)) {
-                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                               quoted: hurtz,
                               contextInfo: { mentionedJid: [nomerOwner[0]] }
                          })
@@ -4371,7 +4464,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (args.length === 1) return balas(from, `Kirim perintah Google search dengan cara ketik perintah :\n*!search* _Query search_\nContoh :\n*!search* _Detik News hari ini_`)
                if (query == undefined || query == ' ') return balas(from, `_Kesalahan tidak bisa menemukan hasil from ${query}_`, id)
                if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset dalam ${countResetLimit}\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
@@ -4427,6 +4520,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
                const hi = pushLimit(sender, 0)
+               //⏲️ *Reset Limit Pada* : ${countResetLimit}
                const latensi = speed() - performa
                var uptime = process.uptime();
                const date = new Date(uptime * 1000);
@@ -4446,7 +4540,6 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
 
 👬 *Pengguna Bot Aktif* : ${penggunanya.length} Orang
 👩‍🏫 *Waktu Bot Aktif* : ${dateString}
-⏲️ *Reset Limit Pada* : ${countResetLimit}
 📲 *Versi WA* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
@@ -4465,6 +4558,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                INFOLOG('Sending Menu')
                const penggunanya = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
                const performa = speed()
+               //⏲️ *Reset Limit Pada* : ${countResetLimit}
                const isCas = battery[1].live == 'true' ? "Sedang di cas ✅⚡" : "Tidak di cas 🔌❌"
                const batteryNow = battery[1].value
                const hi = pushLimit(sender, 0)
@@ -4503,7 +4597,6 @@ Map >>
 
 👬 *Pengguna Bot Aktif* : ${penggunanya.length} Orang
 👩‍🏫 *Waktu Bot Aktif* : ${dateString}
-⏲️ *Reset Limit Pada* : ${countResetLimit}
 📲 *Versi WA* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
