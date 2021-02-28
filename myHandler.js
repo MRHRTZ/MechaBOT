@@ -41,7 +41,8 @@ const { default: Axios } = require('axios')
 const { tiktok } = require('./lib/tiktok')
 const { kode } = require('./lib/kodebhs')
 const { Grid } = require('minesweeperjs')
-const { chord } = require('./lib/chord')
+const { chord } = require('./lib/chord');
+const { BADFLAGS } = require('dns');
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -102,289 +103,289 @@ function getRemaining(endtime) {
 
 let fspam = fs.readdirSync('./lib/database/filterspam')
 
-     function addFspam(jid, num) {
-          settings.Switcher = false
-          fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-          let jidsp = []
-          const addseconds = moment(new Date).add(Number(num), 'seconds').valueOf()
-          for (let o of fspam) {
-               if (o === jid) {
-                    jidsp.push({ jid: o.jid, messageNum: o.messageNum, allow_time: o.allow_time })
-               }
+function addFspam(jid, num) {
+     settings.Switcher = false
+     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+     let jidsp = []
+     const addseconds = moment(new Date).add(Number(num), 'seconds').valueOf()
+     for (let o of fspam) {
+          if (o === jid) {
+               jidsp.push({ jid: o.jid, messageNum: o.messageNum, allow_time: o.allow_time })
           }
-          if (jidsp.length === 0) {
-               fspamobj = {
-                    status: false,
-                    jid: jid,
-                    messageNum: Number(num)
-               }
-               fs.writeFileSync('./lib/database/filterspam/' + jid + '.json', JSON.stringify(fspamobj, null, 2))
-               // settings.Switcher = true
-               // fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-               return { status: false, jid: jid, messageNum: 1, allow_time: addseconds }
-          } else if (jidsp.length > 0) {
-               // if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
-               if (jidsp[0].allow_time >= new Date().getTime()) {
-                    for (let o in fspam) {
-                         if (fspam[o] == jid) {
-                              const parsedFspam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + jid + '.json'))
-                              parsedFspam.messageNum = Number(num)
-                              return jidsp[0]
-                         }
-                    }
-               } else {
-                    for (let o in fspam) {
-                         if (fspam[o] == jid) {
-                              const parsedFspam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + jid + '.json'))
-                              parsedFspam.messageNum = Number(num)
-                              return jidsp[0]
-                         }
-                    }
-               }
+     }
+     if (jidsp.length === 0) {
+          fspamobj = {
+               status: false,
+               jid: jid,
+               messageNum: Number(num)
           }
-          fs.writeFileSync('./lib/database/filterspam/' + jid + '.json', JSON.stringify(fspam, null, 2))
+          fs.writeFileSync('./lib/database/filterspam/' + jid + '.json', JSON.stringify(fspamobj, null, 2))
           // settings.Switcher = true
           // fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-     }
-
-     function pushing(obj) {
-          fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
-     }
-
-     function pushLimit(Jid, amount) {
-          amount = Number(amount)
-          let data = []
-          let limit = 30
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let o of obj) {
-               if (o.number === Jid) {
-                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-               }
-          }
-          if (data.length === 0) {
-               const pusheh = {
-                    active: true,
-                    key: obj.length + 1,
-                    limit: limit,
-                    number: Jid
-               }
-               obj.push(pusheh)
-               pushing(obj)
-               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-          } else if (data.length > 0) {
-               if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
-               if (data[0].limit <= 0) {
-                    for (let o of obj) {
-                         if (o.number == Jid) {
-                              o.active = false
-                         }
+          return { status: false, jid: jid, messageNum: 1, allow_time: addseconds }
+     } else if (jidsp.length > 0) {
+          // if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
+          if (jidsp[0].allow_time >= new Date().getTime()) {
+               for (let o in fspam) {
+                    if (fspam[o] == jid) {
+                         const parsedFspam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + jid + '.json'))
+                         parsedFspam.messageNum = Number(num)
+                         return jidsp[0]
                     }
-               } else {
-                    for (let o of obj) {
-                         if (o.number == Jid) {
-                              o.limit = data[0].limit - amount
-                         }
+               }
+          } else {
+               for (let o in fspam) {
+                    if (fspam[o] == jid) {
+                         const parsedFspam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + jid + '.json'))
+                         parsedFspam.messageNum = Number(num)
+                         return jidsp[0]
                     }
                }
           }
+     }
+     fs.writeFileSync('./lib/database/filterspam/' + jid + '.json', JSON.stringify(fspam, null, 2))
+     // settings.Switcher = true
+     // fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+}
+
+function pushing(obj) {
+     fs.writeFileSync('./lib/database/limit.json', JSON.stringify(obj, null, 2))
+}
+
+function pushLimit(Jid, amount) {
+     amount = Number(amount)
+     let data = []
+     let limit = 30
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let o of obj) {
+          if (o.number === Jid) {
+               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+          }
+     }
+     if (data.length === 0) {
+          const pusheh = {
+               active: true,
+               key: obj.length + 1,
+               limit: limit,
+               number: Jid
+          }
+          obj.push(pusheh)
           pushing(obj)
-          return data
-     }
-
-     function giftLimit(Jid, amount) {
-          amount = Number(amount)
-          let data = []
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let o of obj) {
-               if (o.number == Jid) {
-                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-               }
-          }
-          if (data.length === 0) {
-               const pusheh = {
-                    active: true,
-                    key: obj.length + 1,
-                    limit: amount,
-                    number: Jid
-               }
-               obj.push(pusheh)
-               pushing(obj)
-               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-          } else if (data.length > 0) {
-               for (let o of obj) {
-                    if (o.number == Jid) {
-                         o.active = true
-                         o.limit = o.limit + amount
-                    }
-               }
-          }
-          pushing(obj)
-          return data
-     }
-
-     function limitChecker(Jid, amount) {
-          amount = Number(amount)
-          let data = []
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let o of obj) {
-               if (o.number == Jid) {
-                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-               }
-          }
-          if (data.length === 0) {
-               const pusheh = {
-                    active: true,
-                    key: obj.length + 1,
-                    limit: amount,
-                    number: Jid
-               }
-               obj.push(pusheh)
-               pushing(obj)
-               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-          } else if (data.length > 0) {
-               for (let o of obj) {
-                    if (o.limit > 0) {
-                         o.active = true
-                    } else if (o.limit === 0) {
-                         o.active = false
-                    }
-               }
-          }
-          pushing(obj)
-          return data
-     }
-
-     function takeLimit(Jid) {
-          let data = []
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let o of obj) {
-               if (o.number == Jid) {
-                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
-               }
-          }
-          if (data.length === 0) {
-               const pusheh = {
-                    active: true,
-                    key: obj.length + 1,
-                    limit: 0,
-                    number: Jid
-               }
-               obj.push(pusheh)
-               pushing(obj)
-               return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
-          } else if (data.length > 0) {
+          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+     } else if (data.length > 0) {
+          if (vip.includes(Jid)) return [{ Status: true, Key: 0, Num: Jid, limit: '∞' }]
+          if (data[0].limit <= 0) {
                for (let o of obj) {
                     if (o.number == Jid) {
                          o.active = false
-                         o.limit = 0
+                    }
+               }
+          } else {
+               for (let o of obj) {
+                    if (o.number == Jid) {
+                         o.limit = data[0].limit - amount
                     }
                }
           }
-          pushing(obj)
-          return data
      }
+     pushing(obj)
+     return data
+}
 
-     function addAllLimit(amount) {
-          amount = Number(amount)
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let i in obj) {
-               obj[i].active = true
-               obj[i].limit = obj[i].limit + amount
+function giftLimit(Jid, amount) {
+     amount = Number(amount)
+     let data = []
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let o of obj) {
+          if (o.number == Jid) {
+               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
           }
-          pushing(obj)
-          return { status: true, limit: Number(amount) }
      }
-
-     async function resetAllLimit(amount) {
-          amount = Number(amount)
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
-          for (let i in obj) {
-               if (obj[i].limit < amount) {
-                    obj[i].Status = true
-                    obj[i].limit = amount
-               }
+     if (data.length === 0) {
+          const pusheh = {
+               active: true,
+               key: obj.length + 1,
+               limit: amount,
+               number: Jid
           }
+          obj.push(pusheh)
           pushing(obj)
-          return { status: true, limit: Number(amount) }
-     }
-
-     function cekLimit(Jid, amount) {
-          amount = Number(amount)
-          let data = []
-          let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+     } else if (data.length > 0) {
           for (let o of obj) {
                if (o.number == Jid) {
-                    data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+                    o.active = true
+                    o.limit = o.limit + amount
                }
           }
-          if (data.length === 0) {
-               obj.push({
-                    active: true,
-                    key: obj.length + 1,
-                    limit: amount,
-                    number: Jid
-               })
-               pushing(obj)
-               return true
-          }
-          pushing(obj)
-          return data[0].Status
      }
+     pushing(obj)
+     return data
+}
+
+function limitChecker(Jid, amount) {
+     amount = Number(amount)
+     let data = []
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let o of obj) {
+          if (o.number == Jid) {
+               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+          }
+     }
+     if (data.length === 0) {
+          const pusheh = {
+               active: true,
+               key: obj.length + 1,
+               limit: amount,
+               number: Jid
+          }
+          obj.push(pusheh)
+          pushing(obj)
+          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+     } else if (data.length > 0) {
+          for (let o of obj) {
+               if (o.limit > 0) {
+                    o.active = true
+               } else if (o.limit === 0) {
+                    o.active = false
+               }
+          }
+     }
+     pushing(obj)
+     return data
+}
+
+function takeLimit(Jid) {
+     let data = []
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let o of obj) {
+          if (o.number == Jid) {
+               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+          }
+     }
+     if (data.length === 0) {
+          const pusheh = {
+               active: true,
+               key: obj.length + 1,
+               limit: 0,
+               number: Jid
+          }
+          obj.push(pusheh)
+          pushing(obj)
+          return [{ Status: pusheh.active, Key: pusheh.key, Num: pusheh.number, limit: pusheh.limit }]
+     } else if (data.length > 0) {
+          for (let o of obj) {
+               if (o.number == Jid) {
+                    o.active = false
+                    o.limit = 0
+               }
+          }
+     }
+     pushing(obj)
+     return data
+}
+
+function addAllLimit(amount) {
+     amount = Number(amount)
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let i in obj) {
+          obj[i].active = true
+          obj[i].limit = obj[i].limit + amount
+     }
+     pushing(obj)
+     return { status: true, limit: Number(amount) }
+}
+
+async function resetAllLimit(amount) {
+     amount = Number(amount)
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let i in obj) {
+          if (obj[i].limit < amount) {
+               obj[i].Status = true
+               obj[i].limit = amount
+          }
+     }
+     pushing(obj)
+     return { status: true, limit: Number(amount) }
+}
+
+function cekLimit(Jid, amount) {
+     amount = Number(amount)
+     let data = []
+     let obj = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
+     for (let o of obj) {
+          if (o.number == Jid) {
+               data.push({ Status: o.active, Key: o.key, Num: o.number, limit: o.limit })
+          }
+     }
+     if (data.length === 0) {
+          obj.push({
+               active: true,
+               key: obj.length + 1,
+               limit: amount,
+               number: Jid
+          })
+          pushing(obj)
+          return true
+     }
+     pushing(obj)
+     return data[0].Status
+}
 
 
 
-     // let switcherSpam = JSON.parse(fs.readFileSync('./lib/database/'))
-     // global.countResetLimit
-     // var x = setInterval(function () {
-     //      for (let o in fspam) {
-     //           const parsedLoopSpam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + fspam[o]))
-     //           if (parsedLoopSpam.messageNum > 0) {
-     //                if (!settings.Switcher) return
-     //                parsedLoopSpam.status = false
-     //                parsedLoopSpam.messageNum = parsedLoopSpam.messageNum - 1
-     //                fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
-     //                if (parsedLoopSpam.messageNum === 0 && !parsedLoopSpam.status) {
-     //                     parsedLoopSpam.status = true
-     //                     fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
-     //                }
-     //           }
-     //      }
+// let switcherSpam = JSON.parse(fs.readFileSync('./lib/database/'))
+// global.countResetLimit
+// var x = setInterval(function () {
+//      for (let o in fspam) {
+//           const parsedLoopSpam = JSON.parse(fs.readFileSync('./lib/database/filterspam/' + fspam[o]))
+//           if (parsedLoopSpam.messageNum > 0) {
+//                if (!settings.Switcher) return
+//                parsedLoopSpam.status = false
+//                parsedLoopSpam.messageNum = parsedLoopSpam.messageNum - 1
+//                fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
+//                if (parsedLoopSpam.messageNum === 0 && !parsedLoopSpam.status) {
+//                     parsedLoopSpam.status = true
+//                     fs.writeFileSync('./lib/database/filterspam.json', JSON.stringify(parsedLoopSpam, null, 2))
+//                }
+//           }
+//      }
 
 
-     //      var countDownDate = settings.Reset_Time
-     //      // Get today's date and time
-     //      var now = new Date().getTime();
+//      var countDownDate = settings.Reset_Time
+//      // Get today's date and time
+//      var now = new Date().getTime();
 
-     //      // Find the distance between now and the count down date
-     //      var distance = countDownDate - now;
+//      // Find the distance between now and the count down date
+//      var distance = countDownDate - now;
 
-     //      // Time calculations for days, hours, minutes and seconds
-     //      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-     //      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-     //      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-     //      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+//      // Time calculations for days, hours, minutes and seconds
+//      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-          
-     //      // Display the result in the element with id="demo"
-     //      const countReset = `${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
-     //      settings.Reset_Read = countReset
-     //      console.log(countReset)
-     //      fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-     //      // countResetLimit = countReset
-     //      // If the count down is finished, write some text
-     //      if (distance < 0) {
-     //           clearInterval(x);
-     //           INFOLOG('Waktunya Reset!');
-     //           resetAllLimit(settings.Limit)
-     //                .then(() => {
-     //                     const newCountReset = moment(settings.Reset_Time).add('24', 'hours').valueOf()
-     //                     settings.Reset_Time = newCountReset
-     //                     settings.Reset_Status = true
-     //                     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
-     //                     restartCode()
-     //                })
-     //      }
-     // }, 1000);
+
+//      // Display the result in the element with id="demo"
+//      const countReset = `${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
+//      settings.Reset_Read = countReset
+//      console.log(countReset)
+//      fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+//      // countResetLimit = countReset
+//      // If the count down is finished, write some text
+//      if (distance < 0) {
+//           clearInterval(x);
+//           INFOLOG('Waktunya Reset!');
+//           resetAllLimit(settings.Limit)
+//                .then(() => {
+//                     const newCountReset = moment(settings.Reset_Time).add('24', 'hours').valueOf()
+//                     settings.Reset_Time = newCountReset
+//                     settings.Reset_Status = true
+//                     fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
+//                     restartCode()
+//                })
+//      }
+// }, 1000);
 
 
 module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
@@ -423,7 +424,7 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
           // 4286747850
           return
      }
-     
+
      if (!hurtz.message) return
 
      let expvip = JSON.parse(fs.readFileSync('./lib/database/expvip.json'))
@@ -1288,7 +1289,7 @@ _________________________________________
                     sendDariUrl(from, res[0].thumb, TypePsn.image, captions)
                })
           } else if (cmd == `${prf}playv` || cmd == `${prf}playvideo`) {
-               if (args.length === 1) return balas(from, 'Kirim perintah *!playvideo* _Judul video yang akan dicari_')
+               if (args.length === 1) return balas(from, 'Kirim perintah *!playvideo <Judul video yang akan dicari>*')
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -1308,7 +1309,7 @@ _________________________________________
                     Axios.get(thumb, {
                          responseType: 'arraybuffer'
                     }).then(({ data }) => {
-                         remote(dl_link, async(e, o) => {
+                         remote(dl_link, async (e, o) => {
                               const capt_yt4 = `*Data telah didapatkan!*
 
 *Title* : ${title}
@@ -1321,7 +1322,7 @@ _________________________________________
 *Description* : ${desc ? desc : '-'}
 
 _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
-                              
+
                               INFOLOG(`DAPAT DATA VIDEO : ${title} ( ${sizer(o)} )`)
                               const filtermp4 = await Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                               const capt_yt4limited = `*Data telah didapatkan!*
@@ -1346,7 +1347,7 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`
                     ERRLOG(e)
                })
           } else if (cmd == `${prf}play`) {
-               if (args.length === 1) return balas(from, 'Kirim perintah *!play* _Judul lagu yang akan dicari_')
+               if (args.length === 1) return balas(from, 'Kirim perintah *!play <Judul lagu yang akan dicari>*')
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -1366,7 +1367,7 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`
                     Axios.get(thumb, {
                          responseType: 'arraybuffer'
                     }).then(({ data }) => {
-                         remote(dl_link, async(e, o) => {
+                         remote(dl_link, async (e, o) => {
                               const buffer_thumbyt3 = Buffer.from(data, 'base64')
                               const capt_yt3 = `*Data telah didapatkan!*
 
@@ -1496,7 +1497,7 @@ Contoh :
                } else if (args[1] == 'list') {
                     let captions_list = `*Menampilkan seluruh respon bot*\n\nTotal Response : ${response_db.length}\n\n`
                     for (let i = 0; i < response_db.length; i++) {
-                         captions_list += `\nNO : ${1 + i}\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response}\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`
+                         captions_list += `\nNO : ${1 + i}Ditambahkan Oleh : ${response_db[i].added}\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response}\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`
                     }
                     balas(from, captions_list)
                }
@@ -1641,7 +1642,7 @@ Video : ${vid_post_}
                if (args.length === 1) {
                     balas(from, `Masukan Kode Negara dan teks!\n\nContoh : *!tts id Halo\n\nUntuk melihat kode negara lainnya silahkan ketik *!listkodebahasa*`)
                     return
-               } else if (args.length === 2) {
+               } else if (args.length === 2 && type !== 'extendedTextMessage') {
                     balas(from, `Masukan teksnya! atau tag pesan yg sudah ada.`)
                     return
                }
@@ -1655,7 +1656,7 @@ Video : ${vid_post_}
                pushLimit(sender, 1)
                try {
                     const gtts = require('node-gtts')(args[1]);
-                    gtts.save(`./media/tts/${filename}.wav`, body.slice(8), function () {
+                    gtts.save(`./media/tts/${filename}.wav`, type == 'conversation' ? body.slice(8) : bodyQuoted, function () {
                          exec(`ffmpeg -i ./media/tts/${filename}.wav ./media/tts/${filename}.mp3`, (err, stdout, stderr) => {
                               if (err) throw new TypeError(err)
                               const buff = fs.readFileSync(`./media/tts/${filename}.mp3`)
@@ -3626,6 +3627,101 @@ ${hasil.grid}
                }
                const tabelnama = table.toString().replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
                balas(from, tabelnama + '\n')
+          } else if (cmd == `${prf}artinama`) {
+               if (args.length === 1) return balas(from, 'Masukan perintah : *!artinama* _nama kamu_')
+               Axios.get(`https://www.primbon.com/arti_nama.php?nama1=${query}&proses=+Submit%21+`)
+                    .then(({ data }) => {
+                         const $ = cheerio.load(data)
+                         const result = $('#body').text().split('Nama:')[0]
+                         balas(from, result)
+                    })
+                    .catch(() => balas(from, `kesalahan saat mengambil data!`))
+          } else if (cmd == `${prf}cuaca`) {
+               if (args.length === 1) return balas(from, 'Kirim perintah *!video* _Judul video yang akan dicari_')
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               if (args.length === 1) return balas(from, 'Kirim perintah *!cuaca [tempat]*\nContoh : *!cuaca bandung*')
+               const tempat = query
+               Axios.get(`https://rest.farzain.com/api/cuaca.php?id=${tempat}&apikey=rambu`)
+                    .then(({ data }) => {
+                         const weather = data
+                         if (weather.respon.cuaca == null) return balas(from, `Mohon maaf tempat tesebut tidak tersedia.`)
+                         balas(from, `➣ Tempat : ${weather.respon.tempat}\n\n➣ Angin : ${weather.respon.angin}\n➣ Cuaca : ${weather.respon.cuaca}\n➣ Deskripsi : ${weather.respon.deskripsi}\n➣ Kelembapan : ${weather.respon.kelembapan}\n➣ Suhu : ${weather.respon.suhu}\n➣ Udara : ${weather.respon.udara}`)
+                    })
+                    .catch((e) => {
+
+                         balas(from, `_Kesalahan saat mengambil data tempat ${tempat}_`)
+                    })
+          } else if (cmd == `${prf}getmp3quran` || cmd == `${prf}quranmp3` || cmd == `${prf}mp3quran`) {
+               if (args.length === 1) return balas(from, 'Kirim perintah *!quranmp3* <surat ke>')
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               const quranmp3 = JSON.parse(fs.readFileSync('./lib/random/quranmp3.json'))
+               remote(quranmp3[1+Number(args[1])].recitation, (e, sizeaud) => {
+                    const strQuranMp3 = `*Quran Surah ${quranmp3[1+Number(args[1])-2].name} - ${quranmp3[1+Number(args[1])].type}*
+                    
+Terjemahan Dalam Arabic : ${quranmp3[1+Number(args[1])-2].name_translations.ar}
+Terjemahan Dalam Inggris : ${quranmp3[1+Number(args[1])-2].name_translations.en}
+Terjemahan Dalam Indonesia : ${quranmp3[1+Number(args[1]-2)].name_translations.id}
+Surat Ke : ${quranmp3[1+Number(args[1])-2].number_of_surah}
+Jumlah ayat : ${quranmp3[1+Number(args[1])-2].number_of_ayah}
+Filesize Audio : ${sizer(sizeaud)}
+
+_Mohon tunggu sebentar audio Sedang dikirim.._`
+                    balas(from, strQuranMp3)
+                    sendDariUrl(from, quranmp3[1+Number(args[1])-2].recitation, TypePsn.audio, '')
+               })
+          } else if (cmd == `${prf}katabijak` || cmd == `${prf}bijak`) {
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               const fakstu = fs.readFileSync('./lib/random/katabijax.txt', 'utf-8').split('\n')
+               balas(from, `${fakstu[Math.floor(Math.random() * fakstu.length + 1)]}`)
+          } else if (cmd == `${prf}fact` || cmd == `${prf}facts` || cmd == `${prf}fakta`) {
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               const faks = fs.readFileSync('./lib/random/faktaunix.txt', 'utf-8').split('\n')
+               balas(from, `*FACTS* : ${faks[Math.floor(Math.random() * faks.length + 1)]}`)
+          } else if (cmd == `${prf}pantun`) {
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: { mentionedJid: [nomerOwner[0]] }
+                    })
+                    return
+               }
+               pushLimit(sender, 1)
+               const fakstpu = fs.readFileSync('./lib/random/pantun.txt', 'utf-8').split('\n')
+               const pantunn = fakstpu[Math.floor(Math.random() * fakstpu.length + 1)].split(' aruga-line ')
+               let panteune = ''
+               for (var i = 0; i < pantunn.length; i++) {
+                    panteune += `${pantunn[i].replace(' \r\n', '')}\n`
+               }
+               console.log({ res: panteune })
+               balas(from, `${panteune.replace('\n \n','')}`)
           } else if (cmd == `${prf}pshname`) {
                console.log(conn.generateMessageTag(true))
                conn.sendMessage(from, '*Pushname* : ' + pushname, TypePsn.text, { quoted: hurtz })
@@ -3689,7 +3785,7 @@ ${hasil.grid}
                               Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                                    .then((a) => {
                                         remote(dl_link, (e, o) => {
-                                             if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                             if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                                              sendDariUrl(from, thumb, TypePsn.image, captions)
                                              sendDariUrl(from, dl_link, TypePsn.video, `Video telah terkirim ${pushname}`).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
@@ -3762,7 +3858,7 @@ ${hasil.grid}
                               Axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                                    .then((a) => {
                                         remote(dl_link, (e, o) => {
-                                             if (Number(filesize) >= 40000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
+                                             if (Number(filesize) >= 100000) return sendDariUrl(from, thumb, TypePsn.image, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(o)}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${sizer(o)}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                                              sendDariUrl(from, thumb, TypePsn.image, captions)
                                              sendDariUrl(from, dl_link, TypePsn.audio, '', { mimetype: Mimetype.mp4Audio }).catch(e => console.log(e) && balas(from, `Terjadi kesalahan!`))
@@ -4554,6 +4650,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
 [ https://chat.whatsapp.com/KVc2MuopydYJ1cJmiXhxie ] S1
 [ https://chat.whatsapp.com/BGz644tprlY0Ee539LUW3m ] S2`
                balas(from, msgInfoBot)
+          } else if (cmd == `${prf}hilih` || cmd == `${prf}nyinyi`) {
+               balas(from, type === 'conversation' ? query.replace(/a|i|u|e|o/gi,'i') : bodyQuoted.replace(/a|i|u|e|o/gi,'i'))
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
                INFOLOG('Sending Menu')
                const penggunanya = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
@@ -4577,9 +4675,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                if (seconds > 0) segments.push(seconds + ' Detik');
                if (milliseconds > 0) segments.push(milliseconds + ' milidetik');
                const dateString = segments.join(', ');
+               const fakstu = fs.readFileSync('./lib/random/katabijax.txt', 'utf-8').split('\n')
                const strMenu = `Hii ${pushname} ✨
 Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 Plan : ${isVIP ? 'VIP MEMBER 💠' : 'FREE MEMBER 🏋'}
+
+
+     _${fakstu[Math.floor(Math.random() * fakstu.length + 1)]}_
+
 
 💌 Contact My WhatsApp : @6285559038021 
 📮 Follow My Instagram : hzzz.formech_
@@ -4618,6 +4721,7 @@ Map >>
 ⚪ !limit _[Menampilkan limit]_
 ⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]_
 ⚪ !linkgrupmecha _[Menampilkan Link Grup Bot Mecha]_
+⚪ !hilih <text> / <tagPesan>
 
      *[ Fitur VIP ]*
 
@@ -4650,6 +4754,7 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Fitur Social Media & Download ]*
 
+💚 !cuaca <tempat>
 💚 !igstalk <@username> _[Melihat Profile Instagram]_
 💚 !igsearch <@username> _[Mencari Profile Instagram]_
 💚 !ig <https://linkig> _[IG Downloader]_
@@ -4662,6 +4767,7 @@ Note : Khusus fitur ini tanpa prefix!
 💚 !pitch <Nomer dari -10 sampai 10> _[Merubah Pitch Suara]_
 💚 !getpp <@tagmember> _[Mengambil Foto Profil]_
 💛 !play <Judul Lagu> _[Memainkan lagu dari YT]_
+💛 !playvideo <Judul Video> _[Memainkan video dari YT]_
 💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_
 💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_
 
@@ -4692,6 +4798,9 @@ Note : Khusus fitur ini tanpa prefix!
      
      *[ Fitur Gacha ]*
 
+💚 !pantun _[Random Pantun]_
+💚 !fakta _[Random Fakta Dunia]_
+💚 !katabijak _[Random Kata-kata bijak]_
 💚 !wallpaper _[Random Wallpaper Unsplash]_
 💚 !cecan _[Random ciwi cantik]_
 💚 !cogan _[Random cowo ganteng]_

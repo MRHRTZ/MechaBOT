@@ -28,13 +28,6 @@
     "response": "simp gura km y"
   },
   {
-    "id": 5,
-    "reply": true,
-    "added": "Vigo",
-    "key": "Yahaha",
-    "response": "Wahyu"
-  },
-  {
     "id": 6,
     "reply": true,
     "added": ".",
@@ -49,13 +42,6 @@
     "response": "paan brisik"
   },
   {
-    "id": 9,
-    "reply": true,
-    "added": "dimas",
-    "key": "p",
-    "response": "autis babi"
-  },
-  {
     "id": 11,
     "reply": true,
     "added": "dimas",
@@ -68,5 +54,59 @@
     "added": "dimas",
     "key": "om jangan om",
     "response": "lu mau gw pukul?"
+  },
+  {
+    "id": 10,
+    "reply": true,
+    "added": "Yahaha",
+    "key": "yahaha",
+    "response": "wahyu"
+  },
+  {
+    "id": 10,
+    "reply": true,
+    "added": "【Fedora - Kun】",
+    "key": "hai",
+    "response": "hai juga"
+  },
+  {
+    "id": 11,
+    "reply": true,
+    "added": "【Fedora - Kun】",
+    "key": "Lagi apa?",
+    "response": "Lagi mikirin kamu🤭"
+  },
+  {
+    "id": 12,
+    "reply": true,
+    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
+    "key": "halo"
+  },
+  {
+    "id": 13,
+    "reply": false,
+    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
+    "key": "gabut? Mendingan ketik !help"
+  },
+  {
+    "id": 14,
+    "reply": true,
+    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
+    "key": "halo ",
+    "response": " gabut? Mendingan ketik !help"
+  },
+  {
+    "id": 15,
+    "reply": true,
+    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
+    "key": "p ",
+    "response": " yang P anak dajjal"
+  },
+  {
+    "id": 16,
+    "reply": false,
+    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
+    "key": "p ",
+    "response": " yang P anak dajjal"
   }
 ]
