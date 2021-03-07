@@ -1,0 +1,4453 @@
+[
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F2D4A0CC9BD2F43FB7417C5EDC90D9EA"
+    },
+    "message": {
+      "conversation": ">> pm2 list"
+    },
+    "messageTimestamp": "1615106319",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0D3D9EBF4"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "┌─────┬──────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐\n│ id  │ name     │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │\n├─────┼──────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤\n│ 2   │ index    │ default     │ 2.0.0   │ fork    │ 3052     │ 3D     │ 0    │ online    │ 0%       │ 103.0mb  │ Adminis… │ disabled │\n│ 3   │ mecha    │ default     │ 1.0.0   │ fork    │ 8404     │ 77m    │ 48   │ online    │ 0%       │ 2.2gb    │ MRHRTZ   │ disabled │\n│ 4   │ mtk      │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 7    │ stopped   │ 0%       │ 0b       │ MRHRTZ   │ disabled │\n└─────┴──────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘\n",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "F2D4A0CC9BD2F43FB7417C5EDC90D9EA",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ">> pm2 list"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106323",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB00ADE62FA"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐\n│ id  │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │\n└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘\n",
+        "contextInfo": {
+          "stanzaId": "F2D4A0CC9BD2F43FB7417C5EDC90D9EA",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ">> pm2 list"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106324",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "D6307595C6FBABBB3D05368EEB70528A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @6289621089213",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106461",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0891DBF7B"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Memulai game tictactoe 🎳*\n\n@6285559038021 menantang anda untuk menjadi lawan game\n\n_[ @6289621089213 ] Ketik Y/N untuk menerima atau menolak permainan_ \n",
+        "contextInfo": {
+          "stanzaId": "D6307595C6FBABBB3D05368EEB70528A",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!tictactoe @6289621089213",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6289621089213@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106463",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "DA71D731B82EB6780F72899F2DB98537"
+    },
+    "message": {
+      "conversation": "Y"
+    },
+    "messageTimestamp": "1615106476",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A9420C12E6F542097D2F602D5CDC25F7"
+    },
+    "message": {
+      "conversation": "Y"
+    },
+    "messageTimestamp": "1615106485",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0486F1653"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n                    \nX : @6285559038021\nO : @6289621089213\n               \nGiliran : @6285559038021\n\n@6285559038021 VS @6289621089213\n\n     1️⃣ 2️⃣ 3️⃣\n     4️⃣ 5️⃣ 6️⃣\n     7️⃣ 8️⃣ 9️⃣\n\n",
+        "contextInfo": {
+          "stanzaId": "A9420C12E6F542097D2F602D5CDC25F7",
+          "participant": "6289621089213@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Y"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106487",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "6564C8B61657C3D6DB459356DA03E250"
+    },
+    "message": {
+      "conversation": "1"
+    },
+    "messageTimestamp": "1615106589",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "0D841400A8742DC3D01BEC6DFED54E16"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1615106597",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB09CC1C8E1"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa broo?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "0D841400A8742DC3D01BEC6DFED54E16",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "P"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106599",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "BE963C845627FA8F1B261F5627F6C7A8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Huh",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB0486F1653",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "*🎮 Tictactoe Game 🎳*\n                    \nX : @6285559038021\nO : @6289621089213\n               \nGiliran : @6285559038021\n\n@6285559038021 VS @6289621089213\n\n     1️⃣ 2️⃣ 3️⃣\n     4️⃣ 5️⃣ 6️⃣\n     7️⃣ 8️⃣ 9️⃣\n\n",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6285559038021@s.whatsapp.net",
+                  "6289621089213@s.whatsapp.net"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106611",
+    "status": "ERROR",
+    "participant": "27632122007@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3CC84B9054D5B0A4BFBB364528FEF1FD"
+    },
+    "message": {
+      "conversation": "> print('a')"
+    },
+    "messageTimestamp": "1615106634",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0D114DE7B"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "a",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3CC84B9054D5B0A4BFBB364528FEF1FD",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "> print('a')"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106635",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "DB8BA14805B565F419C8082CAE09959B"
+    },
+    "message": {
+      "conversation": "> print('a')"
+    },
+    "messageTimestamp": "1615106680",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB01995A47E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "a",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "DB8BA14805B565F419C8082CAE09959B",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "> print('a')"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106681",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB02CDD80C3"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "a",
+        "contextInfo": {
+          "stanzaId": "3CC84B9054D5B0A4BFBB364528FEF1FD",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "> print('a')"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106699",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0CFB584B9"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "a",
+        "contextInfo": {
+          "stanzaId": "DB8BA14805B565F419C8082CAE09959B",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "> print('a')"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106700",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "9E8CE5769F69E7C1778CBB84ACCD372E"
+    },
+    "message": {
+      "conversation": "1"
+    },
+    "messageTimestamp": "1615106720",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB06851627F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : 6285559038021\n          O : 6289621089213\n          \n          Giliran : 6285559038021\n\n@6285559038021 VS @6289621089213\n\nX 2️⃣ 3️⃣\n4️⃣ 5️⃣ 6️⃣\n7️⃣ 8️⃣ 9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "9E8CE5769F69E7C1778CBB84ACCD372E",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "1"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106721",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "4100BAA86763E1F2D58C290C451DD3BB"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615106728",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "832CB97155A2E0F70530F1C3F980B76E"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615106754",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0835E5A2B"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : 6285559038021\n          O : 6289621089213\n          \n          Giliran : 6285559038021\n\n@6285559038021 VS @6289621089213\n\nX 2️⃣ 3️⃣\n4️⃣ O 6️⃣\n7️⃣ 8️⃣ 9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "832CB97155A2E0F70530F1C3F980B76E",
+          "participant": "6289621089213@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "5"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106757",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "E838D2F3E37882211E27000349689767"
+    },
+    "message": {
+      "conversation": "3"
+    },
+    "messageTimestamp": "1615106767",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "24E1B425DBC02AAA5A8BA0A8505A02DF"
+    },
+    "message": {
+      "conversation": "8"
+    },
+    "messageTimestamp": "1615106768",
+    "status": "ERROR",
+    "participant": "27632122007@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "0579E5712C8B55D417DD8C28B00CBA8E"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Anl6A8jr5HPQ0d_cdEALzMHD00oSqt04oS_80eib3INO.enc",
+        "fileSha256": "l0r56UQnwrM1kfhYICjXTrTkFIiWfKlRit9fWcCN5MY=",
+        "fileEncSha256": "aZ7QHqZLAbe9qmzTRHK3c22ogythXCqSBLjzSzWBY0w=",
+        "mediaKey": "h/68fmZRnT2fU3EL92Fp8fbg5df91bFHazT7yzZgPHk=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/11294145_487575502255923_7572757962038583552_n.enc?oh=a71057775bbbc999e83adefa9c3b0aae&oe=606DB503",
+        "fileLength": "39996",
+        "mediaKeyTimestamp": "1615096546",
+        "isAnimated": false
+      }
+    },
+    "messageTimestamp": "1615106775",
+    "status": "ERROR",
+    "participant": "27632122007@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "354599E7745949FBA2D3E5382F0093AF"
+    },
+    "message": {
+      "conversation": "3"
+    },
+    "messageTimestamp": "1615106776",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0AA9F3DE8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : 6285559038021\n          O : 6289621089213\n          \n          Giliran : 6285559038021\n\n@6285559038021 VS @6289621089213\n\nX 2️⃣ X\n4️⃣ O 6️⃣\n7️⃣ 8️⃣ 9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "354599E7745949FBA2D3E5382F0093AF",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "3"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106779",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A5091D70F01AE4F6865B73D4F0093D27"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615106796",
+    "status": "ERROR",
+    "participant": "27632122007@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "1E8A0D2590E3B07D66AF347EBC4D6D0A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Only players",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "0579E5712C8B55D417DD8C28B00CBA8E",
+          "participant": "27632122007@s.whatsapp.net",
+          "quotedMessage": {
+            "stickerMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/Anl6A8jr5HPQ0d_cdEALzMHD00oSqt04oS_80eib3INO.enc",
+              "fileSha256": "l0r56UQnwrM1kfhYICjXTrTkFIiWfKlRit9fWcCN5MY=",
+              "fileEncSha256": "aZ7QHqZLAbe9qmzTRHK3c22ogythXCqSBLjzSzWBY0w=",
+              "mediaKey": "h/68fmZRnT2fU3EL92Fp8fbg5df91bFHazT7yzZgPHk=",
+              "mimetype": "image/webp",
+              "height": 64,
+              "width": 64,
+              "directPath": "/v/t62.15575-24/11294145_487575502255923_7572757962038583552_n.enc?oh=a71057775bbbc999e83adefa9c3b0aae&oe=606DB503",
+              "fileLength": "39996",
+              "mediaKeyTimestamp": "1615096546",
+              "isAnimated": false
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106798",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5D20055284AC60ADBB8B21B8CC38630F"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615106807",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "7CE2A9E921590A86ACD65DD61B4D90AC"
+    },
+    "message": {
+      "conversation": "❌⭕"
+    },
+    "messageTimestamp": "1615106813",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "BEE62A4CBD59DB7A1133F621989E1D25"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/ArLQecr2g1XBGYIjJ-4p473Zw8M3fYk5DURF7IBD1zaA.enc",
+        "fileSha256": "1Cw8yWm+fOGigOv9wbA4+UIvy7/mvIA2zEUgqXKwGoE=",
+        "fileEncSha256": "fgPXXx0rL2a96vtm9aedAY1T3duik4Rli+NgyLx6bg0=",
+        "mediaKey": "ZyiI7KIQLrncP44KZptm7mboSqVc5//7/LeV4/bh0Xs=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/26969782_103182291807113_4325580942657519425_n.enc?oh=6e4cb8ef58d22d1a53ef5d1c3f55eb27&oe=606EBB4F",
+        "fileLength": "5082",
+        "mediaKeyTimestamp": "1615017504",
+        "isAnimated": false,
+        "contextInfo": {
+          "stanzaId": "1E8A0D2590E3B07D66AF347EBC4D6D0A",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Only players"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106812",
+    "status": "READ",
+    "participant": "27632122007@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "1B9225524FC80CF5143913D3BFD72AF4"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Ohh woke :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "7CE2A9E921590A86ACD65DD61B4D90AC",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "❌⭕"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106821",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "2B0F402351BC5BC7F28A57EF0B80CE59"
+    },
+    "message": {
+      "conversation": "wkwkwk"
+    },
+    "messageTimestamp": "1615106828",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C40252CB8ADFABC52CD98EDE95F260C4"
+    },
+    "message": {
+      "conversation": "7"
+    },
+    "messageTimestamp": "1615106836",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0A2982420"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : 6285559038021\n          O : 6289621089213\n          \n          Giliran : 6285559038021\n\n@6285559038021 VS @6289621089213\n\nX 2️⃣ X\n4️⃣ O 6️⃣\nO 8️⃣ 9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "C40252CB8ADFABC52CD98EDE95F260C4",
+          "participant": "6289621089213@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "7"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106838",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "B522A7BA7854839242F00CB7EF4AD897"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615106846",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0A5D57DB6"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \nTelah dimenangkan oleh @6285559038021 😎👑\n\nPemenang = + 25 ✅\nKalah = - 5  ❌\n",
+        "contextInfo": {
+          "stanzaId": "B522A7BA7854839242F00CB7EF4AD897",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "2"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615106848",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "1ECE1D2091800141B23D5B25128494A2"
+    },
+    "message": {
+      "conversation": "njir berapa hape?"
+    },
+    "messageTimestamp": "1615106849",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "BB2B27974B30B41B3832ACA934D6ED40"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Satu hp 3 wa xixi",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "1ECE1D2091800141B23D5B25128494A2",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "njir berapa hape?"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106858",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "407153CF6595E258569919D908AC8620"
+    },
+    "message": {
+      "conversation": "oaalh"
+    },
+    "messageTimestamp": "1615106862",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "1B746D68F332BDECE420F8B6C4802625"
+    },
+    "message": {
+      "conversation": "aowkwowk"
+    },
+    "messageTimestamp": "1615106863",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "FEFC4B813B3DF26BA005E7A3298DC935"
+    },
+    "message": {
+      "conversation": "sampe sekarang belum nemu bot werewolf kayak line"
+    },
+    "messageTimestamp": "1615106888",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5B03DBFF55D1E9B68876938F78752D03"
+    },
+    "message": {
+      "conversation": "Gw ganti dlu symbolnya :v"
+    },
+    "messageTimestamp": "1615106893",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F53205DAFD9597FC14DF3B4002567502"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Werewolf kek gimana tu?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "FEFC4B813B3DF26BA005E7A3298DC935",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "sampe sekarang belum nemu bot werewolf kayak line"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106899",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "1B9D14181526657FEBFFEC42B383E3DB"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "oke",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "5B03DBFF55D1E9B68876938F78752D03",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Gw ganti dlu symbolnya :v"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106899",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "CDF626E3BFB76E188ED4CCAC17538E08"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "nanti kasih tau",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "F53205DAFD9597FC14DF3B4002567502",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Werewolf kek gimana tu?"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106911",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5B38B905D75A9800DAB439ABC13D2166"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Kaya impostor gitu kah?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "CDF626E3BFB76E188ED4CCAC17538E08",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "nanti kasih tau"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106922",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "8C1E2AD53DD70FD515B15AB457A01459"
+    },
+    "message": {
+      "conversation": "yg 2 serigaala tu"
+    },
+    "messageTimestamp": "1615106925",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "4989C4BA95A4402B0BB09BD7274E9770"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "iya",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "5B38B905D75A9800DAB439ABC13D2166",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Kaya impostor gitu kah?"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106926",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "700A13A64676BE40E036A0D7799A2B71"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Ouh saling matiin :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "8C1E2AD53DD70FD515B15AB457A01459",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "yg 2 serigaala tu"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106942",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "89D831896F2233E7A8E71BF0F03BFD00"
+    },
+    "message": {
+      "conversation": "iya saling fitnah aowkwow"
+    },
+    "messageTimestamp": "1615106950",
+    "status": "ERROR",
+    "participant": "628992490269@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "B17240A78923DB0CF2B5F2751026A5BC"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Tapi klo di grup misalnya ngecommand matiin player ntar ketauan :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "89D831896F2233E7A8E71BF0F03BFD00",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "iya saling fitnah aowkwow"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615106997",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "6A2388047DB9A6954379D142B9692D74"
+    },
+    "message": {
+      "conversation": "Berarti sifatnya private aja gitu? Wkwk"
+    },
+    "messageTimestamp": "1615107011",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "D8ED8AF1B95E425C56DC48A0D194856E"
+    },
+    "message": {
+      "conversation": "Menarik si :v"
+    },
+    "messageTimestamp": "1615107017",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "DB7366EC12B60F4B7CAFF9850124563E"
+    },
+    "message": {
+      "conversation": "!msgtoconsole"
+    },
+    "messageTimestamp": "1615107096",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0E13B9294"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Berhasil mengaktifkan pesan chat di console ✅",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "DB7366EC12B60F4B7CAFF9850124563E",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!msgtoconsole"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107097",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB07BA843A6"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Berhasil mengaktifkan pesan chat di console ✅",
+        "contextInfo": {
+          "stanzaId": "DB7366EC12B60F4B7CAFF9850124563E",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!msgtoconsole"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107098",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "DFAF00288ECDDD15191DBB85A7D50166"
+    },
+    "message": {
+      "conversation": "❌⭕"
+    },
+    "messageTimestamp": "1615107106",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "406ACCF9A0E2E7988B150B3C60D03592"
+    },
+    "message": {
+      "conversation": "Ah"
+    },
+    "messageTimestamp": "1615107112",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "D5494F22888D29564F635FE9B02EE3FF"
+    },
+    "message": {
+      "conversation": ".msgtoconsole"
+    },
+    "messageTimestamp": "1615107131",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB053291222"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Pesan chat di console telah dimatikan ❌",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "D5494F22888D29564F635FE9B02EE3FF",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".msgtoconsole"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107133",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0851AF679"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Pesan chat di console telah dimatikan ❌",
+        "contextInfo": {
+          "stanzaId": "D5494F22888D29564F635FE9B02EE3FF",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".msgtoconsole"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107134",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F9382A03E9E7B684E5046C4008ECD75E"
+    },
+    "message": {
+      "conversation": "Tes"
+    },
+    "messageTimestamp": "1615107676",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB03A8D14AC"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "F9382A03E9E7B684E5046C4008ECD75E",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107677",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB07A91AEB1"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "contextInfo": {
+          "stanzaId": "F9382A03E9E7B684E5046C4008ECD75E",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107722",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "475755150C0F18243C77B632ABCC75FE"
+    },
+    "message": {
+      "conversation": "Uda keknya"
+    },
+    "messageTimestamp": "1615107733",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "7EDA358DF6AFD1EE52CA647C6C1CAC70"
+    },
+    "message": {
+      "conversation": "Coba cek"
+    },
+    "messageTimestamp": "1615107736",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "B186FCB0277F100DBC65A299BEB2224C"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!limit @628992490269",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107741",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB05BA2A9B7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Hai @628992490269 ☺️\n     \n*Limit anda sekarang* : 37 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+        "contextInfo": {
+          "stanzaId": "B186FCB0277F100DBC65A299BEB2224C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!limit @628992490269",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "628992490269@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107743",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB05A425122"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Hai @628992490269 ☺️\n     \n*Limit anda sekarang* : 57 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "B186FCB0277F100DBC65A299BEB2224C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!limit @628992490269",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "628992490269@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107744",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "DD8FCFA5D213134416C61A83FB8225E3"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": ".",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB05BA2A9B7",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "Hai @628992490269 ☺️\n     \n*Limit anda sekarang* : 37 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6285559038021@s.whatsapp.net",
+                  "628992490269@s.whatsapp.net"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107749",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C21631ED108E4E8AAFC5A5BF4AA01CE8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @628992490269",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107755",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "652A4E72604D359E3A615B15213CE013"
+    },
+    "message": {
+      "conversation": "Ou ada yg kuramg"
+    },
+    "messageTimestamp": "1615107782",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "D3E168EF75ED57ADB5E0956F0CAA0C36"
+    },
+    "message": {
+      "conversation": "Tes"
+    },
+    "messageTimestamp": "1615107829",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0D25EB912"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "contextInfo": {
+          "stanzaId": "D3E168EF75ED57ADB5E0956F0CAA0C36",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107830",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB051307D3C"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "D3E168EF75ED57ADB5E0956F0CAA0C36",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615107830",
+    "status": "ERROR",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "99C324EF8E9EC7EEC6141785EAB3D45D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @628992490269",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107838",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0C327C089"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Sedang ada sesi permainan digrup ini\n\n@6285559038021 VS @6289621089213",
+        "contextInfo": {
+          "stanzaId": "99C324EF8E9EC7EEC6141785EAB3D45D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!tictactoe @628992490269",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "628992490269@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107839",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A801FEC06AB30CCCB9FB3C3EEF295141"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @628992490269",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107868",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB04CEB2A4F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Memulai game tictactoe 🎳*\n\n@6285559038021 menantang anda untuk menjadi lawan game\n\n_[ @628992490269 ] Ketik Y/N untuk menerima atau menolak permainan_ \n",
+        "contextInfo": {
+          "stanzaId": "A801FEC06AB30CCCB9FB3C3EEF295141",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!tictactoe @628992490269",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "628992490269@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "628992490269@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107871",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "47254D116D90F951B33EFF0A8127C650"
+    },
+    "message": {
+      "conversation": "Cobain ni tes :v"
+    },
+    "messageTimestamp": "1615107886",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "0B8CDAE65ADC35B0577747C339C02C1F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": ".tictactoe @6281317526091",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107966",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0C45F441D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Memulai game tictactoe 🎳*\n\n@6285559038021 menantang anda untuk menjadi lawan game\n\n_[ @6281317526091 ] Ketik Y/N untuk menerima atau menolak permainan_ \n",
+        "contextInfo": {
+          "stanzaId": "0B8CDAE65ADC35B0577747C339C02C1F",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": ".tictactoe @6281317526091",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615107969",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "347ADB845F19242BE7FD1A1FFEB05763"
+    },
+    "message": {
+      "conversation": "Y"
+    },
+    "messageTimestamp": "1615108075",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB02425481A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Opsi ini hanya untuk @6281317526091 !",
+        "contextInfo": {
+          "stanzaId": "347ADB845F19242BE7FD1A1FFEB05763",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Y"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108077",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3C23FE77165B88A98128BAB535521CEC"
+    },
+    "message": {
+      "conversation": "Y"
+    },
+    "messageTimestamp": "1615108088",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB02316B573"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n                    \nX : @6285559038021\nO : @6281317526091\n               \nGiliran : @6285559038021\n\n     1️⃣  2️⃣  3️⃣\n\n     4️⃣  5️⃣  6️⃣\n\n     7️⃣  8️⃣  9️⃣\n\n",
+        "contextInfo": {
+          "stanzaId": "3C23FE77165B88A98128BAB535521CEC",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Y"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108090",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "30BC17DDF1300C1E12D28E76400845F0"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615108116",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0AE72CA7C"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6285559038021\n\n\n     1️⃣  2️⃣  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "30BC17DDF1300C1E12D28E76400845F0",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "5"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108119",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "69A99344E780993C1C5A628C845EEA40"
+    },
+    "message": {
+      "conversation": "Hmm"
+    },
+    "messageTimestamp": "1615108125",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB03A4DC3C7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "eh ada nisa sabyan :v",
+        "contextInfo": {
+          "stanzaId": "69A99344E780993C1C5A628C845EEA40",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Hmm"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108127",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0C6087BDB"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "eh ada nisa sabyan :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "69A99344E780993C1C5A628C845EEA40",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Hmm"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108127",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "689BAD027AD6EE6FE54B87ED161D13D6"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615108131",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "7D3A1EC2F8F58FD81463815670CCAA34"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "eh iya juga",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "B17240A78923DB0CF2B5F2751026A5BC",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tapi klo di grup misalnya ngecommand matiin player ntar ketauan :v"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108143",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C16D7963DA24E39929367AABF02FFCA2"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615108151",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB080C42A99"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6285559038021\n\n\n     1️⃣  2️⃣  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "C16D7963DA24E39929367AABF02FFCA2",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "5"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108154",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "6DCBB37E73CBD2B9BA707A2528ED02A1"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Ao1yHpaGcQoYQXNdWiDsc1W5j5KG1OneERpXbOUkRDiw.enc",
+        "fileSha256": "73fam09b66oh+2c8jlR97YrBSnNAVI+aZVvxTo15egk=",
+        "fileEncSha256": "mA+i/tswDXIuKKYVeetKQlGWflafOhXVeifhfdJJGjI=",
+        "mediaKey": "yt+/24plDItGBhrGmzJS2VjPrOAYqt+CWqXzdCmwN/s=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.7118-24/40788368_494247035314784_1770065987963331492_n.enc?oh=b2a933a698a665124bd564c83c4a8d4b&oe=606E421A",
+        "fileLength": "70508",
+        "mediaKeyTimestamp": "1615018387",
+        "isAnimated": false,
+        "contextInfo": {
+          "stanzaId": "7D3A1EC2F8F58FD81463815670CCAA34",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "eh iya juga"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108160",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "501589EDCE9751D3B2845EC3C7850652"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Gelut terus tuh yg satu :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "BF1531C6C2F80D1A977A062B80DC0E70",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "aowkwowk ada 3 kucing gua.. tipe preman tipe mager tipe kacau"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108304",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "7AA55EBFED9EC071FE80622CDC9C84C7"
+    },
+    "message": {
+      "conversation": "Tes"
+    },
+    "messageTimestamp": "1615108309",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB07AE56D4E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "7AA55EBFED9EC071FE80622CDC9C84C7",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108310",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB01E291AC9"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "contextInfo": {
+          "stanzaId": "7AA55EBFED9EC071FE80622CDC9C84C7",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108311",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "ED5B133D3211AE7275E0D44F49C2B2E6"
+    },
+    "message": {
+      "conversation": "!tictactoe"
+    },
+    "messageTimestamp": "1615108317",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0B58039DE"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Tag yang ingin jadi lawan anda!\n\nPenggunaan : *!tictactoe @TagMember*",
+        "contextInfo": {
+          "stanzaId": "ED5B133D3211AE7275E0D44F49C2B2E6",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!tictactoe"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108319",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "1C930AB887B98AA420CB11686FA82424"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @6289621089213",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6289621089213@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108325",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0B6856BCA"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Sedang ada sesi permainan digrup ini\n\n@6285559038021 VS @6281317526091",
+        "contextInfo": {
+          "stanzaId": "1C930AB887B98AA420CB11686FA82424",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!tictactoe @6289621089213",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6289621089213@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108327",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C20852752E290A1CD87148C53089FD9B"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615108333",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0715C7B44"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6285559038021\n\n\n     1️⃣  2️⃣  3️⃣\n     4️⃣  ❌  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "C20852752E290A1CD87148C53089FD9B",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "5"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108335",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3B1C626C4FFDF8540597F9948CF46796"
+    },
+    "message": {
+      "conversation": "7"
+    },
+    "messageTimestamp": "1615108339",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "31161DB989025F60E0790E80C40725D9"
+    },
+    "message": {
+      "conversation": "7"
+    },
+    "messageTimestamp": "1615108342",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB011CF8FC2"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6285559038021\n\n\n     1️⃣  2️⃣  3️⃣\n     4️⃣  ❌  6️⃣\n     ⭕  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "31161DB989025F60E0790E80C40725D9",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "7"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108344",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "9F9CA5F45AF4660481F6FDEBC130742C"
+    },
+    "message": {
+      "conversation": "4"
+    },
+    "messageTimestamp": "1615108350",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB082EB5828"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6285559038021\n\n\n     1️⃣  2️⃣  3️⃣\n     ❌  ❌  6️⃣\n     ⭕  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "9F9CA5F45AF4660481F6FDEBC130742C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "4"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108352",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "CB155EB66E2BEAC6AB8DFF1A48A43927"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!limit @6281317526091",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108360",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB06363DD12"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Hai @6281317526091 ☺️\n     \n*Limit anda sekarang* : 20 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+        "contextInfo": {
+          "stanzaId": "CB155EB66E2BEAC6AB8DFF1A48A43927",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!limit @6281317526091",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108362",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0FF82512F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Hai @6281317526091 ☺️\n     \n*Limit anda sekarang* : 20 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "CB155EB66E2BEAC6AB8DFF1A48A43927",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!limit @6281317526091",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108364",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "00C1477E6138AB91DD2C326F5DB36541"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Aucfdrw_cngqb0A2bc2BIoQoexRTK-LAeB2GrvmrQHq4.enc",
+        "fileSha256": "iNsYw40O8ldOxzceMLrhEY6ZdZiYP4iVmnBf+fqdkxs=",
+        "fileEncSha256": "8xjPZXAxsF6hMA8DvDNEDx0q7qT9mN2P/Rjekk7Sn7I=",
+        "mediaKey": "KbqgTKKzt5sMaUii3Hfkrc2HDvHsUX3ygTC568m2BMY=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/25603362_1346520469053245_9096503748003092232_n.enc?oh=4cadd5d1dcfb2c979c7d9cce7c11de59&oe=606F6AF5",
+        "fileLength": "21498",
+        "mediaKeyTimestamp": "1614950185",
+        "isAnimated": false
+      }
+    },
+    "messageTimestamp": "1615108368",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "982C6B46E226ECD04C17C5E3B9DB179D"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615108385",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "24C3D01BBD5187A5693DEFA111B25F37"
+    },
+    "message": {
+      "conversation": "8"
+    },
+    "messageTimestamp": "1615108440",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB071D6EF58"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6285559038021\n\n\n     1️⃣  2️⃣  3️⃣\n     ❌  ❌  6️⃣\n     ⭕  ⭕  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "24C3D01BBD5187A5693DEFA111B25F37",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "8"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108442",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5124410C035DD505EA16F54590A4B1EB"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615108446",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0E4AE41CD"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n          X : @6285559038021\n          O : @6281317526091\n          \n          Giliran : @6281317526091\n\n\n     1️⃣  ❌  3️⃣\n     ❌  ❌  6️⃣\n     ⭕  ⭕  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "5124410C035DD505EA16F54590A4B1EB",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "2"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108448",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "D7CBF9AE2C7782AAF564FA7A5AE93BD0"
+    },
+    "message": {
+      "conversation": "9"
+    },
+    "messageTimestamp": "1615108452",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0683AB26C"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \nTelah dimenangkan oleh @6281317526091 😎👑\n\nPemenang = + 22 ✅\nKalah = - 10  ❌\n",
+        "contextInfo": {
+          "stanzaId": "D7CBF9AE2C7782AAF564FA7A5AE93BD0",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "9"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108453",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "7FB26EE48E46F9997BC001AF89C84057"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!limit @6281317526091",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108462",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB08699B827"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Hai @6281317526091 ☺️\n     \n*Limit anda sekarang* : 20 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "7FB26EE48E46F9997BC001AF89C84057",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!limit @6281317526091",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108464",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB01F38B4ED"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Hai @6281317526091 ☺️\n     \n*Limit anda sekarang* : 40 ✅\n\n_Limit akan direset jam 6 pagi_\n\n```anda bisa jadi member vip unlimited dalam satu bulan.```\n\nHave a nice day!✨\n                    ",
+        "contextInfo": {
+          "stanzaId": "7FB26EE48E46F9997BC001AF89C84057",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!limit @6281317526091",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615108465",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "86E2B55DC977AF74F048ACB07C286B9D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "iya",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "501589EDCE9751D3B2845EC3C7850652",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Gelut terus tuh yg satu :v"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108482",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C098B1B9B4F122B0A5D49BF44FC7E93E"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Av9xzREPKOmWLbnwQHWboQMYrnm4dnxKJTlYYZR6IS5x.enc",
+        "fileSha256": "U75H2X4EUWd3oY8xbUBbn3AA0KU8XA44BS3JXXg3y98=",
+        "fileEncSha256": "YJk8eUBTCiDediBJjljCV710zqZOWzLdft+4Lskj1fs=",
+        "mediaKey": "nJQJT8Eq3PVqQFI7fIgZMdpeQI/5DHryflP6S3bNGJU=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/40816925_880732436101325_2368039124974931380_n.enc?oh=8ef5ed2f2438c1e9e5a3017594862828&oe=606E7FF0",
+        "fileLength": "9950",
+        "mediaKeyTimestamp": "1615021227",
+        "isAnimated": false
+      }
+    },
+    "messageTimestamp": "1615108496",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "CBBA0E7375FB7879D6CC95365F8D91F4"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Masih kecil itu??:v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "86E2B55DC977AF74F048ACB07C286B9D",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "iya"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108583",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C022BF03B4A8044E2FA35D8A00AB0639"
+    },
+    "message": {
+      "conversation": "lumayan gede lah"
+    },
+    "messageTimestamp": "1615108597",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A58F6AF757FA8405A55DC3F8A9E81DD8"
+    },
+    "message": {
+      "conversation": ":v"
+    },
+    "messageTimestamp": "1615108600",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB01FC696C1"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "kenapa bng?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "A58F6AF757FA8405A55DC3F8A9E81DD8",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ":v"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615108601",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "816B7A6B238116910504F3DFA4FB0526"
+    },
+    "message": {
+      "conversation": "Kalo dah gede biasanya mager si,, kecuali rebutan cwe sama makan wkwk"
+    },
+    "messageTimestamp": "1615108602",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "185393BF411904F938E3D4BF4CE3FAF6"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Masih multiplayer belum ditambahin bot play :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "E5E8BDD746870CC2A278F4452FBD2B4E",
+          "participant": "628992490269@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "botnya bisa otomatis ngelawan atau khusus multiplayer?"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615109836",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C10D25644E887AA7861E1ED3061F37C2"
+    },
+    "message": {
+      "conversation": "Tinggal serinya bntr"
+    },
+    "messageTimestamp": "1615109848",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A2A0E4A2823D126AE04A4D8A84A8722B"
+    },
+    "message": {
+      "conversation": "Gimana logic nya bjer"
+    },
+    "messageTimestamp": "1615109853",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "AB5506A02B2594EEADE8B63BD2DD89D9"
+    },
+    "message": {
+      "conversation": "Includes kli"
+    },
+    "messageTimestamp": "1615109856",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5FA50BA9BA7FE508CA12AE540D42E859"
+    },
+    "message": {
+      "conversation": "hmmmm"
+    },
+    "messageTimestamp": "1615109892",
+    "status": "READ",
+    "participant": "628992490269@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "9DACB46F76C3263745D0178A2EDFB563"
+    },
+    "message": {
+      "conversation": "Tes"
+    },
+    "messageTimestamp": "1615109896",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0AF4B2BB7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "contextInfo": {
+          "stanzaId": "9DACB46F76C3263745D0178A2EDFB563",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615109898",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB06587F61D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa bng?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "9DACB46F76C3263745D0178A2EDFB563",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Tes"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615109898",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "D2553AF9E705B54525817C90A441E562"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @6285559038021",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615109909",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB07FF36B04"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Memulai game tictactoe 🎳*\n\n@6281317526091 menantang anda untuk menjadi lawan game\n\n_[ @6285559038021 ] Ketik Y/N untuk menerima atau menolak permainan_ \n",
+        "contextInfo": {
+          "stanzaId": "D2553AF9E705B54525817C90A441E562",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!tictactoe @6285559038021",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6285559038021@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615109911",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "4FD141059FB57728A3AD7AED04B7F89D"
+    },
+    "message": {
+      "conversation": "Y"
+    },
+    "messageTimestamp": "1615109922",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB04FA71410"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n                    \n❌ : @6281317526091\n⭕ : @6285559038021\n               \nGiliran : @6281317526091\n\n     1️⃣  2️⃣  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n",
+        "contextInfo": {
+          "stanzaId": "4FD141059FB57728A3AD7AED04B7F89D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Y"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615109924",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "E25A382E92E8A1FC3B08275DFEEE00D4"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1615110096",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0F59A20E1"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "apa broo?",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "E25A382E92E8A1FC3B08275DFEEE00D4",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "P"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110100",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "E63BC08D5B8FA47B8714EEB9D07B9DC9"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615110111",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB05E0C6764"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "E63BC08D5B8FA47B8714EEB9D07B9DC9",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "2"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110113",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F52D928DBFBD9F87EB9188939616FB73"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615110117",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB01CCC8F20"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6281317526091\n\n\n     1️⃣  ❌  3️⃣\n     4️⃣  ⭕  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "F52D928DBFBD9F87EB9188939616FB73",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "5"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110120",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "96DE15FFCF26E1915E1A10685D1496E2"
+    },
+    "message": {
+      "conversation": "8"
+    },
+    "messageTimestamp": "1615110120",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0F1353EB9"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  3️⃣\n     4️⃣  ⭕  6️⃣\n     7️⃣  ❌  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "96DE15FFCF26E1915E1A10685D1496E2",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "8"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110122",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A8B71AD7E112E2B431F286BDE276219E"
+    },
+    "message": {
+      "conversation": "Damn"
+    },
+    "messageTimestamp": "1615110132",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5D6E2AF2AA6AA9D24F2D959A8599EB12"
+    },
+    "message": {
+      "conversation": "😂"
+    },
+    "messageTimestamp": "1615110133",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "13C07D25E2541D7F1B71A52907386EA0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Another game 🐦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "A8B71AD7E112E2B431F286BDE276219E",
+          "participant": "923201801931@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Damn"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110146",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5F57DC498819AFAF460BAF48DD496610"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "PC game 🐦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "13C07D25E2541D7F1B71A52907386EA0",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Another game 🐦"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110152",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "A44FCA2F247B0382C23B18472697F55D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Just board game 🐦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "5F57DC498819AFAF460BAF48DD496610",
+          "participant": "923201801931@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "PC game 🐦"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110164",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "451C32EEDDDBE0E4B786C09CB765DF30"
+    },
+    "message": {
+      "conversation": "6"
+    },
+    "messageTimestamp": "1615110169",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB092368AFF"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6281317526091\n\n\n     1️⃣  ❌  3️⃣\n     4️⃣  ⭕  ⭕\n     7️⃣  ❌  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "451C32EEDDDBE0E4B786C09CB765DF30",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "6"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110171",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "18B468061E0B5D10AA37E01660061EF8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Make chess game 🐦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "A44FCA2F247B0382C23B18472697F55D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Just board game 🐦"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110175",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "5306CD658929C89A1A4BE3CE21D367DF"
+    },
+    "message": {
+      "conversation": "4"
+    },
+    "messageTimestamp": "1615110176",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0C1A9E0CE"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  3️⃣\n     ❌  ⭕  ⭕\n     7️⃣  ❌  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "5306CD658929C89A1A4BE3CE21D367DF",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "4"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110178",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "0F0B5D520940EF0E44113D15F4CB8837"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "9",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB0C1A9E0CE",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  3️⃣\n     ❌  ⭕  ⭕\n     7️⃣  ❌  9️⃣\n\n\n",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net",
+                  "6285559038021@s.whatsapp.net"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110190",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "CCC9403C25345F3FBA386E317C79C340"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Too long and spamming, user will bored 🐦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "18B468061E0B5D10AA37E01660061EF8",
+          "participant": "923201801931@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Make chess game 🐦"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110196",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3DCF6B5CBE47E13D3DE1BEC43670CE23"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Just players allowed",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "0F0B5D520940EF0E44113D15F4CB8837",
+          "participant": "923201801931@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "9"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110204",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C9E66F3CD4802797463C779D0AE8DDD1"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Ohh 🐦",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "CCC9403C25345F3FBA386E317C79C340",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Too long and spamming, user will bored 🐦"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110206",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F40770377DFFDDDE957DE3D00C2FFE03"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Yeah I know just test",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3DCF6B5CBE47E13D3DE1BEC43670CE23",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Just players allowed"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110213",
+    "status": "READ",
+    "participant": "923201801931@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "F425C37E12903375A4BA786C7DE9279A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "3",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "3EB0C1A9E0CE",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  3️⃣\n     ❌  ⭕  ⭕\n     7️⃣  ❌  9️⃣\n\n\n",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net",
+                  "6285559038021@s.whatsapp.net"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110220",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB04133B7EB"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6281317526091\n\n\n     1️⃣  ❌  ⭕\n     ❌  ⭕  ⭕\n     7️⃣  ❌  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "F425C37E12903375A4BA786C7DE9279A",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "3",
+              "previewType": "NONE",
+              "contextInfo": {
+                "stanzaId": "3EB0C1A9E0CE",
+                "participant": "6281317526091@s.whatsapp.net",
+                "quotedMessage": {
+                  "extendedTextMessage": {
+                    "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  3️⃣\n     ❌  ⭕  ⭕\n     7️⃣  ❌  9️⃣\n\n\n",
+                    "previewType": "NONE",
+                    "contextInfo": {
+                      "mentionedJid": [
+                        "6281317526091@s.whatsapp.net",
+                        "6285559038021@s.whatsapp.net"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110222",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "94528964C212C8B2573083F2D47CFCA7"
+    },
+    "message": {
+      "conversation": "7"
+    },
+    "messageTimestamp": "1615110232",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0E4780E30"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6285559038021\n\n\n     1️⃣  ❌  ⭕\n     ❌  ⭕  ⭕\n     ❌  ❌  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "94528964C212C8B2573083F2D47CFCA7",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "7"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110234",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "FC5AC7121E7AA97E4A25AD766439D3C6"
+    },
+    "message": {
+      "conversation": "1"
+    },
+    "messageTimestamp": "1615110241",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0DE7944E2"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6281317526091\n⭕ : @6285559038021\n\nGiliran : @6281317526091\n\n\n     ⭕  ❌  ⭕\n     ❌  ⭕  ⭕\n     ❌  ❌  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "FC5AC7121E7AA97E4A25AD766439D3C6",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "1"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net",
+            "6285559038021@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110243",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "12D5B35204566997D3DE4D11FEE4C5DC"
+    },
+    "message": {
+      "conversation": "9"
+    },
+    "messageTimestamp": "1615110247",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB066DF84F4"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \nTelah dimenangkan oleh @6281317526091 😎👑\n\nPemenang = + 25 ✅\nKalah = - 6  ❌\n",
+        "contextInfo": {
+          "stanzaId": "12D5B35204566997D3DE4D11FEE4C5DC",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "9"
+          },
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110248",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "EA615CDF82A636FE42AEE8F96837E293"
+    },
+    "message": {
+      "conversation": "Eh"
+    },
+    "messageTimestamp": "1615110258",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "2C9DE614837328F737829BD059B857F7"
+    },
+    "message": {
+      "conversation": "Gw kira seri"
+    },
+    "messageTimestamp": "1615110261",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3B4DA2F37102ADA65742E1B48FEBD734"
+    },
+    "message": {
+      "conversation": "Anjim"
+    },
+    "messageTimestamp": "1615110273",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "98F5EC58176EC6D96DACDFD5EBFC77D0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "!tictactoe @6281317526091",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110281",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0D88BC6A8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Memulai game tictactoe 🎳*\n\n@6285559038021 menantang anda untuk menjadi lawan game\n\n_[ @6281317526091 ] Ketik Y/N untuk menerima atau menolak permainan_ \n",
+        "contextInfo": {
+          "stanzaId": "98F5EC58176EC6D96DACDFD5EBFC77D0",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "!tictactoe @6281317526091",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6281317526091@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110283",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "93AC4A77FE49519C35C21422988666D2"
+    },
+    "message": {
+      "conversation": "Y"
+    },
+    "messageTimestamp": "1615110288",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB07209C234"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n                    \n❌ : @6285559038021\n⭕ : @6281317526091\n               \nGiliran : @6285559038021\n\n     1️⃣  2️⃣  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n",
+        "contextInfo": {
+          "stanzaId": "93AC4A77FE49519C35C21422988666D2",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Y"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110290",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "4ED83E8A0ACDB8E1FC63807562454912"
+    },
+    "message": {
+      "conversation": "1"
+    },
+    "messageTimestamp": "1615110294",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0D0D14278"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6281317526091\n\n\n     ❌  2️⃣  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "4ED83E8A0ACDB8E1FC63807562454912",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "1"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110296",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "292DBE2692BDCC93FFF5095B3EA340E2"
+    },
+    "message": {
+      "conversation": "5"
+    },
+    "messageTimestamp": "1615110297",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0F7205D17"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6285559038021\n\n\n     ❌  2️⃣  3️⃣\n     4️⃣  ⭕  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "292DBE2692BDCC93FFF5095B3EA340E2",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "5"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110299",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "54404BDE648D8CE069008DAFE26D328B"
+    },
+    "message": {
+      "conversation": "9"
+    },
+    "messageTimestamp": "1615110302",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0B6E51C43"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6281317526091\n\n\n     ❌  2️⃣  3️⃣\n     4️⃣  ⭕  6️⃣\n     7️⃣  8️⃣  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "54404BDE648D8CE069008DAFE26D328B",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "9"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110304",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "39AA71A2B10D38D15C1D9944F34D9701"
+    },
+    "message": {
+      "conversation": "7"
+    },
+    "messageTimestamp": "1615110313",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB01F2D3F4B"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6285559038021\n\n\n     ❌  2️⃣  3️⃣\n     4️⃣  ⭕  6️⃣\n     ⭕  8️⃣  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "39AA71A2B10D38D15C1D9944F34D9701",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "7"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110315",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "D004129F54C8A445215F0537008390D7"
+    },
+    "message": {
+      "conversation": "3"
+    },
+    "messageTimestamp": "1615110321",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB00BD46E48"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6281317526091\n\n\n     ❌  2️⃣  ❌\n     4️⃣  ⭕  6️⃣\n     ⭕  8️⃣  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "D004129F54C8A445215F0537008390D7",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "3"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110324",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "51F3F2ECD77E443349571CA0A9F2CD28"
+    },
+    "message": {
+      "conversation": "6"
+    },
+    "messageTimestamp": "1615110332",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB03300688F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6285559038021\n\n\n     ❌  2️⃣  ❌\n     4️⃣  ⭕  ⭕\n     ⭕  8️⃣  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "51F3F2ECD77E443349571CA0A9F2CD28",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "6"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110333",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "0079B1C38041C1CCB347B705098A3DFC"
+    },
+    "message": {
+      "conversation": "4"
+    },
+    "messageTimestamp": "1615110344",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB04AE3FA13"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6281317526091\n\n\n     ❌  2️⃣  ❌\n     ❌  ⭕  ⭕\n     ⭕  8️⃣  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "0079B1C38041C1CCB347B705098A3DFC",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "4"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110346",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "F9717A9940FB055D655D4EC025C3A2CB"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615110351",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB064B8CC88"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6285559038021\n\n\n     ❌  ⭕  ❌\n     ❌  ⭕  ⭕\n     ⭕  8️⃣  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "F9717A9940FB055D655D4EC025C3A2CB",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "2"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110353",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "9ED36E01AE274EBC6DD96920914C1FB2"
+    },
+    "message": {
+      "conversation": "8"
+    },
+    "messageTimestamp": "1615110356",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0B4F8BED0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6281317526091\n\n\n     ❌  ⭕  ❌\n     ❌  ⭕  ⭕\n     ⭕  ❌  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "9ED36E01AE274EBC6DD96920914C1FB2",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "8"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110358",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C88BEDB21AA01878A83A2DDF2139F76A"
+    },
+    "message": {
+      "conversation": "Hmm"
+    },
+    "messageTimestamp": "1615110365",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0DEA3FEC6"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "eh ada nisa sabyan :v",
+        "contextInfo": {
+          "stanzaId": "C88BEDB21AA01878A83A2DDF2139F76A",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Hmm"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110368",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0C44A561D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "eh ada nisa sabyan :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "C88BEDB21AA01878A83A2DDF2139F76A",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Hmm"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110368",
+    "status": "READ",
+    "participant": "6289621089213@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "C914A0D0707C46060A5862504009936D"
+    },
+    "message": {
+      "conversation": "9"
+    },
+    "messageTimestamp": "1615110493",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0C8AB6AA7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6281317526091\n\n\n     ❌  ⭕  ❌\n     ❌  ⭕  ⭕\n     ⭕  ❌  ❌\n\n\n",
+        "contextInfo": {
+          "stanzaId": "C914A0D0707C46060A5862504009936D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "9"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110495",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "DFB19C8119BF9618C4E92AD698A2F88C"
+    },
+    "message": {
+      "conversation": "2"
+    },
+    "messageTimestamp": "1615110733",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0C29CE0AD"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6281317526091\n\nGiliran : @6285559038021\n\n\n     ❌  ⭕  ❌\n     ❌  ⭕  ⭕\n     ⭕  ❌  9\n\n\n",
+        "contextInfo": {
+          "stanzaId": "DFB19C8119BF9618C4E92AD698A2F88C",
+          "participant": "6281317526091@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "2"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6281317526091@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1615110746",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "8C14DD27DE0DA4D6FE84CDE78AEE21D9"
+    },
+    "message": {
+      "conversation": "9"
+    },
+    "messageTimestamp": "1615110830",
+    "status": "READ",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0E6250374"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \nGame berakhir seri 😐\n",
+        "contextInfo": {
+          "stanzaId": "8C14DD27DE0DA4D6FE84CDE78AEE21D9",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "9"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615110842",
+    "status": "SERVER_ACK",
+    "participant": "6281317526091@s.whatsapp.net"
+  }
+]

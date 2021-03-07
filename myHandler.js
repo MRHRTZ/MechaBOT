@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require('fs')
 const os = require('os')
 const pm2 = require('pm2');
@@ -6,7 +8,7 @@ const util = require('util')
 const chalk = require('chalk')
 const mktemp = require('mktemp')
 const Crypto = require('crypto')
-const moment = require('moment')
+const moment = require('moment-timezone')
 const request = require('request')
 const cheerio = require('cheerio')
 const Table = require('cli-table')
@@ -14,6 +16,7 @@ const emoji = require('node-emoji')
 const FormData = require('form-data')
 const speed = require('performance-now')
 const remote = require('remote-file-size')
+moment.tz.setDefault('Asia/Jakarta').locale('id')
 const time = moment().format('DD/MM HH:mm:ss')
 const translate = require('@vitalets/google-translate-api');
 const { advancedglow, futuristic, cloud, blackpink, sand, scifi, dropwater, codmw, bokeh, thunder, horrorblood, firework, bloodglass, neonlight, marvel, phub, brokeCard, iphone, underwater, drawing, burningFire, semok, harryPotter, horrorHouse, coffee, battlefield, googleKeyword, gunBanner, gtaV, dota, shadow, beachFrame, summerFrame, natureFrame, glitch, rain, sea, neon, stars, wood, darklogo, nightsea, photoglitch, anaglyph, balloon, typographic, photosky, wanted, fireworkvideo, cooldesign, colorfuldesign, armydesign } = require('./lib/image-manipulation')
@@ -24,6 +27,7 @@ const { getApk, getApkReal, searchApk, sizer } = require('./lib/apk')
 const { getFilesize, lirik, ImageSearch } = require('./lib/func')
 const { herodetail, herolist } = require('./lib/mobile-legends')
 const { wiki, brainly, crawl } = require('./lib/crawler')
+const { validmove, setGame } = require('./lib/tictactoe')
 const { generateStr } = require('./lib/stringGenerator')
 const { getStikerLine } = require('./lib/stickerline')
 const { tebak_gambar } = require('./lib/tebak-gambar')
@@ -32,6 +36,7 @@ const { fbdl, ttdl } = require('./lib/hurtzcrafter')
 const { chara, charaCheck } = require('./lib/chara')
 const { createExif } = require('./lib/create-exif')
 const { addContact } = require('./lib/savecontact')
+const { mimetypes } = require('./lib/mimetypes')
 const { pinterest } = require('./lib/pinterest')
 const { exec, spawn } = require('child_process')
 const { download } = require('./lib/downloader')
@@ -41,10 +46,9 @@ const { default: Axios } = require('axios')
 const { tiktok } = require('./lib/tiktok')
 const { kode } = require('./lib/kodebhs')
 const { Grid } = require('minesweeperjs')
+const { nulis } = require('./lib/nulis')
 const { chord } = require('./lib/chord');
-const { BADFLAGS } = require('dns');
-
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 function INFOLOG(info) {
      console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
@@ -58,6 +62,8 @@ function restartCode() {
      const datanow = fs.readFileSync('./myHandler.js', 'utf-8')
      fs.writeFileSync('./myHandler.js', datanow)
 }
+
+let c = console.log
 // function getDuplicatesArr(data) {
 //      return data.filter((value, index) => data.indexOf(value) === index);
 // }
@@ -81,9 +87,7 @@ function restartCode() {
 
 let vip = JSON.parse(fs.readFileSync('./lib/database/vip.json'))
 
-settings = JSON.parse(fs.readFileSync('./src/settings.json'))
-
-
+let settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 
 function getRemaining(endtime) {
      const total = Date.parse(endtime) - Date.parse(new Date());
@@ -387,6 +391,7 @@ function cekLimit(Jid, amount) {
 //      }
 // }, 1000);
 
+let handle
 
 module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat) => {
      // let sesi
@@ -437,6 +442,7 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
      const self = hurtz.key.fromMe
      const isGroup = from.endsWith('@g.us')
      let type = Object.keys(hurtz.message)[0]
+     // console.log(type)
      type = type === 'extendedTextMessage' && hurtz.message.extendedTextMessage.text.includes('@') ? type = 'mentionedText' : type
      // typed = type === 'extendedTextMessage' && Object.keys(hurtz.message.extendedTextMessage)[0].includes('matchedText') ? type = 'thumbnailText' : type
      const body = type == 'conversation' ? hurtz.message.conversation : type == 'mentionedText' ? hurtz.message.extendedTextMessage.text : type == 'extendedTextMessage' ? hurtz.message.extendedTextMessage.text : type == 'imageMessage' ? hurtz.message.imageMessage.caption : type == 'stickerMessage' ? 'Sticker' : type == 'audioMessage' ? 'Audio' : type == 'videoMessage' ? hurtz.message.videoMessage.caption : type == 'documentMessage' ? 'document' : '[ NOT FOUND BODY @MechaBOT ]'//hurtz.message
@@ -466,11 +472,17 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
      const groupName = isGroup ? groupMetadata.subject : ''
      const groupId = isGroup ? groupMetadata.id : ''
      const isImageMsg = type == 'imageMessage' ? true : false
+     const isStickerMsg = type == 'stickerMessage' ? true : false
+     const isAudioMsg = type == 'audioMessage' ? true : false
      const isVideoMsg = type == 'videoMessage' ? true : false
      const isOwnerGroup = isGroup ? ((await conn.groupMetadata(from)).owner == sender.replace('@s.whatsapp.net', '@c.us') ? true : false) : ''
      const battery = JSON.parse(fs.readFileSync('./lib/database/batt.json'))
      const isGrupMines = groupMines.includes(from)
-     const isVIP = vip.includes(sender)
+     let expvipnum = []
+     for (let exna of expvip) {
+          expvipnum.push(exna.number)
+     }
+     const isVIP = expvipnum.includes(sender)
      let adminGroups = []
      const metadata = isGroup ? await conn.groupMetadata(from) : ''
      const partc = metadata.participants ? metadata.participants : []
@@ -484,38 +496,9 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
 
 
 
-     var y = setInterval(function () {
-          if (!fs.existsSync(`./lib/tebak-gambar/${from}.json`)) return
-          let db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
-          var countDownDate = db_tebak.expired_on
-          // Get today's date and time
-          var now = new Date().getTime();
 
-          // Find the distance between now and the count down date
-          var distance = countDownDate - now;
-          // Time calculations for days, hours, minutes and seconds
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          // Display the result in the element with id="demo"
-          const countReset = `${minutes}:${seconds}`
-          datateb = countReset + db_tebak.status
-          {
-               db_tebak.remaining = countReset
-               fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
-          }
-          // console.log(countReset)
-          // If the count down is finished, write some text
-          if (distance < 0) {
-               clearInterval(y);
-               INFOLOG('Expired Tebak Gambar')
-               fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
-               // restartCode()
-               conn.sendMessage(from, `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max} detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${db_tebak.name} ( @${db_tebak.number.replace('@s.whatsapp.net', '')} )\nPesan terdeteksi : ${db_tebak.listed.length}\n\nMulai lagi? ketik *!tebakgambar* 😊`, TypePsn.text, { contextInfo: { mentionedJid: [db_tebak.number] } })
-               fs.unlinkSync(`./lib/tebak-gambar/${from}.json`)
-          }
-     }, 1000);
-     // console.log(sisawaktu)
+     // console.log(type)
+
      // if (fs.existsSync(`./lib/tebak-gambar/${from}.json`)) {
      //      const db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
      //      console.log(db_tebak.status + ' status line 415')
@@ -589,9 +572,10 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
 
      module.exports.resetAllLimit = resetAllLimit
 
+     
 
      /*---------------  Fungsi Refresh Trigger By Body  ------------------*/
-     if (body) {
+     if (false) {
           for (let i = 0; i < expvip.length; i++) {
                const mengsedih = getRemaining(new Date(expvip[i].expired_on))
                expvip[i].remaining = `Tersisa ${mengsedih.days} hari`
@@ -744,12 +728,6 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
           }, (err, resp, buffer) => {
                conn.sendMessage(dari, buffer, type, { quoted: hurtz, caption: caption })
           })
-          // const buffData = await Axios.request({
-          //      method: 'GET',
-          //      url: url,
-          //      responseType: 'arraybuffer',
-          //      responseEncoding: 'binary'
-          // });
      }
 
      async function sendStikerDariUrl(dari, url) {
@@ -773,6 +751,8 @@ module.exports = handle = async (sesi, GroupSettingChange, Mimetype, MessageType
                conn.sendMessage(dari, buffer, type, { caption: caption })
           })
      }
+
+
 
 
 
@@ -835,6 +815,7 @@ Contoh : *!guess naruto*
           }
      }
      //End Of Func!
+     const jid = sender
      const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
      const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
 
@@ -932,7 +913,95 @@ Contoh : *!guess naruto*
                balas(from, util.format(`*Error unexpected* :\n\n${error}`))
           }
      }
+     // if (mtchat) return
      if (mtchat) return
+
+     let arrNum = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+     if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
+          const boardnow = setGame(`${from}`)
+          if (cmd == 'cex') return balas(from, 'why')
+          if (body.toLowerCase() == 'y' || body.toLowerCase() == 'yes' || body.toLowerCase() == 'ya') {
+               if (boardnow.O == sender.replace('@s.whatsapp.net', '')) {
+                    if (boardnow.status) return balas(from, `Game telah dimulai sebelumnya!`)
+                    const matrix = boardnow._matrix
+                    boardnow.status = true
+                    fs.writeFileSync(`./lib/tictactoe/db/${from}.json`, JSON.stringify(boardnow, null, 2))
+                    const chatAccept = `*🎮 Tictactoe Game 🎳*
+                    
+❌ : @${boardnow.X}
+⭕ : @${boardnow.O}
+               
+Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
+
+     ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
+     ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
+     ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
+
+`
+                    conn.sendMessage(from, chatAccept, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [boardnow.X + '@s.whatsapp.net', boardnow.O + '@s.whatsapp.net'] } })
+               } else {
+                    conn.sendMessage(from, `Opsi ini hanya untuk @${boardnow.O} !`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [boardnow.O + '@s.whatsapp.net'] } })
+               }
+          } else if (body.toLowerCase() == 'n' || body.toLowerCase() == 'no' || body.toLowerCase() == 'tidak') {
+               if (boardnow.O == sender.replace('@s.whatsapp.net', '')) {
+                    if (boardnow.status) return balas(from, `Game telah dimulai sebelumnya!`)
+                    fs.unlinkSync(`./lib/tictactoe/db/${from}.json`)
+                    conn.sendMessage(from, `Sayangnya tantangan @${boardnow.X} ditolak ❌😕`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [boardnow.X + '@s.whatsapp.net'] } })
+               } else {
+                    conn.sendMessage(from, `Opsi ini hanya untuk @${boardnow.O} !`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [boardnow.O + '@s.whatsapp.net'] } })
+               }
+          }
+     }
+
+     if (arrNum.includes(cmd)) {
+          const boardnow = setGame(`${from}`)
+          if((boardnow.turn == "X" ? boardnow.X : boardnow.O) != sender.replace('@s.whatsapp.net', '')) return
+          const moving = validmove(Number(body), `${from}`)
+          const matrix = moving._matrix
+          if (moving.isWin) {
+               if (moving.winner == 'SERI') {
+                    const chatEqual = `*🎮 Tictactoe Game 🎳*
+          
+Game berakhir seri 😐
+`
+                    balas(from, chatEqual)
+                    fs.unlinkSync(`./lib/tictactoe/db/${from}.json`)
+                    return
+               }
+               const winnerJID = moving.winner == 'O' ? moving.O : moving.X
+               const looseJID = moving.winner == 'O' ? moving.X : moving.O
+               const limWin = Math.floor(Math.random() * 20) + 10
+               const limLoose = Math.floor(Math.random() * 10) + 5
+               const chatWon = `*🎮 Tictactoe Game 🎳*
+          
+Telah dimenangkan oleh @${winnerJID} 😎👑
+
+Pemenang = + ${limWin} ✅
+Kalah = - ${limLoose}  ❌
+`
+               giftLimit(winnerJID + '@s.whatsapp.net', limWin)
+               pushLimit(looseJID + '@s.whatsapp.net', limLoose)
+               conn.sendMessage(from, chatWon, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [moving.winner == 'O' ? moving.O + '@s.whatsapp.net' : moving.X + '@s.whatsapp.net'] } })
+               fs.unlinkSync(`./lib/tictactoe/db/${from}.json`)
+          } else {
+               const chatMove = `*🎮 Tictactoe Game 🎳*
+          
+❌ : @${moving.X}
+⭕ : @${moving.O}
+
+Giliran : @${moving.turn == "X" ? moving.X : moving.O}
+
+
+     ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
+     ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
+     ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
+
+
+`
+               conn.sendMessage(from, chatMove, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [moving.X + '@s.whatsapp.net', moving.O + '@s.whatsapp.net'] } })
+          }
+     }
+
      let response_db = JSON.parse(fs.readFileSync('./lib/database/response.json'))
      let kunci_pesan = []
      for (let datares of response_db) {
@@ -940,7 +1009,25 @@ Contoh : *!guess naruto*
      }
      if (kunci_pesan.includes(body.toLowerCase())) {
           const index_kunci = kunci_pesan.indexOf(body.toLowerCase())
-          conn.sendMessage(from, response_db[index_kunci].response, TypePsn.text, response_db[index_kunci].reply ? { quoted: hurtz } : {})
+          const taipe = response_db[index_kunci].type
+          // const typeQuotedR = taipe === 'extendedTextMessage' ? Object.keys(response_db[index_kunci].response.message.extendedTextMessage.contextInfo ? (response_db[index_kunci].response.message.extendedTextMessage.contextInfo.quotedMessage ? response_db[index_kunci].response.message.extendedTextMessage.contextInfo.quotedMessage : { mentionedText: 'Created By MRHRTZ' }) : { thumbnailMessage: 'MRHRTZ Jangan diganti error ntar nangid :v' })[0] : taipe
+          // const mediaDataResponse = taipe === 'extendedTextMessage' ? (typeQuotedR === 'thumbnailMessage' ? response_db[index_kunci].response : JSON.parse(JSON.stringify(response_db[index_kunci].response).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo) : hurtz
+          // console.log(taipe)
+          if (taipe == 'text') {
+               conn.sendMessage(from, response_db[index_kunci].response, TypePsn.text, response_db[index_kunci].reply ? { quoted: hurtz } : {})
+          } else if (taipe == 'image') {
+               const buffing = await conn.downloadMediaMessage(response_db[index_kunci].response)
+               conn.sendMessage(from, buffing, TypePsn.image, response_db[index_kunci].reply ? { quoted: hurtz } : {})
+          } else if (taipe == 'video') {
+               const buffing = await conn.downloadMediaMessage(response_db[index_kunci].response)
+               conn.sendMessage(from, buffing, TypePsn.video, response_db[index_kunci].reply ? { quoted: hurtz } : {})
+          } else if (taipe == 'sticker') {
+               const buffing = await conn.downloadMediaMessage(response_db[index_kunci].response)
+               conn.sendMessage(from, buffing, TypePsn.sticker, response_db[index_kunci].reply ? { quoted: hurtz } : {})
+          } else if (taipe == 'audio') {
+               const buffing = await conn.downloadMediaMessage(response_db[index_kunci].response)
+               conn.sendMessage(from, buffing, TypePsn.audio, response_db[index_kunci].reply ? { quoted: hurtz, ptt: true } : {})
+          }
      }
      // console.log(hurtz)
 
@@ -1060,28 +1147,12 @@ Contoh : *!guess naruto*
                }
           } else if (cmd == `${prf}nulis` || cmd == `${prf}magernulis`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!nulis <teks>*\nContoh : *!nulis hmm*`)
-               const diTulis = query
-               const panjangKalimat = diTulis.replace(/(\S+\s*){1,10}/g, '$&\n')
-               const panjangBaris = panjangKalimat.split('\n').slice(0, 30).join('\n')
-               spawn('convert', [
-                    './src/kertas.jpg',
-                    '-font',
-                    './src/Nisaa.ttf',
-                    '-size',
-                    '1024x784',
-                    '-pointsize',
-                    '20',
-                    '-interline-spacing',
-                    '-7.5',
-                    '-annotate',
-                    '+344+142',
-                    panjangBaris,
-                    './src/tulisan.jpg'
-               ])
-                    .on('error', () => balas(from, `Terdapat kesalahan!`))
-                    .on('exit', () => {
-                         const buffer = fs.readFileSync('./src/tulisan.jpg')
-                         conn.sendMessage(from, buffer, TypePsn.image, { quoted: hurtz, caption: 'Udah ditulis buat ' + pushname })
+               nulis(query, filename)
+                    .then((data) => {
+                         conn.sendMessage(from, data, TypePsn.image, { caption: `Udah ditulis buat ${pushname}`, quoted: hurtz })
+                    })
+                    .catch(() => {
+                         balas(from, `Hemm gagal om`)
                     })
           } else if (cmd == `${prf}chord` || cmd == `${prf}kord`) {
                if (args.length === 1) return balas(from, `Masukan lagunya!`)
@@ -1258,7 +1329,7 @@ _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dal
                          contextInfo: { mentionedJid: [nomerOwner[0]] }
                     })
                }
-          } else if (cmd == `${prf}yts`) {
+          } else if (cmd == `${prf}yts` || cmd == `${prf}ytsearch`) {
                // console.log(body)
                if (args.length === 1) return balas(from, 'Kirim perintah *!yts* _Video/Musik/Channel YT_')
                if (!cekLimit(sender, settings.Limit)) {
@@ -1269,8 +1340,8 @@ _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dal
                     return
                }
                pushLimit(sender, 1)
-               ytsr(body.slice(5)).then(res => {
-                    let captions = `*YOUTUBE SEARCH : ${body.slice(5)}*\n\n`
+               ytsr(query).then(res => {
+                    let captions = `*YOUTUBE SEARCH : ${query}*\n\n`
                     for (let i = 0; i < res.length; i++) {
                          const { id, author, title, ago, views, desc, duration, timestamp, url } = res[i]
                          captions += `
@@ -1466,17 +1537,45 @@ Contoh :
                if (args.length === 1) return balas(from, captions)
                if (args[1] == 'tambah' || args[1] == 'add') {
                     if (args.length < 3) return balas(from, `Masukan Kunci pertanyaan dan respon!\n\nContoh : *!respon tambah Hai|Hai Juga!*`)
+                    let keyys = []
+                    for (let mykey of response_db) {
+                         keyys.push(mykey.key)
+                    }
+                    if (keyys.includes(body.split(' ').slice(2).join(' ').split('|')[0])) return balas(from, `Maaf kunci respon tersebut telah ada didatabase!`)
+                    if (body.split('|')[1] == undefined) return balas(from, `Mohon masukan responnya!\n\nContoh : *!respon tambah Hai|Halo juga*`)
+                    if (body.split(' ').slice(2).join(' ').split('|')[0].startsWith(prf)) return balas(from, `Mohon maaf kunci respon tidak boleh mengandung prefix!`)
+                    let taip = body.split('|')[1].toLowerCase() == '[img]' || body.split('|')[1].toLowerCase() == '[image]' ? 'image' : body.split('|')[1].toLowerCase().includes('[vid]') || body.split('|')[1].toLowerCase().includes('[video]') ? 'video' : body.split('|')[1].toLowerCase().includes('[stk]') || body.split('|')[1].toLowerCase().includes('[stiker]') || body.split('|')[1].toLowerCase().includes('[sticker]') ? 'sticker' : body.split('|')[1].toLowerCase().includes('[aud]') || body.split('|')[1].toLowerCase().includes('[audio]') ? 'audio' : 'text'
+                    if (taip == 'image') {
+                         if (!isQuotedImage && !isImageMsg) return balas(from, `Mohon sertakan gambar, atau tag gambar yang sudah ada!`)
+                         if (!isVIP) return balas(from, `Anda bukan member vip! hanya bisa teks dan stiker saja.`)
+                    } else if (taip == 'video') {
+                         if (!isVIP) return balas(from, `Anda bukan member vip! hanya bisa teks dan stiker saja.`)
+                         if (!isQuotedVideo && !isVideoMsg) return balas(from, `Mohon sertakan video, atau tag video yang sudah ada!`)
+                    } else if (taip == 'sticker') {
+                         if (!isQuotedSticker) return balas(from, `Mohon tag stiker untuk responnya!`)
+                    } else if (taip == 'audio') {
+                         if (!isVIP) return balas(from, `Anda bukan member vip! hanya bisa teks dan stiker saja.`)
+                         if (!isQuotedAudio) return balas(from, `Mohon tag audio/vn untuk responnya!`)
+                    }
                     response_db.push({
                          id: response_db.length + 1,
                          reply: true,
                          added: pushname,
                          key: body.split(' ').slice(2).join(' ').split('|')[0],
-                         response: body.split('|')[1]
+                         response: taip != 'text' ? mediaData : body.split('|')[1],
+                         type: taip
                     })
                     fs.writeFileSync('./lib/database/response.json', JSON.stringify(response_db, null, 2))
-                    balas(from, `*Data Berhasil ditambahkan!*\n\nDetail :\n\nKey : ${body.split(' ').slice(2).join(' ').split('|')[0]}\nResponse : ${body.split('|')[1]}\nReply : ✅`)
+                    balas(from, `*Data Berhasil ditambahkan!*\n\nDetail :\n\nKey : ${body.split(' ').slice(2).join(' ').split('|')[0]}\nType : ${taip}\nResponse : ${body.split('|')[1]}\nReply : ✅`)
                } else if (args[1] == 'tambahtanpatag') {
                     if (args.length < 3) return balas(from, `Masukan Kunci pertanyaan dan respon!\n\nContoh : *!respon tambahtanpatag Hai|Hai Juga!*`)
+                    let keyys = []
+                    for (let mykey of response_db) {
+                         keyys.push(mykey.key)
+                    }
+                    if (keyys.includes(body.split(' ').slice(2).join(' ').split('|')[0])) return balas(from, `Maaf kunci respon tersebut telah ada didatabase!`)
+                    if (body.split('|')[1] == undefined) return balas(from, `Mohon masukan responnya!\n\nContoh : *!respon tambahtanpatag Hai|Halo juga*`)
+                    if (body.split(' ').slice(2).join(' ').split('|')[0].startsWith(prf)) return balas(from, `Mohon maaf kunci respon tidak boleh mengandung prefix!`)
                     response_db.push({
                          id: response_db.length + 1,
                          reply: false,
@@ -1489,15 +1588,16 @@ Contoh :
                } else if (args[1] == 'hapus' || args[1] == 'delete') {
                     if (args.length < 3) return balas(from, `Masukan Kunci pertanyaan dan respon!\n\nContoh : *!respon tambahtanpatag Hai|Hai Juga!*`)
                     const index_kunci = kunci_pesan.indexOf(body.split(' ').slice(2).join(' ').toLowerCase())
-                    console.log(kunci_pesan, 'dat:' + body.split(' ').slice(2).join(' ').toLowerCase(), kunci_pesan.indexOf(body.split(' ').slice(2).join(' ').toLowerCase()))
+                    if (index_kunci == -1) return balas(from, `Anda tidak bisa menghapus kunci tersebut karna tidak ada didatabase.`)
+                    // console.log(kunci_pesan, 'dat:' + body.split(' ').slice(2).join(' ').toLowerCase(), kunci_pesan.indexOf(body.split(' ').slice(2).join(' ').toLowerCase()))
                     if (index_kunci === -1) return balas(from, `Kunci pesan tersebut tidak ditemukan!\n\nUntuk melihat daftar respon bot\nKetik : *!respon list*`)
                     response_db.splice(index_kunci, 1)
                     fs.writeFileSync('./lib/database/response.json', JSON.stringify(response_db, null, 2))
-                    balas(from, `*Data berhasil dihapus!*\n\nDetail :\n\nKey : ${body.split(' ').slice(2).join(' ')}`)
+                    balas(from, `*Data berhasil dihapus!*\n\nKey : ${body.split(' ').slice(2).join(' ')}`)
                } else if (args[1] == 'list') {
                     let captions_list = `*Menampilkan seluruh respon bot*\n\nTotal Response : ${response_db.length}\n\n`
                     for (let i = 0; i < response_db.length; i++) {
-                         captions_list += `\nNO : ${1 + i}Ditambahkan Oleh : ${response_db[i].added}\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response}\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`
+                         captions_list += `\nNO : ${1 + i}\nDitambahkan Oleh : ${response_db[i].added}\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response}\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`
                     }
                     balas(from, captions_list)
                }
@@ -1515,7 +1615,7 @@ Contoh :
                     return
                }
                pushLimit(sender, 1)
-               const text = body.slice(5)
+               const text = query
                const colour = body.split('|')[1] || ''
                text2img(text, colour)
                     .then((x) => {
@@ -2042,7 +2142,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                     }).catch(console.log)
           } else if (cmd == `${prf}rain`) {
-               if (!isQuotedImage) return balas(from, `Tidak ada media! mohon tag gambar.`)
+               if (!isImageMsg && !isQuotedImage) return balas(from, `Tidak ada media! mohon kirim gambar atau tag gambar.`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
                          quoted: hurtz,
@@ -2054,6 +2154,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`)
                rain(savedFilename)
                     .then((rest) => {
+                         // console.log(rest)
                          sendDariUrl(from, rest.result, TypePsn.image, `Dah jadi ni ${pushname}`)
                          fs.unlinkSync(savedFilename)
                     }).catch(e => {
@@ -2582,7 +2683,7 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                     + 'ORG:MechaBOT Owner;\n' // the organization of the contact
                     + 'TEL;type=CELL;type=VOICE;waid=6285559038021:+62 855 5903 8021\n' // WhatsApp ID + phone number
                     + 'END:VCARD'
-               await conn.sendMessage(from, { displayname: "Jeff", vcard: vcard }, MessageType.contact)
+               await conn.sendMessage(from, { displayname: "Jeff", vcard: vcard }, MessageType.contact, { quoted: hurtz })
           } else if (cmd == `${prf}upstory`) {
                if (!isOwner) return balas(from, `Owner Only!`)
                if (args.length === 1) return balas(from, `Perintah !upstory <text/image/video> <caption>`)
@@ -2714,10 +2815,10 @@ ${Number(o) > 100000000 ? '*Link Download* : ' + a.data + '\n\n\n_Untuk video me
                                    nega.push(data.name)
                               }
                          }
-                         if (posi.length >= nega.length) {
+                         if (posi.length >= nega.length - 1) {
                               conn.sendMessage(from, `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n*${db_vote.target} ${db_vote.reason}!*`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [db_vote.target.replace('@', '') + '@s.whatsapp.net'] } })
                               fs.unlinkSync(pathdb + '/' + filepathvote)
-                         } else if (posi.length <= nega.length) {
+                         } else if (posi.length <= nega.length - 1) {
                               conn.sendMessage(from, `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n`, TypePsn.text, { quoted: hurtz })
                               fs.unlinkSync(pathdb + '/' + filepathvote)
                          }
@@ -3123,11 +3224,11 @@ ________________________________________
      
      Untuk mengisi sel tersebut gunakan koordinat x dan y!
      
-     Penggunaan : *isi x y*
-     Contoh : *isi 0 0*
+     Penggunaan : *!isi x y*
+     Contoh : *!isi 0 0*
      `
                balas(from, strMine, TypePsn.text)
-          } else if (cmd == `isi`) {
+          } else if (cmd == `${prf}isi`) {
                // const isGrupMines = groupMines.includes(from)
                if (!isGrupMines) return balas(from, `Game minesweeper tidak aktif! Gunakan perintah *!minesweeper*`)
                const daba = JSON.parse(fs.readFileSync(`./lib/database/minesweep-${from}.json`))
@@ -3261,7 +3362,7 @@ ${hasil.grid}
                          if (fs.existsSync('./media/effect/triggered.webp')) fs.unlinkSync('./media/effect/triggered.webp')
                          if (fs.existsSync('./media/effect/triggered-done.webp')) fs.unlinkSync('./media/effect/triggered-done.webp')
                          const pepe = await conn.getProfilePicture(args[1].replace('@', '') + '@s.whatsapp.net')
-                         let image = await canvacord.Canvas.trigger(pepe);
+                         let image = await trigger(pepe);
                          createExif('Created By MechaBOT', 'Follow Dev Insta @hzzz.formech_')
                          fs.writeFile('./media/effect/triggered.gif', image, async () => {
                               // INFOLOG('exec')
@@ -3285,7 +3386,7 @@ ${hasil.grid}
                     } catch (e) {
                          ERRLOG(e);
                          (async () => {
-                              let image = await canvacord.Canvas.trigger(fs.readFileSync('./media/blank.png'));
+                              let image = await trigger(fs.readFileSync('./media/blank.png'));
                               createExif('Created By MechaBOT', 'Follow Dev Insta @hzzz.formech_')
                               fs.writeFile('./media/effect/triggered.gif', image, () => {
                                    exec(`ffmpeg -i ./media/effect/triggered.gif -vcodec libwebp -vf fps=fps=30 -lossless 0 -loop 0 -pix_fmt yuv420p -preset default -an -vsync 0 -s 512:512 ./media/effect/triggered.webp`, (err, stdout, stderr) => {
@@ -3340,7 +3441,7 @@ ${hasil.grid}
                     return
                }
                pushLimit(sender, 1)
-               searchApk(body.slice(5)).then(res => {
+               searchApk(query).then(res => {
                     let captions = '*Menampilkan list apk*'
                     // console.log(res)
                     for (let i = 0; i < res.length; i++) {
@@ -3415,6 +3516,29 @@ ${hasil.grid}
                     console.log(error)
                     balas(from, `Error gan!`)
                }
+          } else if (cmd == `${prf}brainly`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!brainly <pertanyaan>*\nContoh : *!brainly apa itu dpr?*`)
+               brainly(query)
+                    .then((rest) => {
+                         if (rest.status) {
+                              const fotop = rest.foto_pertanyaan.length > 0 ? await(Axios.get(`https://tinyurl.com/api-create.php?url=${rest.foto_pertanyaan[0]}`)) : { data: '-' }
+                              const jawabanp = rest.jawaban[0].media.length > 0 ? await(Axios.get(`https://tinyurl.com/api-create.php?url=${rest.jawaban[0].media[0]}`)) : { data: '-' }
+                              const jawabann = rest.jawaban.length > 0 ? rest.jawaban[0].teks : '[Belum terjawab]'
+                              const isi = `*Hasil jawaban brainly*
+
+*Pertanyaan* : ${rest.pertanyaan}
+*Foto Pertanyaan* : ${fotop.data}
+*Waktu Dibuat* : ${moment(rest.waktu_dibuat).format("hh:mm:ss DD-MM-YYYY")}
+*Untuk Kelas* : ${rest.kelas}
+*Mata Pelajaran* : ${rest.mapel}
+*Jawaban* :\n${jawabann}
+*Foto Jawaban* : ${jawabanp.data}`
+                              balas(from, isi)
+                         } else {
+                              balas(from, `Tidak dapat menemukan pertanyaan tersebut! atau mungkin belum terjawab
+                         `)
+                         }
+                    })
           } else if (cmd == `${prf}blacklist`) {
                if (args.length === 1) return balas(from, `invalid parameters :)`)
                if (db_black.includes(args[1].replace('@', ''))) return balas(from, `Sudah ada didatabase!`)
@@ -3627,6 +3751,43 @@ ${hasil.grid}
                }
                const tabelnama = table.toString().replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
                balas(from, tabelnama + '\n')
+          } else if (cmd == `${prf}tictactoe`) {
+               if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
+                    const boardnow = setGame(`${from}`)
+                    const matrix = boardnow._matrix
+                    const chatMove = `*🎮 Tictactoe Game 🎳*
+
+Sedang ada sesi permainan digrup ini\n\n@${boardnow.X} VS @${boardnow.O}
+
+❌ : @${boardnow.X}
+⭕ : @${boardnow.O}
+
+Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
+
+
+     ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
+     ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
+     ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
+
+
+`
+                    conn.sendMessage(from, chatMove, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [boardnow.X + '@s.whatsapp.net', boardnow.O + '@s.whatsapp.net'] } })
+                    return
+               }
+               if (args.length === 1) return balas(from, `Tag yang ingin jadi lawan anda!\n\nPenggunaan : *!tictactoe <@TagMember>*`)
+               const boardnow = setGame(`${from}`)
+               INFOLOG(`Start Tictactore ${boardnow.session}`)
+               boardnow.status = false
+               boardnow.X = sender.replace('@s.whatsapp.net', '')
+               boardnow.O = args[1].replace('@', '')
+               fs.writeFileSync(`./lib/tictactoe/db/${from}.json`, JSON.stringify(boardnow, null, 2))
+               const strChat = `*🎮 Memulai game tictactoe 🎳*
+
+@${sender.replace('@s.whatsapp.net', '')} menantang anda untuk menjadi lawan game
+
+_[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_ 
+`
+               conn.sendMessage(from, strChat, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [sender, args[1].replace('@', '') + '@s.whatsapp.net'] } })
           } else if (cmd == `${prf}artinama`) {
                if (args.length === 1) return balas(from, 'Masukan perintah : *!artinama* _nama kamu_')
                Axios.get(`https://www.primbon.com/arti_nama.php?nama1=${query}&proses=+Submit%21+`)
@@ -3669,19 +3830,19 @@ ${hasil.grid}
                }
                pushLimit(sender, 1)
                const quranmp3 = JSON.parse(fs.readFileSync('./lib/random/quranmp3.json'))
-               remote(quranmp3[1+Number(args[1])].recitation, (e, sizeaud) => {
-                    const strQuranMp3 = `*Quran Surah ${quranmp3[1+Number(args[1])-2].name} - ${quranmp3[1+Number(args[1])].type}*
+               remote(quranmp3[1 + Number(args[1])].recitation, (e, sizeaud) => {
+                    const strQuranMp3 = `*Quran Surah ${quranmp3[1 + Number(args[1]) - 2].name} - ${quranmp3[1 + Number(args[1])].type}*
                     
-Terjemahan Dalam Arabic : ${quranmp3[1+Number(args[1])-2].name_translations.ar}
-Terjemahan Dalam Inggris : ${quranmp3[1+Number(args[1])-2].name_translations.en}
-Terjemahan Dalam Indonesia : ${quranmp3[1+Number(args[1]-2)].name_translations.id}
-Surat Ke : ${quranmp3[1+Number(args[1])-2].number_of_surah}
-Jumlah ayat : ${quranmp3[1+Number(args[1])-2].number_of_ayah}
+Terjemahan Dalam Arabic : ${quranmp3[1 + Number(args[1]) - 2].name_translations.ar}
+Terjemahan Dalam Inggris : ${quranmp3[1 + Number(args[1]) - 2].name_translations.en}
+Terjemahan Dalam Indonesia : ${quranmp3[1 + Number(args[1] - 2)].name_translations.id}
+Surat Ke : ${quranmp3[1 + Number(args[1]) - 2].number_of_surah}
+Jumlah ayat : ${quranmp3[1 + Number(args[1]) - 2].number_of_ayah}
 Filesize Audio : ${sizer(sizeaud)}
 
 _Mohon tunggu sebentar audio Sedang dikirim.._`
                     balas(from, strQuranMp3)
-                    sendDariUrl(from, quranmp3[1+Number(args[1])-2].recitation, TypePsn.audio, '')
+                    sendDariUrl(from, quranmp3[1 + Number(args[1]) - 2].recitation, TypePsn.audio, '')
                })
           } else if (cmd == `${prf}katabijak` || cmd == `${prf}bijak`) {
                if (!cekLimit(sender, settings.Limit)) {
@@ -3721,7 +3882,7 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`
                     panteune += `${pantunn[i].replace(' \r\n', '')}\n`
                }
                console.log({ res: panteune })
-               balas(from, `${panteune.replace('\n \n','')}`)
+               balas(from, `${panteune.replace('\n \n', '')}`)
           } else if (cmd == `${prf}pshname`) {
                console.log(conn.generateMessageTag(true))
                conn.sendMessage(from, '*Pushname* : ' + pushname, TypePsn.text, { quoted: hurtz })
@@ -3879,13 +4040,30 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`
                conn.sendMessage(from, '*Battery* : ' + batt, TypePsn.text, { quoted: hurtz })
                console.log(batt)
           } else if (cmd == `${prf}searchmsg`) {
+               if (args.length < 2) return balas(from, `Penggunaan : *!searchmsg <Kata>*\nContoh : *!searchmsg ipul*`)
                const searched = await conn.searchMessages(query, from, 25, 1)
-               console.log(searched)
-               for (let i = 0; i < searched.messages.length; i++) {
-                    conn.sendMessage(from, `Ketemu!`, TypePsn.text, { quoted: searched.messages[i] }).catch(() => {
-                         conn.sendMessage(from, `Kata ${body.slice(11).split('|')[0]} tidak ditemukan!`, TypePsn.text, { quoted: hurtz })
-                    })
+               if (searched.messages.length === 0) {
+                    balas(from, `Kata *[ ${query} ]* tidak ditemukan!`)
+                    return
                }
+               let katatemu = `*[ Message Search ]*\n\nDitemukan ${searched.messages.length - 1} pesan!\n`
+               for (let i = 1; i < searched.messages.length - 1; i++) {
+                    let typeSrc = Object.keys(searched.messages[i].message)[0]
+                    typeSrc = typeSrc === 'extendedTextMessage' && searched.messages[i].message.extendedTextMessage.text.includes('@') ? typeSrc = 'mentionedText' : typeSrc
+                    const bodySrc = typeSrc == 'conversation' ? searched.messages[i].message.conversation : typeSrc == 'mentionedText' ? searched.messages[i].message.extendedTextMessage.text : typeSrc == 'extendedTextMessage' ? searched.messages[i].message.extendedTextMessage.text : typeSrc == 'imageMessage' ? searched.messages[i].message.imageMessage.caption : typeSrc == 'stickerMessage' ? 'Sticker' : typeSrc == 'audioMessage' ? 'Audio' : typeSrc == 'videoMessage' ? searched.messages[i].message.videoMessage.caption : typeSrc == 'documentMessage' ? 'document' : '[ NOT FOUND BODY @MechaBOT ]'//hurtz.message
+                    const senderSrc = isGroup ? searched.messages[i].participant : searched.messages[i].key.remoteJid
+                    const jidSrc = senderSrc
+                    const contsSrc = searched.messages[i].key.fromMe ? conn.user.jid : conn.contacts[senderSrc] || { notify: jidSrc.replace(/@.+/, '') }
+                    const pushnameSrc = searched.messages[i].key.fromMe ? conn.user.name : contsSrc.notify || contsSrc.vname || contsSrc.name || '-'
+
+                    katatemu += `
+
+Pesan : ${bodySrc}
+Type : ${typeSrc}
+Pengirim : ${senderSrc.replace('@s.whatsapp.net', '')} ( ${pushnameSrc} )
+`
+               }
+               balas(from, katatemu)
           } else if (cmd == `${prf}download`) {
                const save = await conn.downloadAndSaveMediaMessage(mediaData, `C:\\Users\\user\\Downloads\\file`)
                balas(from, save)
@@ -3994,6 +4172,35 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                               })
                     }).catch(e => ERRLOG(e))
                })
+          } else if (cmd == `${prf}wm` || cmd == `${prf}watermark` || cmd == `${prf}extractwatermak`) {
+               conn.downloadAndSaveMediaMessage(mediaData, './media/sticker/' + filename)
+               .then((name) => {
+                    exec(`webpmux -get exif ${name} -o ./media/sticker/${filename}.exif`, (err, stdout, stderr) => {
+                         if (err) return balas(from, util.format(err))
+                         const isifile = fs.readFileSync(`./media/sticker/${filename}.exif`, 'utf-8')
+                         const asli = '{' + isifile.split('{')[1]
+                         const jsonna = JSON.parse(asli)
+                         if (args[1] == 'min' || args[1] == 'minimal') {
+                              balas(from, `*Watermark Extract*
+
+Pack Name : ${jsonna['sticker-pack-name'] ? jsonna['sticker-pack-name'] : '-'}
+Pack Publisher : ${jsonna['sticker-pack-publisher'] ? jsonna['sticker-pack-publisher'] : '-'}
+                         `)   
+                         } else {
+                              balas(from, `*Watermark Extract*
+                              
+Pack ID : ${jsonna['sticker-pack-id']}
+Pack Name : ${jsonna['sticker-pack-name'] ? jsonna['sticker-pack-name'] : '-'}
+Pack Publisher : ${jsonna['sticker-pack-publisher'] ? jsonna['sticker-pack-publisher'] : '-'}
+G-Play Link : ${jsonna['android-app-store-link']}
+IOS Apple Link : ${jsonna['ios-app-store-link']}
+                              `)
+                         }
+                         // console.log(jsonna)
+                         if (fs.existsSync(name)) fs.unlinkSync(name)
+                         if (fs.existsSync(`./media/sticker/${filename}.exif`)) fs.unlinkSync(`./media/sticker/${filename}.exif`)
+                    })
+               })
           } else if (cmd == `${prf}tomp4`) {
                if (!isQuotedAudio) return balas(from, `Harus tag pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
@@ -4065,7 +4272,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                }
                pushLimit(sender, 5)
                hidetag(from, body.slice(9))
-          } else if (cmd == `${prf}getvocals` || cmd == `${prf}getvokal` || cmd == `${prf}vocal` || cmd == `${prf}vokal`) {
+          } else if (cmd == `${prf}getvocal` || cmd == `${prf}getvokal` || cmd == `${prf}vocal` || cmd == `${prf}vokal`) {
                if (!isQuotedAudio) return balas(from, `Mohon tag atau reply pesan audio!`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(from, `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, TypePsn.text, {
@@ -4080,30 +4287,17 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                voiceremover(savedFilename)
                     .then(async (rest) => {
                          INFOLOG(`GOT VOCAL`)
-                         console.log(rest)
+                         // console.log(rest)
                          if (rest.error) return balas(from, `Terjadi kesalahan saat mengekstrak audio!`)
-                         const dl_dulu = await download(rest.vocal_path, `./media/effect/${filename}.mp3`)
-                         spawn('ffmpeg', [
-                              '-y',
-                              '-i', dl_dulu.result,
-                              '-vn',
-                              '-ac', '2',
-                              '-b:a', '128k',
-                              '-ar', '44100',
-                              '-f', 'mp3',
-                              `./media/effect/${filename}-out.mp3`
-                         ])
-                              .on('error', () => fs.unlinkSync(dl_dulu.result))
-                              .on('close', () => {
-                                   fs.unlinkSync(dl_dulu.result)
-                                   conn.sendMessage(from, fs.readFileSync(`./media/effect/${filename}-out.mp3`), TypePsn.audio)
-                                   if (fs.existsSync(`./media/effect/${filename}-out.mp3`)) fs.unlinkSync(`./media/effect/${filename}-out.mp3`)
-                              })
-                         // sendDariUrl(from, rest.vocal_path, TypePsn.audio, '')
+                         request({
+                              url: rest.vocal_path,
+                              encoding: null
+                         }, (err, resp, buffer) => {
+                              conn.sendMessage(from, buffer, TypePsn.document, { quoted: hurtz, mimetype: mimetypes('mp3'), filename: `Extract Vocal Audio By ${pushname}` })
+                         })
                     })
-                    .catch(e => {
-                         console.log(e)
-                         balas(from, `Terjadi kesalahan saat mengekstrak audio!`)
+                    .catch(() => {
+                         balas(from, 'Gagal gan')
                     })
           } else if (cmd == `${prf}getinstrument` || cmd == `${prf}getinstrumen` || cmd == `${prf}instrument` || cmd == `${prf}instrumen`) {
                if (!isQuotedAudio) return balas(from, `Mohon tag atau reply pesan audio!`)
@@ -4118,32 +4312,19 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                pushLimit(sender, 1)
                const savedFilename = await conn.downloadAndSaveMediaMessage(mediaData, `./media/effect/${filename}`);
                voiceremover(savedFilename)
-                    .then((rest) => {
+                    .then(async (rest) => {
                          INFOLOG(`GOT INSTRUMENT`)
+                         // console.log(rest)
                          if (rest.error) return balas(from, `Terjadi kesalahan saat mengekstrak audio!`)
-                         exec(`wget ${rest.instrumental_path} -O ./media/effect/vocal-${filename}.mp3`, (err, stdout, stderr) => {
-                              if (err) {
-                                   console.log(err)
-                                   balas(from, `Maaf terjadi kesalahan!`)
-                                   return
-                              }
-                              exec(`ffmpeg -i ./media/effect/vocal-${filename}.mp3 -codec:a libmp3lame -b:a 320k ./media/effect/vocal-out-${filename}.mp3`, (err, stdout, stderr) => {
-                                   if (err) {
-                                        console.log(err)
-                                        balas(from, `Maaf terjadi kesalahan!`)
-                                        return
-                                   }
-                                   const buffer = fs.readFileSync(`./media/effect/vocal-out-${filename}.mp3`)
-                                   conn.sendMessage(from, buffer, TypePsn.audio, { quoted: hurtz })
-                                   fs.unlinkSync(savedFilename)
-                                   // fs.unlinkSync(`./media/effect/vocal-${filename}.mp3`)
-                                   // fs.unlinkSync(`./media/effect/vocal-out-${filename}.mp3`)
-                              })
+                         request({
+                              url: rest.instrumental_path,
+                              encoding: null
+                         }, (err, resp, buffer) => {
+                              conn.sendMessage(from, buffer, TypePsn.document, { quoted: hurtz, mimetype: mimetypes('mp3'), filename: `Extract Instrument Audio By ${pushname}` })
                          })
                     })
-                    .catch(e => {
-                         console.log(e)
-                         balas(from, `Terjadi kesalahan saat mengekstrak audio!`)
+                    .catch(() => {
+                         balas(from, 'Gagal gan')
                     })
           } else if (cmd == `${prf}tomedia` || cmd == `${prf}toimg` || cmd == `${prf}toimage`) {
                if (!isQuotedSticker) return balas(from, `Mohon hanya tag stiker! bukan media lain.`)
@@ -4188,7 +4369,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                                         }).then(({ data }) => {
                                              const saving = data.pipe(fs.createWriteStream(`./media/sticker/${filename}-done.mp4`))
                                              saving.on('finish', () => {
-                                                  conn.sendMessage(from, fs.readFileSync(`./media/sticker/${filename}-done.mp4`), TypePsn.video, { mimetype: Mimetype.gif, caption: `Dah jadi ni ${pushname}` })
+                                                  conn.sendMessage(from, fs.readFileSync(`./media/sticker/${filename}-done.mp4`), TypePsn.video, { mimetype: Mimetype.gif, caption: `Dah jadi ni ${pushname}`, quoted: hurtz })
                                                   if (fs.existsSync(savedFilename)) fs.unlinkSync(savedFilename)
                                                   if (fs.existsSync(`./media/sticker/${filename}-done.mp4`)) fs.unlinkSync(`./media/sticker/${filename}-done.mp4`)
                                              })
@@ -4313,6 +4494,10 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                pushLimit(sender, 1)
                const subjeknya = body.slice(7)
                await conn.groupUpdateSubject(from, subjeknya)
+          } else if (cmd == `${prf}t`) {
+               await conn.updatePresence(from, 'composing')
+               await conn.updatePresence(from, 'paused')
+          } else if (cmd == `${prf}st`) {
           } else if (cmd == `${prf}desc`) {
                if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`)
                if (args.length === 1) balas(from, `Penggunaan *!desc <Deskripsi Gc Baru>*`)
@@ -4436,15 +4621,24 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                     const ji = args[2].replace('@', '') + '@s.whatsapp.net'
                     if (args.length === 2) return balas(from, `Mohon tag membernya!`)
                     if (args.length === 3) return balas(from, `Masukan data hari!`)
-                    vip.push(ji)
+                    // vip.push(ji)
+                    let daths = []
+                    for (let jan of expvip) {
+                         daths.push('@' + jan.number.replace('@s.whatsapp.net', ''))
+                    }
+                    if (daths.includes(args[2])) return balas(from, `Nomer tersebut telah menjadi vip sebelumnya!`)
                     expvip.push({
                          number: ji,
                          expired_on: moment(new Date()).add(Number(args[3]), 'days').valueOf(),
                          remaining: ''
                     })
                     fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
-                    fs.writeFileSync('./lib/database/vip.json', JSON.stringify(vip, null, 2))
                     conn.sendMessage(from, `${args[2]} telah menjadi VIP member ✅`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [ji] } })
+                    for (let i = 0; i < expvip.length; i++) {
+                         const mengsedih = getRemaining(new Date(expvip[i].expired_on))
+                         expvip[i].remaining = `Tersisa ${mengsedih.days} hari`
+                         fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
+                    }
                } else if (args[1] == 'delete') {
                     if (!isOwner) return balas(from, `Maaf anda bukan owner / pemilik bot ini`)
                     const ji = args[2].replace('@', '') + '@s.whatsapp.net'
@@ -4454,12 +4648,23 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          vipl.push(expvip[i].number)
                     }
                     const index = vipl.indexOf(ji)
+                    if (index == -1) return balas(from, `Mohon maaf nomer tersebut bukan vip!`)
                     // console.log(index, ji, util.format(vipl))
                     expvip.splice(index, 1)
                     fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
                     conn.sendMessage(from, `${args[2]} telah diberhentikan dari VIP member ❌`, TypePsn.text, { quoted: hurtz, contextInfo: { mentionedJid: [ji] } })
+                    for (let i = 0; i < expvip.length; i++) {
+                         const mengsedih = getRemaining(new Date(expvip[i].expired_on))
+                         expvip[i].remaining = `Tersisa ${mengsedih.days} hari`
+                         fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
+                    }
                } else if (args[1] == 'list') {
-                    let content = `*[ Menampilkan list VIP member 💠 ]*\n\n*Terdapat ${vip.length} nomer*\n`
+                    for (let i = 0; i < expvip.length; i++) {
+                         const mengsedih = getRemaining(new Date(expvip[i].expired_on))
+                         expvip[i].remaining = `Tersisa ${mengsedih.days} hari`
+                         fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 2))
+                    }
+                    let content = `*[ Menampilkan list VIP member 💎 ]*\n\n*Terdapat ${expvip.length} nomer*\n`
                     let listed_number = []
                     for (let i = 0; i < expvip.length; i++) {
                          const expair = getRemaining(new Date(expvip[i].expired_on))
@@ -4502,6 +4707,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                settings.Tebak_Gambar.Max = Number(args[1])
                fs.writeFileSync('./src/settings.json', JSON.stringify(settings, null, 2))
                balas(from, `Pengaturan tebak gambar telah diperbaharui ✅`)
+               // } else if (cmd == ``)
           } else if (cmd == `${prf}tebak` || cmd == `${prf}tebakgambar` || cmd == `${prf}gambartebak`) {
                const reader = fs.readdirSync(`./lib/tebak-gambar/`)
                if (reader.includes(from + '.json')) {
@@ -4517,8 +4723,39 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          return
                     }
                     pushLimit(sender, 5)
+                    var y = setInterval(function () {
+                         if (!fs.existsSync(`./lib/tebak-gambar/${from}.json`)) return
+                         let db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
+                         var countDownDate = db_tebak.expired_on
+                         // Get today's date and time
+                         var now = new Date().getTime();
+
+                         // Find the distance between now and the count down date
+                         var distance = countDownDate - now;
+                         // Time calculations for days, hours, minutes and seconds
+                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                         // Display the result in the element with id="demo"
+                         const countReset = `${minutes}:${seconds}`
+                         // datateb = countReset + db_tebak.status
+                         {
+                              db_tebak.remaining = countReset
+                              fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
+                         }
+                         // console.log(countReset)
+                         // If the count down is finished, write some text
+                         if (distance < 0) {
+                              clearInterval(y);
+                              INFOLOG('Expired Tebak Gambar')
+                              fs.writeFileSync(`./lib/tebak-gambar/${from}.json`, JSON.stringify(db_tebak, null, 2))
+                              // restartCode()
+                              conn.sendMessage(from, `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max} detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${db_tebak.name} ( @${db_tebak.number.replace('@s.whatsapp.net', '')} )\nPesan terdeteksi : ${db_tebak.listed.length}\n\nMulai lagi? ketik *!tebakgambar* 😊`, TypePsn.text, { contextInfo: { mentionedJid: [db_tebak.number] } })
+                              fs.unlinkSync(`./lib/tebak-gambar/${from}.json`)
+                         }
+                    }, 1000);
                     const nebak = await tebak_gambar()
-                    INFOLOG('Jawaban : ' + nebak.jawaban + `( ${from} )`)
+                    INFOLOG('Jawaban : ' + nebak.jawaban + ` ( ${from} )`)
                     const regextebak = new RegExp('[^aeiou ]', 'g')
                     request({
                          url: nebak.img,
@@ -4579,35 +4816,41 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                          ERRLOG(e)
                          balas(nomerOwner, e);
                     })
-          } else if (cmd == `${prf}fakedeface`) {
-               if (args.length === 1) return balas(from, `Penggunaan *!fakedeface <TITLE|DESC>*`)
-               // const urlss = query.split('|')[0]
-               const ranid = "M3CH4" + Crypto.randomBytes(4).toString('hex').toUpperCase()
-               const custhumb = {
-                    key: {
-                         remoteJid: from,
-                         fromMe: true,
-                         id: ranid
-                    },
-                    message: {
-                         extendedTextMessage: {
-                              text: 'https://nasa.gov',
-                              matchedText: 'https://nasa.gov',
-                              description: query.split('|')[0],
-                              title: query.split('|')[1],
-                              previewType: 'dsdds',
-                              jpegThumbnail: fs.readFileSync('./media/img.jpeg'),
-                              contextInfo: {
-                                   stanzaId: hurtz.key.id,
-                                   participant: sender,
-                                   quotedMessage: hurtz.message,
-                                   mentionedJid: [nomerOwner[0]]
-                              }
-                         }
-                    },
-                    messageTimestamp: moment.unix()
+          } else if (cmd == `${prf}fakedeface` || cmd == `${prf}fd`) {
+               if (args.length === 1) return balas(from, `Penggunaan *!fakedeface <TITLE>|<DESC>|<URL>*`)
+               try {
+                    const kuer = query.split('|')
+                    const links = await conn.generateLinkPreview(kuer[2])
+                    const buffthumb = await conn.downloadMediaMessage(mediaData)
+                    links.title = kuer[0]
+                    links.description = kuer[1]
+                    links.jpegThumbnail = buffthumb
+                    // links.matchedText = 'https://github.com'
+                    conn.sendMessage(from, links, TypePsn.text, { detectLinks: false })
+               } catch (error) {
+                    ERRLOG(error)
+                    balas(from, `Pastikan anda mengirim gambar atau tag gambar yang sudah ada`)
                }
-               conn.relayWAMessage(custhumb)
+          } else if (cmd == `${prf}fakethumbnail` || cmd == `${prf}ft`) {
+               if (args.length === 1) return balas(from, `Penggunaan *!fakethumbnail <Caption> (Sambil kirim dan tag gambar)*`)
+               try {
+                    // const kuer = query.split('|')
+                    // const links = await conn.generateLinkPreview(kuer[2])
+                    const buffthumb = await conn.downloadMediaMessage(mediaData)
+                    const buffreal = await conn.downloadMediaMessage(hurtz)
+                    const base64buff = Buffer.from(buffthumb).toString('base64')
+                    // links.title = kuer[0]
+                    // links.description = kuer[1]
+                    // links.jpegThumbnail = buffthumb
+                    // links.matchedText = 'https://github.com'
+                    if (type == 'imageMessage') {
+                         // balas(from, util.format(base64buff))
+                         conn.sendMessage(from, buffreal, TypePsn.image, { thumbnail: base64buff, caption: query })
+                    }
+               } catch (error) {
+                    ERRLOG(error)
+                    balas(from, `Pastikan anda mengirim gambar dan tag gambar yang sudah ada untuk dijadikan thumb`)
+               }
           } else if (cmd == `${prf}linkgrupmecha` || cmd == `${prf}linkgroupmecha`) {
                conn.groupInviteCode('6285559038021-1605869468@g.us').then(code => balas(from, `_Join Mecha Group : [ https://chat.whatsapp.com/${code} ]_`)).catch(console.log)
           } else if (cmd == `${prf}info` || cmd == `${prf}infobot`) {
@@ -4634,15 +4877,15 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const dateString = segments.join(', ');
                const msgInfoBot = `     *[ Bot Status & Info ]*
 
-👬 *Pengguna Bot Aktif* : ${penggunanya.length} Orang
-👩‍🏫 *Waktu Bot Aktif* : ${dateString}
-📲 *Versi WA* : _${conn.user.phone.wa_version}_
+👬 *Pengguna Bot aktif* : ${penggunanya.length} Orang
+👩‍🏫 *Waktu Bot aktif* : ${dateString}
+📲 *Versi Wa* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
 📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${conn.user.phone.os_version}_
 ⚖️ *Ram Usage* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB_
-🧿 *Platform* : _${os.platform()}_
-🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, '')}_
+🧿 *Platform* : _${os.platform()} (${os.type()})_
+🔌 *CPU* : _${os.platform() == 'android' ? '-' : os.cpus()[0].model.replace(/ /g, '')}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 🕴 *Status Maintenance* : ${settings.Maintenace ? '✅' : '❌'}
 🤖 *Join Mecha Group* :
@@ -4651,7 +4894,7 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
 [ https://chat.whatsapp.com/BGz644tprlY0Ee539LUW3m ] S2`
                balas(from, msgInfoBot)
           } else if (cmd == `${prf}hilih` || cmd == `${prf}nyinyi`) {
-               balas(from, type === 'conversation' ? query.replace(/a|i|u|e|o/gi,'i') : bodyQuoted.replace(/a|i|u|e|o/gi,'i'))
+               balas(from, type === 'conversation' ? query.replace(/a|i|u|e|o/gi, 'i') : bodyQuoted.replace(/a|i|u|e|o/gi, 'i'))
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
                INFOLOG('Sending Menu')
                const penggunanya = JSON.parse(fs.readFileSync('./lib/database/limit.json'))
@@ -4677,14 +4920,14 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`
                const dateString = segments.join(', ');
                const fakstu = fs.readFileSync('./lib/random/katabijax.txt', 'utf-8').split('\n')
                const strMenu = `Hii ${pushname} ✨
-Limit Anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
+Limit anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 Plan : ${isVIP ? 'VIP MEMBER 💠' : 'FREE MEMBER 🏋'}
 
 
      _${fakstu[Math.floor(Math.random() * fakstu.length + 1)]}_
 
 
-💌 Contact My WhatsApp : @6285559038021 
+💌 Contact My Whatsapp : @6285559038021 
 📮 Follow My Instagram : hzzz.formech_
 
 Map >>
@@ -4698,9 +4941,9 @@ Map >>
 
 ----------------------------------------
 
-👬 *Pengguna Bot Aktif* : ${penggunanya.length} Orang
-👩‍🏫 *Waktu Bot Aktif* : ${dateString}
-📲 *Versi WA* : _${conn.user.phone.wa_version}_
+👬 *Pengguna Bot aktif* : ${penggunanya.length} Orang
+👩‍🏫 *Waktu Bot aktif* : ${dateString}
+📲 *Versi Wa* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
 📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${conn.user.phone.os_version}_
@@ -4735,7 +4978,7 @@ Note : Khusus fitur ini tanpa prefix!
 
 ⚪ votelist _[Melihat list vote]_
 💚 votesetting <Maksimal vote>|<Waktu expired vote> _[Pengaturan vote]_
-💚 votestart <@tagMember> <Alasan> _[Memulai sesi voting]_
+💚 votestart <@tagMember> <alasan> _[Memulai sesi voting]_
  | ⚪ vote _[Vote jika setuju]_
  | ⚪ devote _[Vote jika tidak setuju]_ 
 
@@ -4743,14 +4986,17 @@ Note : Khusus fitur ini tanpa prefix!
 
 🉐 !tebakgambar _[Mengaktifkan permainan tebak gambar]_
  | ⚪ <jawaban> _[Langsung ketik jawaban tanpa prefix]_
- | ⚪ sisa _[Unuk melihat waktu tersisa untuk menjawab]_
+ | ⚪ !sisa _[Unuk melihat waktu tersisa untuk menjawab]_
 🉐 !charagame <enable/disable> _[Mengaktifkan character game]_
  | ⚪ !addchara <Nama Character> _[Menambah karakter anime]_
  | ⚪ !guess <Nama Character> _[Tebak untuk karakter yang bot kirim]_
  | ⚪ !gallery / !gallery <@tagUser> _[Melihat list galery karakter terklaim]_
  | ⚪ !charalist _[Melihat semua chara di database]_
 💛 !minesweeper _[Mengaktifkan game minesweeper]_
- | ⚪ isi <y x> _[Mengisi sel dengan koordinat y x]_
+ | ⚪ !isi <y x> _[Mengisi sel dengan koordinat y x]_
+⚪ !tictactoe <@tagMember> _[Memulai game tictactoe]_
+ | ⚪ <Y/N> _[Untuk menerima atau menolak tantangan]_
+ | ⚪ <angka> _[Ketik hanya angka untuk mengisi kolom]_
 
      *[ Fitur Social Media & Download ]*
 
@@ -4795,6 +5041,15 @@ Note : Khusus fitur ini tanpa prefix!
 💚 !respon tambahtanpatag <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot tanpa reply]_
 💚 !respon hapus <Kunci Pertanyaan> _[Menghapus respon dari bot]_
 💚 !respon list _[Melihat seluruh respon bot]_
+
+Note : Untuk respon media lain ketik
+
+Stiker = [stk]
+Gambar = [img]
+Video = [vid]
+Audio = [aud]
+
+Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
      
      *[ Fitur Gacha ]*
 

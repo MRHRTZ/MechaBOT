@@ -7,7 +7,7 @@
   "areBombsSet": true,
   "isEnded": true,
   "isWon": false,
-  "revealedCells": 12,
+  "revealedCells": 44,
   "flaggedCells": [],
   "map": [
     [
@@ -31,36 +31,6 @@
       },
       {
         "isRevealed": false,
-        "isBomb": true,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 1
@@ -70,14 +40,6 @@
         "isBomb": false,
         "isFlagged": false,
         "nb": 1
-      }
-    ],
-    [
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
       },
       {
         "isRevealed": false,
@@ -89,34 +51,10 @@
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
         "nb": 0
       },
       {
         "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 1
@@ -131,7 +69,7 @@
         "isRevealed": false,
         "isBomb": true,
         "isFlagged": false,
-        "nb": 0
+        "nb": 1
       }
     ],
     [
@@ -157,56 +95,6 @@
         "isRevealed": false,
         "isBomb": true,
         "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": false,
-        "isBomb": true,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 3
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      }
-    ],
-    [
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
         "nb": 1
       },
       {
@@ -225,19 +113,13 @@
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
         "nb": 0
       },
       {
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
-        "nb": 2
+        "nb": 1
       },
       {
         "isRevealed": false,
@@ -250,136 +132,6 @@
         "isBomb": false,
         "isFlagged": false,
         "nb": 2
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      }
-    ],
-    [
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": true,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      }
-    ],
-    [
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": true,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": false,
-        "isBomb": true,
-        "isFlagged": false,
-        "nb": 1
       }
     ],
     [
@@ -390,46 +142,28 @@
         "nb": 0
       },
       {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
         "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
-        "nb": 0
+        "nb": 2
       },
       {
         "isRevealed": false,
-        "isBomb": false,
+        "isBomb": true,
         "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
+        "nb": 2
       },
       {
         "isRevealed": false,
@@ -439,68 +173,24 @@
       },
       {
         "isRevealed": false,
-        "isBomb": true,
+        "isBomb": false,
         "isFlagged": false,
         "nb": 1
-      }
-    ],
-    [
+      },
       {
         "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
-        "nb": 0
+        "nb": 1
       },
       {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
+        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 1
       },
       {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 2
-      },
-      {
-        "isRevealed": false,
-        "isBomb": true,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
+        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 1
@@ -529,18 +219,6 @@
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
-        "nb": 0
-      },
-      {
-        "isRevealed": false,
-        "isBomb": false,
-        "isFlagged": false,
-        "nb": 1
-      },
-      {
-        "isRevealed": false,
-        "isBomb": true,
-        "isFlagged": false,
         "nb": 1
       },
       {
@@ -551,18 +229,30 @@
       },
       {
         "isRevealed": false,
+        "isBomb": true,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 1
       },
       {
-        "isRevealed": false,
+        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 0
       },
       {
-        "isRevealed": false,
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 0
@@ -606,6 +296,44 @@
         "nb": 1
       },
       {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      }
+    ],
+    [
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
@@ -615,16 +343,288 @@
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      }
+    ],
+    [
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": false,
+        "isBomb": true,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": false,
+        "isBomb": true,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      }
+    ],
+    [
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": false,
+        "isBomb": true,
+        "isFlagged": false,
         "nb": 0
       },
       {
         "isRevealed": false,
         "isBomb": false,
         "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": false,
+        "isBomb": true,
+        "isFlagged": false,
         "nb": 0
       },
       {
         "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      }
+    ],
+    [
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 2
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      }
+    ],
+    [
+      {
+        "isRevealed": false,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": false,
+        "isBomb": true,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 1
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
+        "isBomb": false,
+        "isFlagged": false,
+        "nb": 0
+      },
+      {
+        "isRevealed": true,
         "isBomb": false,
         "isFlagged": false,
         "nb": 0

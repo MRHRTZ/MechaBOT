@@ -10,14 +10,11 @@ function ERRLOG(e) {
 }
 
 
-module.exports = revokejs = async (WA_MESSAGE_STUB_TYPES, hurtz, conn, Mimetype, MessageType) => {
+module.exports = revokejs = async (sesi, WA_MESSAGE_STUB_TYPES, hurtz, conn, Mimetype, MessageType) => {
      try {
-          let sesi
-          for (let se of settings.Sesi) {
-               if (conn.user.jid == se.Jid) {
-                    sesi = se.Name
-               }
-          }
+          let settings = JSON.parse(fs.readFileSync('./src/settings.json'))
+          // const mtchat = mt ? sender != nomerOwner[0] : false
+          if (settings.Maintenance) return
           const from = hurtz.key.remoteJid
           const messageStubType = WA_MESSAGE_STUB_TYPES[hurtz.messageStubType] || 'MESSAGE'
           const dataRevoke = JSON.parse(fs.readFileSync('./lib/database/RevokedGroup.json'))
@@ -118,6 +115,6 @@ Pesan : ${body ? body : '-'}\`\`\`
                }
           }
      } catch (error) {
-          ERRLOG(error)
+          console.log(error)
      }
 }

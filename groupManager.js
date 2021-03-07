@@ -105,6 +105,7 @@ module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, Me
                                    .toAttachment();
                               fs.writeFile('./media/effect/leave.png', image.toBuffer(), (e) => {
                                    if (e) return console.log(e)
+                                   if (!fs.existsSync('./media/effect/leave.png')) return
                                    const buffer = fs.readFileSync('./media/effect/leave.png')
                                    conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat tinggal @${people.replace(/@s.whatsapp.net/, '')}, semoga tenang dialam sana. 😇`, contextInfo: { mentionedJid: [people] } })
                                    fs.unlinkSync('./media/effect/leave.png')
@@ -131,6 +132,7 @@ module.exports = groupHandler = async (setting, GroupSettingChange, Mimetype, Me
                                    .toAttachment();
                               fs.writeFile('./media/effect/welcome.png', image.toBuffer(), (e) => {
                                    if (e) return console.log(e)
+                                   if (!fs.existsSync('./media/effect/welcome.png')) return
                                    const buffer = fs.readFileSync('./media/effect/welcome.png')
                                    conn.sendMessage(from, buffer, MessageType.image, { caption: `Selamat datang digrup ${titlegc} @${people.replace(/@s.whatsapp.net/, '')}, semoga betah disini ya 😉`, contextInfo: { mentionedJid: [people] } })
                                    fs.unlinkSync('./media/effect/welcome.png')

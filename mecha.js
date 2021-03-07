@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require('fs')
 const mysession = process.argv[2] || 'mecha'///*'mecha'*/'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
@@ -58,7 +60,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           // only do something when a new message is received
           if (!chat.hasNewMessage) {
                if (chat.messages) {
-                    INFOLOG('Chat baru di ' + chat.jid + ' sebanyak ' + chat.count + ' pesan.')
+                    INFOLOG('Chat baru di ' + chat.jid + '.')
                }
                return
           }
@@ -76,13 +78,13 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
 
      conn.on('close', ({ reason, isReconnecting }) => {
-          INFOLOG('TERDISKONEK! : ' + reason + ', ' + chalk.blue('Menkoneksi ulang : ' + isReconnecting))
+          INFOLOG('Terputus :( ' + reason + ', ' + chalk.blue('Menkoneksi ulang : ' + isReconnecting))
           if (!isReconnecting){
                INFOLOG('Shuting Down')
                process.exit(1)
           }
      })
-
+     // conn.logger.
      conn.on('CB:action,,battery', json => {
           const batteryLevelStr = json[2][0][1].value
           const batterylevel = parseInt(batteryLevelStr)
@@ -98,7 +100,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
 
      conn.on('message-update', async (hurtzz) => {
-          require('./revokeHandler')(WA_MESSAGE_STUB_TYPES, hurtzz, conn, Mimetype, MessageType)
+          require('./revokeHandler')(mysession, WA_MESSAGE_STUB_TYPES, hurtzz, conn, Mimetype, MessageType)
      })
 }
 

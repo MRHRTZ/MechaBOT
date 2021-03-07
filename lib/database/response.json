@@ -4,109 +4,394 @@
     "reply": true,
     "added": "MRHRTZ@kali:~#",
     "key": "Test",
-    "response": "Apa.."
+    "response": "Apa..",
+    "type": "text"
   },
   {
     "id": 3,
     "reply": true,
     "added": "MRHRTZ@kali:~#",
     "key": "Assalamu'alaikum",
-    "response": "Wa'alaikumsalam"
+    "response": "Wa'alaikumsalam",
+    "type": "text"
   },
   {
     "id": 3,
     "reply": true,
     "added": "MRHRTZ@kali:~#",
     "key": "njir",
-    "response": "jar jir jar jir"
-  },
-  {
-    "id": 4,
-    "reply": true,
-    "added": "AmNotSimp",
-    "key": "a",
-    "response": "simp gura km y"
+    "response": "jar jir jar jir",
+    "type": "text"
   },
   {
     "id": 6,
     "reply": true,
     "added": ".",
     "key": "bro",
-    "response": "Paan Cok"
+    "response": "Paan Cok",
+    "type": "text"
   },
   {
     "id": 8,
     "reply": true,
     "added": "MRHRTZ@kali:~#",
     "key": "Woyy",
-    "response": "paan brisik"
+    "response": "paan brisik",
+    "type": "text"
   },
   {
     "id": 11,
     "reply": true,
     "added": "dimas",
     "key": "ajg",
-    "response": "lu mau gw kick?"
-  },
-  {
-    "id": 12,
-    "reply": true,
-    "added": "dimas",
-    "key": "om jangan om",
-    "response": "lu mau gw pukul?"
+    "response": "lu mau gw kick?",
+    "type": "text"
   },
   {
     "id": 10,
     "reply": true,
     "added": "Yahaha",
     "key": "yahaha",
-    "response": "wahyu"
+    "response": "wahyu",
+    "type": "text"
   },
   {
     "id": 10,
     "reply": true,
     "added": "【Fedora - Kun】",
     "key": "hai",
-    "response": "hai juga"
+    "response": "hai juga",
+    "type": "text"
   },
   {
     "id": 11,
     "reply": true,
     "added": "【Fedora - Kun】",
     "key": "Lagi apa?",
-    "response": "Lagi mikirin kamu🤭"
-  },
-  {
-    "id": 12,
-    "reply": true,
-    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
-    "key": "halo"
-  },
-  {
-    "id": 13,
-    "reply": false,
-    "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
-    "key": "gabut? Mendingan ketik !help"
+    "response": "Lagi mikirin kamu🤭",
+    "type": "text"
   },
   {
     "id": 14,
     "reply": true,
     "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
     "key": "halo ",
-    "response": " gabut? Mendingan ketik !help"
+    "response": " gabut? Mendingan ketik !help",
+    "type": "text"
   },
   {
     "id": 15,
     "reply": true,
     "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
     "key": "p ",
-    "response": " yang P anak dajjal"
+    "response": " yang P anak dajjal",
+    "type": "text"
   },
   {
     "id": 16,
     "reply": false,
     "added": "𝕓𝕝𝕔𝕜 ☬K⃟A⃟N⃟E⃟K⃟I⃟𒈒",
     "key": "p ",
-    "response": " yang P anak dajjal"
+    "response": " yang P anak dajjal",
+    "type": "text"
+  },
+  {
+    "id": 13,
+    "reply": true,
+    "added": "tidak ada nama¥",
+    "key": "nama bot apa?",
+    "response": "kepo lu",
+    "type": "text"
+  },
+  {
+    "id": 14,
+    "reply": true,
+    "added": "tidak ada nama¥",
+    "key": "owner ya siapa?",
+    "response": "@6285559038021",
+    "type": "text"
+  },
+  {
+    "id": 15,
+    "reply": true,
+    "added": "tidak ada nama¥",
+    "key": "caranya sukses",
+    "response": "kerja anjer",
+    "type": "text"
+  },
+  {
+    "id": 16,
+    "reply": true,
+    "added": "tidak ada nama¥",
+    "key": "lagi apa bot?",
+    "response": "duduk:)",
+    "type": "text"
+  },
+  {
+    "id": 17,
+    "reply": true,
+    "added": "Gff",
+    "key": "tes",
+    "response": "apa bng?",
+    "type": "text"
+  },
+  {
+    "id": 19,
+    "reply": true,
+    "added": "Pfftt",
+    "key": "anj",
+    "response": "sok keras lu",
+    "type": "text"
+  },
+  {
+    "id": 20,
+    "reply": true,
+    "added": "AJIK GANZ",
+    "key": "oi napa bang"
+  },
+  {
+    "id": 22,
+    "reply": true,
+    "added": "Bisik ae lu😒",
+    "key": "bntr",
+    "response": "ah lama😒",
+    "type": "text"
+  },
+  {
+    "id": 26,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "man",
+    "response": "hah",
+    "type": "text"
+  },
+  {
+    "id": 23,
+    "reply": true,
+    "added": "【Fedora - Kun】",
+    "key": "pfft",
+    "response": "hiks🤧",
+    "type": "text"
+  },
+  {
+    "id": 24,
+    "reply": true,
+    "added": "Fuzzy Saha?",
+    "key": "P ",
+    "response": " Apa",
+    "type": "text"
+  },
+  {
+    "id": 25,
+    "reply": true,
+    "added": "Sad Boy",
+    "key": "gabut nih",
+    "response": "mending nonton yuotube aja!",
+    "type": "text"
+  },
+  {
+    "id": 26,
+    "reply": true,
+    "added": "【Fedora - Kun】",
+    "key": "hmm",
+    "response": "eh ada nisa sabyan :v",
+    "type": "text"
+  },
+  {
+    "id": 27,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "gay",
+    "response": "iya, lu gay😱",
+    "type": "text"
+  },
+  {
+    "id": 30,
+    "reply": true,
+    "added": "DefaArta.",
+    "key": "gw autis",
+    "response": "yahaha",
+    "type": "text"
+  },
+  {
+    "id": 29,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "Hai!",
+    "response": "Haloo~",
+    "type": "text"
+  },
+  {
+    "id": 29,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "buyung",
+    "response": {
+      "stanzaId": "5AE536D214FC02A677770C4A179821AC",
+      "participant": "6285559038021@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Ai4WpU9TnrJKlA2BKe0-qu41gPFXWavomzOsgdoN0ZGe.enc",
+          "fileSha256": "5C8r5Wc1W77d8Sc72J/Y/5xh6INBpNynGHXF2Lp6CfQ=",
+          "fileEncSha256": "baHDOLuUFXdhh3O5wIeQeSkHzkmUpaKtZQyexzUpoj8=",
+          "mediaKey": "cdvCYfAjTQLF62Kp+k0G1ToCqyo19+vRscmfspTPrcw=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/55869788_934525047319006_218686980584762568_n.enc?oh=e532294c334beef6f74dc261e19f82ce&oe=60696C09",
+          "fileLength": "37212",
+          "mediaKeyTimestamp": "1614826708",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 30,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "dubstep",
+    "response": {
+      "stanzaId": "3EB09D301112",
+      "participant": "6285559038021@s.whatsapp.net",
+      "message": {
+        "audioMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AqME_XeuS9b7a98KJFMUUjjjTbQsnZA48Vzo5rCHY8T3.enc",
+          "mimetype": "audio/mp4",
+          "fileSha256": "iycPHWPyfPk5jAu2dra/cl51IknvqyVEovT7PIzX+s0=",
+          "fileLength": "482879",
+          "seconds": 30,
+          "ptt": false,
+          "mediaKey": "Jr9cqEN0UmDM/r78M6O+xVvBQJR57LZAD6BSYsa1uGE=",
+          "fileEncSha256": "AM94BKYciJBMunFoJj5TdbD45pBhTfZdu7DxdUoXnEI="
+        }
+      }
+    },
+    "type": "audio"
+  },
+  {
+    "id": 31,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "motivator",
+    "response": {
+      "stanzaId": "3EB05DB022EE",
+      "participant": "6285559038021@s.whatsapp.net",
+      "message": {
+        "audioMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AjOG7oL-lETxvkgUeh0oOEqZ9Lx_l1dAxnNT8U7hnq3k.enc",
+          "mimetype": "audio/mp4",
+          "fileSha256": "qHc8HqHTrYasHcZpe8uLoxWMdqti9PmlWrZ1Q00fh+0=",
+          "fileLength": "480372",
+          "seconds": 29,
+          "ptt": false,
+          "mediaKey": "ypaW9isWyLkt3YETbABENuncZ8OCwf/6Qdl8gK9QQ4I=",
+          "fileEncSha256": "OpCh0QUJPEYa4DyQwqSPHkc8Q1AdP7UAkOa5LAkdW6M="
+        }
+      }
+    },
+    "type": "audio"
+  },
+  {
+    "id": 32,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "sadna",
+    "response": {
+      "stanzaId": "50543FD8466EA4A8A11F5852EE1E8FFF",
+      "participant": "62896945935804@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Ata_tv8euK42fNtGcmCnof1cb3TgYI9yKLFoGX6ExhDw.enc",
+          "fileSha256": "sqeG9WXjDn6xTzRxSTq2T0RcTgh7x611ydgAQioyL7s=",
+          "fileEncSha256": "zbu74me8g4Jd8OytB1rWq+49LIjGPP+ZIwKDYuauSN4=",
+          "mediaKey": "1kYBgWwQC/hOmfqycnvnvRrJNg6kXFYN17Aq3DPisw0=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/31095473_104109581663836_2475313829426343709_n.enc?oh=741bb27c58bd8143198cf91fa3bb581e&oe=60698EEE",
+          "fileLength": "35208",
+          "mediaKeyTimestamp": "1614903132",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 34,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "surrender",
+    "response": {
+      "stanzaId": "3EB06145E11B",
+      "participant": "994408826481@s.whatsapp.net",
+      "message": {
+        "audioMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/ArjjN2ZXFXb26iSLGpoysMqv3lOaRvL3JQarWb7HV6KY.enc",
+          "mimetype": "audio/mp4",
+          "fileSha256": "rKH2N7X1OUTMPicG/ZfYs+FkOrC/SYNpPNDRhPhCkLA=",
+          "fileLength": "3516845",
+          "seconds": 219,
+          "ptt": false,
+          "mediaKey": "pZ22w1KpTBpn23AhmNRUy9Ay4bWTI780CeZwd0s1w6M=",
+          "fileEncSha256": "LGo9Kr/9hLqxbAdy8y2UVsK46Bp590/duRbLrVXqzwE="
+        }
+      }
+    },
+    "type": "audio"
+  },
+  {
+    "id": 34,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "mengontol",
+    "response": {
+      "stanzaId": "4B566FD92579F3BD7EDC569CD322EA07",
+      "participant": "6285864805819@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Apq_1vFv5-JLuszsvKkrrCcnmkayoWkhMg9eq_CV7_kc.enc",
+          "fileSha256": "TdWDqbKPGBqp0KIg6Jd4NNGkK0MyebAHn+Ns5Bjw0FE=",
+          "fileEncSha256": "yjGo1zRed8p+ONfb0XO+64VSa5C+U/OD8apYew4r4tE=",
+          "mediaKey": "EyuMr8t8LD26iGCCBN7Bd6HnlAELnLI243Fup8j8dyc=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/41157614_756924281606688_371948161498901488_n.enc?oh=d721638e6e56475cd8d869584387bced&oe=606BA785",
+          "fileLength": "80364",
+          "mediaKeyTimestamp": "1614782051",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 35,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "sad",
+    "response": {
+      "stanzaId": "7EFA00356AFFA8089B5DD21B3080DDF9",
+      "participant": "6289636035164@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Aq024pZ4axXGPkalrBD-PTatD7VmukCpVI3qqmrJHYWB.enc",
+          "fileSha256": "y9ZyNLacD7P5/LH4v5YcG36ehRYx9PyanxN9tYspuYw=",
+          "fileEncSha256": "Pzrcx/FtqhqyJFjPSLn/dPEUqH4YBhmJdrFS4g5WVTQ=",
+          "mediaKey": "vmWwpriR9LASkUyIJefn30CdGpEBZqv8yE1z0udG9jk=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/40308280_255495596113194_2051222730738773054_n.enc?oh=b1faa30d6443ef831c6a178582f0c7b5&oe=606AFCC7",
+          "fileLength": "14436",
+          "mediaKeyTimestamp": "1614823531",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
   }
 ]
