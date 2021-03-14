@@ -1197,6 +1197,312 @@
       "messageTimestamp": "1615109763",
       "status": "SERVER_ACK",
       "participant": "6285559038021@s.whatsapp.net"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "9EE6CA2A98C96C6606FF0BFEF417BAA0"
+      },
+      "message": {
+        "conversation": "> fs.unlink('./lib/tictactoe/db/'+from+'.json').then(print)"
+      },
+      "messageTimestamp": "1615253297",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "3EB0D2E09F39"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "*Error unexpected* : \n\nTypeError [ERR_INVALID_CALLBACK]: Callback must be a function. Received undefined\n    at makeCallback (fs.js:153:11)\n    at Object.unlink (fs.js:1125:14)\n    at eval (eval at handle (C:\\Users\\user\\Documents\\beleis\\myHandler.js:892:22), <anonymous>:1:4)\n    at handle (C:\\Users\\user\\Documents\\beleis\\myHandler.js:895:25)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5) {\n  code: 'ERR_INVALID_CALLBACK'\n}",
+          "contextInfo": {
+            "stanzaId": "9EE6CA2A98C96C6606FF0BFEF417BAA0",
+            "participant": "6285559038021@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "> fs.unlink('./lib/tictactoe/db/'+from+'.json').then(print)"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253300",
+      "status": "SERVER_ACK",
+      "participant": "6285559038021@s.whatsapp.net"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "659B88DBCB783D7CA067454B2C45AA12"
+      },
+      "message": {
+        "conversation": "> fs.unlink('./lib/tictactoe/db/'+from+'.json', (e) => print)"
+      },
+      "messageTimestamp": "1615253326",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "98C1C7CEE019FEA938ADAB58019B6CA5"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Banyak tugas ni",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "3E4D294E972E1EDDA3E2BF8FDB3D396A",
+            "participant": "6281325065005@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "Bang mau main gk?"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253345",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "D4A52F0D46D8050AD0F0CA368DEC1DB6"
+      },
+      "message": {
+        "conversation": ">>> fs.unlinkSync('./lib/tictactoe/db/'+from+'.json')"
+      },
+      "messageTimestamp": "1615253348",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "3EB027176D72"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "*Error unexpected* :\n\nError: ENOENT: no such file or directory, unlink './lib/tictactoe/db/6285559038021-1605869468@g.us.json'",
+          "contextInfo": {
+            "stanzaId": "D4A52F0D46D8050AD0F0CA368DEC1DB6",
+            "participant": "6285559038021@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": ">>> fs.unlinkSync('./lib/tictactoe/db/'+from+'.json')"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253351",
+      "status": "SERVER_ACK",
+      "participant": "6285559038021@s.whatsapp.net"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "CEE219082E283B2633B333E73EE30075"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Kelulusan",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "8B33C5C826195687ACB38749ACC1102A",
+            "participant": "6281325065005@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "Lah:v masi sekolah ta?"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253488",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "FE5EC022C7DADF9F972E9C34A68A225D"
+      },
+      "message": {
+        "conversation": "Pas gw kuliah ntar pling pensi ngebot"
+      },
+      "messageTimestamp": "1615253512",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "31D9D0BC463788B9011A575B0F1C95D2"
+      },
+      "message": {
+        "conversation": "Kecuali klo ada yg ngurus"
+      },
+      "messageTimestamp": "1615253525",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "C1EF08668FF59115CEC0EBFF581391AD"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Bisa coding?",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "5601771F8D7665F253008D0206057FF5",
+            "participant": "62895237311351@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "Gw"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253541",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "73F2D2DB8F0E898B9E2A58547B5D0929"
+      },
+      "message": {
+        "conversation": "Buat prototype yg bisa misahin milisecond jadi readable"
+      },
+      "messageTimestamp": "1615253565",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "2E763405D4E44574EB77696E3489F208"
+      },
+      "message": {
+        "conversation": ">>> process.uptime()"
+      },
+      "messageTimestamp": "1615253571",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "3EB058F63493"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "5856.3961152",
+          "contextInfo": {
+            "stanzaId": "2E763405D4E44574EB77696E3489F208",
+            "participant": "6285559038021@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": ">>> process.uptime()"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253573",
+      "status": "SERVER_ACK",
+      "participant": "6285559038021@s.whatsapp.net"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "DDC840C3AE8D58B2A670E30A7FFFB30F"
+      },
+      "message": {
+        "conversation": "Nah jadiin bisa kebaca"
+      },
+      "messageTimestamp": "1615253580",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "E882B4CCCD699D4534CEA4595A29BEF8"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Gw nyuruh skrng",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "5E06475344CBFFD4ACD3628A67772ABA",
+            "participant": "62895237311351@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "Santuy aja"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253587",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "8C3268BEFCDA4AB05028A39EE33606BA"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Ini milisecond",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "3EB0232176E6",
+            "participant": "6285797957301@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "9676.9123972"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253607",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "5BACBCDE9B49EBE54B61541BC16D00C0"
+      },
+      "message": {
+        "conversation": ">>> fs.unlinkSync('./lib/tictactoe/db/'+from+'.json')"
+      },
+      "messageTimestamp": "1615253621",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "3EB0BBD56998"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "*Error unexpected* :\n\nError: ENOENT: no such file or directory, unlink './lib/tictactoe/db/6285559038021-1605869468@g.us.json'",
+          "contextInfo": {
+            "stanzaId": "5BACBCDE9B49EBE54B61541BC16D00C0",
+            "participant": "6285559038021@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": ">>> fs.unlinkSync('./lib/tictactoe/db/'+from+'.json')"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1615253625",
+      "status": "SERVER_ACK",
+      "participant": "6285559038021@s.whatsapp.net"
     }
   ]
 }

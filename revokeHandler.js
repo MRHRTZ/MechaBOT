@@ -4,10 +4,6 @@ const moment = require('moment')
 const time = moment().format('DD/MM HH:mm:ss')
 const exec = require('child_process').exec
 const { createExif } = require('./lib/create-exif')
-const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
-function ERRLOG(e) {
-     return console.log('()\x1b[1;37m->', '<\x1b[1;31mERROR\x1b[1;37m>', time, color(e))
-}
 
 
 module.exports = revokejs = async (sesi, WA_MESSAGE_STUB_TYPES, hurtz, conn, Mimetype, MessageType) => {

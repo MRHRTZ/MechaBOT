@@ -7,7 +7,7 @@
     }
   ],
   "Debug": false,
-  "Maintenace": false,
+  "Maintenace": true,
   "MessageConsole": false,
   "IDConsole": true,
   "PrivateChat": true,

@@ -106,5 +106,110 @@
     "status": "ERROR",
     "participant": "6287771818443@s.whatsapp.net",
     "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "7BBEDE08780E176BAF5BB8FB9EFDDCD8"
+    },
+    "message": {
+      "conversation": "Enggeus"
+    },
+    "messageTimestamp": "1615530512",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "ECE549FD48AFECB103EA04F80C32F78C"
+    },
+    "message": {
+      "conversation": "Wa ieuu"
+    },
+    "messageTimestamp": "1615530518",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "29D66CC173724D271052633552038220"
+    },
+    "message": {
+      "conversation": "!runtime"
+    },
+    "messageTimestamp": "1615530550",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB0E2BE6CC1"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Waktu bot aktif / telah berjalan selama *1 Menit, 33 Detik, 570 milidetik*",
+        "contextInfo": {
+          "stanzaId": "29D66CC173724D271052633552038220",
+          "participant": "6285797957301@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "!runtime"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1615530552",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "8AEA27CFA1DA2BFB165690D6DFBB6C6E"
+    },
+    "message": {
+      "conversation": "Nice"
+    },
+    "messageTimestamp": "1615530555",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6282190472714-1609456198@g.us",
+      "fromMe": true,
+      "id": "188AE24B94268F7747618718DE57D41C"
+    },
+    "message": {
+      "conversation": ".menu"
+    },
+    "messageTimestamp": "1615530760",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6282190472714-1609456198@g.us",
+      "fromMe": true,
+      "id": "B63092A5F8D2845ACC23CD9EBEDBC330"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1615530774",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "763B62FFF4E416C7D7180CA48779215B"
+    },
+    "message": {
+      "conversation": "!menu"
+    },
+    "messageTimestamp": "1615530782",
+    "status": "ERROR"
   }
 ]

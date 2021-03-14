@@ -1,0 +1,23 @@
+[
+  {
+    "status": true,
+    "gstatus": "waiting",
+    "rid": 1,
+    "leader": "6285559038021@s.whatsapp.net",
+    "leader_name": "MRHRTZ",
+    "data": {
+      "name": "Merhas",
+      "passwordIsRequired": false,
+      "password": "",
+      "currentPlayers": 1,
+      "minPlayers": 4,
+      "maxPlayers": 8
+    },
+    "players": [
+      {
+        "jid": "6285559038021@s.whatsapp.net",
+        "username": "MRHRTZ"
+      }
+    ]
+  }
+]

@@ -136,14 +136,6 @@
     "type": "text"
   },
   {
-    "id": 19,
-    "reply": true,
-    "added": "Pfftt",
-    "key": "anj",
-    "response": "sok keras lu",
-    "type": "text"
-  },
-  {
     "id": 20,
     "reply": true,
     "added": "AJIK GANZ",
@@ -388,6 +380,290 @@
           "directPath": "/v/t62.15575-24/40308280_255495596113194_2051222730738773054_n.enc?oh=b1faa30d6443ef831c6a178582f0c7b5&oe=606AFCC7",
           "fileLength": "14436",
           "mediaKeyTimestamp": "1614823531",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 36,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "jatah",
+    "response": {
+      "stanzaId": "3710A50E4B8EE128921DEED99698BC01",
+      "participant": "6285559038021@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Alz_ZGZhrzepFMHZ3LHEU_4F-PixkHJtp_SMxfR726C0.enc",
+          "fileSha256": "RJra1fdvKNm2Bnwvp2dmr6RC+AOTWWzpsjJTBFkE/5I=",
+          "fileEncSha256": "UULxv6yAKaSzDpy4W41s6xV1CEyg9vo18NUpeF5MFbc=",
+          "mediaKey": "KyTOsMqzWhk7UNd2oVN08PDgD9fzHaYqYIsEddfSyHE=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/35809544_1804629923041678_9118231552030857385_n.enc?oh=72a67068bd0300cd1f1b87f319bd096b&oe=606D967D",
+          "fileLength": "10096",
+          "mediaKeyTimestamp": "1615112272",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 37,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "mastah",
+    "response": {
+      "stanzaId": "B1569EC090899943921701256C2B8003",
+      "participant": "6285559038021@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/ArJkRFCYTtPjjtn2mZ0bgNVtIplvzdBRcnjUMP9CUgvh.enc",
+          "fileSha256": "6n+pagQikFSyjGBqxRnsi/je3e08X5zpyALi3LT8WOw=",
+          "fileEncSha256": "iwXg65fB9mwGwHU9Qth+k6a7R12r45iQrnJJwQ8l4PA=",
+          "mediaKey": "N1foUBxKMLdPSBO+g4MEhcO8xWIntYyrA8YGi5fZsTA=",
+          "mimetype": "image/webp",
+          "directPath": "/v/t62.15575-24/12673125_947563509322402_2232503840466684618_n.enc?oh=c251d97274426247b7476a42c4d5c762&oe=606DDC79",
+          "fileLength": "11478",
+          "mediaKeyTimestamp": "1615009940",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 38,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "bocel",
+    "response": {
+      "stanzaId": "78E45B343AEC46B2CB2297DD03E24DF8",
+      "participant": "6285892974002@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AqURJXucVPo3QbCZLar1I7PjL_nO00EnBSLPwThzVnR_.enc",
+          "fileSha256": "Ao9Hp49Ky1dr775SQinw2gNiHA2AViab/D/VnSitoTs=",
+          "fileEncSha256": "nxOW7G+kqczKtD66JwpvS5XjCqLiR+SYNV0ifz7AGfk=",
+          "mediaKey": "8VZS8pf+R0k9CyREjQRWAC1qu+g6/mPi/PzC/gX5hqc=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/29510747_180478547214965_1599428965799424824_n.enc?oh=ebab872c0ddc9acd5862b12a28fb25cb&oe=606DFC5E",
+          "fileLength": "600086",
+          "mediaKeyTimestamp": "1615113370",
+          "firstFrameLength": 3970,
+          "firstFrameSidecar": "xPvAV446ychLnA==",
+          "isAnimated": true
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 39,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "woy",
+    "response": {
+      "stanzaId": "869CEE4639A6C89C523E28DA9708F2CE",
+      "participant": "6285559038021@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AgdJbHR5GjxWpv3IQZ1_RhSz3R4fkWSYZEBawytX3Q0L.enc",
+          "fileSha256": "nkX2K4TFYJg8OYy10Ehj3vqqnf5QflnKhBjYncRMBPM=",
+          "fileEncSha256": "H+y+DTDdfeY766v+FdsS7aTx8pCe/lMvJt3dfbcuUhI=",
+          "mediaKey": "6aD+a2VbDQ2HoLglv7w9KQDsZXXilifvv6BBtEkIy9k=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/19649615_772380900058448_2201913009471815498_n.enc?oh=4001740bab26d52a560edb88af3594c1&oe=60702C3A",
+          "fileLength": "13490",
+          "mediaKeyTimestamp": "1615052708",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 40,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": ":(",
+    "response": {
+      "stanzaId": "FCB8E53AA9C9B4B10AFA9AAD76F555C1",
+      "participant": "628990542731@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Au9QS6ezfmzSavjoVCjpVZEPPbQWbZEFomqUSKVy5Gy4.enc",
+          "fileSha256": "j7qvH9SEapmhJ0O2/4IjMhl5ogVK5YH2lxFgHI8Xk0U=",
+          "fileEncSha256": "YRyKQ2ru2w2D2qtx+U4Jx9nNBujJNZQUVTFfHzdHsFs=",
+          "mediaKey": "J/wqUtGIyR89W09ck7clos/edw+xtcBtOQAgUA9gV+s=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/19978167_527369648228399_87931345810876582_n.enc?oh=9b46e04dcdc34841866602a2943ad9fb&oe=606FD84B",
+          "fileLength": "39584",
+          "mediaKeyTimestamp": "1614941554",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 41,
+    "reply": true,
+    "added": "Fufufufufu",
+    "key": ":)",
+    "response": {
+      "stanzaId": "B9AB82C34473C33F32AD33BEBFB70B29",
+      "participant": "6282393286384@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AjmzgUPRdWWvot3fKQ09xoidP7y1ys6X5qm8lbWf_jh9.enc",
+          "fileSha256": "eE6G9nEthLzAcY7Eunynq3Lhcz6/x0cw5mGaUHIjZos=",
+          "fileEncSha256": "uhJmNQA/E/AzlMTi6vpIfWC6rSj5yibQSplyFGsMYcQ=",
+          "mediaKey": "1EusNwMrnrrIRe7OlN3U1nptw9NN41aldk9+ItP6Mq8=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/17624097_189301329265634_7000458906124669150_n.enc?oh=5dd928a54416fd103b6767c6d36c9943&oe=606EFBAD",
+          "fileLength": "27786",
+          "mediaKeyTimestamp": "1615107145",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 42,
+    "reply": true,
+    "added": "Fufufufufu",
+    "key": "gg",
+    "response": "gaming",
+    "type": "text"
+  },
+  {
+    "id": 44,
+    "reply": true,
+    "added": "Fufufufufu",
+    "key": "ganteng",
+    "response": {
+      "stanzaId": "3EB027EC0A22",
+      "participant": "6289621089213@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AnscM_aRLvozmfijIHWCm05qpi_ttk2IxZ3IjBUfP9O_.enc",
+          "fileSha256": "k7OqyaYW1o7FgRoj0GMbSOS+PLiqb8vwrxCEFyaQGHE=",
+          "fileEncSha256": "qP9+EEhlyVPknU3dCGAycDuYDELIxT8ZQ+KBvVReXNs=",
+          "mediaKey": "7Hlp+IYMTF+rz/RlEt4x55eGJEdFVT1F4E1entEXwx0=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "fileLength": "9910",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 44,
+    "reply": true,
+    "added": "Parah",
+    "key": "kntl",
+    "response": "parah anjir parah",
+    "type": "text"
+  },
+  {
+    "id": 44,
+    "reply": true,
+    "added": ":V",
+    "key": "anj",
+    "response": "lu mau gw kick?",
+    "type": "text"
+  },
+  {
+    "id": 45,
+    "reply": true,
+    "added": "GenXFernzy.",
+    "key": "Lope u",
+    "response": "gamau ga suka gelay",
+    "type": "text"
+  },
+  {
+    "id": 46,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "dusk",
+    "response": {
+      "stanzaId": "3EB0F005C2CD",
+      "participant": "6285797957301@s.whatsapp.net",
+      "message": {
+        "audioMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AtlF_RwdZPbKVzU0iUHePVMS7XLEJ67lO-sNr8ZDlk41.enc",
+          "mimetype": "audio/mp4",
+          "fileSha256": "htLy7TS3eYr+fJH8SGWlQoE9bP03ZEtSVi2p9PIdkM8=",
+          "fileLength": "620806",
+          "seconds": 38,
+          "ptt": false,
+          "mediaKey": "rHj61G1PFnjwH+e8/Fv05jZmb/djD3BrDVbqImzyVgc=",
+          "fileEncSha256": "UKnukiOXIsae8iqdrkGIUz+xcIkJSCnTXYrAdOpbk/0="
+        }
+      }
+    },
+    "type": "audio"
+  },
+  {
+    "id": 47,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "loli",
+    "response": {
+      "stanzaId": "3EB0E0CE31B6",
+      "participant": "6285797957301@s.whatsapp.net",
+      "message": {
+        "audioMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/ArLDvWGiKeVrcDkG8fCxV7ONrGRGxVQxwE8Alvh6dbj2.enc",
+          "mimetype": "audio/mp4",
+          "fileSha256": "vy12u4u0RoS575qwG6hPzhbFa5hAMhCv7Bec2KYieDU=",
+          "fileLength": "185802",
+          "seconds": 23,
+          "ptt": false,
+          "mediaKey": "uqVOCYW/izlQMvAfTObkDdQEX08SsIVH1DTWeEcXLiQ=",
+          "fileEncSha256": "Jggr+fwZFpMAE1JT0ciFSheO9Q52CuB4PQ/skquFqXo="
+        }
+      }
+    },
+    "type": "audio"
+  },
+  {
+    "id": 48,
+    "reply": true,
+    "added": "MRHRTZ@kali:~#",
+    "key": "hehe",
+    "response": {
+      "stanzaId": "B5CD4B92109B8073C8417D64BA844705",
+      "participant": "6287744694471@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Ah3RqM5tsP98I7eJKxpJUFXqJdSACx3tAn_lUgfsNk4n.enc",
+          "fileSha256": "Yq+jjaqG9KBXBsM9Ne9emOCFmQtPr6ITHb8c5tV7zOs=",
+          "fileEncSha256": "FMxDNPYqzrsTP6MrVuYEAyKX+b63paphDjv4VaTwAfg=",
+          "mediaKey": "vDkwbCPgF3IIc22XzoX5vGi+LCDemgcAfaG3foL955M=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/19973998_274827034158027_5444883577708947399_n.enc?oh=fbd4903a1c8c575563b96998d7e8da4e&oe=6070FCD4",
+          "fileLength": "41610",
+          "mediaKeyTimestamp": "1615158758",
           "isAnimated": false
         }
       }
