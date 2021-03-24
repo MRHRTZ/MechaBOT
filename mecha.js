@@ -44,7 +44,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           console.log(`[ ${moment().format('HH:mm:ss')} ] Silahkan scan,,`)
      })
 
-     conn.on('credentials-updated', () => {
+     conn.on('contacts-received', () => {
           console.log(`Berhasil update kredensial`)
           const authInfo = conn.base64EncodedAuthInfo()
           fs.writeFileSync('./sessions/' + sesi + '.sesi.json', JSON.stringify(authInfo, null, 2))
