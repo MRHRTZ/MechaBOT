@@ -1,0 +1,9 @@
+{
+     "night": ["Malam hari telah tiba para serigala berkeliaran untuk memburu para penduduk","Setelah malam hari para serigala yang lapar ingin memangsa para warga","Pada malam hari semua serigala bergegas untuk mencari warga dan ingin memakannya"],
+     "day_happen": ["Matahari telah terbit sesuatu terjadi pada warga yang malang","Setelah pagi hari satu warga berteriak histeris melihat tetangganya berceceran darah","Keesokan harinya semua warga terkejut karena diantara mereka telah menjadi santapan para serigala"],
+     "day_normal": ["Pada pagi hari terdapat laporan, para serigala telah berkeliaran untuk memangsa warga","Penerawang mendapat suatu informasi yang berguna siapa serigala dan warga tersebut","Pada pagi hari semua warga berkumpul untuk mencari tau siapa para serigala tersebut"],
+     "kill": ["Ohh tidak serigala telah memakan salah satu warga 😨","Salah satu warga berteriak, nampaknya dia telah habis dimangsa serigala","Salah satu warga telah tewas, para serigala itu telah memburunya 😔"],
+     "protect": ["Salah satu serigala mencoba untuk menyerang warga tetapi terdapat penjaga yang mengawalinya..","Serigala mengamuk tetapi penjaga melindungi salah satu warga"],
+     "bad_ending": ["Sayangnya serigala telah mencapai kemenangan dan telah memburu semua warga", "Serigala memenangkan permainan ini.", "Warga tidak bisa apa-apa lagi sekarang."],
+     "happy_ending": ["Horee semua serigala telah digantung. 😄","Semua warga sekarang tenang dan damai, tidak ada lagi serigala yang mengintai mereka 🌈","Dan akhirnya semua serigala telah ditaklukan oleh warga"]
+}

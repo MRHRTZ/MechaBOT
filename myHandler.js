@@ -131,6 +131,7 @@ const {
      validmove,
      setGame
 } = require("./lib/tictactoe");
+const { getTempat, getDataJadwal } = require('./lib/jadwal-sholat')
 const {
      generateStr
 } = require("./lib/stringGenerator");
@@ -229,7 +230,7 @@ function remDup(data, key) {
      return [...new Map(data.map((x) => [key(x), x])).values()];
 }
 
-let vip = JSON.parse(fs.readFileSync("./lib/database/vip.json"));
+// let vip = JSON.parse(fs.readFileSync("./lib/database/vip.json"));
 
 let settings = JSON.parse(fs.readFileSync("./src/settings.json"));
 
@@ -247,6 +248,12 @@ function getRemaining(endtime) {
           minutes,
           seconds,
      };
+}
+
+let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
+let vip = []
+for (let vi of expvip) {
+     vip.push(vi.number)
 }
 
 let fspam = fs.readdirSync("./lib/database/filterspam");
@@ -334,7 +341,15 @@ function pushLimit(Jid, amount) {
                });
           }
      }
+     console.log({v:vip,j:Jid})
      if (data.length === 0) {
+          if (vip.includes(Jid))
+               return [{
+                    Status: true,
+                    Key: 0,
+                    Num: Jid,
+                    limit: "∞",
+               },];
           const pusheh = {
                active: true,
                key: obj.length + 1,
@@ -348,7 +363,7 @@ function pushLimit(Jid, amount) {
                Key: pusheh.key,
                Num: pusheh.number,
                limit: pusheh.limit,
-          }, ];
+          },];
      } else if (data.length > 0) {
           if (vip.includes(Jid))
                return [{
@@ -356,7 +371,7 @@ function pushLimit(Jid, amount) {
                     Key: 0,
                     Num: Jid,
                     limit: "∞",
-               }, ];
+               },];
           if (data[0].limit <= 0) {
                for (let o of obj) {
                     if (o.number == Jid) {
@@ -403,7 +418,7 @@ function giftLimit(Jid, amount) {
                Key: pusheh.key,
                Num: pusheh.number,
                limit: pusheh.limit,
-          }, ];
+          },];
      } else if (data.length > 0) {
           for (let o of obj) {
                if (o.number == Jid) {
@@ -444,7 +459,7 @@ function limitChecker(Jid, amount) {
                Key: pusheh.key,
                Num: pusheh.number,
                limit: pusheh.limit,
-          }, ];
+          },];
      } else if (data.length > 0) {
           for (let o of obj) {
                if (o.limit > 0) {
@@ -485,7 +500,7 @@ function takeLimit(Jid) {
                Key: pusheh.key,
                Num: pusheh.number,
                limit: pusheh.limit,
-          }, ];
+          },];
      } else if (data.length > 0) {
           for (let o of obj) {
                if (o.number == Jid) {
@@ -618,7 +633,8 @@ module.exports = handle = async (
      if (!hurtz.message) return;
      // fs.writeFileSync('./cpsw.json', JSON.stringify(hurtz, null, 2))
 
-     let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
+     
+
 
      const groupMines = JSON.parse(
           fs.readFileSync("./lib/database/group-minesweeper.json")
@@ -635,28 +651,28 @@ module.exports = handle = async (
      // console.log(type)
      type =
           type === "extendedTextMessage" &&
-          hurtz.message.extendedTextMessage.text.includes("@") ?
-          (type = "mentionedText") :
-          type;
+               hurtz.message.extendedTextMessage.text.includes("@") ?
+               (type = "mentionedText") :
+               type;
      // typed = type === 'extendedTextMessage' && Object.keys(hurtz.message.extendedTextMessage)[0].includes('matchedText') ? type = 'thumbnailText' : type
      const body =
           type == "conversation" ?
-          hurtz.message.conversation :
-          type == "mentionedText" ?
-          hurtz.message.extendedTextMessage.text :
-          type == "extendedTextMessage" ?
-          hurtz.message.extendedTextMessage.text :
-          type == "imageMessage" ?
-          hurtz.message.imageMessage.caption :
-          type == "stickerMessage" ?
-          "Sticker" :
-          type == "audioMessage" ?
-          "Audio" :
-          type == "videoMessage" ?
-          hurtz.message.videoMessage.caption :
-          type == "documentMessage" ?
-          "document" :
-          "[ NOT FOUND BODY @MechaBOT ]"; //hurtz.message
+               hurtz.message.conversation :
+               type == "mentionedText" ?
+                    hurtz.message.extendedTextMessage.text :
+                    type == "extendedTextMessage" ?
+                         hurtz.message.extendedTextMessage.text :
+                         type == "imageMessage" ?
+                              hurtz.message.imageMessage.caption :
+                              type == "stickerMessage" ?
+                                   "Sticker" :
+                                   type == "audioMessage" ?
+                                        "Audio" :
+                                        type == "videoMessage" ?
+                                             hurtz.message.videoMessage.caption :
+                                             type == "documentMessage" ?
+                                                  "document" :
+                                                  "[ NOT FOUND BODY @MechaBOT ]"; //hurtz.message
      const args = body.split(/ +/g);
      const cmd = body.toLowerCase().split(" ")[0] || "";
      const prf = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ?
@@ -674,53 +690,53 @@ module.exports = handle = async (
           type === "extendedTextMessage" && konten.includes("audioMessage");
      const typeQuoted =
           type === "extendedTextMessage" ?
-          Object.keys(
-               hurtz.message.extendedTextMessage.contextInfo ?
-               hurtz.message.extendedTextMessage.contextInfo.quotedMessage ?
-               hurtz.message.extendedTextMessage.contextInfo.quotedMessage : {
-                    mentionedText: "Created By MRHRTZ",
-               } : {
-                    thumbnailMessage: "MRHRTZ Jangan diganti error ntar nangid :v",
-               }
-          )[0] :
-          type;
+               Object.keys(
+                    hurtz.message.extendedTextMessage.contextInfo ?
+                         hurtz.message.extendedTextMessage.contextInfo.quotedMessage ?
+                              hurtz.message.extendedTextMessage.contextInfo.quotedMessage : {
+                                   mentionedText: "Created By MRHRTZ",
+                              } : {
+                              thumbnailMessage: "MRHRTZ Jangan diganti error ntar nangid :v",
+                         }
+               )[0] :
+               type;
      const mediaData =
           type === "extendedTextMessage" ?
-          typeQuoted === "thumbnailMessage" ?
-          hurtz :
-          JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message
-          .extendedTextMessage.contextInfo :
-          hurtz;
+               typeQuoted === "thumbnailMessage" ?
+                    hurtz :
+                    JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message
+                         .extendedTextMessage.contextInfo :
+               hurtz;
      // const ment = ''
      // console.log(body)
      // const ment = mediaData.message[(typeQuoted == 'mentionedText') ? 'extendedTextMessage' : (typeQuoted == 'thumbnailMessage') ? 'extendedTextMessage' : typeQuoted].contextInfo || '' //.contextInfo
      // console.log(ment)
      const bodyQuoted =
           typeQuoted == "conversation" ?
-          mediaData.message.conversation :
-          typeQuoted == "extendedTextMessage" ?
-          mediaData.message.extendedTextMessage.text :
-          typeQuoted == "imageMessage" ?
-          mediaData.message.imageMessage.caption :
-          typeQuoted == "stickerMessage" ?
-          "Sticker" :
-          typeQuoted == "audioMessage" ?
-          "Audio" :
-          typeQuoted == "videoMessage" ?
-          mediaData.message.videoMessage.caption :
-          typeQuoted == "documentMessage" ?
-          "document" :
-          typeQuoted == "thumbnailMessage" ?
-          mediaData :
-          mediaData.message;
+               mediaData.message.conversation :
+               typeQuoted == "extendedTextMessage" ?
+                    mediaData.message.extendedTextMessage.text :
+                    typeQuoted == "imageMessage" ?
+                         mediaData.message.imageMessage.caption :
+                         typeQuoted == "stickerMessage" ?
+                              "Sticker" :
+                              typeQuoted == "audioMessage" ?
+                                   "Audio" :
+                                   typeQuoted == "videoMessage" ?
+                                        mediaData.message.videoMessage.caption :
+                                        typeQuoted == "documentMessage" ?
+                                             "document" :
+                                             typeQuoted == "thumbnailMessage" ?
+                                                  mediaData :
+                                                  mediaData.message;
      settings.Debug ? console.log(JSON.stringify(hurtz)) : "";
      const isCmd = body.startsWith(prf);
      const query = args.slice(1).join(" ");
      const sender = self ?
           conn.user.jid :
           isGroup ?
-          hurtz.participant :
-          hurtz.key.remoteJid;
+               hurtz.participant :
+               hurtz.key.remoteJid;
      const botNumber = conn.user.jid;
      const noSym = /[-\s+]/g;
      const groupMetadata = isGroup ? await conn.groupMetadata(from) : "";
@@ -732,9 +748,9 @@ module.exports = handle = async (
      const isVideoMsg = type == "videoMessage" ? true : false;
      const isOwnerGroup = isGroup ?
           (await conn.groupMetadata(from)).owner ==
-          sender.replace("@s.whatsapp.net", "@c.us") ?
-          true :
-          false :
+               sender.replace("@s.whatsapp.net", "@c.us") ?
+               true :
+               false :
           "";
      const battery = JSON.parse(fs.readFileSync("./lib/database/batt.json"));
      const isGrupMines = groupMines.includes(from);
@@ -742,7 +758,7 @@ module.exports = handle = async (
      for (let exna of expvip) {
           expvipnum.push(exna.number);
      }
-     const isVIP = expvipnum.includes(sender);
+     const isVIP = vip.includes(sender);
      let adminGroups = [];
      const metadata = isGroup ? await conn.groupMetadata(from) : "";
      const partc = metadata.participants ? metadata.participants : [];
@@ -754,16 +770,7 @@ module.exports = handle = async (
      const isAdmin = adminGroups.includes(sender);
      const isBotAdmin = adminGroups.includes(botNumber);
 
-     // console.log(type)
-
-     // if (fs.existsSync(`./lib/tebak-gambar/${from}.json`)) {
-     //      const db_tebak = JSON.parse(fs.readFileSync(`./lib/tebak-gambar/${from}.json`))
-     //      console.log(db_tebak.status + ' status line 415')
-     //      if (!db_tebak.status) {
-     //           INFOLOG('Handling Expired Tebak Gambar')
-
-     //      }
-     // }
+     
 
      const datatoken = JSON.parse(
           fs.readFileSync("./lib/database/token-limit.json")
@@ -823,13 +830,13 @@ module.exports = handle = async (
                          bodyFormThen.append("token", gotdata.token);
                          bodyFormThen.append("convert", gotdata.convert);
                          Axios({
-                                   method: "post",
-                                   url: "https://ezgif.com/gif-to-mp4/" + gotdata.file,
-                                   data: bodyFormThen,
-                                   headers: {
-                                        "Content-Type": `multipart/form-data; boundary=${bodyFormThen._boundary}`,
-                                   },
-                              })
+                              method: "post",
+                              url: "https://ezgif.com/gif-to-mp4/" + gotdata.file,
+                              data: bodyFormThen,
+                              headers: {
+                                   "Content-Type": `multipart/form-data; boundary=${bodyFormThen._boundary}`,
+                              },
+                         })
                               .then(({
                                    data
                               }) => {
@@ -867,11 +874,11 @@ module.exports = handle = async (
 
      function reset() {
           var g = new Grid({
-                    width: 10,
-                    height: 10,
-                    name: "Standart grid",
-                    nbbombs: 10,
-               })
+               width: 10,
+               height: 10,
+               name: "Standart grid",
+               nbbombs: 10,
+          })
                .initMap()
                .spawnBombs(0, 0)
                .show(true);
@@ -935,8 +942,8 @@ module.exports = handle = async (
                     str += c.isBomb ? "x " : c.nb + " ";
                     output.push(
                          c.isBomb ?
-                         output[Math.floor(Math.random(output.length + 1))] + " " :
-                         c.nb + " "
+                              output[Math.floor(Math.random(output.length + 1))] + " " :
+                              c.nb + " "
                     ); //random or gameover
                });
                str += "\n";
@@ -1031,7 +1038,8 @@ module.exports = handle = async (
           });
      }
 
-     function balas(dari, text) {
+     async function balas(dari, text) {
+          await conn.updatePresence(dari, 'composing')
           conn.sendMessage(dari, text, TypePsn.text, {
                quoted: hurtz,
           });
@@ -1058,16 +1066,18 @@ module.exports = handle = async (
                )
           )
                return console.error(`Not a valid url!`);
+          await conn.updatePresence(dari, 'composing')
           const caption = text || "";
           request({
-                    url: url,
-                    encoding: null,
-               },
-               (err, resp, buffer) => {
+               url: url,
+               encoding: null,
+          },
+               async (err, resp, buffer) => {
                     conn.sendMessage(dari, buffer, type, {
                          quoted: hurtz,
                          caption: caption,
                     });
+                    await conn.updatePresence(dari, 'paused')
                }
           );
      }
@@ -1097,9 +1107,9 @@ module.exports = handle = async (
                return console.error(`Not a valid url!`);
           const caption = text || "";
           request({
-                    url: url,
-                    encoding: null,
-               },
+               url: url,
+               encoding: null,
+          },
                (err, resp, buffer) => {
                     conn.sendMessage(dari, buffer, type, {
                          caption: caption,
@@ -1210,9 +1220,8 @@ Contoh : *!guess naruto*
                const statusKontak =
                     presence.lastKnownPresence === "composing" ? "sedang mengetik" : "";
                INFOLOG(
-                    `${presence.name} sekarang ${statusKontak} di ${
-          isGroup ? groupName : pushname
-        }`
+                    `${presence.name} sekarang ${statusKontak} di ${isGroup ? groupName : pushname
+                    }`
                );
           });
      }
@@ -1251,9 +1260,8 @@ Contoh : *!guess naruto*
                color(args[0]),
                "dari",
                color(pushname),
-               `${
-        idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-      }`,
+               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
+               }`,
                "Urutan",
                color(urutan_pesan)
           );
@@ -1265,9 +1273,8 @@ Contoh : *!guess naruto*
                color(msgout ? body : "pesan"),
                "dari",
                color(pushname),
-               `${
-        idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-      }`,
+               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
+               }`,
                "Urutan",
                color(urutan_pesan)
           );
@@ -1281,9 +1288,8 @@ Contoh : *!guess naruto*
                color(pushname),
                "di",
                color(groupName),
-               `${
-        idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-      }`,
+               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
+               }`,
                "Urutan",
                color(urutan_pesan)
           );
@@ -1297,9 +1303,8 @@ Contoh : *!guess naruto*
                color(pushname),
                "di",
                color(groupName),
-               `${
-        idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-      }`,
+               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
+               }`,
                "Urutan",
                color(urutan_pesan)
           );
@@ -1410,6 +1415,16 @@ Contoh : *!guess naruto*
      // if (mtchat) return
      if (mtchat) return;
 
+     if (isVIP && hurtz.message) {
+          const vipIndexNa = vip.indexOf(sender)
+          const sekarangTime = new Date().getTime()
+          if (expvip[vipIndexNa].expired_on < sekarangTime) {
+               expvip.splice(vipIndexNa, 1)
+               balas(from, `Durasi vip anda telah habis dan dihapus dari database 😔`)
+               fs.writeFileSync("./lib/database/expvip.json", JSON.stringify(expvip, null, 2))
+          }
+     }
+
      let arrNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
      if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
           const boardnow = setGame(`${from}`);
@@ -1454,11 +1469,11 @@ Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
                          from,
                          `Opsi ini hanya untuk @${boardnow.O} !`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [boardnow.O + "@s.whatsapp.net"],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [boardnow.O + "@s.whatsapp.net"],
+                         },
+                    }
                     );
                }
           } else if (
@@ -1474,22 +1489,22 @@ Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
                          from,
                          `Sayangnya tantangan @${boardnow.X} ditolak ❌😕`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [boardnow.X + "@s.whatsapp.net"],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [boardnow.X + "@s.whatsapp.net"],
+                         },
+                    }
                     );
                } else {
                     conn.sendMessage(
                          from,
                          `Opsi ini hanya untuk @${boardnow.O} !`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [boardnow.O + "@s.whatsapp.net"],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [boardnow.O + "@s.whatsapp.net"],
+                         },
+                    }
                     );
                }
           }
@@ -1532,8 +1547,8 @@ Kalah = - ${limLoose}  ❌
                     contextInfo: {
                          mentionedJid: [
                               moving.winner == "O" ?
-                              moving.O + "@s.whatsapp.net" :
-                              moving.X + "@s.whatsapp.net",
+                                   moving.O + "@s.whatsapp.net" :
+                                   moving.X + "@s.whatsapp.net",
                          ],
                     },
                });
@@ -1631,7 +1646,6 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     TypePsn.audio,
                     response_db[index_kunci].reply ? {
                          quoted: hurtz,
-                         ptt: true,
                     } : {}
                );
           }
@@ -1845,8 +1859,8 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     from,
                     `Pengisian ulang semua sukses untuk limit ${add.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]} ketik !limit untuk cek limit kamu.\`\`\``,
                     TypePsn.text, {
-                         quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
-                    }
+                    quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
+               }
                );
           } else if (cmd == `${prf}reset`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`);
@@ -1858,13 +1872,13 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                INFOLOG(reset);
                conn.sendMessage(
                     from,
-                    `Reset sukses untuk limit ${reset.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]} ketik !limit untuk cek limit kamu.\`\`\``,
+                    `Reset sukses untuk limit ${reset.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[1]} ketik !limit untuk cek limit kamu.\`\`\``,
                     TypePsn.text, {
-                         quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
-                         contextInfo: {
-                              mentionedJid: [jidna],
-                         },
-                    }
+                    quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
+                    contextInfo: {
+                         mentionedJid: [jidna],
+                    },
+               }
                );
           } else if (cmd == `${prf}gift`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`);
@@ -1874,17 +1888,15 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                INFOLOG(gift);
                conn.sendMessage(
                     from,
-                    `Selamat ${
-          "@" + args[1].replace("@", "")
-        } 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${
-          args[2]
-        } ketik !limit untuk cek limit kamu.\`\`\``,
+                    `Selamat ${"@" + args[1].replace("@", "")
+                    } 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[2]
+                    } ketik !limit untuk cek limit kamu.\`\`\``,
                     TypePsn.text, {
-                         quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
-                         contextInfo: {
-                              mentionedJid: [jidna],
-                         },
-                    }
+                    quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
+                    contextInfo: {
+                         mentionedJid: [jidna],
+                    },
+               }
                );
           } else if (cmd == `${prf}take`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`);
@@ -1894,15 +1906,14 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                INFOLOG(gift);
                conn.sendMessage(
                     from,
-                    `Sayangnya limit ${
-          "@" + args[1].replace("@", "")
-        } telah diambil 😔❌\n\n\`\`\`Limit anda telah dikosongkan ketik !limit untuk cek limit kamu.\`\`\``,
+                    `Sayangnya limit ${"@" + args[1].replace("@", "")
+                    } telah diambil 😔❌\n\n\`\`\`Limit anda telah dikosongkan ketik !limit untuk cek limit kamu.\`\`\``,
                     TypePsn.text, {
-                         quoted: customQuote("LIMIT TAKE [ MechaBot ]"),
-                         contextInfo: {
-                              mentionedJid: [jidna],
-                         },
-                    }
+                    quoted: customQuote("LIMIT TAKE [ MechaBot ]"),
+                    contextInfo: {
+                         mentionedJid: [jidna],
+                    },
+               }
                );
           } else if (cmd == `${prf}promote`) {
                if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`);
@@ -1933,11 +1944,11 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -1958,9 +1969,9 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     balas(
                          from,
                          `Terima kasih telah menggunakan MechaBOT 😇\n\n*Token : ${generator}*\n\n\`\`\`Penggunaan : !claim <token>\nContoh : !claim XXXX-XXXX-XXXX-XXXX\`\`\`\n\n\n\n_Note : Token untuk tambah limit ini hanya berfungsi untuk satu kali klaim saja! dan untuk klaim silahkan kirim pesan digrup bot atau chat bot langsung [ wa.me/${conn.user.jid.replace(
-            "@s.whatsapp.net",
-            ""
-          )} ]_`
+                              "@s.whatsapp.net",
+                              ""
+                         )} ]_`
                     );
                     fs.writeFileSync(
                          "./lib/database/token-limit.json",
@@ -1978,17 +1989,15 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                          INFOLOG(`Sukses Claim ${args[1]}`);
                          conn.sendMessage(
                               from,
-                              `Selamat yaa ${
-              "@" + sender.replace("@s.whatsapp.net", "")
-            } 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${
-              datatoken[tokenIndex].nominal
-            } ketik !limit untuk cek limit kamu.\`\`\``,
+                              `Selamat yaa ${"@" + sender.replace("@s.whatsapp.net", "")
+                              } 😄✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${datatoken[tokenIndex].nominal
+                              } ketik !limit untuk cek limit kamu.\`\`\``,
                               TypePsn.text, {
-                                   quoted: customQuote("Success Claim Token [ MechaBot ]"),
-                                   contextInfo: {
-                                        mentionedJid: [sender],
-                                   },
-                              }
+                              quoted: customQuote("Success Claim Token [ MechaBot ]"),
+                              contextInfo: {
+                                   mentionedJid: [sender],
+                              },
+                         }
                          );
                          datatoken.splice(tokenIndex, 1);
                          fs.writeFileSync(
@@ -2007,7 +2016,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                cmd == `${prf}ighashtag` ||
                cmd == `${prf}hashtagig` ||
                cmd == `${prf}hashtag`
-          ) {} else if (cmd == `${prf}searchig` || cmd == `${prf}igsearch`) {
+          ) { } else if (cmd == `${prf}searchig` || cmd == `${prf}igsearch`) {
                searchUser(query)
                     .then((us) => {
                          let searchigcapt = `*Hasil pencarian user instagram ${query}*\n\n`;
@@ -2054,17 +2063,8 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     const idRegex = /([-_0-9A-Za-z]{11})/;
                     const idIGG = args[1].match(idRegex);
                     await getPost(idIGG[0]).then((post) => {
-                         let a = new Date(post.date * 1000);
-                         const jam = a.getHours();
-                         const menit = a.getMinutes();
-                         const bulan = a.getMonth();
-                         const tanggal = a.getDate();
-                         const tahun = a.getFullYear();
-                         const captig = `*Media berhasil terkirim!*\n\n*Username* : ${
-            post.owner_user
-          }\n*Waktu Publish* : ${jam}:${menit} ${tanggal}-${
-            arrBln[bulan - 1]
-          }-${tahun}\n*Capt* : ${post.capt}`;
+                         const captig = `*Media berhasil terkirim!*\n\n*Username* : ${post.owner_user
+                              }\n*Waktu Publish* : ${moment(post.date * 1000).format('hh:mm:ss DD:MM:YYYY')}\n*Capt* : ${post.capt}`;
                          sendDariUrl(
                               from,
                               post.url,
@@ -2075,6 +2075,72 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     });
                } catch (err) {
                     ERRLOG(err);
+               }
+          } else if (cmd == `${prf}jadwalsholat` || cmd == `${prf}jadwaladzan` || cmd == `${prf}sholat` || cmd == `${prf}adzan`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!jadwalsholat <tempat>*\nContoh : *!jadwalsholat bandung*`)
+               getDataJadwal(query)
+                    .then(rest => {
+                         let strAdzan = `🕌 *Jadwal sholat ${rest.result.kota} ${rest.result.bulan} 🌙🌟*
+
+*Arah* : ${rest.result.arah}
+*Jarak* : ${rest.result.jarak}
+
+*Penetapan waktu*
+
+*Shubuh* : ${rest.result.penetapan_waktu.shubuh}
+*Ashar* : ${rest.result.penetapan_waktu.ashar}
+*Isya* : ${rest.result.penetapan_waktu.isya}
+*Imsyak* : ${rest.result.penetapan_waktu.imsyak}
+*Jadwal diberi* : ${rest.result.penetapan_waktu.jadwal_diberi}
+
+
+
+*Jadwal sholat menurut tanggal*
+
+                    `
+                         for (let shlt of rest.result.jadwal) {
+                              strAdzan += `\n*Tanggal* : ${shlt.tanggal}
+*Shubuh* : ${shlt.shubuh}
+*Dzuhur* : ${shlt.dzuhur}
+*Ashar* : ${shlt.ashar}
+*Magrib* : ${shlt.magrib}
+*Isya* : ${shlt.isya}\n`
+
+                         }
+                         balas(from, strAdzan)
+                    })
+                    .catch(rest => {
+                         balas(from, `*${rest.message}*\n\n*List kota yg tersedia* : ${rest.list_kota.join(', ')}`)
+                    })
+          } else if (cmd == 'p' && isOwner) {
+               balas(nomerOwner, `ID : ${util.format(hurtz.key)}`)
+          } else if (cmd == '.' && isOwner) {
+               if (args.length > 1) {
+                    const messags = conn.prepareMessageFromContent(
+                         from,
+                         conn.prepareDisappearingMessageSettingContent(99999999),
+                         {}
+                    )
+                    await conn.relayWAMessage(messags, { waitForAck: true })
+                    const message = conn.prepareMessageFromContent(
+                         args[1],
+                         conn.prepareDisappearingMessageSettingContent(Number(args[1])),
+                         {}
+                    )
+                    await conn.relayWAMessage(message, { waitForAck: true })
+               } else {
+                    const messags = conn.prepareMessageFromContent(
+                         from,
+                         conn.prepareDisappearingMessageSettingContent(99999999),
+                         {}
+                    )
+                    await conn.relayWAMessage(messags, { waitForAck: true })
+                    const message = conn.prepareMessageFromContent(
+                         from,
+                         conn.prepareDisappearingMessageSettingContent(0),
+                         {}
+                    )
+                    await conn.relayWAMessage(message, { waitForAck: true })
                }
           } else if (cmd == `${prf}limit`) {
                // console.log(body)
@@ -2091,9 +2157,8 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     // console.log(hi)
                     const capt = `Hai ${args[1]} ☺️
      
-*Limit anda sekarang* : ${
-          Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"
-        }
+*Limit anda sekarang* : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"
+                         }
 
 _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dalam satu bulan.\`\`\`\n\nHave a nice day!✨
                     `;
@@ -2110,9 +2175,8 @@ _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dal
                     const hi = pushLimit(sender, 0);
                     const capt = `Hai ${pushname} ☺️
 
-*Limit anda sekarang* : ${
-          Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"
-        }
+*Limit anda sekarang* : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"
+                         }
 
 _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dalam satu bulan.\`\`\`\n\nHave a nice day!✨
                `;
@@ -2132,11 +2196,11 @@ _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dal
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2181,11 +2245,11 @@ _________________________________________
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2267,11 +2331,11 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2342,8 +2406,8 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                                    });
                                    //Send MP3
                                    Axios.get(dl_link, {
-                                             responseType: "arraybuffer",
-                                        })
+                                        responseType: "arraybuffer",
+                                   })
                                         .then((response) => {
                                              const buffer_yt3 = Buffer.from(response.data, "base64");
                                              conn.sendMessage(from, buffer_yt3, TypePsn.audio, {
@@ -2371,11 +2435,11 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2386,8 +2450,8 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                     })
                     .catch(
                          (e) =>
-                         balas(from, `Lagu tidak ditemukan!`) &&
-                         balas(nomerOwner[0], util.format(e))
+                              balas(from, `Lagu tidak ditemukan!`) &&
+                              balas(nomerOwner[0], util.format(e))
                     );
           } else if (cmd == `${prf}pinterest`) {
                if (!cekLimit(sender, settings.Limit)) {
@@ -2395,11 +2459,11 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2435,8 +2499,8 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                balas(
                     from,
                     `Presentase yang anda dapatkan adalah *${Math.floor(
-          Math.random() * 101
-        )}%*`
+                         Math.random() * 101
+                    )}%*`
                );
           } else if (cmd == `${prf}response` || cmd == `${prf}respon`) {
                let captions = `Penggunaan : 
@@ -2481,19 +2545,19 @@ Contoh :
                          );
                     let taip =
                          body.split("|")[1].toLowerCase() == "[img]" ||
-                         body.split("|")[1].toLowerCase() == "[image]" ?
-                         "image" :
-                         body.split("|")[1].toLowerCase().includes("[vid]") ||
-                         body.split("|")[1].toLowerCase().includes("[video]") ?
-                         "video" :
-                         body.split("|")[1].toLowerCase().includes("[stk]") ||
-                         body.split("|")[1].toLowerCase().includes("[stiker]") ||
-                         body.split("|")[1].toLowerCase().includes("[sticker]") ?
-                         "sticker" :
-                         body.split("|")[1].toLowerCase().includes("[aud]") ||
-                         body.split("|")[1].toLowerCase().includes("[audio]") ?
-                         "audio" :
-                         "text";
+                              body.split("|")[1].toLowerCase() == "[image]" ?
+                              "image" :
+                              body.split("|")[1].toLowerCase().includes("[vid]") ||
+                                   body.split("|")[1].toLowerCase().includes("[video]") ?
+                                   "video" :
+                                   body.split("|")[1].toLowerCase().includes("[stk]") ||
+                                        body.split("|")[1].toLowerCase().includes("[stiker]") ||
+                                        body.split("|")[1].toLowerCase().includes("[sticker]") ?
+                                        "sticker" :
+                                        body.split("|")[1].toLowerCase().includes("[aud]") ||
+                                             body.split("|")[1].toLowerCase().includes("[audio]") ?
+                                             "audio" :
+                                             "text";
                     if (taip == "image") {
                          if (!isQuotedImage && !isImageMsg)
                               return balas(
@@ -2542,9 +2606,8 @@ Contoh :
                     );
                     balas(
                          from,
-                         `*Data Berhasil ditambahkan!*\n\nDetail :\n\nKey : ${
-            body.split(" ").slice(2).join(" ").split("|")[0]
-          }\nType : ${taip}\nResponse : ${body.split("|")[1]}\nReply : ✅`
+                         `*Data Berhasil ditambahkan!*\n\nDetail :\n\nKey : ${body.split(" ").slice(2).join(" ").split("|")[0]
+                         }\nType : ${taip}\nResponse : ${body.split("|")[1]}\nReply : ✅`
                     );
                } else if (args[1] == "tambahtanpatag") {
                     if (args.length < 3)
@@ -2584,9 +2647,8 @@ Contoh :
                     );
                     balas(
                          from,
-                         `*Data Berhasil ditambahkan!*\n\nDetail :\n\nKey : ${
-            body.split(" ").slice(2).join(" ").split("|")[0]
-          }\nResponse : ${body.split("|")[1]}\nReply : ❌`
+                         `*Data Berhasil ditambahkan!*\n\nDetail :\n\nKey : ${body.split(" ").slice(2).join(" ").split("|")[0]
+                         }\nResponse : ${body.split("|")[1]}\nReply : ❌`
                     );
                } else if (args[1] == "hapus" || args[1] == "delete") {
                     if (args.length < 3)
@@ -2616,18 +2678,16 @@ Contoh :
                     balas(
                          from,
                          `*Data berhasil dihapus!*\n\nKey : ${body
-            .split(" ")
-            .slice(2)
-            .join(" ")}`
+                              .split(" ")
+                              .slice(2)
+                              .join(" ")}`
                     );
                } else if (args[1] == "list") {
                     let captions_list = `*Menampilkan seluruh respon bot*\n\nTotal Response : ${response_db.length}\n\n`;
                     for (let i = 0; i < response_db.length; i++) {
-                         captions_list += `\nNO : ${1 + i}\nDitambahkan Oleh : ${
-            response_db[i].added
-          }\nKunci : ${response_db[i].key}\nRespon : ${
-            response_db[i].response
-          }\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`;
+                         captions_list += `\nNO : ${1 + i}\nDitambahkan Oleh : ${response_db[i].added
+                              }\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response
+                              }\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`;
                     }
                     balas(from, captions_list);
                }
@@ -2636,6 +2696,20 @@ Contoh :
                Search(query)
                     .then(res => {
                          if (res.items.length < 1) return balas(from, `Mohon maaf kata kunci tersebut salah atau tidak ditemukan`)
+                         if (!cekLimit(sender, settings.Limit)) {
+                              conn.sendMessage(
+                                   from,
+                                   `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                                   TypePsn.text, {
+                                   quoted: hurtz,
+                                   contextInfo: {
+                                        mentionedJid: [nomerOwner[0]],
+                                   },
+                              }
+                              );
+                              return;
+                         }
+                         pushLimit(sender, 1);
                          let data = `[ *Hasil pencarian tidal dari ${query}* ]\n\nNote : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!gettidal urutan*\ncontoh : *!gettidal 2*\n\n`
                          for (let i = 0; i < res.items.length; i++) {
                               data += `================================================
@@ -2665,6 +2739,20 @@ Contoh :
                if (type === 'extendedTextMessage' && !bodyQuoted.includes('Hasil pencarian tidal dari')) {
                     balas(from, `Mohon tag pencarian tidal apabila menggunakan urutan nomer!`)
                } else if (type === 'extendedTextMessage' && bodyQuoted.includes('Hasil pencarian tidal dari')) {
+                    if (!cekLimit(sender, settings.Limit)) {
+                         conn.sendMessage(
+                              from,
+                              `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                              TypePsn.text, {
+                              quoted: hurtz,
+                              contextInfo: {
+                                   mentionedJid: [nomerOwner[0]],
+                              },
+                         }
+                         );
+                         return;
+                    }
+                    pushLimit(sender, 2);
                     const idtidal = bodyQuoted.split('(#)')
                     TrackInfo(idtidal[Number(args[1])])
                          .then(res => {
@@ -2694,9 +2782,9 @@ Contoh :
                                         // console.log(result)
                                         balas(from, captTidal)
                                         request({
-                                                  url: result.audiodata.url,
-                                                  encoding: null,
-                                             },
+                                             url: result.audiodata.url,
+                                             encoding: null,
+                                        },
                                              (err, resp, buffer) => {
                                                   conn.sendMessage(from, buffer, TypePsn.document, {
                                                        quoted: hurtz,
@@ -2712,6 +2800,20 @@ Contoh :
                                    })
                          })
                } else if (type != 'extendedTextMessage') {
+                    if (!cekLimit(sender, settings.Limit)) {
+                         conn.sendMessage(
+                              from,
+                              `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                              TypePsn.text, {
+                              quoted: hurtz,
+                              contextInfo: {
+                                   mentionedJid: [nomerOwner[0]],
+                              },
+                         }
+                         );
+                         return;
+                    }
+                    pushLimit(sender, 2);
                     TrackInfo(query)
                          .then(res => {
                               // console.log(res)
@@ -2740,9 +2842,9 @@ Contoh :
                                         // console.log(result)
                                         balas(from, captTidal)
                                         request({
-                                                  url: result.audiodata.url,
-                                                  encoding: null,
-                                             },
+                                             url: result.audiodata.url,
+                                             encoding: null,
+                                        },
                                              (err, resp, buffer) => {
                                                   conn.sendMessage(from, buffer, TypePsn.document, {
                                                        quoted: hurtz,
@@ -2763,6 +2865,20 @@ Contoh :
                Search(query)
                     .then(async (res) => {
                          if (res.items.length < 1) return balas(from, `Mohon maaf kata kunci tersebut salah atau tidak ditemukan`)
+                         if (!cekLimit(sender, settings.Limit)) {
+                              conn.sendMessage(
+                                   from,
+                                   `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                                   TypePsn.text, {
+                                   quoted: hurtz,
+                                   contextInfo: {
+                                        mentionedJid: [nomerOwner[0]],
+                                   },
+                              }
+                              );
+                              return;
+                         }
+                         pushLimit(sender, 2);
                          StreamGet(res.items[0].id)
                               .then(async (got) => {
                                    const result = {
@@ -2789,9 +2905,9 @@ Contoh :
                                    // console.log(result)
                                    balas(from, captTidal)
                                    request({
-                                             url: result.audiodata.url,
-                                             encoding: null,
-                                        },
+                                        url: result.audiodata.url,
+                                        encoding: null,
+                                   },
                                         (err, resp, buffer) => {
                                              conn.sendMessage(from, buffer, TypePsn.document, {
                                                   quoted: hurtz,
@@ -2824,11 +2940,11 @@ Contoh :
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2837,11 +2953,11 @@ Contoh :
                const colour = body.split("|")[1] || "";
                text2img(text, colour).then((x) => {
                     Axios.request({
-                              method: "GET",
-                              url: x.result,
-                              responseType: "arraybuffer",
-                              responseEncoding: "binary",
-                         })
+                         method: "GET",
+                         url: x.result,
+                         responseType: "arraybuffer",
+                         responseEncoding: "binary",
+                    })
                          .then(({
                               data
                          }) => {
@@ -2908,11 +3024,11 @@ Contoh :
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2942,11 +3058,11 @@ Contoh :
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -2977,11 +3093,11 @@ Contoh :
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3041,11 +3157,11 @@ Video : ${vid_post_}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3089,11 +3205,11 @@ Video : ${vid_post_}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3180,11 +3296,11 @@ Video : ${vid_post_}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3194,9 +3310,8 @@ Video : ${vid_post_}
                     .then((res) => {
                          remote(res.download[0], (e, o) => {
                               Axios.get(
-                                   `https://tinyurl.com/api-create.php?url=${
-                res.download.length > 1 ? res.download[1] : res.download[0]
-              }`
+                                   `https://tinyurl.com/api-create.php?url=${res.download.length > 1 ? res.download[1] : res.download[0]
+                                   }`
                               ).then((a) => {
                                    const size = getFilesizeFromBytes(o);
                                    let captions = `*Data Berhasil didapatkan*
@@ -3204,13 +3319,12 @@ Video : ${vid_post_}
 *Title* : ${res.title}
 *Ext* : MP4
 *Filesize* : ${size}
-${
-  Number(o) > 100000000
-    ? "*Link Download* : " +
-      a.data +
-      "\n\n\n_Untuk video melebihi batas size disajikan dalam bentuk link._"
-    : ""
-}`;
+${Number(o) > 100000000
+                                             ? "*Link Download* : " +
+                                             a.data +
+                                             "\n\n\n_Untuk video melebihi batas size disajikan dalam bentuk link._"
+                                             : ""
+                                        }`;
                                    // console.log(o)
                                    if (Number(o) < 100000000) {
                                         sendDariUrl(from, res.download[0], TypePsn.video, captions);
@@ -3255,11 +3369,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3282,11 +3396,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3309,11 +3423,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3336,11 +3450,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3362,11 +3476,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3389,11 +3503,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3416,11 +3530,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3443,11 +3557,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3470,11 +3584,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3496,11 +3610,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3523,11 +3637,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3550,11 +3664,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3577,11 +3691,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3604,11 +3718,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3631,11 +3745,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3659,11 +3773,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3687,11 +3801,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3718,11 +3832,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3754,11 +3868,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3781,11 +3895,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3808,11 +3922,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3835,11 +3949,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3862,11 +3976,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3889,11 +4003,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3924,11 +4038,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3959,11 +4073,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -3994,11 +4108,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4029,11 +4143,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4064,11 +4178,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4099,11 +4213,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4136,11 +4250,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4171,11 +4285,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4209,11 +4323,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4241,11 +4355,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4273,11 +4387,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4302,11 +4416,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4337,11 +4451,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4372,11 +4486,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4407,11 +4521,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4429,8 +4543,8 @@ ${
                                         re.result,
                                         TypePsn.video,
                                         `Dah jadi ni ${pushname}`, {
-                                             mimetype: Mimetype.gif,
-                                        }
+                                        mimetype: Mimetype.gif,
+                                   }
                                    );
                               })
                               .catch((e) => console.log(e));
@@ -4448,11 +4562,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4477,11 +4591,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4506,11 +4620,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4535,11 +4649,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4564,11 +4678,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4593,20 +4707,20 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
                pushLimit(sender, 1);
                googleKeyword(
-                         body.slice(15).split("|")[0],
-                         body.split("|")[1],
-                         body.split("|")[2]
-                    )
+                    body.slice(15).split("|")[0],
+                    body.split("|")[1],
+                    body.split("|")[2]
+               )
                     .then((rest) => {
                          sendDariUrl(
                               from,
@@ -4687,12 +4801,12 @@ ${
                     "END:VCARD";
                await conn.sendMessage(
                     from, {
-                         displayname: "Jeff",
-                         vcard: vcard,
-                    },
+                    displayname: "Jeff",
+                    vcard: vcard,
+               },
                     MessageType.contact, {
-                         quoted: hurtz,
-                    }
+                    quoted: hurtz,
+               }
                );
           } else if (cmd == `${prf}upstory`) {
                if (!isOwner) return balas(from, `Owner Only!`);
@@ -4713,8 +4827,8 @@ ${
                          "status@broadcast",
                          fs.readFileSync(docsender),
                          TypePsn.document, {
-                              mimetype: "application/octet-stream",
-                         }
+                         mimetype: "application/octet-stream",
+                    }
                     );
                     balas(from, "Berhasil Upstory Document!");
                     fs.unlinkSync(docsender);
@@ -4742,8 +4856,8 @@ ${
                          "status@broadcast",
                          fs.readFileSync(snapFileImg),
                          TypePsn.image, {
-                              caption: captImg,
-                         }
+                         caption: captImg,
+                    }
                     );
                     balas(from, "Berhasil Upstory Image!");
                     fs.unlinkSync(snapFileImg);
@@ -4760,9 +4874,9 @@ ${
                          "status@broadcast",
                          fs.readFileSync(snapFileVid),
                          TypePsn.video, {
-                              mimetype: Mimetype.mp4,
-                              caption: captVid,
-                         }
+                         mimetype: Mimetype.mp4,
+                         caption: captVid,
+                    }
                     );
                     balas(from, "Berhasil Upstory Video!");
                     fs.unlinkSync(snapFileVid);
@@ -4798,9 +4912,9 @@ ${
                               "END:VCARD";
                          conn.sendMessage(
                               from, {
-                                   displayName: namakontak,
-                                   vcard: kontak,
-                              },
+                              displayName: namakontak,
+                              vcard: kontak,
+                         },
                               TypePsn.contact
                          );
                     }
@@ -4813,11 +4927,11 @@ ${
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -4849,11 +4963,11 @@ ${
                          from,
                          `Penggunaan : *votestart <@tagMember> <Alasan>*\nContoh : votestart @6285559038021 maenin bot`,
                          TypePsn.text, {
-                              contextInfo: {
-                                   mentionedJid: ["6285559038021@s.whatsapp.net"],
-                              },
-                              quoted: hurtz,
-                         }
+                         contextInfo: {
+                              mentionedJid: ["6285559038021@s.whatsapp.net"],
+                         },
+                         quoted: hurtz,
+                    }
                     );
                const filepathvote = `${from}.json`;
                const pathdb = "./lib/database/vote";
@@ -4884,19 +4998,17 @@ ${
                               if (e) return console.log(e);
                               conn.sendMessage(
                                    from,
-                                   `*Memulai voting!*\n\nMax Vote : ${
-                settings.Vote.Max
-              } Orang\nTarget : ${args[1]}\nAlasan : ${args
-                .slice(2)
-                .join(" ")}\nExpired time : ${
-                settings.Vote.Expired
-              } menit\n\n_Note : Max vote dan expired time bisa disetting dengan ketik *votesetting*_\n\nAnda bisa vote dengan ketik *vote* atau *devote*\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``,
+                                   `*Memulai voting!*\n\nMax Vote : ${settings.Vote.Max
+                                   } Orang\nTarget : ${args[1]}\nAlasan : ${args
+                                        .slice(2)
+                                        .join(" ")}\nExpired time : ${settings.Vote.Expired
+                                   } menit\n\n_Note : Max vote dan expired time bisa disetting dengan ketik *votesetting*_\n\nAnda bisa vote dengan ketik *vote* atau *devote*\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``,
                                    TypePsn.text, {
-                                        contextInfo: {
-                                             mentionedJid: [args[1].replace("@", "") + "@s.whatsapp.net"],
-                                        },
-                                        quoted: hurtz,
-                                   }
+                                   contextInfo: {
+                                        mentionedJid: [args[1].replace("@", "") + "@s.whatsapp.net"],
+                                   },
+                                   quoted: hurtz,
+                              }
                               );
                          }
                     );
@@ -4954,13 +5066,13 @@ ${
                                    from,
                                    `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n*${db_vote.target} ${db_vote.reason}!*`,
                                    TypePsn.text, {
-                                        quoted: hurtz,
-                                        contextInfo: {
-                                             mentionedJid: [
-                                                  db_vote.target.replace("@", "") + "@s.whatsapp.net",
-                                             ],
-                                        },
-                                   }
+                                   quoted: hurtz,
+                                   contextInfo: {
+                                        mentionedJid: [
+                                             db_vote.target.replace("@", "") + "@s.whatsapp.net",
+                                        ],
+                                   },
+                              }
                               );
                               fs.unlinkSync(pathdb + "/" + filepathvote);
                          } else if (posi.length <= nega.length - 1) {
@@ -4968,8 +5080,8 @@ ${
                                    from,
                                    `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n`,
                                    TypePsn.text, {
-                                        quoted: hurtz,
-                                   }
+                                   quoted: hurtz,
+                              }
                               );
                               fs.unlinkSync(pathdb + "/" + filepathvote);
                          }
@@ -4990,21 +5102,20 @@ ${
                               if (e) return console.log(e);
                               let caption_vote = "";
                               for (let i = 0; i < db_vote.pushvote.length; i++) {
-                                   caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${
-                db_vote.pushvote[i].purpose
-              }\n`;
+                                   caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose
+                                        }\n`;
                               }
                               conn.sendMessage(
                                    from,
                                    `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``,
                                    TypePsn.text, {
-                                        quoted: hurtz,
-                                        contextInfo: {
-                                             mentionedJid: [
-                                                  db_vote.target.replace("@", "") + "@s.whatsapp.net",
-                                             ],
-                                        },
-                                   }
+                                   quoted: hurtz,
+                                   contextInfo: {
+                                        mentionedJid: [
+                                             db_vote.target.replace("@", "") + "@s.whatsapp.net",
+                                        ],
+                                   },
+                              }
                               );
                          }
                     );
@@ -5043,13 +5154,13 @@ ${
                                    from,
                                    `Voting diterima ✅\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}\n\n*${db_vote.target} ${db_vote.reason}!*`,
                                    TypePsn.text, {
-                                        quoted: hurtz,
-                                        contextInfo: {
-                                             mentionedJid: [
-                                                  db_vote.target.replace("@", "") + "@s.whatsapp.net",
-                                             ],
-                                        },
-                                   }
+                                   quoted: hurtz,
+                                   contextInfo: {
+                                        mentionedJid: [
+                                             db_vote.target.replace("@", "") + "@s.whatsapp.net",
+                                        ],
+                                   },
+                              }
                               );
                               fs.unlinkSync(pathdb + "/" + filepathvote);
                          } else if (posi.length <= nega.length) {
@@ -5057,8 +5168,8 @@ ${
                                    from,
                                    `Voting ditolak ❌\n\nJumlah voting : ${posi.length}\nJumlah devoting : ${nega.length}`,
                                    TypePsn.text, {
-                                        quoted: hurtz,
-                                   }
+                                   quoted: hurtz,
+                              }
                               );
                               fs.unlinkSync(pathdb + "/" + filepathvote);
                          }
@@ -5079,21 +5190,20 @@ ${
                               if (e) return console.log(e);
                               let caption_vote = "";
                               for (let i = 0; i < db_vote.pushvote.length; i++) {
-                                   caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${
-                db_vote.pushvote[i].purpose
-              }\n`;
+                                   caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose
+                                        }\n`;
                               }
                               conn.sendMessage(
                                    from,
                                    `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``,
                                    TypePsn.text, {
-                                        quoted: hurtz,
-                                        contextInfo: {
-                                             mentionedJid: [
-                                                  db_vote.target.replace("@", "") + "@s.whatsapp.net",
-                                             ],
-                                        },
-                                   }
+                                   quoted: hurtz,
+                                   contextInfo: {
+                                        mentionedJid: [
+                                             db_vote.target.replace("@", "") + "@s.whatsapp.net",
+                                        ],
+                                   },
+                              }
                               );
                          }
                     );
@@ -5118,21 +5228,20 @@ ${
                     let db_vote = JSON.parse(fs.readFileSync(pathdb + "/" + filepathvote));
                     let caption_vote = "";
                     for (let i = 0; i < db_vote.pushvote.length; i++) {
-                         caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${
-            db_vote.pushvote[i].purpose
-          }\n`;
+                         caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose
+                              }\n`;
                     }
                     conn.sendMessage(
                          from,
                          `*Sedang dalam sesi voting*\n\nMax Vote : ${settings.Vote.Max} Orang\nAlasan : ${db_vote.reason}\nTarget : ${db_vote.target}\nExpired time : ${settings.Vote.Expired} menit\n\n${caption_vote}\n\n\n\n\`\`\`Menunggu respon... :)\`\`\``,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [
-                                        db_vote.target.replace("@", "") + "@s.whatsapp.net",
-                                   ],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [
+                                   db_vote.target.replace("@", "") + "@s.whatsapp.net",
+                              ],
+                         },
+                    }
                     );
                }
           } else if (
@@ -5174,7 +5283,7 @@ ${
                          for (var i = 0; i < charlist.length; i++) {
                               if (charlist[i].full_name === ress.name) {
                                    isCharaAva += "true";
-                              } else {}
+                              } else { }
                          }
                          if (isCharaAva === "true") {
                               balas(from, `Sorry chara ${qChar} has been added to database!`);
@@ -5263,18 +5372,16 @@ ${
 
 *Terakhir karakter terklaim* :
 ➣ *Nama* : ${showGaleryOne.animes[showGaleryOne.animes.length - 1].name}
-➣ *ID* : ${
-          showGaleryOne.animes[showGaleryOne.animes.length - 1].url
-            .replace("https://myanimelist.net/character/", "")
-            .split("/")[0]
-        }
-➣ *Deskripsi* : ${
-          showGaleryOne.animes[showGaleryOne.animes.length - 1].full_desc
-            .replace("\n", "")
-            .split(" ")
-            .slice(0, 15)
-            .join(" ") + " ..."
-        }
+➣ *ID* : ${showGaleryOne.animes[showGaleryOne.animes.length - 1].url
+                              .replace("https://myanimelist.net/character/", "")
+                              .split("/")[0]
+                         }
+➣ *Deskripsi* : ${showGaleryOne.animes[showGaleryOne.animes.length - 1].full_desc
+                              .replace("\n", "")
+                              .split(" ")
+                              .slice(0, 15)
+                              .join(" ") + " ..."
+                         }
 
                     `;
                     for (var i = 0; i < showGaleryOne.animes.length; i++) {
@@ -5282,18 +5389,16 @@ ${
 ________________________________________
 
 ➣ *Nama* : ${showGaleryOne.animes[i].name}
-➣ *ID* : ${
-            showGaleryOne.animes[i].url
-              .replace("https://myanimelist.net/character/", "")
-              .split("/")[0]
-          }
-➣ *Deskripsi* : ${
-            showGaleryOne.animes[i].full_desc
-              .replace("\n", "")
-              .split(" ")
-              .slice(0, 15)
-              .join(" ") + " ..."
-          }
+➣ *ID* : ${showGaleryOne.animes[i].url
+                                   .replace("https://myanimelist.net/character/", "")
+                                   .split("/")[0]
+                              }
+➣ *Deskripsi* : ${showGaleryOne.animes[i].full_desc
+                                   .replace("\n", "")
+                                   .split(" ")
+                                   .slice(0, 15)
+                                   .join(" ") + " ..."
+                              }
 
 `;
                     }
@@ -5326,18 +5431,16 @@ ________________________________________
 
 *Terakhir karakter terklaim* :
 ➣ *Nama* : ${showGalery.animes[showGalery.animes.length - 1].name}
-➣ *ID* : ${
-          showGalery.animes[showGalery.animes.length - 1].url
-            .replace("https://myanimelist.net/character/", "")
-            .split("/")[0]
-        }
-➣ *Deskripsi* : ${
-          showGalery.animes[showGalery.animes.length - 1].full_desc
-            .replace("\n", "")
-            .split(" ")
-            .slice(0, 15)
-            .join(" ") + " ..."
-        }
+➣ *ID* : ${showGalery.animes[showGalery.animes.length - 1].url
+                              .replace("https://myanimelist.net/character/", "")
+                              .split("/")[0]
+                         }
+➣ *Deskripsi* : ${showGalery.animes[showGalery.animes.length - 1].full_desc
+                              .replace("\n", "")
+                              .split(" ")
+                              .slice(0, 15)
+                              .join(" ") + " ..."
+                         }
 
                     `;
                     for (var i = 0; i < showGalery.animes.length; i++) {
@@ -5345,18 +5448,16 @@ ________________________________________
 ________________________________________
 
 ➣ *Nama* : ${showGalery.animes[i].name}
-➣ *ID* : ${
-            showGalery.animes[i].url
-              .replace("https://myanimelist.net/character/", "")
-              .split("/")[0]
-          }
-➣ *Deskripsi* : ${
-            showGalery.animes[i].full_desc
-              .replace("\n", "")
-              .split(" ")
-              .slice(0, 15)
-              .join(" ") + " ..."
-          }
+➣ *ID* : ${showGalery.animes[i].url
+                                   .replace("https://myanimelist.net/character/", "")
+                                   .split("/")[0]
+                              }
+➣ *Deskripsi* : ${showGalery.animes[i].full_desc
+                                   .replace("\n", "")
+                                   .split(" ")
+                                   .slice(0, 15)
+                                   .join(" ") + " ..."
+                              }
 
 `;
                     }
@@ -5542,11 +5643,11 @@ ________________________________________
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -5601,11 +5702,11 @@ ________________________________________
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -5751,11 +5852,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -5770,11 +5871,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -5818,11 +5919,11 @@ ${hasil.grid}
                               from,
                               `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                               TypePsn.text, {
-                                   quoted: hurtz,
-                                   contextInfo: {
-                                        mentionedJid: [nomerOwner[0]],
-                                   },
-                              }
+                              quoted: hurtz,
+                              contextInfo: {
+                                   mentionedJid: [nomerOwner[0]],
+                              },
+                         }
                          );
                          return;
                     }
@@ -5913,11 +6014,11 @@ ${hasil.grid}
                               from,
                               `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                               TypePsn.text, {
-                                   quoted: hurtz,
-                                   contextInfo: {
-                                        mentionedJid: [nomerOwner[0]],
-                                   },
-                              }
+                              quoted: hurtz,
+                              contextInfo: {
+                                   mentionedJid: [nomerOwner[0]],
+                              },
+                         }
                          );
                          return;
                     }
@@ -5956,11 +6057,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -5975,9 +6076,9 @@ ${hasil.grid}
 *Urutan* : ${1 + i}
 *Nama APK* : ${res[i].name}
 *Download* : _!getapk ${res[i].dl_url.replace(
-              "https://rexdlfile.com/index.php?id=",
-              ""
-            )}_
+                                   "https://rexdlfile.com/index.php?id=",
+                                   ""
+                              )}_
 *Deskripsi* : ${res[i].desc}
                               `;
                          }
@@ -5992,11 +6093,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6036,11 +6137,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6086,22 +6187,22 @@ ${hasil.grid}
                     if (rest.status) {
                          const fotop =
                               rest.foto_pertanyaan.length > 0 ?
-                              await (
-                                   Axios.get(
-                                        `https://tinyurl.com/api-create.php?url=${rest.foto_pertanyaan[0]}`
-                                   )
-                              ) : {
-                                   data: "-",
-                              };
+                                   await(
+                                        Axios.get(
+                                             `https://tinyurl.com/api-create.php?url=${rest.foto_pertanyaan[0]}`
+                                        )
+                                   ) : {
+                                        data: "-",
+                                   };
                          const jawabanp =
                               rest.jawaban[0].media.length > 0 ?
-                              await (
-                                   Axios.get(
-                                        `https://tinyurl.com/api-create.php?url=${rest.jawaban[0].media[0]}`
-                                   )
-                              ) : {
-                                   data: "-",
-                              };
+                                   await(
+                                        Axios.get(
+                                             `https://tinyurl.com/api-create.php?url=${rest.jawaban[0].media[0]}`
+                                        )
+                                   ) : {
+                                        data: "-",
+                                   };
                          const jawabann =
                               rest.jawaban.length > 0 ? rest.jawaban[0].teks : "[Belum terjawab]";
                          const isi = `*Hasil jawaban brainly*
@@ -6134,9 +6235,9 @@ ${hasil.grid}
                balas(
                     from,
                     `Berhasil menambah ${args[1].replace(
-          "@",
-          ""
-        )} ke blacklist user timestamp!`
+                         "@",
+                         ""
+                    )} ke blacklist user timestamp!`
                );
           } else if (cmd == `${prf}antidelete`) {
                if (args.length === 1)
@@ -6149,11 +6250,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6197,11 +6298,11 @@ ${hasil.grid}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6234,7 +6335,7 @@ ${hasil.grid}
                } else {
                     balas(from, `Penggunaan *!infogrup <aktif/mati>*`);
                }
-          } else if (cmd == `qrtes`) {} else if (cmd == `${prf}tambahbot`) {
+          } else if (cmd == `qrtes`) { } else if (cmd == `${prf}tambahbot`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`);
                if (args.length !== 3)
                     return balas(from, `Penggunaan *!tambahbot* <namasesi> <nomer>`);
@@ -6244,11 +6345,11 @@ ${hasil.grid}
                          process.exit(2);
                     }
                     pm2.start({
-                              script: "mecha.js", // Script to be run
-                              name: args[1],
-                              args: args[1],
-                              max_memory_restart: "5000M", // Optional: Restarts your app if it reaches 100Mo
-                         },
+                         script: "mecha.js", // Script to be run
+                         name: args[1],
+                         args: args[1],
+                         max_memory_restart: "5000M", // Optional: Restarts your app if it reaches 100Mo
+                    },
                          function (err, apps) {
                               pm2.disconnect(); // Disconnects from PM2
                               if (err) throw err;
@@ -6269,9 +6370,9 @@ ${hasil.grid}
                                                   ],
                                              },
                                              caption: `Scan qrnya khusus untuk nomor @${args[2].replace(
-                    "@",
-                    ""
-                  )}`,
+                                                  "@",
+                                                  ""
+                                             )}`,
                                         });
                                         INFOLOG("Sukses menambah bot " + args[1]);
                                         balas(from, `Bot ${args[1]} telah didaftarkan / online ✅`);
@@ -6337,10 +6438,10 @@ ${hasil.grid}
                          process.exit(2);
                     }
                     pm2.start({
-                              script: "mecha.js", // Script to be run
-                              name: args[1],
-                              max_memory_restart: "5000M", // Optional: Restarts your app if it reaches 100Mb
-                         },
+                         script: "mecha.js", // Script to be run
+                         name: args[1],
+                         max_memory_restart: "5000M", // Optional: Restarts your app if it reaches 100Mb
+                    },
                          function (err, apps) {
                               if (err) {
                                    pm2.disconnect(); // Disconnects from PM2
@@ -6506,9 +6607,9 @@ Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
                const strChat = `*🎮 Memulai game tictactoe 🎳*
 
 @${sender.replace(
-        "@s.whatsapp.net",
-        ""
-      )} menantang anda untuk menjadi lawan game
+                    "@s.whatsapp.net",
+                    ""
+               )} menantang anda untuk menjadi lawan game
 
 _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_ 
 `;
@@ -6519,7 +6620,7 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                     },
                });
           } else if (cmd == `${prf}delttc`) {
-               if (!isOwner) return conn.sendMessage(id, yan, MessageType.text);
+               // if (!isOwner) return conn.sendMessage(id, yan, MessageType.text);
                if (fs.existsSync("./lib/tictactoe/db/" + from + ".json")) {
                     fs.unlinkSync("./lib/tictactoe/db/" + from + ".json");
                     balas(from, `Berhasil menghapus sesi di grup ini!`);
@@ -6530,8 +6631,8 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                if (args.length === 1)
                     return balas(from, "Masukan perintah : *!artinama* _nama kamu_");
                Axios.get(
-                         `https://www.primbon.com/arti_nama.php?nama1=${query}&proses=+Submit%21+`
-                    )
+                    `https://www.primbon.com/arti_nama.php?nama1=${query}&proses=+Submit%21+`
+               )
                     .then(({
                          data
                     }) => {
@@ -6551,11 +6652,11 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6567,8 +6668,8 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                     );
                const tempat = query;
                Axios.get(
-                         `https://rest.farzain.com/api/cuaca.php?id=${tempat}&apikey=rambu`
-                    )
+                    `https://rest.farzain.com/api/cuaca.php?id=${tempat}&apikey=rambu`
+               )
                     .then(({
                          data
                     }) => {
@@ -6595,11 +6696,11 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6608,19 +6709,15 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                     fs.readFileSync("./lib/random/quranmp3.json")
                );
                remote(quranmp3[1 + Number(args[1])].recitation, (e, sizeaud) => {
-                    const strQuranMp3 = `*Quran Surah ${
-          quranmp3[1 + Number(args[1]) - 2].name
-        } - ${quranmp3[1 + Number(args[1])].type}*
+                    const strQuranMp3 = `*Quran Surah ${quranmp3[1 + Number(args[1]) - 2].name
+                         } - ${quranmp3[1 + Number(args[1])].type}*
                     
-Terjemahan Dalam Arabic : ${
-          quranmp3[1 + Number(args[1]) - 2].name_translations.ar
-        }
-Terjemahan Dalam Inggris : ${
-          quranmp3[1 + Number(args[1]) - 2].name_translations.en
-        }
-Terjemahan Dalam Indonesia : ${
-          quranmp3[1 + Number(args[1] - 2)].name_translations.id
-        }
+Terjemahan Dalam Arabic : ${quranmp3[1 + Number(args[1]) - 2].name_translations.ar
+                         }
+Terjemahan Dalam Inggris : ${quranmp3[1 + Number(args[1]) - 2].name_translations.en
+                         }
+Terjemahan Dalam Indonesia : ${quranmp3[1 + Number(args[1] - 2)].name_translations.id
+                         }
 Surat Ke : ${quranmp3[1 + Number(args[1]) - 2].number_of_surah}
 Jumlah ayat : ${quranmp3[1 + Number(args[1]) - 2].number_of_ayah}
 Filesize Audio : ${sizer(sizeaud)}
@@ -6640,11 +6737,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6663,11 +6760,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6685,11 +6782,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6725,11 +6822,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6737,13 +6834,10 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                ytsr(query).then((result) => {
                     let caption = `*Hasil pencarian dari ${query}*\n\nNote : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!getvideo urutan*\ncontoh : *!getvideo 2*\n`;
                     for (let i = 0; i < result.length; i++) {
-                         caption += `\n*Urutan* : ${i + 1}\n*Title* : ${
-            result[i].title
-          }\n*Published* : ${result[i].ago}\n*Viewers* : ${
-            result[i].views
-          }\n*Channel* : ${result[i].author}\n*Durasi* : ${
-            result[i].timestamp
-          }\n*Perintah download* : _!getvideo ${result[i].id}_\n\n`;
+                         caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title
+                              }\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views
+                              }\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp
+                              }\n*Perintah download* : _!getvideo ${result[i].id}_\n\n`;
                     }
                     for (let j = 0; j < result.length; j++) {
                          caption += `(#)${result[j].id}`;
@@ -6761,11 +6855,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6795,14 +6889,13 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                                                        thumb,
                                                        TypePsn.image,
                                                        `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(
-                        o
-                      )}\n*Link* : ${
-                        a.data
-                      }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
+                                                            o
+                                                       )}\n*Link* : ${a.data
+                                                       }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
                                                   );
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${sizer(
-                    o
-                  )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
+                                                  o
+                                             )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
                                              sendDariUrl(from, thumb, TypePsn.image, captions);
                                              sendDariUrl(
                                                   from,
@@ -6844,14 +6937,13 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                                                        thumb,
                                                        TypePsn.image,
                                                        `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(
-                        o
-                      )}\n*Link* : ${
-                        a.data
-                      }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
+                                                            o
+                                                       )}\n*Link* : ${a.data
+                                                       }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
                                                   );
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${sizer(
-                    o
-                  )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
+                                                  o
+                                             )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
                                              sendDariUrl(from, thumb, TypePsn.image, captions);
                                              sendDariUrl(
                                                   from,
@@ -6881,11 +6973,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6893,13 +6985,10 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                ytsr(query).then((result) => {
                     let caption = `*Hasil pencarian dar ${query}*\n\nNote : Apabila kesusahan mengambil data id, untuk download lagu tag pesan ini dan berikan perintah : *!getmusik urutan*\ncontoh : *!getmusik 2*\n`;
                     for (let i = 0; i < result.length; i++) {
-                         caption += `\n*Urutan* : ${i + 1}\n*Title* : ${
-            result[i].title
-          }\n*Published* : ${result[i].ago}\n*Viewers* : ${
-            result[i].views
-          }\n*Channel* : ${result[i].author}\n*Durasi* : ${
-            result[i].timestamp
-          }\n*Perintah download* : _!getmusik ${result[i].id}_\n\n`;
+                         caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title
+                              }\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views
+                              }\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp
+                              }\n*Perintah download* : _!getmusik ${result[i].id}_\n\n`;
                     }
                     for (let j = 0; j < result.length; j++) {
                          caption += `(#)${result[j].id}`;
@@ -6917,11 +7006,11 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -6951,14 +7040,13 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                                                        thumb,
                                                        TypePsn.image,
                                                        `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(
-                        o
-                      )}\n*Link* : ${
-                        a.data
-                      }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
+                                                            o
+                                                       )}\n*Link* : ${a.data
+                                                       }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
                                                   );
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${sizer(
-                    o
-                  )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
+                                                  o
+                                             )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
                                              sendDariUrl(from, thumb, TypePsn.image, captions);
                                              sendDariUrl(from, dl_link, TypePsn.audio, "", {
                                                   mimetype: Mimetype.mp4Audio,
@@ -6997,14 +7085,13 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                                                        thumb,
                                                        TypePsn.image,
                                                        `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${sizer(
-                        o
-                      )}\n*Link* : ${
-                        a.data
-                      }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
+                                                            o
+                                                       )}\n*Link* : ${a.data
+                                                       }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
                                                   );
                                              const captions = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${sizer(
-                    o
-                  )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
+                                                  o
+                                             )}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`;
                                              sendDariUrl(from, thumb, TypePsn.image, captions);
                                              sendDariUrl(from, dl_link, TypePsn.audio, "", {
                                                   mimetype: Mimetype.mp4Audio,
@@ -7047,34 +7134,33 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                     balas(from, `Kata *[ ${query} ]* tidak ditemukan!`);
                     return;
                }
-               let katatemu = `*[ Message Search ]*\n\nDitemukan ${
-        searched.messages.length - 1
-      } pesan!\n`;
+               let katatemu = `*[ Message Search ]*\n\nDitemukan ${searched.messages.length - 1
+                    } pesan!\n`;
                for (let i = 1; i < searched.messages.length - 1; i++) {
                     let typeSrc = Object.keys(searched.messages[i].message)[0];
                     typeSrc =
                          typeSrc === "extendedTextMessage" &&
-                         searched.messages[i].message.extendedTextMessage.text.includes("@") ?
-                         (typeSrc = "mentionedText") :
-                         typeSrc;
+                              searched.messages[i].message.extendedTextMessage.text.includes("@") ?
+                              (typeSrc = "mentionedText") :
+                              typeSrc;
                     const bodySrc =
                          typeSrc == "conversation" ?
-                         searched.messages[i].message.conversation :
-                         typeSrc == "mentionedText" ?
-                         searched.messages[i].message.extendedTextMessage.text :
-                         typeSrc == "extendedTextMessage" ?
-                         searched.messages[i].message.extendedTextMessage.text :
-                         typeSrc == "imageMessage" ?
-                         searched.messages[i].message.imageMessage.caption :
-                         typeSrc == "stickerMessage" ?
-                         "Sticker" :
-                         typeSrc == "audioMessage" ?
-                         "Audio" :
-                         typeSrc == "videoMessage" ?
-                         searched.messages[i].message.videoMessage.caption :
-                         typeSrc == "documentMessage" ?
-                         "document" :
-                         "[ NOT FOUND BODY @MechaBOT ]"; //hurtz.message
+                              searched.messages[i].message.conversation :
+                              typeSrc == "mentionedText" ?
+                                   searched.messages[i].message.extendedTextMessage.text :
+                                   typeSrc == "extendedTextMessage" ?
+                                        searched.messages[i].message.extendedTextMessage.text :
+                                        typeSrc == "imageMessage" ?
+                                             searched.messages[i].message.imageMessage.caption :
+                                             typeSrc == "stickerMessage" ?
+                                                  "Sticker" :
+                                                  typeSrc == "audioMessage" ?
+                                                       "Audio" :
+                                                       typeSrc == "videoMessage" ?
+                                                            searched.messages[i].message.videoMessage.caption :
+                                                            typeSrc == "documentMessage" ?
+                                                                 "document" :
+                                                                 "[ NOT FOUND BODY @MechaBOT ]"; //hurtz.message
                     const senderSrc = isGroup ?
                          searched.messages[i].participant :
                          searched.messages[i].key.remoteJid;
@@ -7111,18 +7197,18 @@ Pengirim : ${senderSrc.replace("@s.whatsapp.net", "")} ( ${pushnameSrc} )
                conn.sendMessage(from, hurtz.key.remoteJid, TypePsn.text, {
                     quoted: hurtz,
                });
-          } else if (cmd == `${prf}reverse`) {} else if (cmd == `${prf}ytmp4`) {
+          } else if (cmd == `${prf}reverse`) { } else if (cmd == `${prf}ytmp4`) {
                if (args.length === 1) return balas(from, `Penggunaan *!ytmp4 <Linkyt>*`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7151,10 +7237,9 @@ Pengirim : ${senderSrc.replace("@s.whatsapp.net", "")} ( ${pushnameSrc} )
                                                   thumb,
                                                   TypePsn.image,
                                                   `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(
-                      o
-                    )}\n*Link* : ${
-                      a.data
-                    }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
+                                                       o
+                                                  )}\n*Link* : ${a.data
+                                                  }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
                                              );
                                         const buffer_thumbyt4 = Buffer.from(data, "base64");
                                         const capt_yt4 = `*Data telah didapatkan!*
@@ -7171,8 +7256,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
                                         });
                                         //Send MP4
                                         Axios.get(dl_link, {
-                                                  responseType: "arraybuffer",
-                                             })
+                                             responseType: "arraybuffer",
+                                        })
                                              .then((response) => {
                                                   const buffer_yt4 = Buffer.from(response.data, "base64");
                                                   INFOLOG(`DAPAT DATA VIDEO : ${title}`);
@@ -7210,11 +7295,11 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7230,8 +7315,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
                     INFOLOG(title);
                     //Send Thumb
                     Axios.get(thumb, {
-                              responseType: "arraybuffer",
-                         })
+                         responseType: "arraybuffer",
+                    })
                          .then(({
                               data
                          }) => {
@@ -7244,10 +7329,9 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
                                                        thumb,
                                                        TypePsn.image,
                                                        `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Filesize* : ${sizer(
-                        o
-                      )}\n*Link* : ${
-                        a.data
-                      }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
+                                                            o
+                                                       )}\n*Link* : ${a.data
+                                                       }\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`
                                                   );
                                              const buffer_thumbyt3 = Buffer.from(data, "base64");
                                              const capt_yt3 = `*Data telah didapatkan!*
@@ -7264,8 +7348,8 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
                                              });
                                              //Send MP3
                                              Axios.get(dl_link, {
-                                                       responseType: "arraybuffer",
-                                                  })
+                                                  responseType: "arraybuffer",
+                                             })
                                                   .then((response) => {
                                                        const buffer_yt3 = Buffer.from(response.data, "base64");
                                                        INFOLOG(`DAPAT DATA AUDIO : ${title}`);
@@ -7307,11 +7391,10 @@ _Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
                                              `*Watermark Extract*
 
 Pack Name : ${jsonna["sticker-pack-name"] ? jsonna["sticker-pack-name"] : "-"}
-Pack Publisher : ${
-                    jsonna["sticker-pack-publisher"]
-                      ? jsonna["sticker-pack-publisher"]
-                      : "-"
-                  }
+Pack Publisher : ${jsonna["sticker-pack-publisher"]
+                                                  ? jsonna["sticker-pack-publisher"]
+                                                  : "-"
+                                             }
                          `
                                         );
                                    } else {
@@ -7321,11 +7404,10 @@ Pack Publisher : ${
                               
 Pack ID : ${jsonna["sticker-pack-id"]}
 Pack Name : ${jsonna["sticker-pack-name"] ? jsonna["sticker-pack-name"] : "-"}
-Pack Publisher : ${
-                    jsonna["sticker-pack-publisher"]
-                      ? jsonna["sticker-pack-publisher"]
-                      : "-"
-                  }
+Pack Publisher : ${jsonna["sticker-pack-publisher"]
+                                                  ? jsonna["sticker-pack-publisher"]
+                                                  : "-"
+                                             }
 G-Play Link : ${jsonna["android-app-store-link"]}
 IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               `
@@ -7345,11 +7427,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7381,11 +7463,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7433,11 +7515,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7456,11 +7538,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7477,9 +7559,9 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          if (rest.error)
                               return balas(from, `Terjadi kesalahan saat mengekstrak audio!`);
                          request({
-                                   url: rest.vocal_path,
-                                   encoding: null,
-                              },
+                              url: rest.vocal_path,
+                              encoding: null,
+                         },
                               (err, resp, buffer) => {
                                    conn.sendMessage(from, buffer, TypePsn.document, {
                                         quoted: hurtz,
@@ -7505,11 +7587,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7526,9 +7608,9 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          if (rest.error)
                               return balas(from, `Terjadi kesalahan saat mengekstrak audio!`);
                          request({
-                                   url: rest.instrumental_path,
-                                   encoding: null,
-                              },
+                              url: rest.instrumental_path,
+                              encoding: null,
+                         },
                               (err, resp, buffer) => {
                                    conn.sendMessage(from, buffer, TypePsn.document, {
                                         quoted: hurtz,
@@ -7553,11 +7635,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7584,10 +7666,10 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                              from,
                                              fs.readFileSync(`./media/sticker/${filename}-done.mp4`),
                                              TypePsn.video, {
-                                                  mimetype: Mimetype.gif,
-                                                  caption: `Dah jadi ni ${pushname}`,
-                                                  quoted: hurtz,
-                                             }
+                                             mimetype: Mimetype.gif,
+                                             caption: `Dah jadi ni ${pushname}`,
+                                             quoted: hurtz,
+                                        }
                                         );
                                         if (fs.existsSync(savedFilename)) fs.unlinkSync(savedFilename);
                                         if (fs.existsSync(`./media/sticker/${filename}-done.mp4`))
@@ -7627,10 +7709,10 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                                                       `./media/sticker/${filename}-done.mp4`
                                                                  ),
                                                                  TypePsn.video, {
-                                                                      mimetype: Mimetype.gif,
-                                                                      caption: `Dah jadi ni ${pushname}`,
-                                                                      quoted: hurtz,
-                                                                 }
+                                                                 mimetype: Mimetype.gif,
+                                                                 caption: `Dah jadi ni ${pushname}`,
+                                                                 quoted: hurtz,
+                                                            }
                                                             );
                                                             if (fs.existsSync(savedFilename))
                                                                  fs.unlinkSync(savedFilename);
@@ -7657,8 +7739,8 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                    from,
                                    `./media/sticker/${filename}-done.png`,
                                    TypePsn.image, {
-                                        caption: "Dah jadi ni " + pushname,
-                                   }
+                                   caption: "Dah jadi ni " + pushname,
+                              }
                               );
                               fs.unlinkSync(savedFilename);
                               fs.unlinkSync(`./media/sticker/${filename}-done.png`);
@@ -7682,11 +7764,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7811,11 +7893,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7825,7 +7907,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
           } else if (cmd == `${prf}t`) {
                await conn.updatePresence(from, "composing");
                await conn.updatePresence(from, "paused");
-          } else if (cmd == `${prf}st`) {} else if (cmd == `${prf}desc`) {
+          } else if (cmd == `${prf}st`) { } else if (cmd == `${prf}desc`) {
                if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`);
                if (args.length === 1)
                     balas(from, `Penggunaan *!desc <Deskripsi Gc Baru>*`);
@@ -7834,11 +7916,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7852,11 +7934,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7869,11 +7951,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7892,8 +7974,8 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               `Mohon tag pesan apabila hanya memasukan kode bahasa!`
                          );
                     translate(bodyQuoted, {
-                              to: args[1],
-                         })
+                         to: args[1],
+                    })
                          .then((res) => {
                               balas(from, res.text);
                          })
@@ -7902,8 +7984,8 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          });
                } else {
                     translate(args.slice(2).join(" "), {
-                              to: args[1],
-                         })
+                         to: args[1],
+                    })
                          .then((res) => {
                               balas(from, res.text);
                          })
@@ -7921,11 +8003,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7943,11 +8025,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -7977,11 +8059,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     .then(
                          () => conn.sendMessage(from, `Sukses menambahkan @${data}`),
                          TypePsn.text, {
-                              quoted: customQuote("GROUP ADD PARTICIPANT"),
-                              contextInfo: {
-                                   mentionedJid: [data + "@s.whatsapp.net"],
-                              },
-                         }
+                         quoted: customQuote("GROUP ADD PARTICIPANT"),
+                         contextInfo: {
+                              mentionedJid: [data + "@s.whatsapp.net"],
+                         },
+                    }
                     )
                     .catch((e) => {
                          console.log(e);
@@ -8054,11 +8136,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `${args[2]} telah menjadi VIP member ✅`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [ji],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [ji],
+                         },
+                    }
                     );
                     for (let i = 0; i < expvip.length; i++) {
                          const mengsedih = getRemaining(new Date(expvip[i].expired_on));
@@ -8090,11 +8172,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `${args[2]} telah diberhentikan dari VIP member ❌`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [ji],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [ji],
+                         },
+                    }
                     );
                     for (let i = 0; i < expvip.length; i++) {
                          const mengsedih = getRemaining(new Date(expvip[i].expired_on));
@@ -8118,9 +8200,9 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     for (let i = 0; i < expvip.length; i++) {
                          const expair = getRemaining(new Date(expvip[i].expired_on));
                          content += `\n${1 + i}. @${expvip[i].number.replace(
-            "@s.whatsapp.net",
-            ""
-          )} ( Tersisa ${expair.days} hari )`;
+                              "@s.whatsapp.net",
+                              ""
+                         )} ( Tersisa ${expair.days} hari )`;
                          listed_number.push(expvip[i].number);
                     }
                     conn.sendMessage(from, content, TypePsn.text, {
@@ -8170,11 +8252,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -8224,11 +8306,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               from,
                               `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                               TypePsn.text, {
-                                   quoted: hurtz,
-                                   contextInfo: {
-                                        mentionedJid: [nomerOwner[0]],
-                                   },
-                              }
+                              quoted: hurtz,
+                              contextInfo: {
+                                   mentionedJid: [nomerOwner[0]],
+                              },
+                         }
                          );
                          return;
                     }
@@ -8272,21 +8354,18 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               // restartCode()
                               conn.sendMessage(
                                    from,
-                                   `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${
-                settings.Tebak_Gambar.Max
-              } detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${
-                db_tebak.name
-              } ( @${db_tebak.number.replace(
-                "@s.whatsapp.net",
-                ""
-              )} )\nPesan terdeteksi : ${
-                db_tebak.listed.length
-              }\n\nMulai lagi? ketik *!tebakgambar* 😊`,
+                                   `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max
+                                   } detik 😔\n\nJawaban : ${db_tebak.data.answer}\nDimulai oleh : ${db_tebak.name
+                                   } ( @${db_tebak.number.replace(
+                                        "@s.whatsapp.net",
+                                        ""
+                                   )} )\nPesan terdeteksi : ${db_tebak.listed.length
+                                   }\n\nMulai lagi? ketik *!tebakgambar* 😊`,
                                    TypePsn.text, {
-                                        contextInfo: {
-                                             mentionedJid: [db_tebak.number],
-                                        },
-                                   }
+                                   contextInfo: {
+                                        mentionedJid: [db_tebak.number],
+                                   },
+                              }
                               );
                               fs.unlinkSync(`./lib/tebak-gambar/${from}.json`);
                          }
@@ -8295,19 +8374,18 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     INFOLOG("Jawaban : " + nebak.jawaban + ` ( ${from} )`);
                     const regextebak = new RegExp("[^aeiou ]", "g");
                     request({
-                              url: nebak.img,
-                              encoding: null,
-                         },
+                         url: nebak.img,
+                         encoding: null,
+                    },
                          (err, resp, buffer) => {
                               conn
                                    .sendMessage(from, buffer, TypePsn.image, {
                                         quoted: hurtz,
-                                        caption: `*Tebak gambar diatas ini*\n\nAnda mempunyai waktu ${
-                  settings.Tebak_Gambar.Max
-                } detik untuk menebak gambar tersebut.\n\n_Note : untuk mengubah detik ketik *!tebaksetting*_\n\n*CLUE* :   ${nebak.jawaban
-                  .replace(regextebak, "_")
-                  .split("")
-                  .join(" ")}\n\n\`\`\`Sedang menunggu jawaban...\`\`\``,
+                                        caption: `*Tebak gambar diatas ini*\n\nAnda mempunyai waktu ${settings.Tebak_Gambar.Max
+                                             } detik untuk menebak gambar tersebut.\n\n_Note : untuk mengubah detik ketik *!tebaksetting*_\n\n*CLUE* :   ${nebak.jawaban
+                                                  .replace(regextebak, "_")
+                                                  .split("")
+                                                  .join(" ")}\n\n\`\`\`Sedang menunggu jawaban...\`\`\``,
                                    })
                                    .then((obe) => {
                                         // console.log(obe)
@@ -8371,11 +8449,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          from,
                          `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                          TypePsn.text, {
-                              quoted: hurtz,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
-                         }
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
                     );
                     return;
                }
@@ -8402,11 +8480,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               from,
                               `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
                               TypePsn.text, {
-                                   quoted: hurtz,
-                                   contextInfo: {
-                                        mentionedJid: [nomerOwner[0]],
-                                   },
-                              }
+                              quoted: hurtz,
+                              contextInfo: {
+                                   mentionedJid: [nomerOwner[0]],
+                              },
+                         }
                          );
                          return;
                     }
@@ -8500,16 +8578,14 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
 📲 *Versi Wa* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
-📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${
-        conn.user.phone.os_version
-      }_
+📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${conn.user.phone.os_version
+                    }_
 ⚖️ *Ram Usage* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
-        2
-      )}MB / ${Math.round(require("os").totalmem / 1024 / 1024)}MB_
+                         2
+                    )}MB / ${Math.round(require("os").totalmem / 1024 / 1024)}MB_
 🧿 *Platform* : _${os.platform()} (${os.type()})_
-🔌 *CPU* : _${
-        os.platform() == "android" ? "-" : os.cpus()[0].model.replace(/ /g, "")
-      }_
+🔌 *CPU* : _${os.platform() == "android" ? "-" : os.cpus()[0].model.replace(/ /g, "")
+                    }_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
 🕴 *Status Maintenance* : ${settings.Maintenace ? "✅" : "❌"}
 🤖 *Join Mecha Group* :
@@ -8555,7 +8631,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
           } else if (cmd == `${prf}readmore`) {
                const more = String.fromCharCode(8206)
                const readMore = more.repeat(4001)
-               balas(from, args[1].split('|')[0] + readMore + args[1].split('|')[1])
+               balas(from, query.split('|')[0] + readMore + query.split('|')[1])
           } else if (cmd == `${prf}menu` || cmd == `${prf}help`) {
                INFOLOG("Sending Menu");
                const penggunanya = JSON.parse(
@@ -8582,9 +8658,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                if (seconds > 0) segments.push(seconds + " Detik");
                if (milliseconds > 0) segments.push(milliseconds + " milidetik");
                const dateString = segments.join(", ");
-               const fakstu = fs
-                    .readFileSync("./lib/random/katabijax.txt", "utf-8")
-                    .split("\n");
+               const fakstu = fs.readFileSync("./lib/random/katabijax.txt", "utf-8").split("\n");
                const strMenu = `Hii ${pushname} ✨
 Limit anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 Plan : ${isVIP ? "VIP MEMBER 💠" : "FREE MEMBER 🏋"}
@@ -8612,12 +8686,11 @@ Map >>
 📲 *Versi Wa* : _${conn.user.phone.wa_version}_
 🔋 *Batre* : _${batteryNow}% ${isCas}_
 💻 *Host* : _${os.hostname()}_
-📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${
-        conn.user.phone.os_version
-      }_
+📱 *Device* : _${conn.user.phone.device_manufacturer} Versi OS ${conn.user.phone.os_version
+                    }_
 ⚖️ *Ram Usage* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
-        2
-      )}MB / ${Math.round(require("os").totalmem / 1024 / 1024)}MB_
+                         2
+                    )}MB / ${Math.round(require("os").totalmem / 1024 / 1024)}MB_
 🧿 *Platform* : _${os.platform()}_
 🔌 *CPU* : _${os.cpus()[0].model.replace(/ /g, "")}_
 ⚡ *Speed Process* : _${latensi.toFixed(4)}_
@@ -8636,6 +8709,7 @@ Map >>
 ⚪ !linkgrupmecha _[Menampilkan Link Grup Bot Mecha]_
 ⚪ !hilih <text> / <tagPesan>
 ⚪ !readmore <text>|<textSpoiler> _[Membuat spoiler / readmore text]_
+⚪ !jadwalsholat <tempat> _[Menampilkan jadwal sholat di indonesia]_
 
      *[ Fitur VIP ]*
 
@@ -8671,6 +8745,9 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Fitur Social Media & Download ]*
 
+💛 !playtidal <judul musik> _[Mendownload Audio HIGH RES]_
+💚 !tidalsearch <judul musik> _[Pencarian Audio tidal]_
+ | 💛 !gettidal <id> / !gettidal <nomer urut> _[Mendapatkan lagu dari pencarian audio tidal]_
 💚 !cuaca <tempat>
 💚 !igstalk <@username> _[Melihat Profile Instagram]_
 💚 !igsearch <@username> _[Mencari Profile Instagram]_
@@ -8872,20 +8949,20 @@ Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
                const content = await conn.prepareMessageContent(
                     strMenu,
                     TypePsn.extendedText, {
-                         quoted: hurtz,
-                    }
+                    quoted: hurtz,
+               }
                );
                conn.prepareMessageFromContent(from, content, {
                     quoted: hurtz,
                });
-               // conn.relayWAMessage(custreph);
+               conn.relayWAMessage(custhumb);
                // Fix
-               conn.sendMessage(from, strMenu, TypePsn.text, {
-                    quoted: customQuote('			(    🤖 MENU MECHABOT V1.3.2 🤖    )'),
-                    contextInfo: {
-                         mentionedJid: [nomerOwner[0]]
-                    }
-               })
+               // conn.sendMessage(from, strMenu, TypePsn.text, {
+               //      quoted: customQuote('			(    🤖 MENU MECHABOT V1.3.2 🤖    )'),
+               //      contextInfo: {
+               //           mentionedJid: [nomerOwner[0]]
+               //      }
+               // })
           }
      }
 };

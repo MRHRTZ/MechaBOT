@@ -669,5 +669,222 @@
       }
     },
     "type": "sticker"
+  },
+  {
+    "id": 49,
+    "reply": true,
+    "added": "Yann",
+    "key": "delay",
+    "response": "donate lah kntl",
+    "type": "text"
+  },
+  {
+    "id": 50,
+    "reply": true,
+    "added": "ｂｕｋａｎ ｏｒａｎｇ ａｓｌｉ  b u m i",
+    "key": "gak tau ",
+    "response": {
+      "stanzaId": "563382A0D806B269E8CA8B16997F84EA",
+      "participant": "6285892974002@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AoD7Q84lnYwDk0ifbqI-_3-ApLZKdquY8VkuV4QzcSOW.enc",
+          "fileSha256": "pH5DRVq1dpcWDz8JWD5X1WZsjDyXH4jshgz4SSH/CGY=",
+          "fileEncSha256": "WBO7ry9eUTEtA0rHxzMFJNBIZr6B/YZdBvBiMAE90PI=",
+          "mediaKey": "xzZyjkU4KrVD2Z9FH3S8N8VplugFkCGtCV+svsefLUs=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/35824070_455111592407553_6420020084191758080_n.enc?oh=343ca2e58fb689828ed84316a58121e0&oe=6084B249",
+          "fileLength": "11674",
+          "mediaKeyTimestamp": "1616481136",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 51,
+    "reply": true,
+    "added": "Yann",
+    "key": "menggokil",
+    "response": {
+      "stanzaId": "D97BF1661F2EC3A63E8167050C36D3B0",
+      "participant": "6281332654798@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AiqBQ_m-041xrN4XR6oSvxsN53fkVX2TiR8cjctLkItw.enc",
+          "fileSha256": "/l6XL9MM7HcgrgEzkiAl93zTOl7akLlrxrlvZsf4u8s=",
+          "fileEncSha256": "OriIWRUeDZizglFEJKZaCzL/x6mH0V157XIQAN63ok8=",
+          "mediaKey": "0EwU45Mm4z+A+ua9vamOe6S9vWXSTl6MnoCSHk3cq7Q=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/13762146_139325678110773_7114654547542762509_n.enc?oh=5e38159caf8ab7b8cd557f53f6d46793&oe=60846186",
+          "fileLength": "26984",
+          "mediaKeyTimestamp": "1616495611",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 52,
+    "reply": true,
+    "added": "ｂｕｋａｎ ｏｒａｎｇ ａｓｌｉ  b u m i",
+    "key": "Sad ",
+    "response": {
+      "stanzaId": "23BF76B43316D5451267C3E95BE922A3",
+      "participant": "6285892974002@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AsK8qdkruh2iAMLrTavY7w5b0t2UyrnCrxIG_a1oZ_6P.enc",
+          "fileSha256": "QA8AG69gF/GoswWVDZxTEFs1BwKSzqBPpiM6Gq6Mms8=",
+          "fileEncSha256": "E2yoJlr1kxZTjzW7an80iy51l70Z2zEm2u1EjxH91WU=",
+          "mediaKey": "g9r99R9NgI673TCIrPTY2wLXu82S/nEceVJq0GOV8RA=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/25480424_436633834311254_5558198163552903474_n.enc?oh=d9b1e52a0db683b0843e3a0ecb0e88d2&oe=60831457",
+          "fileLength": "909794",
+          "mediaKeyTimestamp": "1616392900",
+          "firstFrameLength": 6678,
+          "firstFrameSidecar": "uhTz+SA6JJkUTw==",
+          "isAnimated": true
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 54,
+    "reply": true,
+    "added": "Yann",
+    "key": "oke",
+    "response": {
+      "stanzaId": "DAEFD67974B95BB06BA6464AD17E92A3",
+      "participant": "6281332654798@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AhRWhZQebrVt2H4bL2xiz4K9d9KjcR2ywZfm_QVWR1gQ.enc",
+          "fileSha256": "TuDo+5p6sFuhZ/8w1hMdyNPHD87gHaQ8z1qiTosBtBQ=",
+          "fileEncSha256": "GQj34XkAX/zxROLbqxTipDqhn3lxWTs7T7kXQexI3D0=",
+          "mediaKey": "dxvaNfXM9B1aN+biVGjmONOeUjfcNCbFJJ7jognC2Os=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/11422466_490266728677088_3624374269600094990_n.enc?oh=8bd6e983c2e29df39d6953b9afc19cbb&oe=6082E0C8",
+          "fileLength": "16806",
+          "mediaKeyTimestamp": "1616345828",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 54,
+    "reply": true,
+    "added": "ｂｕｋａｎ ｏｒａｎｇ ａｓｌｉ  b u m i",
+    "key": "Gak tau",
+    "response": {
+      "stanzaId": "ED32EFB84B2F301DF2E02267FA548EC2",
+      "participant": "6285892974002@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AoD7Q84lnYwDk0ifbqI-_3-ApLZKdquY8VkuV4QzcSOW.enc",
+          "fileSha256": "pH5DRVq1dpcWDz8JWD5X1WZsjDyXH4jshgz4SSH/CGY=",
+          "fileEncSha256": "WBO7ry9eUTEtA0rHxzMFJNBIZr6B/YZdBvBiMAE90PI=",
+          "mediaKey": "xzZyjkU4KrVD2Z9FH3S8N8VplugFkCGtCV+svsefLUs=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/35824070_455111592407553_6420020084191758080_n.enc?oh=343ca2e58fb689828ed84316a58121e0&oe=6084B249",
+          "fileLength": "11674",
+          "mediaKeyTimestamp": "1616481136",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 55,
+    "reply": true,
+    "added": "Yann",
+    "key": "mengsedih",
+    "response": {
+      "stanzaId": "73CB76D52CE3B1AD3EA5143B7376A848",
+      "participant": "6281332654798@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AovdQVZiOJUCC3LwAKTNYtalkO-EU2O_pW804JLaRT2K.enc",
+          "fileSha256": "hDjoTAkReuneG5xCkyIa5LoxlEevwbCGZsRHKncMYGo=",
+          "fileEncSha256": "ChBPG4mt+XX3A0MyJz2MXZ4MixNW8/mHo7RHYnue7zo=",
+          "mediaKey": "dSoIBmR70jz5etsuf3h3EMba9Q1PbvJqZda0FJVZUu4=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/19242734_121875246621817_5695835671180085571_n.enc?oh=16107ad0395e152074f6fd44f1af93df&oe=60824D7D",
+          "fileLength": "7600",
+          "mediaKeyTimestamp": "1616495624",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 56,
+    "reply": true,
+    "added": "ｂｕｋａｎ ｏｒａｎｇ ａｓｌｉ  b u m i",
+    "key": "wkwkwk",
+    "response": {
+      "stanzaId": "2B9B008B211D73B5CE206BA71BFC763E",
+      "participant": "6285892974002@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AjlApXlBROavt0bEi7FAc1UvCSx3hlcZ4sbM0FOGAGEL.enc",
+          "fileSha256": "ExFOiZY47/+nqbQm6+ex6qqqON+NzfvYvP/3V2K/yqY=",
+          "fileEncSha256": "Bwa3LOQti9ZW4sUYte3/fvi3MT6kqS5g5MoJ5H/7ODs=",
+          "mediaKey": "TCp6AeLrhH/q0msX7EDouZwabfZfgLO5Xd4tG+p8TeU=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/13784675_154107719899883_8296291026927842820_n.enc?oh=bd5d1bb4f12660a49007357a7c14d4b9&oe=60852D4A",
+          "fileLength": "29298",
+          "mediaKeyTimestamp": "1616365882",
+          "isAnimated": false
+        }
+      }
+    },
+    "type": "sticker"
+  },
+  {
+    "id": 57,
+    "reply": true,
+    "added": "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ",
+    "key": "Bot",
+    "response": {
+      "stanzaId": "3EB02F32A484E844C735",
+      "participant": "12053465681@s.whatsapp.net",
+      "message": {
+        "audioMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/Al3ItoBnOtW2RgZWjOE4HrZYJD4gVtUjHtJvtFjUi9qY.enc",
+          "mimetype": "audio/mpeg",
+          "fileSha256": "9Ly8bYpup3Pk9Y53wmvyytZ8XrXB9RQG+43bRfKuWU4=",
+          "fileLength": "43338",
+          "seconds": 2,
+          "ptt": true,
+          "mediaKey": "jcywRErZcGIp4sHunsgtG1H2nLl7MDe7kDHk8XschXk=",
+          "fileEncSha256": "2gwliVvJvXz/WG6L5xvyTyllK5iQCprhJC6vpwQg5QU=",
+          "directPath": "/v/t62.7117-24/34492986_766476924263777_1174479342128308803_n.enc?oh=3963da8881face05959cddc9653db224&oe=608122A8",
+          "mediaKeyTimestamp": "1616474369"
+        }
+      }
+    },
+    "type": "audio"
   }
 ]

@@ -1503,6 +1503,40 @@
       "messageTimestamp": "1615253625",
       "status": "SERVER_ACK",
       "participant": "6285559038021@s.whatsapp.net"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "AD8035AB2B19D4FA60587911799CA0FC"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Uda,,",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "B9FFC2FBEAC43EACCFC252DC30EAFAC7",
+            "participant": "6281287509878@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "Eh kok blm di riset sih("
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1616551324",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "2B3C62A1BCE6004340C36393D9164843"
+      },
+      "message": {
+        "conversation": "Tdi bot off"
+      },
+      "messageTimestamp": "1616551329",
+      "status": "ERROR"
     }
   ]
 }

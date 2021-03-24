@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require('fs')
-const mysession = process.argv[2] || 'mecha'///*'mecha'*/'MRHRTZ'
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode')
 const chalk = require('chalk')
@@ -18,6 +17,10 @@ function INFOLOG(info) {
 function ERRLOG(e) {
      console.log('\x1b[1;31m~\x1b[1;37m>>', '<\x1b[1;31mERROR\x1b[1;37m>', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
 }
+
+const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
+const mysession = settings.Session_Name
+// const mysession = process.argv[2] || 'mecha'///*'mecha'*/'MRHRTZ'
 
 require('./myHandler')
 require('./revokeHandler')

@@ -1,22 +1,47 @@
 [
   {
     "status": true,
-    "gstatus": "waiting",
+    "gstatus": "playing",
     "rid": 1,
-    "leader": "6285559038021@s.whatsapp.net",
-    "leader_name": "MRHRTZ",
+    "leader": "4@s.whatsapp.net",
+    "voteSession": true,
+    "leader_name": "Aguse",
     "data": {
       "name": "Merhas",
       "passwordIsRequired": false,
       "password": "",
-      "currentPlayers": 1,
+      "currentPlayers": 7,
       "minPlayers": 4,
-      "maxPlayers": 8
+      "maxPlayers": 7
     },
     "players": [
       {
+        "jid": "4@s.whatsapp.net",
+        "username": "Aguse"
+      },
+      {
+        "jid": "1@s.whatsapp.net",
+        "username": "NZCHA"
+      },
+      {
         "jid": "6285559038021@s.whatsapp.net",
         "username": "MRHRTZ"
+      },
+      {
+        "jid": "2@s.whatsapp.net",
+        "username": "Agus"
+      },
+      {
+        "jid": "02391578210920@s.whatsapp.net",
+        "username": "Nimu"
+      },
+      {
+        "jid": "65@s.whatsapp.net",
+        "username": "Aparta"
+      },
+      {
+        "jid": "9090123123@s.whatsapp.net",
+        "username": "Kususu"
       }
     ]
   }
