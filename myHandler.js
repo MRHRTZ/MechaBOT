@@ -15,6 +15,7 @@ const Table = require("cli-table");
 const emoji = require("node-emoji");
 const FormData = require("form-data");
 const speed = require("performance-now");
+const wastub = require('./WASTUBTYPE.js')
 const remote = require("remote-file-size");
 moment.tz.setDefault("Asia/Jakarta").locale("id");
 const time = moment().format("DD/MM HH:mm:ss");
@@ -196,9 +197,7 @@ const {
 const {
      chord
 } = require("./lib/chord");
-const {
-     AsyncLocalStorage
-} = require("async_hooks");
+const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function INFOLOG(info) {
@@ -341,7 +340,6 @@ function pushLimit(Jid, amount) {
                });
           }
      }
-     console.log({v:vip,j:Jid})
      if (data.length === 0) {
           if (vip.includes(Jid))
                return [{
@@ -630,10 +628,14 @@ module.exports = handle = async (
           return;
      }
 
-     if (!hurtz.message) return;
+     if (!hurtz.message) {
+          // INFOLOG(wastub[hurtz.messageStubType])
+          console.log(hurtz)
+          return
+     };
      // fs.writeFileSync('./cpsw.json', JSON.stringify(hurtz, null, 2))
 
-     
+
 
 
      const groupMines = JSON.parse(
@@ -655,24 +657,30 @@ module.exports = handle = async (
                (type = "mentionedText") :
                type;
      // typed = type === 'extendedTextMessage' && Object.keys(hurtz.message.extendedTextMessage)[0].includes('matchedText') ? type = 'thumbnailText' : type
+     let hurtzText = hurtz.message
+     if (type == "ephemeralMessage") {
+          type = Object.keys(hurtz.message.ephemeralMessage.message)
+          hurtzText = hurtz.message.ephemeralMessage.message
+     }
      const body =
           type == "conversation" ?
-               hurtz.message.conversation :
+               hurtzText.conversation :
                type == "mentionedText" ?
-                    hurtz.message.extendedTextMessage.text :
+                    hurtzText.extendedTextMessage.text :
                     type == "extendedTextMessage" ?
-                         hurtz.message.extendedTextMessage.text :
+                         hurtzText.extendedTextMessage.text :
                          type == "imageMessage" ?
-                              hurtz.message.imageMessage.caption :
+                              hurtzText.imageMessage.caption :
                               type == "stickerMessage" ?
                                    "Sticker" :
                                    type == "audioMessage" ?
                                         "Audio" :
                                         type == "videoMessage" ?
-                                             hurtz.message.videoMessage.caption :
+                                             hurtzText.videoMessage.caption :
                                              type == "documentMessage" ?
-                                                  "document" :
-                                                  "[ NOT FOUND BODY @MechaBOT ]"; //hurtz.message
+                                                  "document" : type == "contactMessage" ? "Contact" :
+                                                       "[ NOT FOUND BODY @MechaBOT ]"; //hurtzText
+     // console.log(body)
      const args = body.split(/ +/g);
      const cmd = body.toLowerCase().split(" ")[0] || "";
      const prf = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?@#$%^&.\/\\©^]/.test(cmd) ?
@@ -688,7 +696,7 @@ module.exports = handle = async (
           type === "extendedTextMessage" && konten.includes("stickerMessage");
      const isQuotedAudio =
           type === "extendedTextMessage" && konten.includes("audioMessage");
-     const typeQuoted =
+     let typeQuoted =
           type === "extendedTextMessage" ?
                Object.keys(
                     hurtz.message.extendedTextMessage.contextInfo ?
@@ -700,35 +708,49 @@ module.exports = handle = async (
                          }
                )[0] :
                type;
+
+     let hurtzMediaData = type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message) != 'ephemeralMessage' ? JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.extendedTextMessage.contextInfo : hurtzText
+     if (type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message) == 'ephemeralMessage' && JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message) {
+          typeQuoted = Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message)
+          hurtzMediaData = JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message
+          // console.log(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo)
+     }
      const mediaData =
           type === "extendedTextMessage" ?
                typeQuoted === "thumbnailMessage" ?
-                    hurtz :
-                    JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message
-                         .extendedTextMessage.contextInfo :
-               hurtz;
+                    hurtzText :
+                    hurtzMediaData :
+               hurtzText;
      // const ment = ''
      // console.log(body)
      // const ment = mediaData.message[(typeQuoted == 'mentionedText') ? 'extendedTextMessage' : (typeQuoted == 'thumbnailMessage') ? 'extendedTextMessage' : typeQuoted].contextInfo || '' //.contextInfo
      // console.log(ment)
-     const bodyQuoted =
+
+     // return from === '6285559038021-1603688917@g.us' ? console.log(typeQuoted) : ''
+     // return console.log(hurtzMediaData, typeQuoted)
+     let typesWA = ["conversation", "extendedTextMessage", "mentionedText", "imageMessage", "stickerMessage", "audioMessage", "videoMessage", "documentMessage", "thumbnailMessage"]
+     const bodyQuoted = typesWA.includes(type === 'extendedTextMessage' && hurtzMediaData ? Object.keys(hurtzMediaData.message ? hurtzMediaData.message : { MRHRTZ: 'okey' })[0] : 'none') ?
           typeQuoted == "conversation" ?
-               mediaData.message.conversation :
+               hurtzMediaData.message.conversation :
                typeQuoted == "extendedTextMessage" ?
-                    mediaData.message.extendedTextMessage.text :
-                    typeQuoted == "imageMessage" ?
-                         mediaData.message.imageMessage.caption :
-                         typeQuoted == "stickerMessage" ?
-                              "Sticker" :
-                              typeQuoted == "audioMessage" ?
-                                   "Audio" :
-                                   typeQuoted == "videoMessage" ?
-                                        mediaData.message.videoMessage.caption :
-                                        typeQuoted == "documentMessage" ?
-                                             "document" :
-                                             typeQuoted == "thumbnailMessage" ?
-                                                  mediaData :
-                                                  mediaData.message;
+                    hurtzMediaData.message.extendedTextMessage.text :
+                    typeQuoted == "mentionedText" ?
+                         hurtzMediaData.message.extendedTextMessage.text :
+                         typeQuoted == "imageMessage" ?
+                              hurtzMediaData.message.imageMessage.caption :
+                              typeQuoted == "stickerMessage" ?
+                                   "Sticker" :
+                                   typeQuoted == "audioMessage" ?
+                                        "Audio" :
+                                        typeQuoted == "videoMessage" ?
+                                             hurtzMediaData.message.videoMessage.caption :
+                                             typeQuoted == "documentMessage" ?
+                                                  "document" :
+                                                  typeQuoted == "thumbnailMessage" ?
+                                                       hurtzMediaData.message :
+                                                       '' : ''
+
+
      settings.Debug ? console.log(JSON.stringify(hurtz)) : "";
      const isCmd = body.startsWith(prf);
      const query = args.slice(1).join(" ");
@@ -758,7 +780,7 @@ module.exports = handle = async (
      for (let exna of expvip) {
           expvipnum.push(exna.number);
      }
-     const isVIP = vip.includes(sender);
+     const isVIP = expvipnum.includes(sender);
      let adminGroups = [];
      const metadata = isGroup ? await conn.groupMetadata(from) : "";
      const partc = metadata.participants ? metadata.participants : [];
@@ -769,9 +791,12 @@ module.exports = handle = async (
      }
      const isAdmin = adminGroups.includes(sender);
      const isBotAdmin = adminGroups.includes(botNumber);
-
-     
-
+     // console.log(hurtzText[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo)
+     const mention = hurtzText[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo ? hurtzText[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo.mentionedJid ? type == 'extendedTextMessage' || type == 'mentionedText' ? hurtzText.extendedTextMessage.contextInfo.mentionedJid : type == 'imageMessage' ? hurtzText.imageMessage.contextInfo.mentionedJid : type == 'videoMessage' ? hurtzText.videoMessage.contextInfo.mentionedJid : type == 'stickerMessage' ? hurtzText.stickerMessage.contextInfo.mentionedJid : type == 'documentMessage' ? hurtzText.documentMessage.contextInfo.mentionedJid : type == 'conversation' ? hurtzText.conversation.contextInfo.mentionedJid : type == 'ephemeralMessage' ? hurtzText.ephemeralMessage.message.extendedTextMessage.contextInfo.mentionedJid : [] : [] : []
+     if (from === '6285559038021-1603688917@g.us') {
+          // console.log(type == 'ephemeralMessage' ? hurtz.message.ephemeralMessage.message : '')
+     }
+     // console.log(mention)
      const datatoken = JSON.parse(
           fs.readFileSync("./lib/database/token-limit.json")
      );
@@ -1079,7 +1104,7 @@ module.exports = handle = async (
                     });
                     await conn.updatePresence(dari, 'paused')
                }
-          );
+          )
      }
 
      async function sendStikerDariUrl(dari, url) {
@@ -1327,7 +1352,7 @@ Contoh : *!guess naruto*
 
      const db = JSON.parse(fs.readFileSync("./lib/new-chat/database.json"));
      // const from = '62857313534sa1@s.whatsapp.net'
-     const nomerOwner = [settings.Owner];
+     const nomerOwner = [settings.Owner, conn.user.jid];
      const isOwner = nomerOwner.includes(sender);
      const isExist = db.number.includes(from);
      const now = moment().unix();
@@ -1773,6 +1798,14 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                          console.log(e);
                          balas(from, `Maaf kak ada kesalahan`);
                     });
+          } else if (cmd == `${prf}delete` || cmd == `${prf}hapus`) {
+               if (type === "extendedTextMessage") {
+                    // console.log(hurtzMediaData)
+                    if (hurtzMediaData.participant != conn.user.jid) return balas(from, `Tidak bisa menghapus chat orang lain!`)
+                    conn.deleteMessage(from, { remoteJid: from, fromMe: true, id: hurtzMediaData.stanzaId })
+               } else {
+                    balas(from, `Tag pesan bot yang ingin dihapus!`)
+               }
           } else if (
                cmd == `${prf}hartacustom` ||
                cmd == `${prf}tahtacustom` ||
@@ -2046,32 +2079,20 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                          );
                     if (!args[1].includes("instagram.com"))
                          return balas(from, `Url bukan dari instagram!`);
-                    let arrBln = [
-                         "Januari",
-                         "Februari",
-                         "Maret",
-                         "April",
-                         "Mei",
-                         "Juni",
-                         "Juli",
-                         "Agustus",
-                         "September",
-                         "Oktober",
-                         "November",
-                         "Desember",
-                    ];
                     const idRegex = /([-_0-9A-Za-z]{11})/;
                     const idIGG = args[1].match(idRegex);
                     await getPost(idIGG[0]).then((post) => {
-                         const captig = `*Media berhasil terkirim!*\n\n*Username* : ${post.owner_user
-                              }\n*Waktu Publish* : ${moment(post.date * 1000).format('hh:mm:ss DD:MM:YYYY')}\n*Capt* : ${post.capt}`;
-                         sendDariUrl(
-                              from,
-                              post.url,
-                              post.isVideo ? TypePsn.video : TypePsn.image,
-                              captig
-                         );
-                         // console.log(post)
+                         if (post.url.length === 1) {
+                              const captig = `*Media berhasil terkirim!*\n\n*Username* : ${post.owner_user}\n*Waktu Publish* : ${moment(post.date * 1000).format('hh:mm:ss DD:MM:YYYY')}\n*Capt* : ${post.capt}`;
+                              sendDariUrl(from, post.url, post.isVideo ? TypePsn.video : TypePsn.image, captig);
+                         } else {
+                              for (let i = 0; i < post.url.length; i++) {
+                                   sendDariUrlNoReply(from, post.url[i].media, post.url[i].isVideo ? TypePsn.video : TypePsn.image, '');
+                              }
+                              const captig = `*Media berhasil didapatkan!*\n\n*Jumlah Media* : ${post.url.length}\n*Username* : ${post.owner_user}\n*Waktu Publish* : ${moment(post.date * 1000).format('hh:mm:ss DD:MM:YYYY')}\n*Capt* : ${post.capt}`;
+                              balas(from, captig)
+                         }
+
                     });
                } catch (err) {
                     ERRLOG(err);
@@ -2318,6 +2339,116 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                     })
                     .catch((e) => {
                          balas(from, `Terdapat kesalahan saat mengambil video ${query}.`);
+                         ERRLOG(e);
+                    });
+          } else if (cmd == `${prf}playtodoc`) {
+               if (args.length === 1)
+                    return balas(
+                         from,
+                         "Kirim perintah *!playtodoc <Judul lagu yang akan dicari>*"
+                    );
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               waiter();
+               pushLimit(sender, 2);
+               const play = await ytsr(body.slice(6));
+               if (play.length === 0)
+                    return balas(from, `${query} tidak dapat ditemukan!`);
+               const mulaikah = play[0].url;
+               yta(mulaikah)
+                    .then((resyt3) => {
+                         const {
+                              dl_link,
+                              thumb,
+                              title,
+                              filesize
+                         } = resyt3;
+                         const {
+                              author,
+                              ago,
+                              views,
+                              desc,
+                              timestamp
+                         } = play[0];
+                         INFOLOG(title);
+                         Axios.get(thumb, {
+                              responseType: "arraybuffer",
+                         }).then(({
+                              data
+                         }) => {
+                              remote(dl_link, async (e, o) => {
+                                   const buffer_thumbyt3 = Buffer.from(data, "base64");
+                                   const capt_yt3 = `*Data telah didapatkan!*
+     
+*Title* : ${title}
+*Duration* : ${timestamp}
+*Type* : MP3
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
+*Filesize* : ${sizer(o)}
+*Description* : ${desc ? desc : "-"}
+
+_Mohon tunggu beberapa menit untuk mengirim file tersebut.._`;
+                                   const filtermp3 = await Axios.get(
+                                        `https://tinyurl.com/api-create.php?url=${dl_link}`
+                                   );
+                                   const capt_yt3limited = `*Data telah didapatkan!*
+     
+*Title* : ${title}
+*Duration* : ${timestamp}
+*Type* : MP3
+*Author* : ${author}
+*Published* : ${ago}
+*Views* : ${views}
+*Filesize* : ${sizer(o)}
+*Description* : ${desc ? desc : "-"}
+*Link* : ${filtermp3.data}
+
+_Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
+                                   INFOLOG(`DAPAT DATA AUDIO : ${title} ( ${sizer(o)} )`);
+                                   if (Number(filesize) >= 100000)
+                                        return sendDariUrl(from, thumb, TypePsn.image, capt_yt3limited);
+                                   conn.sendMessage(from, buffer_thumbyt3, TypePsn.image, {
+                                        mimetype: Mimetype.jpeg,
+                                        caption: capt_yt3,
+                                        quoted: hurtz,
+                                   });
+                                   //Send MP3 as Document
+                                   Axios.get(dl_link, {
+                                        responseType: "arraybuffer",
+                                   })
+                                        .then((response) => {
+                                             const buffer_yt3 = Buffer.from(response.data, "base64");
+                                             conn.sendMessage(from, buffer_yt3, TypePsn.document, {
+                                                  filename: title,
+                                                  mimetype: mimetypes("mp3"),
+                                                  quoted: hurtz,
+                                             });
+                                        })
+                                        .catch((ex) => {
+                                             balas(
+                                                  from,
+                                                  `Terdapat kesalahan saat mengambil lagu ${query}.`
+                                             );
+                                             ERRLOG(ex);
+                                        });
+                              });
+                         });
+                    })
+                    .catch((e) => {
+                         balas(from, `Terdapat kesalahan saat mengambil lagu ${query}.`);
                          ERRLOG(e);
                     });
           } else if (cmd == `${prf}play`) {
@@ -4736,10 +4867,11 @@ ${Number(o) > 100000000
                if (args.length === 1)
                     return balas(
                          from,
-                         `Penggunaan : *!herodetail* <nama hero>\nContoh : *!herodetail miya*`
+                         `Penggunaan : *!heroml* <nama hero>\nContoh : *!heroml miya*`
                     );
                herodetail(query)
                     .then((ress) => {
+                         // console.log(ress)
                          const res = ress.result;
                          let capt = `*Hero Mobile Legends Details*
 
@@ -6347,7 +6479,7 @@ ${hasil.grid}
                     pm2.start({
                          script: "mecha.js", // Script to be run
                          name: args[1],
-                         args: args[1],
+                         args: args[2],
                          max_memory_restart: "5000M", // Optional: Restarts your app if it reaches 100Mo
                     },
                          function (err, apps) {
@@ -7440,21 +7572,36 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     mediaData,
                     `./media/convert/${filename}`
                );
-               const output = "./media/convert/" + moment().unix() + ".mp4";
-               mp32mp4(savedFilename, "./media/sticker/docs.png", output)
-                    .then((res) => {
-                         sendFile(from, res.output, TypePsn.video, {
-                              quoted: hurtz,
-                         });
-                         fs.unlinkSync(savedFilename);
-                         fs.unlinkSync(output);
+               const output = "./media/convert/" + filename + ".mp4";
+               if (type != 'videoMessage' || type != 'imageMessage') {
+                    exec(`ffmpeg -i ${savedFilename} ${output}`, (err, stderr, stdout) => {
+                         if (err) {
+                              balas(from, `Gagal mengkonversi.`)
+                              return
+                         }
+                         const buffer = fs.readFileSync(output)
+                         conn.sendMessage(from, buffer, TypePsn.video, { quoted: hurtz, caption: `Udah jadi ni ${pushname}` })
+                              .then(() => {
+                                   fs.unlinkSync(savedFilename)
+                                   fs.unlinkSync(output)
+                              })
                     })
-                    .catch((e) => {
-                         console.log(e);
-                         balas(from, "Gagal gan!");
-                         fs.unlinkSync(savedFilename);
-                         fs.unlinkSync(output);
-                    });
+               } else {
+                    const RealMediaPath = await conn.downloadAndSaveMediaMessage(hurtz, `./media/convert/${filename}-input`)
+                    exec(`ffmpeg -i ${savedFilename} -i ${RealMediaPath} ${output}`, (err, stderr, stdout) => {
+                         if (err) {
+                              balas(from, `Gagal mengkonversi.`)
+                              return
+                         }
+                         const buffer = fs.readFileSync(output)
+                         conn.sendMessage(from, buffer, TypePsn.video, { quoted: hurtz, caption: `Udah jadi ni ${pushname}` })
+                              .then(() => {
+                                   fs.unlinkSync(savedFilename)
+                                   fs.unlinkSync(output)
+                                   fs.unlinkSync(RealMediaPath)
+                              })
+                    })
+               }
           } else if (cmd == `${prf}tomp3`) {
                if (!isQuotedVideo && !isVideoMsg)
                     return balas(from, `Tidak ada data video!`);
@@ -7777,7 +7924,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                let authorstik;
                if (args[1] == "wm") {
                     if (!isVIP) return balas(from, "Maaf hanya untuk VIP yachh!");
-                    packstik = body.slice(10).split("|")[0] || "Created By MechaBOT";
+                    packstik = body.split(' ').slice(2).join(' ').split("|")[0] || "Created By MechaBOT";
                     authorstik = body.split("|")[1] || "Follow Dev Insta @hzzz.formech_";
                } else {
                     packstik = "Created By MechaBOT";
@@ -8269,7 +8416,8 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               result[acak],
                               TypePsn.image,
                               `*Hasil Pencarian dari ${query}*`
-                         );
+                         )
+                              .catch(() => balas(from, `*Terdapat kesalahan, mohon ulangi.*`))
                     })
                     .catch(() => balas(from, `*Tidak bisa menemukan gambar* : ${query}`));
           } else if (cmd == `${prf}tebaksetting` || cmd == `${prf}tebaksettings`) {
@@ -8321,20 +8469,14 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               fs.readFileSync(`./lib/tebak-gambar/${from}.json`)
                          );
                          var countDownDate = db_tebak.expired_on;
-                         // Get today's date and time
                          var now = new Date().getTime();
-
-                         // Find the distance between now and the count down date
                          var distance = countDownDate - now;
-                         // Time calculations for days, hours, minutes and seconds
                          var hours = Math.floor(
                               (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
                          );
                          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                         // Display the result in the element with id="demo"
                          const countReset = `${minutes}:${seconds}`;
-                         // datateb = countReset + db_tebak.status
                          {
                               db_tebak.remaining = countReset;
                               fs.writeFileSync(
@@ -8342,8 +8484,6 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                    JSON.stringify(db_tebak, null, 2)
                               );
                          }
-                         // console.log(countReset)
-                         // If the count down is finished, write some text
                          if (distance < 0) {
                               clearInterval(y);
                               INFOLOG("Expired Tebak Gambar");
@@ -8351,7 +8491,6 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                    `./lib/tebak-gambar/${from}.json`,
                                    JSON.stringify(db_tebak, null, 2)
                               );
-                              // restartCode()
                               conn.sendMessage(
                                    from,
                                    `*❌ [ Expired ] ❌*\n\nSesi tebak gambar telah berhenti karena lebih dari ${settings.Tebak_Gambar.Max

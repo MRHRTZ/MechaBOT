@@ -1537,6 +1537,92 @@
       },
       "messageTimestamp": "1616551329",
       "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "3EB0E6262572"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Waktu bot aktif / telah berjalan selama *12 Menit, 27 Detik, 294 milidetik*",
+          "contextInfo": {
+            "stanzaId": "048ECB1712CAD1FC7BC9947731540A4B",
+            "participant": "6285559038021@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": ".runtime"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1617330613",
+      "status": "SERVER_ACK",
+      "participant": "6285559038021@s.whatsapp.net"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "8398D58990963EF8B4D66D2C5BCE6C4E"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Coba pake !heroml angela",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "5D6BE0B4AFD0F28334BFBDECCE80A5AA",
+            "participant": "6285713765018@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "!herodetail Angela"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1617343128",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "B6D264F02FFA4C2234BE69577B31C2C2"
+      },
+      "message": {
+        "conversation": "Salah bkn herodetail"
+      },
+      "messageTimestamp": "1617343139",
+      "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "A7C0898BDF72E23E48485E5A0F03DCF6"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Up",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "6B6A9001F11B7261F5027097B0BF7C50",
+            "participant": "27632122007@s.whatsapp.net",
+            "quotedMessage": {
+              "extendedTextMessage": {
+                "text": "@6285559038021 Saya membutuhkan bot di GC saya",
+                "previewType": "NONE",
+                "contextInfo": {
+                  "mentionedJid": [
+                    "6285559038021@s.whatsapp.net"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1617343143",
+      "status": "ERROR"
     }
   ]
 }

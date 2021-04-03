@@ -19,8 +19,8 @@ function ERRLOG(e) {
 }
 
 const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
-const mysession = settings.Session_Name
-// const mysession = process.argv[2] || 'mecha'///*'mecha'*/'MRHRTZ'
+// const mysession = settings.Session_Name
+const mysession = process.argv[2] || 'hanz'///*'mecha'*/'MRHRTZ'
 
 require('./myHandler')
 require('./revokeHandler')
@@ -45,7 +45,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
 
      conn.on('contacts-received', () => {
-          console.log(`Berhasil update kredensial`)
+          conn.logger.info(`Berhasil update kredensial`)
           const authInfo = conn.base64EncodedAuthInfo()
           fs.writeFileSync('./sessions/' + sesi + '.sesi.json', JSON.stringify(authInfo, null, 2))
      })
@@ -56,6 +56,9 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      
 
      conn.on('chat-update', async (chat) => {
+          // const m = chat.messages.all()[0] // pull the new message from the update
+          // const messageStubType = WA_MESSAGE_STUB_TYPES[m.messageStubType] ||  'MESSAGE'
+          // console.log('STUB', messageStubType)
           if (chat.imgUrl) {
                INFOLOG('imgUrl of chat changed ', chat.imgUrl)
                return
@@ -63,7 +66,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           // only do something when a new message is received
           if (!chat.hasNewMessage) {
                if (chat.messages) {
-                    INFOLOG('Chat baru di ' + chat.jid + '.')
+                    // INFOLOG('Chat baru di ' + chat.jid + '.')
                }
                return
           }
@@ -89,8 +92,8 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
      // conn.logger.
      conn.on('CB:action,,battery', json => {
-          const batteryLevelStr = json[2][0][1].value
-          const batterylevel = parseInt(batteryLevelStr)
+          // const batteryLevelStr = json[2][0][1].value
+          // const batterylevel = parseInt(batteryLevelStr)
           // INFOLOG('battery level: ' + batterylevel)
           fs.writeFileSync('./lib/database/batt.json', JSON.stringify(json[2][0], null, 2))
      })
@@ -103,6 +106,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
 
      conn.on('message-update', async (hurtzz) => {
+          console.log(hurtzz)
           require('./revokeHandler')(mysession, WA_MESSAGE_STUB_TYPES, hurtzz, conn, Mimetype, MessageType)
      })
 }
