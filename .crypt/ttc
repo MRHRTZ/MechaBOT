@@ -1,0 +1,231 @@
+// BUAT FOLDER : ./lib/tictactoe/db/
+
+// SIMPEN DI BAGIAN FUNCTION
+
+let arrNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+     if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
+          const boardnow = setGame(`${from}`);
+          if (cmd == "cex") return balas(from, "why");
+          if (
+               body.toLowerCase() == "y" ||
+               body.toLowerCase() == "yes" ||
+               body.toLowerCase() == "ya"
+          ) {
+               if (boardnow.O == sender.replace("@s.whatsapp.net", "")) {
+                    if (boardnow.status)
+                         return balas(from, `Game telah dimulai sebelumnya!`);
+                    const matrix = boardnow._matrix;
+                    boardnow.status = true;
+                    fs.writeFileSync(
+                         `./lib/tictactoe/db/${from}.json`,
+                         JSON.stringify(boardnow, null, 2)
+                    );
+                    const chatAccept = `*🎮 Tictactoe Game 🎳*
+                    
+❌ : @${boardnow.X}
+⭕ : @${boardnow.O}
+               
+Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
+
+     ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
+     ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
+     ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
+
+`;
+                    conn.sendMessage(from, chatAccept, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [
+                                   boardnow.X + "@s.whatsapp.net",
+                                   boardnow.O + "@s.whatsapp.net",
+                              ],
+                         },
+                    });
+               } else {
+                    conn.sendMessage(
+                         from,
+                         `Opsi ini hanya untuk @${boardnow.O} !`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [boardnow.O + "@s.whatsapp.net"],
+                         },
+                    }
+                    );
+               }
+          } else if (
+               body.toLowerCase() == "n" ||
+               body.toLowerCase() == "no" ||
+               body.toLowerCase() == "tidak"
+          ) {
+               if (boardnow.O == sender.replace("@s.whatsapp.net", "")) {
+                    if (boardnow.status)
+                         return balas(from, `Game telah dimulai sebelumnya!`);
+                    fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
+                    conn.sendMessage(
+                         from,
+                         `Sayangnya tantangan @${boardnow.X} ditolak ❌😕`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [boardnow.X + "@s.whatsapp.net"],
+                         },
+                    }
+                    );
+               } else {
+                    conn.sendMessage(
+                         from,
+                         `Opsi ini hanya untuk @${boardnow.O} !`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [boardnow.O + "@s.whatsapp.net"],
+                         },
+                    }
+                    );
+               }
+          }
+     }
+
+     if (arrNum.includes(cmd)) {
+          const boardnow = setGame(`${from}`);
+          if (
+               (boardnow.turn == "X" ? boardnow.X : boardnow.O) !=
+               sender.replace("@s.whatsapp.net", "")
+          )
+               return;
+          const moving = validmove(Number(body), `${from}`);
+          const matrix = moving._matrix;
+          if (moving.isWin) {
+               if (moving.winner == "SERI") {
+                    const chatEqual = `*🎮 Tictactoe Game 🎳*
+          
+Game berakhir seri 😐
+`;
+                    balas(from, chatEqual);
+                    fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
+                    return;
+               }
+               const winnerJID = moving.winner == "O" ? moving.O : moving.X;
+               const looseJID = moving.winner == "O" ? moving.X : moving.O;
+               const limWin = Math.floor(Math.random() * 20) + 10;
+               const limLoose = Math.floor(Math.random() * 10) + 5;
+               const chatWon = `*🎮 Tictactoe Game 🎳*
+          
+Telah dimenangkan oleh @${winnerJID} 😎👑
+
+Pemenang = + ${limWin} ✅
+Kalah = - ${limLoose}  ❌
+`;
+               giftLimit(winnerJID + "@s.whatsapp.net", limWin);
+               pushLimit(looseJID + "@s.whatsapp.net", limLoose);
+               conn.sendMessage(from, chatWon, TypePsn.text, {
+                    quoted: hurtz,
+                    contextInfo: {
+                         mentionedJid: [
+                              moving.winner == "O" ?
+                                   moving.O + "@s.whatsapp.net" :
+                                   moving.X + "@s.whatsapp.net",
+                         ],
+                    },
+               });
+               fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
+          } else {
+               const chatMove = `*🎮 Tictactoe Game 🎳*
+          
+❌ : @${moving.X}
+⭕ : @${moving.O}
+
+Giliran : @${moving.turn == "X" ? moving.X : moving.O}
+
+
+     ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
+     ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
+     ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
+
+
+`;
+               conn.sendMessage(from, chatMove, TypePsn.text, {
+                    quoted: hurtz,
+                    contextInfo: {
+                         mentionedJid: [
+                              moving.X + "@s.whatsapp.net",
+                              moving.O + "@s.whatsapp.net",
+                         ],
+                    },
+               });
+          }
+     }
+
+
+     // DIBAGIAN CASE ( IF Tinggal ganti ke CASE )
+
+     if (cmd == `${prf}tictactoe`) {
+          if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
+               const boardnow = setGame(`${from}`);
+               const matrix = boardnow._matrix;
+               const chatMove = `*🎮 Tictactoe Game 🎳*
+
+Sedang ada sesi permainan digrup ini\n\n@${boardnow.X} VS @${boardnow.O}
+
+❌ : @${boardnow.X}
+⭕ : @${boardnow.O}
+
+Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
+
+
+${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
+${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
+${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
+
+
+`;
+               conn.sendMessage(from, chatMove, TypePsn.text, {
+                    quoted: hurtz,
+                    contextInfo: {
+                         mentionedJid: [
+                              boardnow.X + "@s.whatsapp.net",
+                              boardnow.O + "@s.whatsapp.net",
+                         ],
+                    },
+               });
+               return;
+          }
+          if (args.length === 1)
+               return balas(
+                    from,
+                    `Tag yang ingin jadi lawan anda!\n\nPenggunaan : *!tictactoe <@TagMember>*`
+               );
+          const boardnow = setGame(`${from}`);
+          INFOLOG(`Start Tictactore ${boardnow.session}`);
+          boardnow.status = false;
+          boardnow.X = sender.replace("@s.whatsapp.net", "");
+          boardnow.O = args[1].replace("@", "");
+          fs.writeFileSync(
+               `./lib/tictactoe/db/${from}.json`,
+               JSON.stringify(boardnow, null, 2)
+          );
+          const strChat = `*🎮 Memulai game tictactoe 🎳*
+
+@${sender.replace(
+               "@s.whatsapp.net",
+               ""
+          )} menantang anda untuk menjadi lawan game
+
+_[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_ 
+`;
+          conn.sendMessage(from, strChat, TypePsn.text, {
+               quoted: hurtz,
+               contextInfo: {
+                    mentionedJid: [sender, args[1].replace("@", "") + "@s.whatsapp.net"],
+               },
+          });
+     } else if (cmd == `${prf}delttc`) {
+          // if (!isOwner) return conn.sendMessage(id, yan, MessageType.text);
+          if (fs.existsSync("./lib/tictactoe/db/" + from + ".json")) {
+               fs.unlinkSync("./lib/tictactoe/db/" + from + ".json");
+               balas(from, `Berhasil menghapus sesi di grup ini!`);
+          } else {
+               balas(from, `Tidak ada sesi yg berlangsung, mohon ketik .tictactoe`);
+          }
+     }

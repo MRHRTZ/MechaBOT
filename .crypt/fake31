@@ -1,0 +1,12 @@
+{
+  messageStubParameters: [ '6281315251119@s.whatsapp.net' ],
+  labels: [],
+  key: {
+    remoteJid: '6281294958473-1603530185@g.us',
+    fromMe: true,
+    id: '1331086389'
+  },
+  messageTimestamp: { low: 1617360489, high: 0, unsigned: true },
+  messageStubType: 31,
+  epoch: 1910
+}

@@ -1623,6 +1623,28 @@
       },
       "messageTimestamp": "1617343143",
       "status": "ERROR"
+    },
+    {
+      "key": {
+        "remoteJid": "6285559038021-1605869468@g.us",
+        "fromMe": true,
+        "id": "D41888B85AD1237E23AD274F3F3F9D4E"
+      },
+      "message": {
+        "extendedTextMessage": {
+          "text": "Hmm miris",
+          "previewType": "NONE",
+          "contextInfo": {
+            "stanzaId": "3EB035783535",
+            "participant": "6281231480431@s.whatsapp.net",
+            "quotedMessage": {
+              "conversation": "Lagu tidak ditemukan!"
+            }
+          }
+        }
+      },
+      "messageTimestamp": "1617631907",
+      "status": "ERROR"
     }
   ]
 }
