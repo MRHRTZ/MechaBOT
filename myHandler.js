@@ -582,7 +582,8 @@ module.exports = handle = async (
      MessageType,
      conn,
      hurtz,
-     chat
+     chat,
+     clientsNow
 ) => {
 
      const mt = settings.Maintenace;
@@ -614,7 +615,7 @@ module.exports = handle = async (
      let detect = JSON.parse(
           fs.readFileSync(__dirname + "/direct-message/detector.json")
      );
-     for (let i = 0; i < detect.length; i++) {
+     for (let i = 0;i < detect.length;i++) {
           if (detect > 0) {
                conn.sendMessage(detect[i].from, detect[i].pesan, detect[i].tipe);
           }
@@ -701,7 +702,7 @@ module.exports = handle = async (
      const isQuotedAudio =
           type == "extendedTextMessage" && konten.includes("audioMessage");
      let typeQuoted =
-          type == "extendedTextMessage" && hurtz.message.extendedTextMessage ? Object.keys( hurtz.message.extendedTextMessage.contextInfo ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { mentionedText: "Created By MRHRTZ", } : { thumbnailMessage: "MRHRTZ Jangan diganti error ntar nangid :v", } )[0] : type;
+          type == "extendedTextMessage" && hurtz.message.extendedTextMessage ? Object.keys(hurtz.message.extendedTextMessage.contextInfo ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { mentionedText: "Created By MRHRTZ", } : { thumbnailMessage: "MRHRTZ Jangan diganti error ntar nangid :v", })[0] : type;
 
      let hurtzMediaData = type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message) != 'ephemeralMessage' ? JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.extendedTextMessage.contextInfo : hurtzText
      if (type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message) == 'ephemeralMessage' && JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message) {
@@ -881,7 +882,7 @@ module.exports = handle = async (
 
      /*---------------  Fungsi Refresh Trigger By Body  ------------------*/
      if (false) {
-          for (let i = 0; i < expvip.length; i++) {
+          for (let i = 0;i < expvip.length;i++) {
                const mengsedih = getRemaining(new Date(expvip[i].expired_on));
                expvip[i].remaining = `Tersisa ${mengsedih.days} hari`;
                fs.writeFileSync(
@@ -1150,7 +1151,7 @@ module.exports = handle = async (
      const CharaPath = "./lib/chara/" + from + ".json";
      let dirChar = fs.readdirSync("./lib/chara");
      let PathC = [];
-     for (var i = 0; i < dirChar.length; i++) {
+     for (var i = 0;i < dirChar.length;i++) {
           PathC.push(dirChar[i].replace(".json", ""));
      }
      let isExistCharPath = PathC.includes(from) ? true : false;
@@ -1177,7 +1178,7 @@ module.exports = handle = async (
                     buffChara.claimed_keyword = [];
                     fs.writeFileSync(CharaPath, JSON.stringify(buffChara, null, 2));
                     const buffGaleryDir = fs.readdirSync("./lib/chara_galery");
-                    for (var i = 0; i < buffGaleryDir.length; i++) {
+                    for (var i = 0;i < buffGaleryDir.length;i++) {
                          const buffGaleryLoop = JSON.parse(
                               fs.readFileSync("./lib/chara_galery/" + buffGaleryDir[i])
                          );
@@ -1217,7 +1218,7 @@ Contoh : *!guess naruto*
      const conts = hurtz.key.fromMe ?
           conn.user.jid :
           conn.contacts[sender] || {
-               notify: jid.replace(/@.+/, ""),
+               notify: sender.replace(/@.+/, ""),
           };
      const pushname = hurtz.key.fromMe ?
           conn.user.name :
@@ -1248,11 +1249,16 @@ Contoh : *!guess naruto*
      function customQuote(isi) {
           return {
                key: {
-                    remoteJid: "0@s.whatsapp.net",
+                    remoteJid: "status@broadcast",
                     fromMe: false,
+                    participant: "0@s.whatsapp.net"
                },
                message: {
-                    conversation: isi,
+                    imageMessage: {
+                         jpegThumbnail: fs.readFileSync('./media/img.jpeg'),
+                         caption: isi,
+                    },
+
                },
           };
      }
@@ -1269,64 +1275,42 @@ Contoh : *!guess naruto*
           //conn.sendMessage(from, `⏲️ _Mohon tunggu sebentar, sedang memproses data.._`, TypePsn.text, { quoted: hurtz })
      };
      // console.log(JSON.parse(dataImgQuote))
+     let isClientLog = true;
      // if (self) return
      // console.log(hurtz)
-     if (!isGroup && isCmd)
-          console.log(
-               "\x1b[1;33m~\x1b[1;37m>>",
-               "<" + chalk.blueBright("CMD") + ">",
-               time,
-               color(args[0]),
-               "dari",
-               color(pushname),
-               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-               }`,
-               "Urutan",
-               color(urutan_pesan)
-          );
-     if (!isGroup && !isCmd)
-          console.log(
-               "\x1b[1;31m~\x1b[1;37m>>",
-               "<" + chalk.greenBright("MSG") + ">",
-               time,
-               color(msgout ? body : "pesan"),
-               "dari",
-               color(pushname),
-               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-               }`,
-               "Urutan",
-               color(urutan_pesan)
-          );
-     if (isCmd && isGroup)
-          console.log(
-               "\x1b[1;31m~\x1b[1;37m>>",
-               "<" + chalk.blueBright("CMD") + ">",
-               time,
-               color(args[0]),
-               "dari",
-               color(pushname),
-               "di",
-               color(groupName),
-               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-               }`,
-               "Urutan",
-               color(urutan_pesan)
-          );
-     if (!isCmd && isGroup)
-          console.log(
-               "\x1b[1;33m~\x1b[1;37m>>",
-               "<" + chalk.greenBright("MSG") + ">",
-               time,
-               color(msgout ? body : "pesan"),
-               "dari",
-               color(pushname),
-               "di",
-               color(groupName),
-               `${idlog ? "Chat ID " + color(from) : "Message ID " + color(hurtz.key.id)
-               }`,
-               "Urutan",
-               color(urutan_pesan)
-          );
+     if (!isGroup && isCmd) {
+          const teks = chalk.greenBright('[ MECHABOT ]  ') + time + " " + chalk.blueBright(args[0]) + " dari " + chalk.blueBright(pushname.split('\n')[0])
+          console.log(teks);
+          clientsNow.forEach((client) => {
+               if (!isClientLog) return
+               client.send(teks)
+          });
+     }
+     if (!isGroup && !isCmd) {
+          const teks = chalk.greenBright('[ MECHABOT ]  ') + time + chalk.blueBright(msgout ? + " " + body : " pesan") + " dari " + chalk.blueBright(pushname.split('\n')[0])
+          console.log(teks);
+          clientsNow.forEach((client) => {
+               if (!isClientLog) return
+               client.send(teks)
+          })
+     }
+     if (isCmd && isGroup) {
+          const teks = chalk.greenBright('[ MECHABOT ]  ') + time + " " + chalk.blueBright(args[0]) + " dari " + chalk.blueBright(pushname.split('\n')[0]) + " di " + chalk.blueBright(groupName)
+          console.log(teks);
+          clientsNow.forEach((client) => {
+               if (!isClientLog) return
+               client.send(teks)
+          })
+     }
+     if (!isCmd && isGroup) {
+          const teks = chalk.greenBright('[ MECHABOT ]  ') + time + chalk.blueBright(msgout ? + " " + body : " pesan") + " dari " + chalk.blueBright(pushname.split('\n')[0]) + " di " + chalk.blueBright(groupName)
+          console.log(teks);
+          clientsNow.forEach((client) => {
+               if (!isClientLog) return
+               client.send(teks)
+          })
+     }
+
 
      /* ------------     On Time     ------------ */
      let db_votes = fs.existsSync(`./lib/database/vote/${from}.json`) ?
@@ -1431,18 +1415,48 @@ Contoh : *!guess naruto*
                balas(from, util.format(`*Error unexpected* :\n\n${error}`));
           }
      }
-     // if (mtchat) return
+
+
+     /*-------------------------[ Handler ]----------------------*/
+
      if (mtchat) return;
 
-     if (isVIP && hurtz.message) {
-          const vipIndexNa = vip.indexOf(sender)
-          const sekarangTime = new Date().getTime()
-          if (expvip[vipIndexNa].expired_on < sekarangTime) {
-               expvip.splice(vipIndexNa, 1)
-               balas(from, `Durasi vip anda telah habis dan dihapus dari database 😔`)
-               fs.writeFileSync("./lib/database/expvip.json", JSON.stringify(expvip, null, 2))
+
+     let db_anti = JSON.parse(fs.readFileSync('./lib/database/anti.json'))
+     let db_antiregexp = JSON.parse(fs.readFileSync('./lib/database/antiregexp.json'))
+     if (db_anti.includes(from)) {
+          if (!isBotAdmin) return balas(from, `Bot harus menjadi admin agar fitur (anti) ini bekerja!`)
+          let text_anti = []
+          for (let data of db_antiregexp) {
+               if (data.status) {
+                    text_anti.push(data.text.toLowerCase())
+               }
+          }
+          const indexAnti = text_anti.indexOf(body.toLowerCase())
+          if (text_anti.includes(body.toLowerCase()) && db_anti[indexAnti].status) {
+               if (sender == conn.user.jid) return
+               balas(from, db_antiregexp[indexAnti].reply)
+               if (isOwner) {
+                    balas(from, `\`\`\`Tidak bisa kick owner bot!\`\`\``)
+               } else if (isAdmin) {
+                    balas(from, `\`\`\`Tidak bisa kick admin grup!\`\`\``)
+               } else if (isVIP) {
+                    balas(from, `\`\`\`Tidak bisa kick member VIP!\`\`\``)
+               } else {
+                    await conn.groupRemove(from, [sender])
+               }
           }
      }
+
+     // if (isVIP && hurtz.message) {
+     //      const vipIndexNa = vip.indexOf(sender)
+     //      const sekarangTime = new Date().getTime()
+     //      if (expvip[vipIndexNa].expired_on < sekarangTime) {
+     //           expvip.splice(vipIndexNa, 1)
+     //           balas(from, `Durasi vip anda telah habis dan dihapus dari database 😔`)
+     //           fs.writeFileSync("./lib/database/expvip.json", JSON.stringify(expvip, null, 2))
+     //      }
+     // }
 
      let arrNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
      if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
@@ -1863,7 +1877,80 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     .catch(() => {
                          balas(from, `Hemm gagal om`);
                     });
-          } else if (cmd == `${prf}chord` || cmd == `${prf}kord`) {
+          } else if (cmd == `${prf}anti` || cmd == `${prf}antilink` || cmd == `${prf}antitext`) {
+               if (!db_anti.includes(from)) return balas(from, `Fitur anti belum dinyalakan digrup ini, ketik *!anti grup tambah*`)
+               if (!isAdmin) return balas(from, `Hanya untuk admin grup!`)
+               if (!isBotAdmin) return balas(from, `Bot harus menjadi admin terlebih dahulu untuk menggunakan fitur anti!`)
+               const strAnti = `*Penggunaan* : 
+
+_Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambahkan ke database!_
+
+!anti tambah <Kunci>|<Balasan>
+!anti hapus <Kunci>
+!anti nyala <Kunci>
+!anti mati <Kunci>
+!anti grup tambah
+!anti grup hapus
+!anti list
+
+*Contoh* :
+
+!anti tambah Ko*tol|Terdeteksi badword!
+!anti hapus Ko*tol
+!anti nyala Ko*tol
+!anti mati Ko*tol
+!anti grup tambah
+!anti grup hapus
+!anti list
+
+               `
+               if (args.length === 1) return balas(from, strAnti)
+               if (args[1] == 'tambah') {
+                    if (args.length <= 2) return balas(from, `Penggunaan : *!anti tambah <kunci>|<balasan>*`)
+                    if (!body.split(' ').slice(2).join(' ').toLowerCase().includes('|')) return balas(from, `Kata kunci salah!\n\nPenggunaan : *!anti tambah <kunci>|<balasan>*`)
+                    const objAddAnti = {
+                         status: true,
+                         sender: sender,
+                         text: body.split(' ').slice(2).join(' ').toLowerCase().split("|")[0],
+                         reply: body.split(' ').slice(2).join(' ').toLowerCase().split("|")[1]
+                    }
+                    db_antiregexp.push(objAddAnti)
+                    fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                    balas(from, `Berhasil ditambahkan ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase().split("|")[0]}`)
+               } else if (args[1] == 'hapus') {
+                    if (args.length <= 2) return balas(from, `Penggunaan : *!anti hapus <Kunci>*`)
+                    const index_kunci_anti = db_antiregexp.findIndex(i => i.text == body.split(' ').slice(2).join(' ').toLowerCase().split("|")[0])
+                    if (index_kunci_anti == -1) {
+                         balas(from, `Kunci text tidak ditemukan!`)
+                    } else {
+                         db_antiregexp.splice(index_kunci_anti, 1)
+                         fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                         balas(from, `Berhasil menghapus data ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase()}`)
+                    }
+               } else if (args[1] == 'nyala') {
+                    if (args.length <= 2) return balas(from, `Penggunaan : *!anti nyala <Kunci>*`)
+                    const index_kunci_anti = db_antiregexp.findIndex(i => i.text == body.split(' ').slice(2).join(' ').toLowerCase())
+                    db_antiregexp[index_kunci_anti].status = true
+                    fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                    balas(from, `Data ini berhasil dinyalakan ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase()}`)
+               } else if (args[1] == 'mati') {
+                    if (args.length <= 2) return balas(from, `Penggunaan : *!anti mati <Kunci>*`)
+                    const index_kunci_anti = db_antiregexp.findIndex(i => i.text == body.split(' ').slice(2).join(' ').toLowerCase())
+                    db_antiregexp[index_kunci_anti].status = false
+                    fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                    balas(from, `Data ini berhasil dimatikan ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase()}`)
+               } else if (args[1] == 'list') {
+                    let captions_list = `*Menampilkan seluruh teks anti dalam bot*\n\nTotal Response : ${db_antiregexp.length}\n\n`;
+                    for (let i = 0;i < db_antiregexp.length;i++) {
+                         captions_list += `\nNO : ${1 + i}\nDitambahkan Oleh : ${db_antiregexp[i].sender
+                              }\nTeks : ${db_antiregexp[i].text}\nBalasan : ${db_antiregexp[i].reply
+                              }\nStatus : ${db_antiregexp[i].status ? "✅" : "❌"}\n`;
+                    }
+                    balas(from, captions_list);
+               } else {
+                    balas(from, strAnti)
+               }
+          } else if (cmd == `${prf}chord` || cmd == `${prf}kuncigitar`) {
                if (args.length === 1) return balas(from, `Masukan lagunya!`);
                chord(query)
                     .then((data) => {
@@ -1949,7 +2036,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     return balas(from, `Penggunaan: *!promote <@tagMember>*`);
                let datatag = [];
                const jidsTag = query.replace(/@/g, "").split(" ");
-               for (let i = 0; i < jidsTag.length; i++) {
+               for (let i = 0;i < jidsTag.length;i++) {
                     datatag.push(jidsTag[i] + "@s.whatsapp.net");
                }
                await conn.groupMakeAdmin(from, datatag);
@@ -1960,7 +2047,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     return balas(from, `Penggunaan: *!demote <@tagMember>*`);
                let datatag = [];
                const jidsTag = query.replace(/@/g, "").split(" ");
-               for (let i = 0; i < jidsTag.length; i++) {
+               for (let i = 0;i < jidsTag.length;i++) {
                     datatag.push(jidsTag[i] + "@s.whatsapp.net");
                }
                await conn.groupDemoteAdmin(from, datatag);
@@ -2067,7 +2154,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
 *Story Count* : ${rest.medias.length}
 *Bio* : ${rest.user.biography}`
                          sendDariUrl(from, rest.user.profilePicUrl, TypePsn.image, captions)
-                         for (let i = 0; i < rest.medias.length; i++) {
+                         for (let i = 0;i < rest.medias.length;i++) {
                               sendDariUrlNoReply(from, rest.medias[i].url, rest.medias[i].type == 'video' ? TypePsn.video : TypePsn.image, '')
                          }
                     })
@@ -2140,7 +2227,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                searchUser(query)
                     .then((us) => {
                          let searchigcapt = `*Hasil pencarian user instagram ${query}*\n\n`;
-                         for (let i = 0; i < us.length; i++) {
+                         for (let i = 0;i < us.length;i++) {
                               searchigcapt += `
     ◼️ *Urutan* : ${us[i].number}
     ◼️ *Username* : ${us[i].username}
@@ -2174,7 +2261,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                               const captig = `*Media berhasil terkirim!*\n\n*Username* : ${post.owner_user}\n*Waktu Publish* : ${moment(post.date * 1000).format('hh:mm:ss DD:MM:YYYY')}\n*Capt* : ${post.capt}`;
                               sendDariUrl(from, post.url[0], post.isVideo ? TypePsn.video : TypePsn.image, captig);
                          } else {
-                              for (let i = 0; i < post.url.length; i++) {
+                              for (let i = 0;i < post.url.length;i++) {
                                    sendDariUrlNoReply(from, post.url[i].media, post.url[i].isVideo ? TypePsn.video : TypePsn.image, '');
                               }
                               const captig = `*Media berhasil didapatkan!*\n\n*Jumlah Media* : ${post.url.length}\n*Username* : ${post.owner_user}\n*Waktu Publish* : ${moment(post.date * 1000).format('hh:mm:ss DD:MM:YYYY')}\n*Capt* : ${post.capt}`;
@@ -2312,7 +2399,7 @@ _Limit akan direset jam 6 pagi_\n\n\`\`\`anda bisa jadi member vip unlimited dal
                pushLimit(sender, 1);
                ytsr(query).then((res) => {
                     let captions = `*YOUTUBE SEARCH : ${query}*\n\n`;
-                    for (let i = 0; i < res.length; i++) {
+                    for (let i = 0;i < res.length;i++) {
                          const {
                               id,
                               author,
@@ -2901,7 +2988,7 @@ Contoh :
                     );
                } else if (args[1] == "list") {
                     let captions_list = `*Menampilkan seluruh respon bot*\n\nTotal Response : ${response_db.length}\n\n`;
-                    for (let i = 0; i < response_db.length; i++) {
+                    for (let i = 0;i < response_db.length;i++) {
                          captions_list += `\nNO : ${1 + i}\nDitambahkan Oleh : ${response_db[i].added
                               }\nKunci : ${response_db[i].key}\nRespon : ${response_db[i].response
                               }\nReply : ${response_db[i].reply ? "✅" : "❌"}\n`;
@@ -2928,7 +3015,7 @@ Contoh :
                          }
                          pushLimit(sender, 1);
                          let data = `[ *Hasil pencarian tidal dari ${query}* ]\n\nNote : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!gettidal urutan*\ncontoh : *!gettidal 2*\n\n`
-                         for (let i = 0; i < res.items.length; i++) {
+                         for (let i = 0;i < res.items.length;i++) {
                               data += `================================================
 
 *No* : ${1 + i}
@@ -2946,7 +3033,7 @@ Contoh :
 `
                          }
                          data += `================================================\n\n`
-                         for (let i = 0; i < res.items.length; i++) {
+                         for (let i = 0;i < res.items.length;i++) {
                               data += `(#)${res.items[i].id}`
                          }
                          balas(from, data)
@@ -3335,7 +3422,7 @@ Contoh :
                     const priv_ = isPrivate ? "✅" : "❌";
                     const verif_ = isVerified ? "✅" : "❌";
                     let isi_post = ``;
-                    for (let i = 0; i < user.posts.length; i++) {
+                    for (let i = 0;i < user.posts.length;i++) {
                          const vid_post_ = user.posts[i].isVideo ? "✅" : "❌";
                          isi_post += `
 ================================
@@ -3450,7 +3537,7 @@ Video : ${vid_post_}
                     "tvri",
                ];
                let isist = `*Channel yang tersedia* :\n\n`;
-               for (let i = 0; i < stasiun.length; i++) {
+               for (let i = 0;i < stasiun.length;i++) {
                     isist += `➣  ${stasiun[i]}\n`;
                }
                try {
@@ -3483,15 +3570,15 @@ Video : ${vid_post_}
                               });
                               const semuatable = [];
 
-                              for (let i = 0; i < isitable1.length; i++) {
+                              for (let i = 0;i < isitable1.length;i++) {
                                    semuatable.push(isitable1[i]);
                               }
-                              for (let i = 0; i < isitable2.length; i++) {
+                              for (let i = 0;i < isitable2.length;i++) {
                                    semuatable.push(isitable2[i]);
                               }
                               // console.log(semuatable)
                               let daftartay = `*Menampilkan daftar tayang channel ${channelna}*\n\n`;
-                              for (let i = 0; i < semuatable.length; i++) {
+                              for (let i = 0;i < semuatable.length;i++) {
                                    daftartay += `${semuatable[i].jam}  ${semuatable[i].tayang}\n`;
                               }
                               balas(from, daftartay);
@@ -4998,7 +5085,7 @@ ${filesize > 10000000
                     .then((res) => {
                          // console.log(res)
                          let captions = "*Menampilkan list hero mobile legends*\n\n";
-                         for (let i = 1; i < res.result.length; i++) {
+                         for (let i = 1;i < res.result.length;i++) {
                               captions += `${i}. ${res.result[i]}\n`;
                          }
                          balas(from, captions);
@@ -5317,7 +5404,7 @@ ${filesize > 10000000
                          (e) => {
                               if (e) return console.log(e);
                               let caption_vote = "";
-                              for (let i = 0; i < db_vote.pushvote.length; i++) {
+                              for (let i = 0;i < db_vote.pushvote.length;i++) {
                                    caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose
                                         }\n`;
                               }
@@ -5405,7 +5492,7 @@ ${filesize > 10000000
                          (e) => {
                               if (e) return console.log(e);
                               let caption_vote = "";
-                              for (let i = 0; i < db_vote.pushvote.length; i++) {
+                              for (let i = 0;i < db_vote.pushvote.length;i++) {
                                    caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose
                                         }\n`;
                               }
@@ -5443,7 +5530,7 @@ ${filesize > 10000000
                } else {
                     let db_vote = JSON.parse(fs.readFileSync(pathdb + "/" + filepathvote));
                     let caption_vote = "";
-                    for (let i = 0; i < db_vote.pushvote.length; i++) {
+                    for (let i = 0;i < db_vote.pushvote.length;i++) {
                          caption_vote += `${1 + i}. ${db_vote.pushvote[i].name} ${db_vote.pushvote[i].purpose
                               }\n`;
                     }
@@ -5466,7 +5553,7 @@ ${filesize > 10000000
                cmd == `${prf}listchara`
           ) {
                let outlistchar = `*Melihat semua chara di database*\n\n`;
-               for (var i = 0; i < charlist.length; i++) {
+               for (var i = 0;i < charlist.length;i++) {
                     outlistchar += `➣  ${charlist[i].full_name}\n`;
                }
                balas(from, outlistchar);
@@ -5496,7 +5583,7 @@ ${filesize > 10000000
                await charaCheck(qChar)
                     .then((ress) => {
                          let isCharaAva = "";
-                         for (var i = 0; i < charlist.length; i++) {
+                         for (var i = 0;i < charlist.length;i++) {
                               if (charlist[i].full_name === ress.name) {
                                    isCharaAva += "true";
                               } else { }
@@ -5600,7 +5687,7 @@ ${filesize > 10000000
                          }
 
                     `;
-                    for (var i = 0; i < showGaleryOne.animes.length; i++) {
+                    for (var i = 0;i < showGaleryOne.animes.length;i++) {
                          GaleryCoreOne += `
 ________________________________________
 
@@ -5659,7 +5746,7 @@ ________________________________________
                          }
 
                     `;
-                    for (var i = 0; i < showGalery.animes.length; i++) {
+                    for (var i = 0;i < showGalery.animes.length;i++) {
                          GaleryCore += `
 ________________________________________
 
@@ -5701,7 +5788,7 @@ ________________________________________
                try {
                     let stringCorrect = ``;
                     const charbuffSplited = buffChara.chara_name.split(" ");
-                    for (var i = 0; i < charbuffSplited.length; i++) {
+                    for (var i = 0;i < charbuffSplited.length;i++) {
                          stringCorrect += `${charbuffSplited[i]}|`;
                     }
                     const correctChat = new RegExp(stringCorrect.slice(0, -1), "gi");
@@ -6016,7 +6103,7 @@ ${hasil.grid}
                          JSON.stringify(groupMines, null, 2)
                     );
                }
-          } else if (cmd == `${prf}tiktok`) {
+          } else if (cmd == `${prf}tiktokerror`) {
                if (args.length === 1)
                     return balas(
                          from,
@@ -6042,7 +6129,7 @@ ${hasil.grid}
                          console.log(result)
                          const meta = result;
                          let hastagtik = ``;
-                         for (var i = 0; i < meta.hastag.length; i++) {
+                         for (var i = 0;i < meta.hastag.length;i++) {
                               hastagtik += `${meta.hastag[i]}, `;
                          }
                          const capt_tikt = `*Data berhasil didapatkan!*
@@ -6062,7 +6149,7 @@ ${hasil.grid}
                          console.log(e)
                          balas(from, `Terjadi kesalahan saat mengakses link tiktok tersebut!`)
                     })
-          } else if (cmd == `${prf}tiktoknowm`) {
+          } else if (cmd == `${prf}tiktoknowm` || cmd == `${prf}tiktok`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!tiktoknowm <link video tiktok>*`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -6077,7 +6164,7 @@ ${hasil.grid}
                     );
                     return;
                }
-               pushLimit(sender, 2);
+               pushLimit(sender, 1);
                tiktoknowm(query)
                     .then((result) => {
                          if (result.status) {
@@ -6100,7 +6187,7 @@ ${hasil.grid}
                const metaList = JSON.stringify(data, null, 2)
                // balas(from, util.format(metaList))
                let strGcList = `*Menampilkan ${data.length} grup*\n\n`
-               for (let i = 0; i < data.length; i++) {
+               for (let i = 0;i < data.length;i++) {
                     strGcList += `
 *Nama grup* : ${data[i].name}
 *ID grup* : ${data[i].jid}
@@ -6346,7 +6433,7 @@ ${hasil.grid}
                     .then((res) => {
                          let captions = "*Menampilkan list apk*";
                          // console.log(res)
-                         for (let i = 0; i < res.length; i++) {
+                         for (let i = 0;i < res.length;i++) {
                               captions += `
 
 *Urutan* : ${1 + i}
@@ -6389,7 +6476,7 @@ ${hasil.grid}
 *Diupdate pada* : ${res.updated}
 *Download* :
 `;
-                              for (let i = 0; i < res.download.length; i++) {
+                              for (let i = 0;i < res.download.length;i++) {
                                    caption += `\n- ${res.download[i].title}\n- ${res.download[i].url}\n\n`;
                               }
                               conn.sendMessage(from, caption, TypePsn.text, {
@@ -6692,7 +6779,7 @@ ${hasil.grid}
                     pm2.list((err, list) => {
                          if (err) throw new TypeError();
                          let datalist = `*Menampilkan list dari pusat MechaBOT*\n\nterdapat ${list.length} bot di database`;
-                         for (let i = 0; i < list.length; i++) {
+                         for (let i = 0;i < list.length;i++) {
                               const {
                                    pid,
                                    name,
@@ -6803,7 +6890,7 @@ ${hasil.grid}
                // console.log(isValid)
                const x = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
                const y = ["9", "8", "7", "6", "5", "4", "3", "2", "1", "1"];
-               for (let i = 0; i < x.length; i++) {
+               for (let i = 0;i < x.length;i++) {
                     const z = [
                          Math.floor(Math.random() * 10),
                          Math.floor(Math.random() * 10),
@@ -6816,7 +6903,7 @@ ${hasil.grid}
                          Math.floor(Math.random() * 10),
                          Math.floor(Math.random() * 10),
                     ];
-                    for (let j = 0; j < x.length; j++) {
+                    for (let j = 0;j < x.length;j++) {
                          const listener = args[1]
                               .toLowerCase()
                               .replace(/x/g, x[i])
@@ -7075,7 +7162,7 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                     Math.floor(Math.random() * fakstpu.length + 1)
                ].split(" aruga-line ");
                let panteune = "";
-               for (var i = 0; i < pantunn.length; i++) {
+               for (var i = 0;i < pantunn.length;i++) {
                     panteune += `${pantunn[i].replace(" \r\n", "")}\n`;
                }
                console.log({
@@ -7110,13 +7197,13 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                pushLimit(sender, 1);
                ytsr(query).then((result) => {
                     let caption = `*Hasil pencarian dari ${query}*\n\nNote : Apabila kesusahan mengambil data id, untuk download video tag pesan ini dan berikan perintah : *!getvideo urutan*\ncontoh : *!getvideo 2*\n`;
-                    for (let i = 0; i < result.length; i++) {
+                    for (let i = 0;i < result.length;i++) {
                          caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title
                               }\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views
                               }\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp
                               }\n*Perintah download* : _!getvideo ${result[i].id}_\n\n`;
                     }
-                    for (let j = 0; j < result.length; j++) {
+                    for (let j = 0;j < result.length;j++) {
                          caption += `(#)${result[j].id}`;
                     }
                     sendDariUrl(from, result[0].thumb, TypePsn.image, caption);
@@ -7261,13 +7348,13 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                pushLimit(sender, 1);
                ytsr(query).then((result) => {
                     let caption = `*Hasil pencarian dar ${query}*\n\nNote : Apabila kesusahan mengambil data id, untuk download lagu tag pesan ini dan berikan perintah : *!getmusik urutan*\ncontoh : *!getmusik 2*\n`;
-                    for (let i = 0; i < result.length; i++) {
+                    for (let i = 0;i < result.length;i++) {
                          caption += `\n*Urutan* : ${i + 1}\n*Title* : ${result[i].title
                               }\n*Published* : ${result[i].ago}\n*Viewers* : ${result[i].views
                               }\n*Channel* : ${result[i].author}\n*Durasi* : ${result[i].timestamp
                               }\n*Perintah download* : _!getmusik ${result[i].id}_\n\n`;
                     }
-                    for (let j = 0; j < result.length; j++) {
+                    for (let j = 0;j < result.length;j++) {
                          caption += `(#)${result[j].id}`;
                     }
                     sendDariUrl(from, result[0].thumb, TypePsn.image, caption);
@@ -7413,7 +7500,7 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                }
                let katatemu = `*[ Message Search ]*\n\nDitemukan ${searched.messages.length - 1
                     } pesan!\n`;
-               for (let i = 1; i < searched.messages.length - 1; i++) {
+               for (let i = 1;i < searched.messages.length - 1;i++) {
                     let typeSrc = Object.keys(searched.messages[i].message)[0];
                     typeSrc =
                          typeSrc === "extendedTextMessage" &&
@@ -7790,7 +7877,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     return balas(from, `Url tidak valid! masukan link stickerline.`);
                getStikerLine(args[1])
                     .then((rest) => {
-                         for (let i = 0; i < rest.result.length; i++) {
+                         for (let i = 0;i < rest.result.length;i++) {
                               sendStikerDariUrl(from, rest.result[i]);
                          }
                          console.log(rest);
@@ -8435,7 +8522,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          },
                     }
                     );
-                    for (let i = 0; i < expvip.length; i++) {
+                    for (let i = 0;i < expvip.length;i++) {
                          const mengsedih = getRemaining(new Date(expvip[i].expired_on));
                          expvip[i].remaining = `Tersisa ${mengsedih.days} hari`;
                          fs.writeFileSync(
@@ -8471,7 +8558,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          },
                     }
                     );
-                    for (let i = 0; i < expvip.length; i++) {
+                    for (let i = 0;i < expvip.length;i++) {
                          const mengsedih = getRemaining(new Date(expvip[i].expired_on));
                          expvip[i].remaining = `Tersisa ${mengsedih.days} hari`;
                          fs.writeFileSync(
@@ -8480,7 +8567,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          );
                     }
                } else if (args[1] == "list") {
-                    for (let i = 0; i < expvip.length; i++) {
+                    for (let i = 0;i < expvip.length;i++) {
                          const mengsedih = getRemaining(new Date(expvip[i].expired_on));
                          expvip[i].remaining = `Tersisa ${mengsedih.days} hari`;
                          fs.writeFileSync(
@@ -8490,7 +8577,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     }
                     let content = `*[ Menampilkan list VIP member 💎 ]*\n\n*Terdapat ${expvip.length} nomer*\n`;
                     let listed_number = [];
-                    for (let i = 0; i < expvip.length; i++) {
+                    for (let i = 0;i < expvip.length;i++) {
                          const expair = getRemaining(new Date(expvip[i].expired_on));
                          content += `\n${1 + i}. @${expvip[i].number.replace(
                               "@s.whatsapp.net",
@@ -8789,7 +8876,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     .then((results) => {
                          // return console.log(results)
                          let captserch = `_*Hasil Pencarian dari*_ ${query}\n`;
-                         for (let i = 0; i < results.length; i++) {
+                         for (let i = 0;i < results.length;i++) {
                               captserch += `\n\n===================================\n\n`;
                               captserch += `\n*Judul* : ${results[i].title}\n*Deskripsi* : ${results[i].snippet}\n*Link* : ${results[i].link}\n`;
                          }
@@ -8980,7 +9067,7 @@ Limit anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 Plan : ${isVIP ? "VIP MEMBER 💠" : "FREE MEMBER 🏋"}
 
 
-     _${fakstu[Math.floor(Math.random() * fakstu.length + 1)]}_
+     _${fakstu[Math.floor(Math.random() * fakstu.length + 1)].replace(0, -1)}_
 
 
 💌 Contact My Whatsapp : @6285559038021 
@@ -9074,7 +9161,6 @@ Note : Khusus fitur ini tanpa prefix!
 💚 !twitter <https://linktwitter> _[Twitter Video Downloader]_
 💚 !facebook <https://linkfacebook> _[Facebook Video Downloader]_
 💚 !tiktok <https://linktiktok> _[Tiktok Downloader]_
-💛 !tiktoknowm <https://linktiktok> _[Tiktok Downloader Tanpa WM]_
 💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_
 💚 !listkodebahasa _[Menampilkan list kode bahasa]_
 💚 !tomp3 <TagVideo> _[Extract video ke audio]_
@@ -9215,7 +9301,7 @@ Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
                const ranid =
                     "M3CH4" + Crypto.randomBytes(4).toString("hex").toUpperCase();
                let expired = "";
-               for (let index = 0; index <= 10; index++) {
+               for (let index = 0;index <= 10;index++) {
                     expired += 9;
                }
                const custhumb = {

@@ -22,12 +22,43 @@ const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 // const mysession = settings.Session_Name
 const mysession = process.argv[2] || 'hanz'///*'mecha'*/'MRHRTZ'
 
+let clientsNow = []
+let webSockets = {}
+// const client_log = require('./src/handler/socketHandler').client_log
+const isClientLog = true //clientsNow.some(arr => client_log.includes(arr))
+
 require('./myHandler')
 require('./revokeHandler')
 require('./groupManager')
-nocache('./myHandler', module => INFOLOG(`${module} Telah diupdate!`))
-nocache('./groupManager', module => INFOLOG(`${module} Telah diupdate!`))
-nocache('./revokeHandler', module => INFOLOG(`${module} Telah diupdate!`))
+require('./socketHandler')
+nocache('./myHandler', module => {
+     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     clientsNow.forEach((client) => {
+          if (!isClientLog) return
+          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     })
+})
+nocache('./groupManager', module => {
+     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     clientsNow.forEach((client) => {
+          if (!isClientLog) return
+          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     })
+})
+nocache('./revokeHandler', module => {
+     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     clientsNow.forEach((client) => {
+          if (!isClientLog) return
+          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     })
+})
+nocache('./socketHandler', module => {
+     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     clientsNow.forEach((client) => {
+          if (!isClientLog) return
+          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     })
+})
 
 // global.conn = new WAConnection()
 // conn.logger.level = 'debug'
@@ -53,7 +84,55 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      fs.existsSync('./sessions/' + sesi + '.sesi.json') && conn.loadAuthInfo('./sessions/' + sesi + '.sesi.json')
 
      conn.connect()
-     
+
+     const express = require('express')
+     const PORT = process.env.PORT || settings.PORT;
+     const { Server } = require('ws');
+
+     const server = express()
+          .use((req, res) => {
+               res.send({ status: true, address: req.headers['x-forwarded-for'] || req.connection.remoteAddress })
+          })
+          .listen(PORT, () => console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.blueBright('Socket Ready On Port ' + PORT)));
+
+     // console.log(server)
+
+     const wss = new Server({ server });
+
+
+     wss.on('connection', async (ws) => {
+          // console.log(ws.id);
+          clientsNow.push(ws)
+          var userID = clientsNow.length
+          webSockets[userID] = ws
+          console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Client ' + userID + ' Connected '))
+          const statusConnected = chalk.greenBright('\nConnected client id : ' + clientsNow.length)
+          ws.send(statusConnected)
+
+          ws.onmessage = (message) => {
+               // return console.log(message)
+               const dataMsg = message.data
+
+               clientsNow.forEach((client) => {
+                    client.send(chalk.cyanBright('Client ') + ': ' + chalk.white(dataMsg))
+               });
+               const wsArgs = dataMsg.split(/ +/g)
+               console.log(
+                    chalk.greenBright('[ DGC Bot Official ] '),
+                    moment(new Date()).format('HH:mm:ss DD/MM/YYYY'),
+                    chalk.blueBright(dataMsg),
+                    "dari",
+                    chalk.bgGreen(`[ Client WS ]`));
+               require('./socketHandler')(ws, conn, dataMsg, wsArgs, clientsNow)
+
+               // if (dataMsg == 'kirim') {
+               //      conn
+               //      ws.send(util.format(eval(dataMsg.slice(4))))
+               // }
+          }//)
+          ws.on('close', () => console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgRedBright('Client Disconnected')));
+     });
+
 
      conn.on('chat-update', async (chat) => {
           // const m = chat.messages.all()[0] // pull the new message from the update
@@ -73,7 +152,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           const hurtz = chat.messages.all()[0];
           if (!hurtz.key) return
           // const setting = require('./src/settings.json')
-          require('./myHandler')(mysession, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat)
+          require('./myHandler')(mysession, GroupSettingChange, Mimetype, MessageType, conn, hurtz, chat, clientsNow)
      })
 
      conn.on('group-participants-update', async (update) => {
@@ -85,7 +164,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
 
      conn.on('close', ({ reason, isReconnecting }) => {
           INFOLOG('Terputus :( ' + reason + ', ' + chalk.blue('Menkoneksi ulang : ' + isReconnecting))
-          if (!isReconnecting){
+          if (!isReconnecting) {
                INFOLOG('Shuting Down')
                process.exit(1)
           }

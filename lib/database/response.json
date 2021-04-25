@@ -886,5 +886,34 @@
       }
     },
     "type": "audio"
+  },
+  {
+    "id": 58,
+    "reply": true,
+    "added": "MRHRTZ",
+    "key": "hey",
+    "response": {
+      "stanzaId": "A6EE2326E0A1D082754F362A5C84E100",
+      "participant": "966572592040@s.whatsapp.net",
+      "message": {
+        "stickerMessage": {
+          "url": "https://mmg.whatsapp.net/d/f/AsDweKzEkIAe8ZzS8mxyz-QPf_z4kNtpmse3CHlYH3mt.enc",
+          "fileSha256": "GE8yfyWDrWjLRmliG1Ugb/AJkqixpqkrYyEyjNsSipg=",
+          "fileEncSha256": "T3X16VdOsdGThvrFQyrPigp7YQwH31MXegNGQoI69rE=",
+          "mediaKey": "hKq/PLEAZoEBPwtQxU5Ur7gxE9B3IpMEA8jnMoJIRDg=",
+          "mimetype": "image/webp",
+          "height": 64,
+          "width": 64,
+          "directPath": "/v/t62.15575-24/26676642_791509044797697_6683599178469120962_n.enc?oh=7faf3c0a406bdee098daec50238d5565&oe=609C5D23",
+          "fileLength": "307464",
+          "mediaKeyTimestamp": "1618264255",
+          "firstFrameLength": 8972,
+          "firstFrameSidecar": "ItOW+7afa8QJtg==",
+          "isAnimated": true
+        }
+      },
+      "expiration": 604800
+    },
+    "type": "sticker"
   }
 ]
