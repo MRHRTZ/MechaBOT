@@ -20,7 +20,7 @@ function ERRLOG(e) {
 
 const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 // const mysession = settings.Session_Name
-const mysession = process.argv[2] || 'hanz'///*'mecha'*/'MRHRTZ'
+const mysession = process.argv[2] || 'daz'///*'mecha'*/'MRHRTZ'
 
 let clientsNow = []
 let webSockets = {}
