@@ -13,7 +13,7 @@
   "MessageConsole": false,
   "IDConsole": true,
   "PrivateChat": true,
-  "Limit": 20,
+  "Limit": 30,
   "Reset_Time": 1614380400000,
   "Reset_Read": "",
   "Reset_Status": false,

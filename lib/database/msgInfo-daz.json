@@ -1,0 +1,16 @@
+[
+  {
+    "key": {
+      "remoteJid": "6285559038021-1615729316@g.us",
+      "fromMe": false,
+      "id": "06B0D111FBDC5800FD19E1262F2491BD"
+    },
+    "message": {
+      "conversation": "!rain Mgeni"
+    },
+    "messageTimestamp": "1620687000",
+    "status": "ERROR",
+    "participant": "265995088983@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  }
+]

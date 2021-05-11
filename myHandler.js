@@ -87,6 +87,7 @@ const {
      uploadwebp,
      webp2mp4Url,
      apng2webpUrl,
+     fixAudio
 } = require("./lib/converter");
 const {
      baseURI,
@@ -227,7 +228,6 @@ function restartCode() {
      fs.writeFileSync("./myHandler.js", datanow);
 }
 
-let c = console.log;
 
 function remDup(data, key) {
      return [...new Map(data.map((x) => [key(x), x])).values()];
@@ -253,11 +253,7 @@ function getRemaining(endtime) {
      };
 }
 
-let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
-let vip = []
-for (let vi of expvip) {
-     vip.push(vi.number)
-}
+
 
 let fspam = fs.readdirSync("./lib/database/filterspam");
 
@@ -328,7 +324,13 @@ function addFspam(jid, num) {
 function pushing(obj) {
      fs.writeFileSync("./lib/database/limit.json", JSON.stringify(obj, null, 2));
 }
+let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
+let vip = expvip.map(rest => rest.number)
+// console.log(vip);
 
+// for (let exna of expvip) {
+//      expvipnum.push(exna.number);
+// }
 function pushLimit(Jid, amount) {
      amount = Number(amount);
      let data = [];
@@ -367,6 +369,7 @@ function pushLimit(Jid, amount) {
                limit: pusheh.limit,
           },];
      } else if (data.length > 0) {
+          // console.log(Jid);
           if (vip.includes(Jid))
                return [{
                     Status: true,
@@ -626,22 +629,61 @@ module.exports = handle = async (
      }
 
      if (hurtz.key.remoteJid == "status@broadcast") {
-          // console.log(hurtz)
+          console.log(hurtz)
           fs.writeFileSync("./sw.json", JSON.stringify(hurtz, null, 2));
           // 1981092531
           // 4286747850
           return;
      }
 
+     let db_antivirus = JSON.parse(fs.readFileSync('./lib/database/antivirus.json'))
+     const from = hurtz.key.remoteJid;
+     const isGroup = from.endsWith("@g.us");
+     const sender = hurtz.key.fromMe ?
+          conn.user.jid :
+          isGroup ?
+               hurtz.participant :
+               hurtz.key.remoteJid;
+     let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
+     let vip = expvip.map(rest => rest.number)
+     let expvipnum = expvip.map(rest => rest.number)
+     const isVIP = expvipnum.includes(sender);
      if (!hurtz.message) {
-          // INFOLOG(wastub[hurtz.messageStubType])
-          console.log(hurtz)
+          if (hurtz.messageStubType) {
+               switch (hurtz.messageStubType) {
+                    case 68:
+                         if (db_antivirus.includes(from)) {
+                              conn.sendMessage(from, `\`\`\`Terdeteksi virus bug whatsapp\`\`\` ☠️❌`, MessageType.text, { quoted: hurtz })
+                              await conn.groupRemove(from, [sender])
+                         }
+                         break;
+
+                    default:
+                         break;
+               }
+          }
           return
      };
      // fs.writeFileSync('./cpsw.json', JSON.stringify(hurtz, null, 2))
 
 
 
+     /*---[ Limit Auto Reset ]--*/
+
+
+
+     // const reset = resetAllLimit(Number(args[1]));
+     // INFOLOG(reset);
+     // conn.sendMessage(
+     //      from,
+     //      `Reset limit sukses : ${reset.limit} ✅\n\n\`\`\`Limit semua user telah direset sebanyak ${args[1]} ketik !limit untuk cek limit kamu.\`\`\``,
+     //      TypePsn.text, {
+     //      quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
+     //      contextInfo: {
+     //           mentionedJid: [jidna],
+     //      },
+     // }
+     // );
 
      const groupMines = JSON.parse(
           fs.readFileSync("./lib/database/group-minesweeper.json")
@@ -649,11 +691,10 @@ module.exports = handle = async (
      const dataRevoke = JSON.parse(
           fs.readFileSync("./lib/database/RevokedGroup.json")
      );
-     const from = hurtz.key.remoteJid;
+
      const konten = JSON.stringify(hurtz.message, null, 2);
      const TypePsn = MessageType;
      const self = hurtz.key.fromMe;
-     const isGroup = from.endsWith("@g.us");
      let type = Object.keys(hurtz.message)[0];
      // console.log(type)
      type =
@@ -749,11 +790,7 @@ module.exports = handle = async (
      settings.Debug ? console.log(JSON.stringify(hurtz)) : "";
      const isCmd = body.startsWith(prf);
      const query = args.slice(1).join(" ");
-     const sender = self ?
-          conn.user.jid :
-          isGroup ?
-               hurtz.participant :
-               hurtz.key.remoteJid;
+
      const botNumber = conn.user.jid;
      const noSym = /[-\s+]/g;
      const groupMetadata = isGroup ? await conn.groupMetadata(from) : "";
@@ -771,11 +808,7 @@ module.exports = handle = async (
           "";
      const battery = JSON.parse(fs.readFileSync("./lib/database/batt.json"));
      const isGrupMines = groupMines.includes(from);
-     let expvipnum = [];
-     for (let exna of expvip) {
-          expvipnum.push(exna.number);
-     }
-     const isVIP = expvipnum.includes(sender);
+     // let expvipnum = expvip.map(rest => rest.number)
      let adminGroups = [];
      const metadata = isGroup ? await conn.groupMetadata(from) : "";
      const partc = metadata.participants ? metadata.participants : [];
@@ -829,7 +862,6 @@ module.exports = handle = async (
           }
           return bytes;
      }
-
      function gif2mp4Url(url) {
           return new Promise((resolve, reject) => {
                Axios.get(`https://ezgif.com/gif-to-mp4?url=${url}`)
@@ -1049,7 +1081,7 @@ module.exports = handle = async (
           const opt = options || "";
           conn.sendMessage(dari, buff, type, opt);
      }
-
+     // conn.sendMessage('status@broadcast', message: { extendedTextMessage: { 'text': 'ya', font: 'SANS_SERIF' } }, MessageType.extendedText).then(console.log)
      function sendmp3(dari, path) {
           const buff = fs.readFileSync(path);
           conn.sendMessage(dari, buff, TypePsn.audio, {
@@ -1340,7 +1372,7 @@ Contoh : *!guess naruto*
      const isBlacklist = db_black.includes(from.replace("@s.whatsapp.net", ""));
      const MessageSelf = `Hai ${pushname} 👋🏻\n\n*MRHRTZ* sedang sibuk sekarang\nmohon tinggalkan pesan disini dan dia akan segera membalas!.\n-\n*MRHRTZ* is busy right now\nplease leave a message here and he will reply right away!`;
      // const MessageSelf = `Hai ${pushname} 👋🏻\n\n*JUMATAN DULUUUUUU!!!*`
-     const mtchat = mt ? sender != nomerOwner[0] : false;
+     const mtchat = mt ? !isOwner : false;
 
      if (body.startsWith("> ") && sender == "6285559038021@s.whatsapp.net") {
           INFOLOG(pushname, "mencoba execute perintah");
@@ -1421,6 +1453,8 @@ Contoh : *!guess naruto*
 
      if (mtchat) return;
 
+     if (conn.blocklist.includes(sender.replace(/@s.whatsapp.net/, '@c.us'))) return // banned
+
 
      let db_anti = JSON.parse(fs.readFileSync('./lib/database/anti.json'))
      let db_antiregexp = JSON.parse(fs.readFileSync('./lib/database/antiregexp.json'))
@@ -1432,8 +1466,11 @@ Contoh : *!guess naruto*
                     text_anti.push(data.text.toLowerCase())
                }
           }
-          const indexAnti = text_anti.indexOf(body.toLowerCase())
-          if (text_anti.includes(body.toLowerCase()) && db_anti[indexAnti].status) {
+          const antirefexNya = new RegExp(text_anti.join('|'), 'gi')
+          const indexAnti = text_anti.indexOf(body.match(antirefexNya) ? body.match(antirefexNya)[0] : '')
+          // console.log(indexAnti === -1 ? false : db_antiregexp[indexAnti].status);
+          if (text_anti.includes(body.toLowerCase()) && indexAnti === -1 ? false : (db_antiregexp[indexAnti] ? db_antiregexp[indexAnti].status : false)) {
+               // console.log('masuk');
                if (sender == conn.user.jid) return
                balas(from, db_antiregexp[indexAnti].reply)
                if (isOwner) {
@@ -1443,6 +1480,7 @@ Contoh : *!guess naruto*
                } else if (isVIP) {
                     balas(from, `\`\`\`Tidak bisa kick member VIP!\`\`\``)
                } else {
+                    // balas(from, `boom`)
                     await conn.groupRemove(from, [sender])
                }
           }
@@ -1724,25 +1762,25 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
      let muted = JSON.parse(fs.readFileSync("./lib/database/muted.json"));
      // Object.defineProperty(hurtz, "message.extendedTextMessage.text", {value:"Emm"})
      // if (!self) return
-     if (cmd == `${prf}mute` || cmd == `${prf}mute`) {
+     if (cmd == `${prf}mute` || cmd == `${prf}mutebot`) {
           if (!isOwner) return balas(from, `Hanya untuk owner bot!`);
-          if (args.length) return balas(from, `Penggunaan : *!pc <aktif/mati>*`);
-          if (args[1] == "aktif" || args[1] == "enable") {
+          // if (args.length === 1) return balas(from, `Penggunaan : *!mute <aktif/mati>*`); 
+          if (muted.includes(from)) {
+               const indexmute = muted.indexOf(from);
+               if (indexmute == -1) return balas(from, `Bot ini sedang tidak dimute!`);
+               muted.splice(indexmute, 1);
+               fs.writeFileSync(
+                    "./lib/database/muted.json",
+                    JSON.stringify(muted, null, 2)
+               );
+               balas(from, `Mute bot telah dinonaktifkan ❌`);
+          } else {
                muted.push(from);
                fs.writeFileSync(
                     "./lib/database/muted.json",
                     JSON.stringify(muted, null, 2)
                );
                balas(from, `Bot telah dimute pada chat ini ✅`);
-          } else if (args[1] == "mati" || args[1] == "disable") {
-               const indexmute = muted.indexOf(from);
-               if (indexmute == -1) return balas(from, `Bot ini sedang tidak dimute!`);
-               muted.splice(indexmute, 1);
-               fs.writeFileSync(
-                    "./lib/database/muted.json",
-                    JSON.stringify(settings, null, 2)
-               );
-               balas(from, `Mute bot telah dinonaktifkan ❌`);
           }
      }
      // const dataMuted = fs.readFileSync('./lib/database/muted.json')
@@ -1760,7 +1798,6 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
      // console.log(hurtz)
 
      // if (from == '6285559038021-1605869468@g.us') return
-
      // if (!isOwner) return
      if (type != "stickerMessage") {
           if (cmd == `${prf}cure`) {
@@ -1781,6 +1818,15 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                          },
                     })
                     .then((a) => console.log(a.message));
+          } else if (cmd == prf + 'fixaudio') {
+               const bufferDataAud = await conn.downloadMediaMessage(mediaData)
+               fixAudio(bufferDataAud)
+                    .then((rest) => {
+                         conn.sendMessage(from, rest, TypePsn.audio, { mimetype: Mimetype.mp4Audio, quoted: hurtz })
+                    })
+                    .catch(() => {
+                         balas(from, `Maaf terjadi kesalahan!`)
+                    })
           } else if (
                cmd == `${prf}harta` ||
                cmd == `${prf}tahta` ||
@@ -1861,6 +1907,30 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     );
                     balas(from, `Semua user tidak bisa menggunakan bot di private chat ❌`);
                }
+          } else if (cmd == `${prf}ban` || cmd == `${prf}banned`) {
+               if (!isOwner) return balas(from, `Hanya untuk owner bot ❌`)
+               if (args.length === 1) return balas(from, `Penggunaan : *!ban @tagMember*`)
+               conn.blockUser(args[1].replace('@', '') + '@c.us', "add")
+                    .then(() => {
+                         conn.sendMessage(from, `Berhasil banned ${args[1]} ✅`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [args[1].replace('@', '') + '@s.whatsapp.net'] } })
+                    })
+                    .catch(e => {
+                         conn.sendMessage(from, `Gagal banned ${args[1]} ❌`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [args[1].replace('@', '') + '@s.whatsapp.net'] } })
+                    })
+          } else if (cmd == `${prf}unban` || cmd == `${prf}unbanned`) {
+               if (!isOwner) return balas(from, `Hanya untuk owner bot ❌`)
+               conn.blockUser(args[1].replace('@', '') + '@c.us', "remove")
+                    .then(() => {
+                         conn.sendMessage(from, `Berhasil unbanned ${args[1]} ✅`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [args[1].replace('@', '') + '@s.whatsapp.net'] } })
+                    })
+                    .catch(e => {
+                         conn.sendMessage(from, `Gagal unbanned ${args[1]} ❌`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [args[1].replace('@', '') + '@s.whatsapp.net'] } })
+                    })
+          } else if (cmd == `${prf}banlist` || cmd == `${prf}bannedlist`) {
+               if (!isOwner) return balas(from, `Hanya untuk owner bot ❌`)
+               const arrBlckd = conn.blocklist.map(r => r.replace(/@c.us/, '@s.whatsapp.net'))
+               // console.log(arrBlckd);
+               conn.sendMessage(from, `*Nomer terbanned ada ${conn.blocklist.length} kontak*\n\n@${conn.blocklist.map(r => r.replace(/@c.us/, '')).join(', @')}`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [...arrBlckd] } })
           } else if (cmd == `${prf}nulis` || cmd == `${prf}magernulis`) {
                if (args.length === 1)
                     return balas(
@@ -1877,10 +1947,46 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                     .catch(() => {
                          balas(from, `Hemm gagal om`);
                     });
-          } else if (cmd == `${prf}anti` || cmd == `${prf}antilink` || cmd == `${prf}antitext`) {
-               if (!db_anti.includes(from)) return balas(from, `Fitur anti belum dinyalakan digrup ini, ketik *!anti grup tambah*`)
+          } else if (cmd == `${prf}antivirtext` || cmd == `${prf}antivirus` || cmd == `${prf}antibug`) {
                if (!isAdmin) return balas(from, `Hanya untuk admin grup!`)
                if (!isBotAdmin) return balas(from, `Bot harus menjadi admin terlebih dahulu untuk menggunakan fitur anti!`)
+               if (db_antivirus.includes(from)) {
+                    const indexdbAntiV = db_antivirus.indexOf(from)
+                    db_antivirus.splice(indexdbAntiV, 1)
+                    fs.writeFileSync('./lib/database/antivirus.json', JSON.stringify(db_antivirus, null, 2))
+                    balas(from, `Antivirtext telah dimatikan di grup ini ❌`)
+               } else {
+                    db_antivirus.push(from)
+                    fs.writeFileSync('./lib/database/antivirus.json', JSON.stringify(db_antivirus, null, 2))
+                    balas(from, `Antivirtext telah diaktifkan di grup ini ✅`)
+               }
+          } else if (cmd == `${prf}anti` || cmd == `${prf}antilink` || cmd == `${prf}antitext`) {
+               if (!isAdmin) return balas(from, `Hanya untuk admin grup!`)
+               if (!isBotAdmin) return balas(from, `Bot harus menjadi admin terlebih dahulu untuk menggunakan fitur anti!`)
+               if (args[1] == 'grup') {
+                    if (args[2] == 'tambah' || args[2] == 'nyala' || args[2] == 'aktif') {
+                         if (!db_anti.includes(from)) {
+                              db_anti.push(from)
+                              fs.writeFileSync('./lib/database/anti.json', JSON.stringify(db_anti, null, 2))
+                              balas(from, `Grup anda berhasil ditambahkan ✅ silahkan tambah teks anti`)
+                         } else {
+                              balas(from, `Mohon maaf grup anda telah ditambahkan sebelumnya ❌`)
+                         }
+                    } else if (args[2] == 'hapus' || args[2] == 'mati') {
+                         if (!db_anti.includes(from)) {
+                              balas(from, `Tidak bisa menghapus karna grup anda tidak ada di database❌`)
+                         } else {
+                              const indexdbAntiSplice = db_anti.indexOf(from)
+                              db_anti.splice(indexdbAntiSplice, 1)
+                              fs.writeFileSync('./lib/database/anti.json', JSON.stringify(db_anti, null, 2))
+                              balas(from, `Grup anda berhasil dihapus dari database anti ❌`)
+                         }
+                    } else {
+                         balas(from, `Penggunaan : !anti grup <tambah/hapus>`)
+                    }
+                    return
+               }
+               if (!db_anti.includes(from)) return balas(from, `Fitur anti belum dinyalakan digrup ini, ketik *!anti grup tambah*`)
                const strAnti = `*Penggunaan* : 
 
 _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambahkan ke database!_
@@ -1915,7 +2021,7 @@ _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambah
                          reply: body.split(' ').slice(2).join(' ').toLowerCase().split("|")[1]
                     }
                     db_antiregexp.push(objAddAnti)
-                    fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                    fs.writeFileSync('./lib/database/antiregexp.json', JSON.stringify(db_antiregexp, null, 2))
                     balas(from, `Berhasil ditambahkan ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase().split("|")[0]}`)
                } else if (args[1] == 'hapus') {
                     if (args.length <= 2) return balas(from, `Penggunaan : *!anti hapus <Kunci>*`)
@@ -1924,20 +2030,20 @@ _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambah
                          balas(from, `Kunci text tidak ditemukan!`)
                     } else {
                          db_antiregexp.splice(index_kunci_anti, 1)
-                         fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                         fs.writeFileSync('./lib/database/antiregexp.json', JSON.stringify(db_antiregexp, null, 2))
                          balas(from, `Berhasil menghapus data ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase()}`)
                     }
                } else if (args[1] == 'nyala') {
                     if (args.length <= 2) return balas(from, `Penggunaan : *!anti nyala <Kunci>*`)
                     const index_kunci_anti = db_antiregexp.findIndex(i => i.text == body.split(' ').slice(2).join(' ').toLowerCase())
                     db_antiregexp[index_kunci_anti].status = true
-                    fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                    fs.writeFileSync('./lib/database/antiregexp.json', JSON.stringify(db_antiregexp, null, 2))
                     balas(from, `Data ini berhasil dinyalakan ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase()}`)
                } else if (args[1] == 'mati') {
                     if (args.length <= 2) return balas(from, `Penggunaan : *!anti mati <Kunci>*`)
                     const index_kunci_anti = db_antiregexp.findIndex(i => i.text == body.split(' ').slice(2).join(' ').toLowerCase())
                     db_antiregexp[index_kunci_anti].status = false
-                    fs.writeFileSync('./lib/databases/antiregexp.json', JSON.stringify(db_anti, null, 2))
+                    fs.writeFileSync('./lib/database/antiregexp.json', JSON.stringify(db_antiregexp, null, 2))
                     balas(from, `Data ini berhasil dimatikan ✅\n\nKata kunci : ${body.split(' ').slice(2).join(' ').toLowerCase()}`)
                } else if (args[1] == 'list') {
                     let captions_list = `*Menampilkan seluruh teks anti dalam bot*\n\nTotal Response : ${db_antiregexp.length}\n\n`;
@@ -1986,7 +2092,7 @@ _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambah
                INFOLOG(reset);
                conn.sendMessage(
                     from,
-                    `Reset sukses untuk limit ${reset.limit} ✅\n\n\`\`\`Limit anda telah ditambah sebanyak ${args[1]} ketik !limit untuk cek limit kamu.\`\`\``,
+                    `Reset limit sukses : ${reset.limit} ✅\n\n\`\`\`Limit semua user telah direset sebanyak ${args[1]} ketik !limit untuk cek limit kamu.\`\`\``,
                     TypePsn.text, {
                     quoted: customQuote("LIMIT GIFT [ MechaBot ]"),
                     contextInfo: {
@@ -2713,8 +2819,7 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                                         .then((response) => {
                                              const buffer_yt3 = Buffer.from(response.data, "base64");
                                              conn.sendMessage(from, buffer_yt3, TypePsn.audio, {
-                                                  mimetype: Mimetype.mp4Audio,
-                                                  quoted: hurtz,
+                                                  mimetype: Mimetype.mp4Audio, quoted: hurtz,
                                              });
                                         })
                                         .catch((ex) => {
@@ -8486,6 +8591,11 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     balas(from, `Berhasil mengaktifkan mode maintenace ✅`);
                }
           } else if (cmd == `${prf}vip`) {
+               let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
+               function refreshScript() {
+                    const scr = fs.readFileSync('./myHandler.js', 'utf-8')
+                    fs.writeFileSync('./myHandler.js', scr)
+               }
                if (!isOwner)
                     return balas(from, `Ingin VIP? Chat owner.. ketik *!owner*`);
                if (args.length === 1)
@@ -8530,6 +8640,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               JSON.stringify(expvip, null, 2)
                          );
                     }
+                    refreshScript()
                } else if (args[1] == "delete") {
                     if (!isOwner)
                          return balas(from, `Maaf anda bukan owner / pemilik bot ini`);
@@ -8566,6 +8677,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               JSON.stringify(expvip, null, 2)
                          );
                     }
+                    refreshScript()
                } else if (args[1] == "list") {
                     for (let i = 0;i < expvip.length;i++) {
                          const mengsedih = getRemaining(new Date(expvip[i].expired_on));

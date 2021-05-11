@@ -4,6 +4,7 @@ const fs = require('fs')
 const { WAConnection, MessageType, Presence, MessageOptions, Mimetype, WALocationMessage, WA_MESSAGE_STUB_TYPES, ReconnectMode, ProxyAgent, waChatKey, GroupSettingChange } = require("@adiwajshing/baileys")
 const qrcode = require('qrcode')
 const chalk = require('chalk')
+const cron = require('node-cron');
 const moment = require('moment')
 const time = moment().format('DD/MM HH:mm:ss')
 let blokir = []
@@ -20,7 +21,7 @@ function ERRLOG(e) {
 
 const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 // const mysession = settings.Session_Name
-const mysession = process.argv[2] || 'daz'///*'mecha'*/'MRHRTZ'
+const mysession = process.argv[2] || 'daz.'///*'mecha'*/'MRHRTZ'
 
 let clientsNow = []
 let webSockets = {}
@@ -32,31 +33,31 @@ require('./revokeHandler')
 require('./groupManager')
 require('./socketHandler')
 nocache('./myHandler', module => {
-     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 nocache('./groupManager', module => {
-     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 nocache('./revokeHandler', module => {
-     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 nocache('./socketHandler', module => {
-     console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 
@@ -93,7 +94,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           .use((req, res) => {
                res.send({ status: true, address: req.headers['x-forwarded-for'] || req.connection.remoteAddress })
           })
-          .listen(PORT, () => console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.blueBright('Socket Ready On Port ' + PORT)));
+          .listen(PORT, () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.blueBright('Socket Ready On Port ' + PORT)));
 
      // console.log(server)
 
@@ -105,7 +106,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           clientsNow.push(ws)
           var userID = clientsNow.length
           webSockets[userID] = ws
-          console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Client ' + userID + ' Connected '))
+          console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Client ' + userID + ' Connected '))
           const statusConnected = chalk.greenBright('\nConnected client id : ' + clientsNow.length)
           ws.send(statusConnected)
 
@@ -118,7 +119,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                });
                const wsArgs = dataMsg.split(/ +/g)
                console.log(
-                    chalk.greenBright('[ DGC Bot Official ] '),
+                    chalk.greenBright('[ MECHABOT ] '),
                     moment(new Date()).format('HH:mm:ss DD/MM/YYYY'),
                     chalk.blueBright(dataMsg),
                     "dari",
@@ -130,9 +131,23 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                //      ws.send(util.format(eval(dataMsg.slice(4))))
                // }
           }//)
-          ws.on('close', () => console.log(chalk.greenBright('[ DGC Bot Official ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgRedBright('Client Disconnected')));
+          ws.on('close', () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgRedBright('Client Disconnected')));
      });
 
+     cron.schedule('06 8 * * *', () => {
+          let obj = JSON.parse(fs.readFileSync("./lib/database/limit.json"));
+          for (let i in obj) {
+               if (obj[i].limit < settings.Limit) {
+                    obj[i].Status = true;
+                    obj[i].limit = settings.Limit;
+               }
+          }
+          fs.writeFileSync("./lib/database/limit.json", JSON.stringify(obj, null, 2));
+          console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Reset success : ' + settings.Limit + ' limit'))
+     }, {
+          scheduled: true,
+          timezone: "Asia/Jakarta"
+     });
 
      conn.on('chat-update', async (chat) => {
           // const m = chat.messages.all()[0] // pull the new message from the update
@@ -169,6 +184,26 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                process.exit(1)
           }
      })
+     conn.on('CB:action,add:relay,message', (cek) => {
+          const type = cek[2][0][2] ? cek[2][0][2].message ? cek[2][0][2].message.protocolMessage ? cek[2][0][2].message.protocolMessage.type : false : false : false
+          /*
+          message ProtocolMessage {
+          optional MessageKey key = 1;
+          enum ProtocolMessageType {
+               REVOKE = 0;
+               EPHEMERAL_SETTING = 3;
+               EPHEMERAL_SYNC_RESPONSE = 4;
+               HISTORY_SYNC_NOTIFICATION = 5;
+               APP_STATE_SYNC_KEY_SHARE = 6;
+               APP_STATE_SYNC_KEY_REQUEST = 7;
+               MSG_FANOUT_BACKFILL_REQUEST = 8;
+               INITIAL_SECURITY_NOTIFICATION_SETTING_SYNC = 9;
+          }
+          */
+          if (type === 0 && !type) {
+               require('./revokeHandler')(mysession, WA_MESSAGE_STUB_TYPES, cek[2][0][2], conn, Mimetype, MessageType)
+          }
+     })
      // conn.logger.
      conn.on('CB:action,,battery', json => {
           // const batteryLevelStr = json[2][0][1].value
@@ -186,7 +221,6 @@ const mulai = async (sesi, conn = new WAConnection()) => {
 
      conn.on('message-update', async (hurtzz) => {
           console.log(hurtzz)
-          require('./revokeHandler')(mysession, WA_MESSAGE_STUB_TYPES, hurtzz, conn, Mimetype, MessageType)
      })
 }
 

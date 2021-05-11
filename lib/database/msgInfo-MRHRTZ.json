@@ -19659,5 +19659,946 @@
     "status": "ERROR",
     "participant": "6285797957301@s.whatsapp.net",
     "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "F1A6CD06201DDBBC46A97075958BD524"
+    },
+    "message": {
+      "conversation": ".runtime"
+    },
+    "messageTimestamp": "1619405430",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "F870627C2C14CA92FD0658C09CBCB76A"
+    },
+    "message": {
+      "ephemeralMessage": {
+        "message": {
+          "stickerMessage": {
+            "url": "https://mmg.whatsapp.net/d/f/Ati05_BPHvRKT_taBFv-PA6lR50SffJh6_LMfip1Bd85.enc",
+            "fileSha256": "TLjYNr+UaIAXICdEFdpMwG2YIy2kf3klunpilZxFHKE=",
+            "fileEncSha256": "3zMD8babffpgmwm7tqJ5/NES5rjXP3lE6TpyQWdSfrQ=",
+            "mediaKey": "0xkrdGZwSscmYT+5uAo/KWhV0YzDIi2crI5SOGFldQg=",
+            "mimetype": "image/webp",
+            "height": 64,
+            "width": 64,
+            "directPath": "/v/t62.15575-24/11702843_369243091065156_1201993412968433825_n.enc?ccb=11-4&oh=6e3ef93e0afc4f65d34ade1b2814020c&oe=60AB6FDA",
+            "fileLength": "50376",
+            "mediaKeyTimestamp": "1619336216",
+            "isAnimated": false,
+            "contextInfo": {
+              "expiration": 604800
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405449",
+    "status": "ERROR",
+    "participant": "6283152753417@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "FB58EA8F1C53E0A84BCB8CD3F48B5C8C"
+    },
+    "message": {
+      "ephemeralMessage": {
+        "message": {
+          "extendedTextMessage": {
+            "text": "Okoklh",
+            "previewType": "NONE",
+            "contextInfo": {
+              "stanzaId": "3EB09019BDC80512A8B5",
+              "participant": "6281220439155@s.whatsapp.net",
+              "quotedMessage": {
+                "conversation": "cek:v"
+              },
+              "expiration": 604800
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405457",
+    "status": "ERROR",
+    "participant": "6289636006352@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "4D5686B7D38BEC809619FB0695AE9137"
+    },
+    "message": {
+      "ephemeralMessage": {
+        "message": {
+          "extendedTextMessage": {
+            "text": "Jambi gay",
+            "previewType": "NONE",
+            "contextInfo": {
+              "expiration": 604800
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405460",
+    "status": "ERROR",
+    "participant": "6289636006352@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "447723992261-1603256329@g.us",
+      "fromMe": false,
+      "id": "EBCACB747A0F60BE4175E9383B5A975C"
+    },
+    "message": {
+      "ephemeralMessage": {
+        "message": {
+          "stickerMessage": {
+            "url": "https://mmg.whatsapp.net/d/f/AuKfJ3exJhWEhikx--c58DLZcL2Eo0ghOeXkm5sm9d8B.enc",
+            "fileSha256": "V/ZraL8BzQHiosGU0G857FdzRkCno5ldjo+82ACdcRY=",
+            "fileEncSha256": "4xlJWsVZYoTlZSwiTia2op/bg6TWigXLQzgEhhVfhww=",
+            "mediaKey": "wBIS5f/Dvznlogewp+ATvgOwGfMJb3N9wzwazUNwJig=",
+            "mimetype": "image/webp",
+            "directPath": "/v/t62.7118-24/19396297_752370815474900_4829902675533501945_n.enc?ccb=11-4&oh=be7d118a87a5bd359b8652be51ae196e&oe=60AB6CF0",
+            "fileLength": "18504",
+            "mediaKeyTimestamp": "1619368424",
+            "isAnimated": false,
+            "contextInfo": {
+              "expiration": 604800
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405463",
+    "status": "ERROR",
+    "participant": "6289636006352@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6281294958473-1603530185@g.us",
+      "fromMe": false,
+      "id": "395741AB94A4B8DB74AA5242B5E6D584"
+    },
+    "message": {
+      "ephemeralMessage": {
+        "message": {
+          "stickerMessage": {
+            "url": "https://mmg.whatsapp.net/d/f/Ai-ZRT6nz8qlvMwovZcUQWMphX0hYHy6JgjVaJhNXjMF.enc",
+            "fileSha256": "Ai9YlBNG0vI8hBkn+e1fNyekmfB74KwcweVd0TN7Kik=",
+            "fileEncSha256": "DXuymesFM8AvkhqMeEh91MvdzqOE96E7V/hGOgwSQLg=",
+            "mediaKey": "UWp2Kiq3NKHrijmAJgoZzp1bGGRzd0594+siFwB45Ew=",
+            "mimetype": "image/webp",
+            "height": 64,
+            "width": 64,
+            "directPath": "/v/t62.15575-24/31244524_144578694344549_6536695413883782126_n.enc?ccb=11-4&oh=4c7be9bb4cb8c9c9dd6bcd26f8a8e0a4&oe=60A9E91C",
+            "fileLength": "7776",
+            "mediaKeyTimestamp": "1619401013",
+            "isAnimated": false,
+            "contextInfo": {
+              "expiration": 604800
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405469",
+    "status": "ERROR",
+    "participant": "6283104654076@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "02D8EE041C8C362388AB6265C1C62782"
+    },
+    "message": {
+      "conversation": "-mp4 https://youtu.be/bPs0xFd4skY"
+    },
+    "messageTimestamp": "1619405475",
+    "status": "ERROR",
+    "participant": "62895610760343@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "18123285271-1607235346@g.us",
+      "fromMe": true,
+      "id": "08FC139D6CD1EF44E1D1E24332DEB891"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1619405478",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "ZSG5FLHCUDNZQXXDMQB8"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "↓Downloading: https://youtu.be/bPs0xFd4skY",
+        "matchedText": "https://youtu.be/bPs0xFd4skY",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "02D8EE041C8C362388AB6265C1C62782",
+          "participant": "62895610760343@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "-mp4 https://youtu.be/bPs0xFd4skY"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405477",
+    "status": "ERROR",
+    "participant": "4915216054841@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "3EB08B6179CB7BBC7925"
+    },
+    "message": {
+      "documentMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Aq8cLeLtnlEZaLFflIPwYt5QeBHYO01IZVOw2WZ-d8xd.enc",
+        "mimetype": "text/html",
+        "title": "Title: Alan Walker - Alone (Lyrics)\nService: youtube\nType: mp4\nQuality: 480\nSize: 4.2 MB\nFloat size: 4200",
+        "fileSha256": "8pmE5nYKVWs+KMO+ji9fXazoylho5E87gCA783SGoYw=",
+        "fileLength": "14518",
+        "pageCount": 0,
+        "mediaKey": "q1EP9ZKtbUnwkHUVRTt9o2HEce62EFGeetWzK/dRDq8=",
+        "fileName": "Title: Alan Walker - Alone (Lyrics)\nService: youtube\nType: mp4\nQuality: 480\nSize: 4.2 MB\nFloat size: 4200",
+        "fileEncSha256": "TzQqt4LkHvIq01kfvjj8XDcwfo/BB+HwJUQnnqseQmQ=",
+        "directPath": "/v/t62.7119-24/26064031_217595706369547_5862630933218168226_n.enc?ccb=11-4&oh=f696437082a255954e250333938f1690&oe=60AC4A95",
+        "mediaKeyTimestamp": "1619405477",
+        "contextInfo": {
+          "stanzaId": "02D8EE041C8C362388AB6265C1C62782",
+          "participant": "62895610760343@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "-mp4 https://youtu.be/bPs0xFd4skY"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405478",
+    "status": "ERROR",
+    "participant": "4915216054841@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289607055246@s.whatsapp.net",
+      "fromMe": false,
+      "id": "2594E4AE26B4AE2DA74F7274186538A0"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "dah above 500 ga",
+        "previewType": "NONE",
+        "contextInfo": {
+          "expiration": 0,
+          "ephemeralSettingTimestamp": "1618410308"
+        }
+      }
+    },
+    "messageTimestamp": "1619405479",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289607055246@s.whatsapp.net",
+      "fromMe": true,
+      "id": "46AC44A7490ECDA009DD6AA921F35637"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "60mb",
+        "previewType": "NONE",
+        "contextInfo": {
+          "expiration": 0,
+          "ephemeralSettingTimestamp": "1618410308"
+        }
+      }
+    },
+    "messageTimestamp": "1619405486",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6289607055246@s.whatsapp.net",
+      "fromMe": false,
+      "id": "0E94445B60563B17E9ADEFD1E6C94890"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "lagian gua blom bisa up, blom prnah make heroku sblumnya :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "expiration": 0,
+          "ephemeralSettingTimestamp": "1618410308"
+        }
+      }
+    },
+    "messageTimestamp": "1619405503",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "C07AE76C69816CADD63C7380FBCFA47E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "-mp3 https://youtu.be/bPs0xFd4skY",
+        "matchedText": "https://youtu.be/bPs0xFd4skY",
+        "canonicalUrl": "https://www.youtube.com/watch?v=bPs0xFd4skY",
+        "description": "🎵 Alan Walker - Alone (Lyrics)⏬ Download / Stream: https://alanwalker.lnk.to/Alone🎧 Follow our Spotify playlists: http://bit.ly/7cloudsSpotify🔔 Turn on no...",
+        "title": "Alan Walker - Alone (Lyrics)",
+        "previewType": "VIDEO",
+        "jpegThumbnail": "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"
+      }
+    },
+    "messageTimestamp": "1619405524",
+    "status": "ERROR",
+    "participant": "62895610760343@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "AERJZND3VBFB0D0GDOPB"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "↓Downloading: https://youtu.be/bPs0xFd4skY",
+        "matchedText": "https://youtu.be/bPs0xFd4skY",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "C07AE76C69816CADD63C7380FBCFA47E",
+          "participant": "62895610760343@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "-mp3 https://youtu.be/bPs0xFd4skY",
+              "matchedText": "https://youtu.be/bPs0xFd4skY",
+              "canonicalUrl": "https://www.youtube.com/watch?v=bPs0xFd4skY",
+              "description": "🎵 Alan Walker - Alone (Lyrics)⏬ Download / Stream: https://alanwalker.lnk.to/Alone🎧 Follow our Spotify playlists: http://bit.ly/7cloudsSpotify🔔 Turn on no...",
+              "title": "Alan Walker - Alone (Lyrics)",
+              "previewType": "VIDEO",
+              "jpegThumbnail": "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"
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405527",
+    "status": "ERROR",
+    "participant": "4915216054841@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "3EB00FAB5BC72F8E05B5"
+    },
+    "message": {
+      "documentMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AutnFuZScujrNn35nbU4RNpKnHRuWSi-41Sv83iUEyoS.enc",
+        "mimetype": "text/html",
+        "title": "false_6289695121020-1615461092@g.us_C07AE76C69816CADD63C7380FBCFA47E",
+        "fileSha256": "+M9O08x+BidxAFIc8fNJvPrmcGYdvlOXv04YyWR/X14=",
+        "fileLength": "14709",
+        "pageCount": 0,
+        "mediaKey": "4m3piHdSoQsghU4D+u9uoYu4RUYFMYHkklTMStFOz8k=",
+        "fileName": "false_6289695121020-1615461092@g.us_C07AE76C69816CADD63C7380FBCFA47E",
+        "fileEncSha256": "VHSl83j3qGSyn/zI4GY4NVbZ+ytoTNocZpstb/2I+1Q=",
+        "directPath": "/v/t62.7119-24/31272252_150585453669289_3619488295495453982_n.enc?ccb=11-4&oh=f5e75a73b1779ebb5d5a3ff759f73fdb&oe=60AA13C8",
+        "mediaKeyTimestamp": "1619405526"
+      }
+    },
+    "messageTimestamp": "1619405527",
+    "status": "ERROR",
+    "participant": "4915216054841@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289695121020-1615461092@g.us",
+      "fromMe": false,
+      "id": "3EB0B8ABE6D83ABD7B1F"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AqhakTe9_xDTt9MMPbvIHyc9aLmT7_sqK8Sjk-ufmY5-.enc",
+        "mimetype": "image/jpeg",
+        "caption": "Title: Alan Walker - Alone (Lyrics)\nService: youtube\nType: mp3\nQuality: 128\nSize: 2.5 MB\nFloat size: 2500",
+        "fileSha256": "8EyBmipjNUqGwKeRcLjBkck8tq3rjNqdmvbiMUzE6Ow=",
+        "fileLength": "20070",
+        "height": 360,
+        "width": 480,
+        "mediaKey": "m58UgA9HuBS3KUNa/bORz+kVCthHxiOSAUxpqJZ6jk0=",
+        "fileEncSha256": "MhLT7O8HSGzXhpJChLu8t/vxH8cHJ4wUAYPelbPof48=",
+        "directPath": "/v/t62.7118-24/19432392_2899405076983268_8118482624333834841_n.enc?ccb=11-4&oh=2af3fb931f79dd1ea63d7d653b050a68&oe=60ABB55E",
+        "mediaKeyTimestamp": "1619405526",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "C07AE76C69816CADD63C7380FBCFA47E",
+          "participant": "62895610760343@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": "-mp3 https://youtu.be/bPs0xFd4skY",
+              "matchedText": "https://youtu.be/bPs0xFd4skY",
+              "canonicalUrl": "https://www.youtube.com/watch?v=bPs0xFd4skY",
+              "description": "🎵 Alan Walker - Alone (Lyrics)⏬ Download / Stream: https://alanwalker.lnk.to/Alone🎧 Follow our Spotify playlists: http://bit.ly/7cloudsSpotify🔔 Turn on no...",
+              "title": "Alan Walker - Alone (Lyrics)",
+              "previewType": "VIDEO",
+              "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABaAFoDASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAABQECAwQGAAf/xAA+EAACAQMCAwUFBgMGBwAAAAABAgMABBEFEgYhMRNBUVJhFBUicZEHIzJygaFigsEXJDRGU9FUkpOisdLw/8QAGgEAAwEBAQEAAAAAAAAAAAAAAAECAwQFBv/EACARAAICAQUBAQEAAAAAAAAAAAABAhESAxMUIVExBEH/2gAMAwEAAhEDEQA/ACYjqRY6nWOpAlfSORqVxHTxHVlY/SniOpcgKwj9KcI6siOniOpcgKwjpRHVoR04R0nICqI6Xs6t9n6V3Z+lLICp2dJ2dXOz9KTs/SjICoqVIsfpXskvDOjvaPbrYwJnJDKvxA8+eeteRxI4TEoxIvwsPAjkf3rn0/0LUugTsjWOniOjt3pUMHCmnaoGYTTtsZO5izHB9MKDQwJVR1VPtDXZAEp4SptoAyelavSNAsoNJfUuJJFtIB8X3s3Zqq55FjywTkcs/wC1RPWUFbE3RkRHShK1N/YaBdaJc6noGowzR24y4jnEiZ8D3qfmaj4Q0aHV5Ltrrf2MQVVKHGWOSfoMfWs+RFxyFa+mb2UuyjOvaSdIv0ty5lR496SEYzzwR+nL61a0nRUveH7u+dikiSNsJfagRcbmPI9Pi+nd1pvWilkOzObK7s/StNwVpdprVvdS3av92yhVVipGVzz+v7VZki4Zjdka31ncpIOLC7I+ojqX+iKdCckTcGDUm4r4gub1ZfZpezijMnX7rKgjHLJBLEeJrN8W2Hu/WrtQ8eLiQyoO0Td8Zzjbnd1z3Ypmg6zqj8V6ddareXhheTsvZ/avu8vhF3KqqrYJ8vXn3UR40hjbjy03IoLpaoWIA5GZh1rnhlCXnQJNMn4oURcIcNWylTlo3JXocQtnH6sKz4StxxJw/dXkOkQWhVo7RGRmbA57VAOM+h6UPXhG6SFpLm5ggCjJ25kGPoKrS1Yxj2EZJLsq8KaS15O120QkhgJCKxwrOMdfTnn9D40G1W8m4j1CS7upnfTlkJtLbpGFHIOR3sevPpnAo/wdNZXS65o1ndTNcvGSs7R9mpUgjKDJJ2k8/wAwqHS+Gb6WVLaWE20UeFeQ4xgeXx/++VJSTk5SBNXbE4Whtm0/XrVJY7e4uYlEZYYA+FwrZ6Hmr8v4DV7hqRtP+z291KCQhpYpZ4sqOTAFVP67Vp/Gk1ppekDR9P2Ld3Y2kDm6w8wzE/LKj5+hpl3JGv2ZWkUByWjt4iMY5lkLD6ZrJvLv0n6Qalfe9+CNP1K4H99t3Ec5A5B/wvnwBOCPmvjVzUgbD7No4RykuYkjI9ZWBcfRmoXw0sb399o9wzLbanEWQr1SVRzI/i24P8lEeO7yJp7LS4gQYGW4fw27XUD+v0p/3Edd0EOCoGPCziNuzeV5drYzg5Kg/sKzUX2YaTFEkZubLKAL/hh3fzU9tG1XV+G9NsYInjsJC8s+ZBGT8YZehz+IE58Kg/s2zzMEBJ6kzsSf2oT7bsADcySQxi4t0V5oT2iKxIBIHpzonxTc2uoa7Ldaa9vdo8MTtG/Nd3Uo2PTH1PfmhyuMU6FY4gRGqqDz5Ct5JN2dctK3YX1DifiPUyUhe30i3PL7j76U/wA7DA/Rc+tBptJiu3D6lNdag4OQbuZpQPkCcD9KIRxFobR1kjLXMywqgPxKWJClh3A7Wx8qXT9t62I5Y1ym5S5xuJOFUeJJPKoWK+EKEUQtaKOxa0d7WeE5ilhO1kPp6eh5Gr0GtcTwQC2hvdNEQGBJ7HiRfUYYJ/21FH8Vrb3AZOymikmB3fhVASd3hnaceNOh3TBTEpcMwQkD8JLBRn5kik8X9E4xZDa2oieSWWSSe5mO6WeU5dz6n+nQV0diqSITNM0UZLRwlzsQnGSB+g+VWY2SS3jmimidZJxCoU/FzZlViO5SUbB9KWE9tFNLGVMcIDSOThUU55knkByNFoVI7fLb3Ntd2yI89vJ2iq5Kg8iCMjpyJqKRbm+ubm81B4/ap+qxAhE+ELgZ59FFPWeFvY9s8ZN2QIRsk+IFygJO3ABIPU5x3UjXKiMPEGlUgMNqkZB6HDAH9qLTYJJss+/eJ+ySGKfSreJFChktnZ8D5vj9qi9v4mP+YXHytIf/AFqs98UOGtrgt4KoP9ab7xP/AAV5/wBMf709teBtIzqXI8alNxuRgGwSORrIxasjDO7Hzqwmpr5hVuLPWwizVpq2opciUssyCSB47feVijEQYADv57sk9cj6LaajqEHs/Y+zWkUM8cxS03qZAh5IzMzHHX55rMLqg81TLqg81RtmXEgH7Z7tI5FeSNhPBHbuccwqHII9SCwP5quR3+o2xCWTwJHiQHdklt2ME/lIyKzK6qvmqRdVXzVOAcSLVB63ur+2aLa6yQxi3EdsG2xIISCB4/F8RJ5nJp0ct8qoAtlFAHVnt4Q4EqhXUozMxJBEjfrgjpQIaqvnp41VfPSwFwoheM3YMDJFbxyQKAkhnlcqQuMgbgqnv5L1q5azSO8klypFxJhppN2RI/QsPDIA5dx6csVk5ZbeUHLuCe/eeVRRrbLgm4uSR0PbsMfQ1SghcOnaNttTcGEkg55/GedT9qvjWNiuo4vw3NwfzSlv/NTe8V/1W/5qTTL4zPIRft408ag3jQinCvSpHmb0/QwNRfxNOGpP5jQYd1OoxQ9+foaGpv5jThqj+agmTS5p4ofIn6HBqr+Y0o1V/NQQda7JoxQ+TP0O+9pPMa73tJ5qBg12aWCK5M/Q971fz13vWTz0BzXZowQ+VM//2Q=="
+            }
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405528",
+    "status": "ERROR",
+    "participant": "4915216054841@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "3EB008ACD208"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Waktu bot aktif / telah berjalan selama *2 Menit, 34 Detik, 794 milidetik*",
+        "contextInfo": {
+          "stanzaId": "F1A6CD06201DDBBC46A97075958BD524",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".runtime"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405530",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "A1D9AE48ACCA02F84A55806EEB837DD4"
+    },
+    "message": {
+      "conversation": "Stahh"
+    },
+    "messageTimestamp": "1619405532",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "867CD4426C5DE32995488145EA58528F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": ".tictactoe @6283141926935",
+        "previewType": "NONE",
+        "contextInfo": {
+          "mentionedJid": [
+            "6283141926935@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1619405549",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "3EB001EF778F"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Memulai game tictactoe 🎳*\n\n@6285559038021 menantang anda untuk menjadi lawan game\n\n_[ @6283141926935 ] Ketik Y/N untuk menerima atau menolak permainan_ \n",
+        "contextInfo": {
+          "stanzaId": "867CD4426C5DE32995488145EA58528F",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "extendedTextMessage": {
+              "text": ".tictactoe @6283141926935",
+              "previewType": "NONE",
+              "contextInfo": {
+                "mentionedJid": [
+                  "6283141926935@s.whatsapp.net"
+                ]
+              }
+            }
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6283141926935@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1619405549",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "5980C38F96546B70862342DE2E86F38E"
+    },
+    "message": {
+      "conversation": "No aing yang itu ,wa nya keluar"
+    },
+    "messageTimestamp": "1619405553",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "18123285271-1607235346@g.us",
+      "fromMe": true,
+      "id": "33D116DD0B441D5E36A78F1B02A14768"
+    },
+    "message": {
+      "conversation": ".maintenance"
+    },
+    "messageTimestamp": "1619405555",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "18123285271-1607235346@g.us",
+      "fromMe": true,
+      "id": "3EB095980566"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Mode maintenace telah dimatikan ❌",
+        "contextInfo": {
+          "stanzaId": "33D116DD0B441D5E36A78F1B02A14768",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".maintenance"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405556",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": true,
+      "id": "A94D59DA1D885E9469F38AE6E565EABC"
+    },
+    "message": {
+      "conversation": "Iya?"
+    },
+    "messageTimestamp": "1619405565",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "01D28C02CA6E2F11A2A2F53EBA63F06D"
+    },
+    "message": {
+      "conversation": "Auto gabisa di pake lgi deh no nya hehe"
+    },
+    "messageTimestamp": "1619405567",
+    "status": "READ",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": true,
+      "id": "DCDE4EE0F00AEC0CA00E309A228C776E"
+    },
+    "message": {
+      "conversation": "Keluar kenapa?"
+    },
+    "messageTimestamp": "1619405569",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "3290966EB2A3A4D280B64AC0EE8585AB"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Aipf1hHbD2mVGEsVxlyoU8fKzGg0rDStQoD6RCvgY5Uo.enc",
+        "fileSha256": "Z0y6ZOlWoxR06yXtqTl5GfkOBb42ftYF04P1Oz/nnMw=",
+        "fileEncSha256": "b/L4i29gpkrId8aE8VFN7B5DM49CCSYi2V9CSZD34qY=",
+        "mediaKey": "h/gqoOn6F/1AYMbtwHH/gPQJEwUMfcbf3oE4wTRO1a8=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/34594783_135003901974971_5903990873024930882_n.enc?ccb=11-4&oh=010befa20983f60d967cc6a315b69285&oe=60AA9A6E",
+        "fileLength": "13996",
+        "mediaKeyTimestamp": "1619372645",
+        "isAnimated": false
+      }
+    },
+    "messageTimestamp": "1619405571",
+    "status": "READ",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "status@broadcast",
+      "fromMe": false,
+      "id": "FF16148E4EE1B24C1F36451A71E6B1D4"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Ap36DbOcbpQWzt2aEUlLcLcyDKfiziSKqXTwLjYinO-0.enc",
+        "mimetype": "image/jpeg",
+        "caption": "Ngopio Gan",
+        "fileSha256": "GhfAWOI+SiZalDMoCX5h6V2jBUOoJHkQqzyS33ReYRs=",
+        "fileLength": "38999",
+        "height": 540,
+        "width": 960,
+        "mediaKey": "OA0DQnQCqxDrb/NfNSE5l6vFip+j/36kpQyPES4N4ak=",
+        "fileEncSha256": "qC2vOoU3CYktshuRQnJHTy3sBk5B5rPf50xcABYN1tc=",
+        "interactiveAnnotations": [
+          {
+            "polygonVertices": [
+              {
+                "x": 0.24640631675720215,
+                "y": 0.08554526418447495
+              },
+              {
+                "x": 0.6810600161552429,
+                "y": 0.021744748577475548
+              },
+              {
+                "x": 0.6869139075279236,
+                "y": 0.14778806269168854
+              },
+              {
+                "x": 0.2522602379322052,
+                "y": 0.21158859133720398
+              }
+            ],
+            "location": {
+              "degreesLatitude": -7.804718337207893,
+              "degreesLongitude": 111.83007471263407,
+              "name": "Warung Mewah (Mepet Sawah)"
+            }
+          }
+        ],
+        "directPath": "/v/t62.7118-24/33308444_127540612757677_1790635261955979779_n.enc?ccb=11-4&oh=d642e7f25e62fc3fce1aff1853e3bce1&oe=60AC3A32",
+        "mediaKeyTimestamp": "1619405515",
+        "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADYAYAMBIgACEQEDEQH/xAAxAAACAwEBAQAAAAAAAAAAAAADBQACBAYBBwEAAwEBAAAAAAAAAAAAAAAAAAECAwT/2gAMAwEAAhADEAAAAObyV0ZaMNY9Wb8ITY0qH0ktI/HVATVcjDjNoNwyeasENkTEdPaYK+pdHRjuehiMlzkU9sgpKbXIPPqpaG6W4xsdgSyW1MtrnX0FHJ1YKMshRDSACskVovJLV+SC/8QALBAAAgIBAgQFBAMBAQAAAAAAAQIAAxETIQQSMVEUMkFhcQUiQpEjgYJyof/aAAgBAQABPwBrwB1gJsfMopyBtFoAAK1u4JIBUbbQVWLg6DD5YTN49Kx/qW2Xjq9P6zNR8bWoT2CGcz4BNQzjeC3vUf6Ma0dQrCG5RvzsP6hHONllNdinGmZSCAMwIjdR6k9TjeaVWNlGRKBSyg6YnLXjZE/QnKvaGivpyjMbhayMzwiN0MbgR7RLseZD8iVlGGzD4xgzQtJBrU49Tnaae+DemewyZ4a6sA6hwe6xTfWSQoYexgv20yCG2IMN+PxiOHsHtMwvic2RmU8PdY/KtfyemJT4KmxVc6r5834icW2tXit+Yj0G4lCXq/O6DCb46mWfVPuKlhjGABvOFey9gqup7kGWpVpuwJLqRvmPfYPWVVW3VmzVYNk4Agv4lCQt4J7MMGD6hxKbPSG/5ifVKfyVlnHI1Q0F+1B1bpzGGi38QTBw5TdrdP2Byf0JYNRAiuxrG5Odye5lVFC5LA+0q4g8PaliIMAYI7ia3D8Vw7JTYFc+jbGPRxy9aM+8qSxUTU/jUedm2lr02u2FZl9Hi18vlsP+toUJ83/ozLPCX2Mb6cBSQAe8+oBq720MrV6ADaKKm84KnuNxPDMPuXDDuIB3GfnYzlTp0+Y9IhFq+W1x8Exq7GP32Mfk5gQocoxB9jDxd3Jys2R7iU319LA/yDG4eqwknM4yoazhdgI9KsWxsRPurOxx8TxBx/Iocd+hmmDWtiH7W9DDsdtviF8Y5h+pQiu6bdSJx1K6pIAG0ZD6GBByhx0JwRP/xAAeEQACAgMAAwEAAAAAAAAAAAAAAQISESExAxBRQf/aAAgBAgEBPwDCXpOLMIoUY4JiiNNMsKaxsTT4yqKlSsfg460Ufw8ulldOxTFvp+ku+v/EABwRAAMAAwADAAAAAAAAAAAAAAABEQIQEiFBUf/aAAgBAwEBPwBtvTpTo6OmdCjEh4/CMpSlYmUw8s9tbWv/2Q==",
+        "scansSidecar": "EsKvhjIAb8T5o3liK0yRnD4cx1OSCZBRv16VyuVaI9wrdGxwR4NtIw==",
+        "scanLengths": [
+          4684,
+          12532,
+          7638,
+          14145
+        ],
+        "midQualityFileSha256": "t3h3VDiVvwjGnjeuAZZS589N+0HdbwP3/5LQWQU9t4k="
+      }
+    },
+    "messageTimestamp": "1619405578",
+    "status": "ERROR",
+    "participant": "6285645319608@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "A758322DA5FB5915A4151E5E8218D661"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Belum di update² :v",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "DCDE4EE0F00AEC0CA00E309A228C776E",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Keluar kenapa?"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405579",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6289607055246@s.whatsapp.net",
+      "fromMe": true,
+      "id": "0875425ED8849F54F554CFD2650FE864"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Ada di docs herokunya, cara deploy",
+        "previewType": "NONE",
+        "contextInfo": {
+          "expiration": 0,
+          "ephemeralSettingTimestamp": "1618410308"
+        }
+      }
+    },
+    "messageTimestamp": "1619405591",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "6281246460730@s.whatsapp.net",
+      "fromMe": false,
+      "id": "8A223C9E6A388A53153069A38754E763"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Lah anjir bisa gitu",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "1BEBCB51D6F871F627036F2DCF228281",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "videoMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/AreOUOap8Gl2Fn-aXXLEwjh1-Mk_y_HDPY90Ux8RJdDz.enc",
+              "mimetype": "video/mp4",
+              "fileSha256": "WIYufXjlV+xYost+1yYz1eegeRL2hEBVhhHrHtuajQw=",
+              "fileLength": "11569556",
+              "seconds": 30,
+              "mediaKey": "uycMkd7jMv5SkEjuthB48P4tR1Tf6eH93GHz1x/cDfM=",
+              "caption": "Not bad",
+              "height": 1520,
+              "width": 720,
+              "fileEncSha256": "LQ3UD2MOPc9S1X6qs5lqYak1aiQZyKWn9E3xKR5BrpI=",
+              "directPath": "/v/t62.7161-24/30637276_311049737300589_4650487898016881158_n.enc?ccb=11-4&oh=1c97030d41acb91f195f62aa586c8205&oe=60A9D872",
+              "mediaKeyTimestamp": "1619404621",
+              "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIAGAALQMBIgACEQEDEQH/xAAxAAACAwEBAQAAAAAAAAAAAAADBAAFBgIBBwEAAwEBAAAAAAAAAAAAAAAAAAECAwT/2gAMAwEAAhADEAAAAM/FQVmWC8BrgHodi0sHmppYKg50JyPoAC5bkjSFEnXW8xTXBXNbaCvD0TMeirfPQ+IggGhme9TvuqO4pIK3AJaIrOIRtgno/8QANRAAAgEDAgQDBQUJAAAAAAAAAQIRAAMSBCEFEzFREBVBIjJSYZIUM0JygSNDVHGCkaKj4f/aAAgBAQABPwC1au8ubfLb8IXlhmP9x86YXdNFoi3IO4ayMhBkTktcsVyxT2CmIJXdchBVtj3iis/82pFlQzTEwYaiWBIk9e9SfirJu5qT3NZN3oXWCYwI8f1pLaMrE3VUgiAZk06AGA00OB8ZCKDw7/NK8i4y3TQf7EocC4xMHRx/WleRca/gT9aUeC8YwdfLxv65pV/hfFrotAcMWEHq6U2QHsgE/MxXM1cGLNmZb96f0/DWerwMWbOWew5hjH6ayu4TggaBtkYn13iib8pFu2RtlLkR3jbwuTy2/lR1F4R+0ubmNia0jFtPbJJJiuIXXt3LIUv7Uj2a0V2418hmeB3PXwYZAjvXldn43q1bFpFQEwBV/TJeILEiBVrSJafIMxPjaTBSJmXY/UxPiSAJPgyW3cO1pCwEBiokCZgGgqKSVUAnqfEgMCD0Ijw1huc6xCymL5GQI6RSnUZjO2IIM4vIEdpAmZo3L+Mrp95AguB6wSaR77cvKyFlAW9ucW9VqX3GI6GDNW/u0/KK4jYS7csPkQyBwCAOjR3mhaRBFsC2JHugelKAoAUAACABsAKXT6dXV1sWwyiAQoBAiKAA2Ajerf3aflFXLS3IknajpkBHvmT8tqOnQfGdxTaZACRmfkIk19lt92pNlUQegr//xAAgEQACAwEAAAcAAAAAAAAAAAABAgADERIEEBNBUWGB/9oACAECAQE/APPZs/Zf4gUlQVJ2WXcVepmjNyUXC6vsDI9SWZ0oORq0dOWXV+IiJWMVcELZ7Tv6gbYysTOGiKRs/8QAHhEAAgICAgMAAAAAAAAAAAAAAAECEQMSBCEQEzH/2gAIAQMBAT8A80zVkt1JUmzk8qPHcU4t7GFe7SutlZkg8cqbMmHFlreCdfLIPSteq6RKTk7k7ZRQ0JlobP/Z",
+              "streamingSidecar": "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"
+            }
+          },
+          "remoteJid": "status@broadcast"
+        }
+      }
+    },
+    "messageTimestamp": "1619405599",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "051E2BFA1CFF9E4A9A2351F1F2975559"
+    },
+    "message": {
+      "conversation": "Ini no personal ane stah"
+    },
+    "messageTimestamp": "1619405602",
+    "status": "READ",
+    "ignore": true,
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": true,
+      "id": "B42735E47D8466261D02F8661A88524A"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Bjer",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "A758322DA5FB5915A4151E5E8218D661",
+          "participant": "79619161633@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Belum di update² :v"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405607",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": true,
+      "id": "9786569AA506C838E2CAA605B82EDFEE"
+    },
+    "message": {
+      "conversation": "Terus gmja"
+    },
+    "messageTimestamp": "1619405609",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "59B9DC0075FACB76CFE2079C0CC04796"
+    },
+    "message": {
+      "conversation": "Skip"
+    },
+    "messageTimestamp": "1619405621",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "C2D1EB24F3049B497EB2E61AB67544FE"
+    },
+    "message": {
+      "conversation": "1"
+    },
+    "messageTimestamp": "1619405622",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "3EB0C408248E"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "*🎮 Tictactoe Game 🎳*\n          \n❌ : @6285559038021\n⭕ : @6283141926935\n\nGiliran : @6283141926935\n\n\n     ❌  2️⃣  3️⃣\n     4️⃣  5️⃣  6️⃣\n     7️⃣  8️⃣  9️⃣\n\n\n",
+        "contextInfo": {
+          "stanzaId": "C2D1EB24F3049B497EB2E61AB67544FE",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "1"
+          },
+          "mentionedJid": [
+            "6285559038021@s.whatsapp.net",
+            "6283141926935@s.whatsapp.net"
+          ]
+        }
+      }
+    },
+    "messageTimestamp": "1619405622",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "2F054310C4E7DAC370832BA3C26D8EE9"
+    },
+    "message": {
+      "conversation": ".delttc"
+    },
+    "messageTimestamp": "1619405627",
+    "status": "ERROR"
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "046D8D9356A9B670F1B9A80395B4C812"
+    },
+    "message": {
+      "conversation": "Ya ilang no nya stah sama berkas²"
+    },
+    "messageTimestamp": "1619405627",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "79619161633@s.whatsapp.net",
+      "fromMe": false,
+      "id": "5D9F55750AAF30DE4A194EF0E28EF03D"
+    },
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Aipf1hHbD2mVGEsVxlyoU8fKzGg0rDStQoD6RCvgY5Uo.enc",
+        "fileSha256": "Z0y6ZOlWoxR06yXtqTl5GfkOBb42ftYF04P1Oz/nnMw=",
+        "fileEncSha256": "b/L4i29gpkrId8aE8VFN7B5DM49CCSYi2V9CSZD34qY=",
+        "mediaKey": "h/gqoOn6F/1AYMbtwHH/gPQJEwUMfcbf3oE4wTRO1a8=",
+        "mimetype": "image/webp",
+        "height": 64,
+        "width": 64,
+        "directPath": "/v/t62.15575-24/34594783_135003901974971_5903990873024930882_n.enc?ccb=11-4&oh=010befa20983f60d967cc6a315b69285&oe=60AA9A6E",
+        "fileLength": "13996",
+        "mediaKeyTimestamp": "1619372645",
+        "isAnimated": false
+      }
+    },
+    "messageTimestamp": "1619405627",
+    "status": "ERROR",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "628311800241-1610483974@g.us",
+      "fromMe": true,
+      "id": "3EB0FD5EA604"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Berhasil menghapus sesi di grup ini!",
+        "contextInfo": {
+          "stanzaId": "2F054310C4E7DAC370832BA3C26D8EE9",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".delttc"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1619405627",
+    "status": "SERVER_ACK",
+    "participant": "6285559038021@s.whatsapp.net"
   }
 ]

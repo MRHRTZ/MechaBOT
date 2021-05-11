@@ -10,6 +10,7 @@ module.exports = revokejs = async (sesi, WA_MESSAGE_STUB_TYPES, hurtz, conn, Mim
      try {
           let settings = JSON.parse(fs.readFileSync('./src/settings.json'))
           // const mtchat = mt ? sender != nomerOwner[0] : false
+          console.log(hurtz);
           if (settings.Maintenance) return
           const from = hurtz.key.remoteJid
           const messageStubType = WA_MESSAGE_STUB_TYPES[hurtz.messageStubType] || 'MESSAGE'
@@ -24,7 +25,7 @@ module.exports = revokejs = async (sesi, WA_MESSAGE_STUB_TYPES, hurtz, conn, Mim
                const id_deleted = hurtz.key.id
                const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
                const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
-               for (let i = 0; i < infoMSG.length; i++) {
+               for (let i = 0;i < infoMSG.length;i++) {
                     if (infoMSG[i].key.id == id_deleted) {
                          const dataInfo = infoMSG[i]
                          const type = Object.keys(infoMSG[i].message)[0]
