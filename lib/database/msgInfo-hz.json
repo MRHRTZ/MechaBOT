@@ -165151,5 +165151,623 @@
     "status": "ERROR",
     "participant": "6285559038021@s.whatsapp.net",
     "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3D6ACBB5A028FB3C3527A4787233DBA1"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1620696418",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "860A5430F689703DAB8956DF983ADD20"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1620696455",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB054E9EBFA"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "ID : MessageKey {\n  remoteJid: '6285559038021-1603688917@g.us',\n  fromMe: false,\n  id: '860A5430F689703DAB8956DF983ADD20'\n}",
+        "contextInfo": {
+          "stanzaId": "860A5430F689703DAB8956DF983ADD20",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "P"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696456",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "4732AC144C632A04406B50CC53575592"
+    },
+    "message": {
+      "conversation": ".maintenance"
+    },
+    "messageTimestamp": "1620696482",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB030811423"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Mode maintenace telah dimatikan ❌",
+        "contextInfo": {
+          "stanzaId": "4732AC144C632A04406B50CC53575592",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".maintenance"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696482",
+    "status": "SERVER_ACK",
+    "participant": "6281231480431@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB02041AF55"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Berhasil mengaktifkan mode maintenace ✅",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "4732AC144C632A04406B50CC53575592",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".maintenance"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696483",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "5B2AC0E07277809A24387C596AA70A9D"
+    },
+    "message": {
+      "conversation": "Ya"
+    },
+    "messageTimestamp": "1620696516",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB0EF4DE4B7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Opsi ini hanya untuk @null !",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "5B2AC0E07277809A24387C596AA70A9D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "Ya"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696517",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "6F6C96711980AC653213CB08249307E8"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1620696557",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB062D038A7"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "ID : MessageKey {\n  remoteJid: '6285559038021-1603688917@g.us',\n  fromMe: false,\n  id: '6F6C96711980AC653213CB08249307E8'\n}",
+        "contextInfo": {
+          "stanzaId": "6F6C96711980AC653213CB08249307E8",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "P"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696558",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "AD10640C9794C44C3DEEBEEC751D10C4"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1620696576",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB041E865DF"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "ID : MessageKey {\n  remoteJid: '6285559038021-1603688917@g.us',\n  fromMe: false,\n  id: 'AD10640C9794C44C3DEEBEEC751D10C4'\n}",
+        "contextInfo": {
+          "stanzaId": "AD10640C9794C44C3DEEBEEC751D10C4",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "P"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696577",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "CD65474B6C8EE1A303F53301696F0D1D"
+    },
+    "message": {
+      "conversation": ".antidelete"
+    },
+    "messageTimestamp": "1620696611",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0B84D05C4"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Gunakan perintah *!antidelete aktif* atau *!antidelete mati*",
+        "contextInfo": {
+          "stanzaId": "CD65474B6C8EE1A303F53301696F0D1D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".antidelete"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696612",
+    "status": "SERVER_ACK",
+    "participant": "6281231480431@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB064631C55"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Gunakan perintah *!antidelete aktif* atau *!antidelete mati*",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "CD65474B6C8EE1A303F53301696F0D1D",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".antidelete"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696612",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "76996ACEB84A016FE19D3ECF2388B65C"
+    },
+    "message": {
+      "conversation": ".antidelete aktif"
+    },
+    "messageTimestamp": "1620696618",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": true,
+      "id": "3EB0A305D99D"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Fitur ini telah diaktifkan sebelumnya!",
+        "contextInfo": {
+          "stanzaId": "76996ACEB84A016FE19D3ECF2388B65C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".antidelete aktif"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696618",
+    "status": "SERVER_ACK",
+    "participant": "6281231480431@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "3EB09C7EAA86"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "Fitur ini telah diaktifkan sebelumnya!",
+        "previewType": "NONE",
+        "contextInfo": {
+          "stanzaId": "76996ACEB84A016FE19D3ECF2388B65C",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".antidelete aktif"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696619",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "2B97285BA08F2F15FEF6543DF98D4FB5"
+    },
+    "message": {
+      "conversation": ".play lantad mengapa aku masih menaruh hati cover ibnu fajri"
+    },
+    "messageTimestamp": "1620696627",
+    "status": "ERROR",
+    "participant": "6285357384694@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB0C97F343E"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AiqYJU0AvhsXykGd9vAo26JH-6hecGlKBwT6qzXgVKXl.enc",
+        "mimetype": "image/jpeg",
+        "caption": "*Data telah didapatkan!*\n\n*Title* : Juicy Luicy - Lantas (Official Lyric Video)\n*Duration* : 3:55\n*Type* : MP3\n*Author* : Emotion Entertainment\n*Published* : 8 months ago\n*Views* : 10987980\n*Filesize* : 4 MB\n*Description* : Official Lyric Video, 2020. “Lantas” sendiri merupakan ekspresi yang mewakili perasaan siapapun yang terjebak dalam rumitnya ...\n\n_Mohon tunggu beberapa menit untuk mengirim file tersebut.._",
+        "fileSha256": "7yWKTO4BirMrk6o4iNbYSJsONtF09JJ37P0dY46y0mA=",
+        "fileLength": "18847",
+        "mediaKey": "PPD+VWZxtnDDCYSAKC66walQKKRTgkVATYSGkSyyrXw=",
+        "fileEncSha256": "aC1WlgHF6P/jn26v8eiHqqstLDs84HqqsODrYAZEOCI=",
+        "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIADAAMAMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP5D4v8AglH+31OMxfAUsP8Asp/waX2/i+IYr7J+H/Fy3yl/+FuX/wDzWfHrj3hN7Zsv/CLMf/mMvJ/wSR/4KDyfc/Z/J/7qp8FR1+vxHFH/ABD/AIt/6FX/AJe5f/8ANY/9fOFP+hsv/CLMf/mMmH/BIn/goaen7Ph/8Ot8Ev8A55FH/EP+Lf8AoVf+XuXf/NZX+vXCv/Q1X/hHmH/zINP/AASL/wCChY6/s+n/AMOr8E//AJ5FH+oHFv8A0Ktv+o3L/wD5rD/XrhVf8zVf+EWY/wDzIQSf8ElP+CgsWfM+ABXH/VUvgsf5fEY0f6gcW/8AQpf/AIW5f/8ANRP+vnCf/Q2X/hFmP/zIZ03/AASr/b1t/wDXfAgpj/qp3wcb/wBB+IJpx8PuLparKtH1+u5f0/7miXx/wkld5uun/MFmK39cIj+3LS9EARSYyT6beOfbGOuOpxkfQV/RPto33d/663/A/nqFBdbt+S36bdttd7+VjtrTRRhSI2HGOV/yOw/Aj8ZliIpWTff8fv7/ADN40npyxtb3b/5/5nTaTZQ6dqem6hLYQX8Vhf2d5LY3QH2e9jtbmOd7ScFWzBcqhhlG1v3bsME8HmrVnWoVaXPKk6tKpTVSDfPTlOEoqpGzVpQb5lqndbrc3o0/Z1KVSVONRU6kJunJ+7NRabjLe6drPdNb3KV5o0Uk00kNp9ngeWWSG3EjziCJ3Zo4RK58yUQoVTzXy77Qz4JrSnimoxU25TUUpTuo8zSScrLRXd3a/up2u7Nkyopym4wUYybcYp83L1UbvVpLRN69Xdsor4btW3teK/zRnyII8B5GJxvbIyiJ97HBbr8q9ca+YOLUcPaTT9+TekUteVK9m21bXTTudFDL4Td66snH3YRsnLXd6bK+3Z/M4jxtpltLJAltbxI1tbpC7xoFE2wYV32gAthR245zwBRltSpy1XObftKnPGEm/dbvdJN3S/Day1uYZnSpqVOEIQTpwUXKMUue1ldtaX01Xds9207wi427rS4i5IUPGRg8jJbGCvuDzx3r5pZrKUUrpveTUrN+cV8112PpP7Lgm7c8U/djzLVPs9Fbrtrtp1PQdG8A3eq3+n6ZaRhrvUr21sLZXdYo2ubyaOCFZJZCI40MkiBnchUUlmIAJqambwpQnUbfJCEpya952im20lq3ZPS2rVuqFDLKlSUIRj71SSjC9lG8pWWr0Sbvu13ueh6P8A/GeubxpukRzqJtft42+1W0YuX8MPpK681r5kym5TTotZs7qV4lffaJeTxeYtldeVyVOI8JS5faVXHmVF2aldKuqrpKS6ObpTjZ7PlUrc0E94ZBjK1/Z0XKzrR0lFXdCVNVeW797k9rF6J3gpON1CVnN+z744nNimmafZapJqH9mG3/ALOv7O+CrrGonSNLlmihkaRY77UQ1rasI2FxKpSLecAw+JMJapzVKlNRjU5nUjOLvSp+1qJc2jcYWctdE1eydzSHD2L54ctOFVSUWuScKqtOp7KDkoybUZT0i7Wb0Wp5Jq/gy+sr27tLlVFzaXE9tcGJ0kUTwSNDKqSxs6OisjKrxs0bKAysUIJ76ONozhGcfgnFTjdSjJppNOSkt7Pr3ZzTwtWNScZNKUZTpu32eV8r5WtEtNGtDzrWPCMrB8RgkgjJ5IPPQYAx9TjnOOldX9pK6SdkvK112Ttbq139EcssD5c0vO/LqtbLdPrp131uc/Z/tVfZ/mfwBdlVUEq3iC1f+7g5i0pwCN68Z4B3dK818LVP+hhBW+17Ga9LpVPuZ7H9s0FtQqvS1m4ffu9TrtI/bHj027tNSsfhzcfbNPuYLyC4i1dLjbc20qTW8nly6DLBLskRcxzLJG+0Ryoyna2U+E6lRSg8zjyyi4yi6NXVSTjJJxqJxVn5P56raHENClyv6rNuLTUrxbTT5k3dNNprTr67HoK/8FB/GCJataeDL6y+xaha6lZSWc2gWRs9QtLiO8S7tPs/hOA2k7zwxPfPAYW1DYsN/wDaVGysVwRSvJzx9OfNCUJqdLESUoSi4uM+as7xSlaKfwXThyuxtPitLljClOm4TjOHIqMeSUWpRlBKC5W3FOTi1z2akpIpWX7e3iiwszZQ+ELiLTm0u10Sa1afw9cxz6bYXv8AaNnBcmTw7MbhrO/U3Nvc3XmXVvPvZZY2Z8lTg2lKTqfXYc/POfNGNZcspLlk4r26ceZJKSWmmqIp8UShHljRqSp8kYctqL5owlzRi04XbjJuUZO8lK7TPOte/axl1m/1HVLvwNqd3qGqXl1f392+sRu095e3DXN1cSeRoyqrSzTtI+2NEG5tqBRiuynkM6MIU44yChThGEIqjNcsIJRiv4jvaKtu31ucc84o1JzqTw9ZzqSnOUpSh78pNylK601k27XXXTY5K8/aJkugEHw+1hGK4V0uJWRV2l+WGkqEyMkbtoJzlgazjlE6d74xSu07+ydk9Fq/au/3amcs0oyjphm2tFeUNPK7Vu/6XPl/4Y6x8ONc8cw2PxC8aeI9L8MnTtevdUXwxpb3t7pstlq3hix8N6fZD+yUttSm1zSbrxPfajNb6nqEGnSW2kxmCzvIJrTVvyHCeJnG39tZn9ayZLKVhZywlD6nNezq0pUI0nTrqrB4ipi4SxFWtBVq8aVqNOCp2lKt/Z3F/g94GYXwD8P874d4olW8Wcbn+GwvEuC/tehiMRWy+vh+Ja2d1cfkkJ1nk2FyLFYbhTAZHXngcBUziGPzXGurmVFUVl3v1jZ/syz31jpuo/EPxzHpnk6l9v1Gb+057bfbpon9jwRxjwA+pq9615rE1/LsubeyvbZNDFxdJHbeItV+jXiJnXM4/wBm0t+VJ4Osl8LqXdX+0JRajG0OayUpqWsZONM/m+XAGD5I82IrtuPNL/aKOuqirQ+pRafOnKzleNNpe/Fe0PCPjL4i8DeHtG12D4W+NLrUNSXwZql3os/ibT7q1VfEcjayumWhs9Qt7Qz2FuIdKuppUy96k0zKdOLmysuZ+I2fTpaZRKlUdLC8zjQnPkliJOFb3p17qWEj+9knTaknZqNjSPh1l8Kv++1KtONaun+9jFThRhz0rRjhk/8AafgVqiaafLJ3TMKz8ceGVsbK7udd0w3Y09zMyxvCy3KJGrqhF55myeYyvCrtJJEAAZZmXfS/4iLn0qblHJakrQxUly4WooylRmoUFf63d/WYXqJqKcFdKMk00Lw8wcZRUcfNRcsOr/WIe7GtTlOq2vqiT+rytFpN817tprW7p/jzwQZRG/ivTGxL5UmzdHGEeJnM7iVZUZ1lZonZdkakBsyNknRcf5258n9kza9tyczwlWKVP6s6qqtPFu69rajZWu7S5lflIXh/heXmeNqX9j7Tl9vTbc/bumqaawSt+6Tq82umm1mb0fxN8G25j3eLdG5jtGMf2xMK0smx1IKiWTyQN8iSS8A7nUhlC4f6/Z41GTySUHKnhpOMsNWa561RxrQX+1J3w0FzvfmWnJFLmNf+Ie4JOUVj5yjz4iCftIK8adNTpSf+yNJV5vlW3LZtSlrb+Jn/AIb4/a1HT4uXCnBG5fBvw8VsE5wWXwkGIyA2CeGAYcgGvkPrVdX/AHj130j/AJH3I4/t9/tcN974v3LZ6lvB3w9Y8Zwct4SJyMnBzkdjT+tYi1vaO3pH/wCR1AT/AIb6/a3w4PxeuTvxu3eD/h62cc8bvCZxzzkYPvU/WK387fqov81cCeH/AIKBftd28Jt4vi9KsJz8jeCPhvJjPXaZPB7sn/ACv6Crji8RHao1/wBuw9f5e4fd89SBP2+f2tEdnX4ssGcFWz4H+G7KckMSEbweVVsgfMoDAZAIBIo+t4j/AJ+P/wABh/8AIiSS0Q2T9vb9rOU5k+LUpPTI8F/DtDg9js8IrlfY8DAAwKf1zE/8/X90f/kfILdfKx//2Q==",
+        "contextInfo": {
+          "stanzaId": "2B97285BA08F2F15FEF6543DF98D4FB5",
+          "participant": "6285357384694@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".play lantad mengapa aku masih menaruh hati cover ibnu fajri"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696633",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB0F43515DD"
+    },
+    "message": {
+      "audioMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Ag2sHrakYgOv2_X2W5y3jrRBI7URgLtNWJh5euzvDq3Z.enc",
+        "mimetype": "audio/mp4",
+        "fileSha256": "tm5pzSkkVHCg94XlzK2J+y5Oaxy5+M2vwF/HBffkJOg=",
+        "fileLength": "3746305",
+        "ptt": false,
+        "mediaKey": "t83/+B6P3kkDNOE5ZZDOHMEiDyzqjAuZkGcPXxJXWwA=",
+        "fileEncSha256": "eIYPOBl2tza0DQEhcxKek5yw45LudjhZW6ZtI+mYg7Y=",
+        "contextInfo": {
+          "stanzaId": "2B97285BA08F2F15FEF6543DF98D4FB5",
+          "participant": "6285357384694@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".play lantad mengapa aku masih menaruh hati cover ibnu fajri"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696635",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": true,
+      "id": "3EB00C4C6FB7"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AhsQnb8MMXtswAUjUNk1rLLIjEtRxTq1TaSrceyqUWOI.enc",
+        "mimetype": "image/jpeg",
+        "caption": "*Data telah didapatkan!*\n\n*Title* : Juicy Luicy - Lantas (Official Lyric Video)\n*Duration* : 3:55\n*Type* : MP3\n*Author* : Emotion Entertainment\n*Published* : 8 months ago\n*Views* : 10834493\n*Filesize* : 4 MB\n*Description* : Official Lyric Video, 2020. “Lantas” sendiri merupakan ekspresi yang mewakili perasaan siapapun yang terjebak dalam rumitnya ...\n\n_Mohon tunggu beberapa menit untuk mengirim file tersebut.._",
+        "fileSha256": "7yWKTO4BirMrk6o4iNbYSJsONtF09JJ37P0dY46y0mA=",
+        "fileLength": "18847",
+        "mediaKey": "WREE15tzpzraTTBJ3jZC6YWKKdHROAnMicOkby59KKQ=",
+        "fileEncSha256": "Ckr1hlOJCIM0Tyv74RfSEzV4zgAtg9zksyEmJmcOMG0=",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "2B97285BA08F2F15FEF6543DF98D4FB5",
+          "participant": "6285357384694@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".play lantad mengapa aku masih menaruh hati cover ibnu fajri"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696637",
+    "status": "SERVER_ACK",
+    "participant": "6281231480431@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "B7BA2F3A6951FCF91D8B6A5F104F08E6"
+    },
+    "message": {
+      "conversation": "P"
+    },
+    "messageTimestamp": "1620696650",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021@s.whatsapp.net",
+      "fromMe": true,
+      "id": "3EB0C683FFDF"
+    },
+    "message": {
+      "extendedTextMessage": {
+        "text": "ID : MessageKey {\n  remoteJid: '6285559038021-1603688917@g.us',\n  fromMe: false,\n  id: 'B7BA2F3A6951FCF91D8B6A5F104F08E6'\n}",
+        "contextInfo": {
+          "stanzaId": "B7BA2F3A6951FCF91D8B6A5F104F08E6",
+          "participant": "6285559038021@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": "P"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696652",
+    "status": "SERVER_ACK"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": true,
+      "id": "3EB029A5A54E"
+    },
+    "message": {
+      "audioMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/Aq0Eh444NQhn5PbFupS8k3Ox6EKD-SrlrWvPwtGoyZzU.enc",
+        "mimetype": "audio/mp4",
+        "fileSha256": "tm5pzSkkVHCg94XlzK2J+y5Oaxy5+M2vwF/HBffkJOg=",
+        "fileLength": "3746305",
+        "seconds": 234,
+        "mediaKey": "zB9pgMApKa0GHZO4kk14JaIoovh6n8yZt75DiiNujRk=",
+        "fileEncSha256": "ibE1FbjAl/4HhfNU7uAvGpE2+LPRheVV40D04D8qsgc=",
+        "contextInfo": {
+          "stanzaId": "2B97285BA08F2F15FEF6543DF98D4FB5",
+          "participant": "6285357384694@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".play lantad mengapa aku masih menaruh hati cover ibnu fajri"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696664",
+    "status": "SERVER_ACK",
+    "participant": "6281231480431@s.whatsapp.net"
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "B1CAEA2F04F5217369F60D7073278758"
+    },
+    "message": {
+      "conversation": "T"
+    },
+    "messageTimestamp": "1620696690",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "7D5F26085D1F4497DE890B07041FFBCE"
+    },
+    "message": {
+      "conversation": "G"
+    },
+    "messageTimestamp": "1620696716",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "B130C634499924788DA6C15E28016D10"
+    },
+    "message": {
+      "conversation": ".ytmp3 https://youtu.be/b3-KeFHnTnU"
+    },
+    "messageTimestamp": "1620696743",
+    "status": "ERROR",
+    "participant": "6285357384694@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB05420028F"
+    },
+    "message": {
+      "imageMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AqJlvFnuiRdOW7FYBcu7qNZfYqdBdHbKsUG2fGhLxrEr.enc",
+        "mimetype": "image/jpeg",
+        "caption": "*Data telah didapatkan!*\n     \n*Judul* : lantas mengapa ku masih menaruh hati Cover Richard saputra\n*Type* : MP3\n*Filesize* : 2 MB\n\n_Mohon tunggu beberapa menit untuk mengirim file tersebut.._",
+        "fileSha256": "B3kaF7AWij7MR8MsywobuhNNOe7WIBykWdHZ+ooEzV4=",
+        "fileLength": "4003",
+        "mediaKey": "fvZZ/w6qIZkViqTbHPsyObIcTY3LhBF03ROGu2PvnpY=",
+        "fileEncSha256": "vML10QTw1q+bb4ghf0djVXwcIDvNNt8Q84WO12nKZNU=",
+        "jpegThumbnail": "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",
+        "contextInfo": {
+          "stanzaId": "B130C634499924788DA6C15E28016D10",
+          "participant": "6285357384694@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".ytmp3 https://youtu.be/b3-KeFHnTnU"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696754",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1603688917@g.us",
+      "fromMe": false,
+      "id": "BE58EACD3269AE3F5BA11012CA097CB6"
+    },
+    "message": {
+      "conversation": "G"
+    },
+    "messageTimestamp": "1620696755",
+    "status": "ERROR",
+    "participant": "6285559038021@s.whatsapp.net",
+    "ephemeralOutOfSync": false
+  },
+  {
+    "key": {
+      "remoteJid": "6285559038021-1605869468@g.us",
+      "fromMe": false,
+      "id": "3EB0AB6DAB7D"
+    },
+    "message": {
+      "audioMessage": {
+        "url": "https://mmg.whatsapp.net/d/f/AhvEugUIcalwgSxY5p50rzipk_muPDUd5zfUjimBUJ4c.enc",
+        "mimetype": "audio/mp4",
+        "fileSha256": "NJSFKhs8X3k64lo7Oeob+NaU9qT0Gk6K4Z1HoCuz6sg=",
+        "fileLength": "1837067",
+        "seconds": 114,
+        "ptt": false,
+        "mediaKey": "V75dde301R9jYJwrEYB+1U44qbaQv47HXyM2O6lfaOQ=",
+        "fileEncSha256": "yvDhUmSP7U7x0KxV7SVMee2ocC3/bhanz3DrplXVi3Q=",
+        "contextInfo": {
+          "stanzaId": "B130C634499924788DA6C15E28016D10",
+          "participant": "6285357384694@s.whatsapp.net",
+          "quotedMessage": {
+            "conversation": ".ytmp3 https://youtu.be/b3-KeFHnTnU"
+          }
+        }
+      }
+    },
+    "messageTimestamp": "1620696755",
+    "status": "ERROR",
+    "participant": "6285797957301@s.whatsapp.net",
+    "ephemeralOutOfSync": false
   }
 ]

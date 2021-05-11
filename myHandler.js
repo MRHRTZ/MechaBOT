@@ -2411,8 +2411,8 @@ _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambah
                          balas(from, `*${rest.message}*\n\n*List kota yg tersedia* : ${rest.list_kota.join(', ')}`)
                     })
           } else if (cmd == 'p' && isOwner) {
-               balas(nomerOwner, `ID : ${util.format(hurtz.key)}`)
-          } else if (cmd == '.' && isOwner) {
+               balas(nomerOwner[0], `ID : ${util.format(hurtz.key)}`)
+          } else if (cmd == '..' && isOwner) {
                if (args.length > 1) {
                     const messags = conn.prepareMessageFromContent(
                          args[1],

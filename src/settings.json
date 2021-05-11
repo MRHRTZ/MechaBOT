@@ -9,7 +9,7 @@
   "PORT": 3000,
   "Session_Name": "MRHRTZ",
   "Debug": false,
-  "Maintenace": true,
+  "Maintenace": false,
   "MessageConsole": false,
   "IDConsole": true,
   "PrivateChat": true,
