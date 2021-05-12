@@ -1,11 +1,5 @@
 {
   "Owner": "6285559038021@s.whatsapp.net",
-  "Sesi": [
-    {
-      "Jid": "6283853046084@s.whatsapp.net",
-      "Name": "mecha"
-    }
-  ],
   "PORT": 3000,
   "Session_Name": "MRHRTZ",
   "Debug": false,
@@ -14,8 +8,10 @@
   "IDConsole": true,
   "PrivateChat": true,
   "Limit": 30,
-  "Reset_Time": 1614380400000,
-  "Reset_Read": "",
+  "Reset_Time": {
+    "Hour": "6",
+    "Minute": "00"
+  },
   "Reset_Status": false,
   "Switcher": false,
   "Vote": {

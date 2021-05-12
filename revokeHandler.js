@@ -8,25 +8,27 @@ const { createExif } = require('./lib/create-exif')
 
 module.exports = revokejs = async (sesi, WA_MESSAGE_STUB_TYPES, hurtz, conn, Mimetype, MessageType) => {
      try {
+          // console.log('sup');
           let settings = JSON.parse(fs.readFileSync('./src/settings.json'))
           // const mtchat = mt ? sender != nomerOwner[0] : false
-          console.log(hurtz);
           if (settings.Maintenance) return
           const from = hurtz.key.remoteJid
           const messageStubType = WA_MESSAGE_STUB_TYPES[hurtz.messageStubType] || 'MESSAGE'
           const dataRevoke = JSON.parse(fs.readFileSync('./lib/database/RevokedGroup.json'))
           const isRevoke = dataRevoke.includes(from)
-          if (messageStubType == 'REVOKE' && isRevoke) {
+          // console.log(hurtz.message.protocolMessage);
+          if (isRevoke) {
                const from = hurtz.key.remoteJid
                const isGroup = hurtz.key.remoteJid.endsWith('@g.us') ? true : false
                const sender = hurtz.key.fromMe ? conn.user.jid : isGroup ? hurtz.participant : hurtz.key.remoteJid
                let int
                let infoMSG = JSON.parse(fs.readFileSync('./lib/database/msgInfo-' + sesi + '.json'))
-               const id_deleted = hurtz.key.id
+               const id_deleted = hurtz.message.protocolMessage.key.id
                const conts = hurtz.key.fromMe ? conn.user.jid : conn.contacts[sender] || { notify: jid.replace(/@.+/, '') }
                const pushname = hurtz.key.fromMe ? conn.user.name : conts.notify || conts.vname || conts.name || '-'
                for (let i = 0;i < infoMSG.length;i++) {
                     if (infoMSG[i].key.id == id_deleted) {
+                         // console.log('go on');
                          const dataInfo = infoMSG[i]
                          const type = Object.keys(infoMSG[i].message)[0]
                          const timestamp = infoMSG[i].messageTimestamp
@@ -38,6 +40,7 @@ module.exports = revokejs = async (sesi, WA_MESSAGE_STUB_TYPES, hurtz, conn, Mim
                          }
                     }
                }
+               // return console.log(id_deleted);
                const opt4tag = {
                     quoted: int.data,
                     contextInfo: { mentionedJid: [sender] }
@@ -72,8 +75,10 @@ Waktu : ${moment.unix(int.timestamp).format('HH:mm:ss DD/MM/YYYY')}\`\`\`
                               return
                          }
                          const buff = fs.readFileSync(`./media/sticker/${filename}-done.webp`)
-                         conn.sendMessage(from, strConversation, MessageType.text, opt4tag)
-                         conn.sendMessage(from, buff, MessageType.sticker)
+                         conn.sendMessage(from, buff, MessageType.sticker, opt4tag)
+                              .then((data) => {
+                                   conn.sendMessage(from, strConversation, MessageType.text, { quoted: data })
+                              })
                          // console.log(stdout)
                          fs.unlinkSync(savedFilename)
                          fs.unlinkSync(`./media/sticker/${filename}-done.webp`)
@@ -109,9 +114,27 @@ Pesan : ${body ? body : '-'}\`\`\`
 `
                     conn.sendMessage(from, buff, MessageType.video, { quoted: int.data, contextInfo: { mentionedJid: [sender] }, caption: strConversation })
                     fs.unlinkSync(savedFilename)
+               } else if (int.type == 'audioMessage') {
+                    const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
+                    const savedFilename = await conn.downloadAndSaveMediaMessage(int.data, `./media/revoke/${filename}`);
+                    const sizes = getFilesize(savedFilename)
+                    const buff = fs.readFileSync(savedFilename)
+                    const strConversation = `\`\`\`[ ⚠️ Terdeteksi Penghapusan Pesan ⚠️ ]
+
+Nama : ${pushname} ( @${sender.replace('@s.whatsapp.net', '')} )
+Tipe : ${mediaData.message.audioMessage.ptt ? 'Voice Note' : 'Audio'}
+Ukuran : ${sizes}
+Waktu : ${moment.unix(int.timestamp).format('HH:mm:ss DD/MM/YYYY')}
+Pesan : ${body ? body : '-'}\`\`\`
+`
+                    conn.sendMessage(from, buff, MessageType.audio, { quoted: int.data, ptt: mediaData.message.audioMessage.ptt, contextInfo: { mentionedJid: [sender] } })
+                         .then((data) => {
+                              conn.sendMessage(from, strConversation, MessageType.text, { quoted: data })
+                         })
+                    fs.unlinkSync(savedFilename)
                }
           }
      } catch (error) {
-          console.log(error)
+          // console.log('%s' + error)
      }
 }

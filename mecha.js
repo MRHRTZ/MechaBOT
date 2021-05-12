@@ -21,7 +21,7 @@ function ERRLOG(e) {
 
 const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
 // const mysession = settings.Session_Name
-const mysession = process.argv[2] || 'daz.'///*'mecha'*/'MRHRTZ'
+const mysession = process.argv[2] || 'hz'///*'mecha'*/'MRHRTZ'
 
 let clientsNow = []
 let webSockets = {}
@@ -134,7 +134,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           ws.on('close', () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgRedBright('Client Disconnected')));
      });
 
-     cron.schedule('06 8 * * *', () => {
+     cron.schedule(`${settings.Reset_Time.Minute} ${settings.Reset_Time.Hour} * * *`, () => {
           let obj = JSON.parse(fs.readFileSync("./lib/database/limit.json"));
           for (let i in obj) {
                if (obj[i].limit < settings.Limit) {
@@ -144,6 +144,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           }
           fs.writeFileSync("./lib/database/limit.json", JSON.stringify(obj, null, 2));
           console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Reset success : ' + settings.Limit + ' limit'))
+          conn.sendMessage(settings.Owner, `\`\`\`Berhasil reset limit sebanyak ${settings.Limit} pada ${settings.Reset_Time.Hour}:${settings.Reset_Time.Minute}\`\`\`  ✅`, MessageType.text)
      }, {
           scheduled: true,
           timezone: "Asia/Jakarta"
