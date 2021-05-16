@@ -592,28 +592,7 @@ module.exports = handle = async (
      const mt = settings.Maintenace;
      const msgout = settings.MessageConsole;
      const idlog = settings.IDConsole;
-     if (!fs.existsSync("./lib/database/msgInfo-" + sesi + ".json")) {
-          fs.writeFileSync(
-               "./lib/database/msgInfo-" + sesi + ".json",
-               JSON.stringify([])
-          );
-     }
-     let infoMSG = JSON.parse(
-          fs.readFileSync("./lib/database/msgInfo-" + sesi + ".json")
-     );
-     infoMSG.push(JSON.parse(JSON.stringify(hurtz)));
-     fs.writeFileSync(
-          "./lib/database/msgInfo-" + sesi + ".json",
-          JSON.stringify(infoMSG, null, 2)
-     );
-     const urutan_pesan = infoMSG.length;
-     if (urutan_pesan === 2500) {
-          infoMSG.splice(0, 4300);
-          fs.writeFileSync(
-               "./lib/database/msgInfo-" + sesi + ".json",
-               JSON.stringify(infoMSG, null, 2)
-          );
-     }
+     
 
      let detect = JSON.parse(
           fs.readFileSync(__dirname + "/direct-message/detector.json")
@@ -667,8 +646,29 @@ module.exports = handle = async (
           return
      };
      // fs.writeFileSync('./cpsw.json', JSON.stringify(hurtz, null, 2))
-
-
+     hurtz.message = (Object.keys(hurtz.message)[0] === 'ephemeralMessage') ? hurtz.message.ephemeralMessage.message : hurtz.message
+     if (!fs.existsSync("./lib/database/msgInfo-" + sesi + ".json")) {
+          fs.writeFileSync(
+               "./lib/database/msgInfo-" + sesi + ".json",
+               JSON.stringify([])
+          );
+     }
+     let infoMSG = JSON.parse(
+          fs.readFileSync("./lib/database/msgInfo-" + sesi + ".json")
+     );
+     infoMSG.push(JSON.parse(JSON.stringify(hurtz)));
+     fs.writeFileSync(
+          "./lib/database/msgInfo-" + sesi + ".json",
+          JSON.stringify(infoMSG, null, 2)
+     );
+     const urutan_pesan = infoMSG.length;
+     if (urutan_pesan === 2500) {
+          infoMSG.splice(0, 4300);
+          fs.writeFileSync(
+               "./lib/database/msgInfo-" + sesi + ".json",
+               JSON.stringify(infoMSG, null, 2)
+          );
+     }
 
      /*---[ Limit Auto Reset ]--*/
 
