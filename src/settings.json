@@ -5,6 +5,7 @@
   "Debug": false,
   "Maintenace": false,
   "MessageConsole": false,
+  "HangmanWord": 5,
   "IDConsole": true,
   "PrivateChat": true,
   "Limit": 30,

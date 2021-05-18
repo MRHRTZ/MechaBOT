@@ -6,6 +6,7 @@ const pm2 = require("pm2");
 const path = require("path");
 const util = require("util");
 const chalk = require("chalk");
+const qrcode = require("qrcode")
 const mktemp = require("mktemp");
 const Crypto = require("crypto");
 const google = require("google-it")
@@ -167,6 +168,7 @@ const {
 const {
      mimetypes
 } = require("./lib/mimetypes");
+const { ssweb } = require('./lib/ssweb')
 const {
      pinterest
 } = require("./lib/pinterest");
@@ -192,6 +194,8 @@ const {
 const {
      kode
 } = require("./lib/kodebhs");
+const { requestPay } = require('./lib/donate/post_donate')
+const { checkPay } = require('./lib/donate/getDataDonatur')
 const {
      Grid
 } = require("minesweeperjs");
@@ -206,12 +210,18 @@ const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function INFOLOG(info) {
-     console.log(
-          "\x1b[1;34m~\x1b[1;37m>>",
-          "<\x1b[1;33mINF\x1b[1;37m>",
-          time,
-          color(info)
-     );
+     const teks = chalk.greenBright('[ MECHABOT ]  ') + time + " " + color(info)
+     console.log(teks);
+     // clientsNow.forEach((client) => {
+     //      if (!isClientLog) return
+     //      client.send(teks)
+     // });
+     // console.log(
+     //      "\x1b[1;34m~\x1b[1;37m>>",
+     //      "<\x1b[1;33mINF\x1b[1;37m>",
+     //      time,
+     //      color(info)
+     // );
 }
 
 function ERRLOG(e) {
@@ -644,12 +654,68 @@ module.exports = handle = async (
           isGroup ?
                hurtz.participant :
                hurtz.key.remoteJid;
+     let db_sewa = JSON.parse(fs.readFileSync("./lib/database/group-sewa.json"));
+     let sewaGroupsID = db_sewa.map(rest => rest.gid)
+     const isSewa = sewaGroupsID.includes(from)
+     if (db_sewa.length > 0) {
+          for (let i = 0;i < db_sewa.length;i++) {
+               const remains = getRemaining(new Date(db_sewa[i].expired_on));
+               db_sewa[i].remaining = `Tersisa ${remains.days} hari`;
+               fs.writeFileSync(
+                    "./lib/database/group-sewa.json",
+                    JSON.stringify(db_sewa, null, 2)
+               );
+          }
+     }
+     if (isSewa) {
+          let sewa_index = db_sewa.findIndex(rest => rest.gid == from)
+          if (sewa_index != -1) {
+               let exp_on = db_sewa[sewa_index].expired_on
+               let time_now = moment(new Date()).valueOf()
+               if (exp_on < time_now) {
+                    INFOLOG('EXPIRED RENT')
+                    balasNp(from, `Waktu sewa di grup ini sudah habis, bot akan keluar otomatis dalam 10 detik ⚠️`)
+                         .then(async () => {
+                              await delay(10000)
+                              db_sewa.splice(sewa_index, 1)
+                              fs.writeFileSync('./lib/database/group-sewa.json', JSON.stringify(db_sewa, null, 3))
+                              conn.groupLeave(from)
+                         })
+               }
+          }
+     }
+
      let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
      let vip = expvip.map(rest => rest.number)
      let expvipnum = expvip.map(rest => rest.number)
      const nomerOwner = [settings.Owner, conn.user.jid, "6285559038021@s.whatsapp.net"];
      const isOwner = nomerOwner.includes(sender);
      const isVIP = expvipnum.includes(sender) || isOwner;
+     if (expvip.length > 0) {
+          for (let i = 0;i < expvip.length;i++) {
+               const remains = getRemaining(new Date(expvip[i].expired_on));
+               expvip[i].remaining = `Tersisa ${remains.days} hari`;
+               fs.writeFileSync(
+                    "./lib/database/expvip.json",
+                    JSON.stringify(expvip, null, 2)
+               );
+          }
+     }
+
+     if (isVIP && !hurtz.key.fromMe) {
+          let vip_index = expvip.findIndex(rest => rest.number == sender)
+          // console.log(vip_index);
+          if (vip_index != -1) {
+               let exp_on = expvip[vip_index].expired_on
+               let time_now = moment(new Date()).valueOf()
+               if (exp_on < time_now) {
+                    INFOLOG('EXPIRED VIP')
+                    balas(from, `Waktu vip anda sudah habis :(`)
+                    expvip.splice(vip_index, 1)
+                    fs.writeFileSync('./lib/database/expvip.json', JSON.stringify(expvip, null, 3))
+               }
+          }
+     }
      if (!hurtz.message) {
           if (hurtz.messageStubType) {
                switch (hurtz.messageStubType) {
@@ -746,19 +812,15 @@ module.exports = handle = async (
           type == "extendedTextMessage" && konten.includes("audioMessage");
      let typeQuoted =
           type == "extendedTextMessage" && hurtz.message.extendedTextMessage ? Object.keys(hurtz.message.extendedTextMessage.contextInfo ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage ? hurtz.message.extendedTextMessage.contextInfo.quotedMessage : { mentionedText: "Created By MRHRTZ", } : { thumbnailMessage: "MRHRTZ Jangan diganti error ntar nangid :v", })[0] : type;
-
+     let isMediaVid = type === "videoMessage" || isQuotedVideo
+     let isMediaImage = type === "imageMessage" || isQuotedVideo
      let hurtzMediaData = type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message) != 'ephemeralMessage' ? JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.extendedTextMessage.contextInfo : hurtzText
      if (type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message) == 'ephemeralMessage' && JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message) {
           typeQuoted = Object.keys(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message)
           hurtzMediaData = JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo
           // console.log(JSON.parse(JSON.stringify(hurtz).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo)
      }
-     const mediaData =
-          type == "extendedTextMessage" ?
-               typeQuoted == "thumbnailMessage" ?
-                    hurtzText :
-                    hurtzMediaData :
-               hurtzText;
+     const mediaData = type == "extendedTextMessage" ? typeQuoted == "thumbnailMessage" ? hurtzText : hurtzMediaData : hurtzText;
      // const ment = ''
      // console.log(body)
      // const ment = mediaData.message[(typeQuoted == 'mentionedText') ? 'extendedTextMessage' : (typeQuoted == 'thumbnailMessage') ? 'extendedTextMessage' : typeQuoted].contextInfo || '' //.contextInfo
@@ -1097,6 +1159,11 @@ module.exports = handle = async (
           conn.sendMessage(dari, text, TypePsn.text, {
                quoted: hurtz,
           });
+     }
+
+     async function balasNp(dari, text) {
+          await conn.updatePresence(dari, 'composing')
+          conn.sendMessage(dari, text, TypePsn.text);
      }
 
      async function hidetag(from, text) {
@@ -1460,7 +1527,6 @@ Contoh : *!guess naruto*
      let db_anti = JSON.parse(fs.readFileSync('./lib/database/anti.json'))
      let db_antiregexp = JSON.parse(fs.readFileSync('./lib/database/antiregexp.json'))
      if (db_anti.includes(from)) {
-          if (!isBotAdmin) return balas(from, `Bot harus menjadi admin agar fitur (anti) ini bekerja!`)
           let text_anti = []
           for (let data of db_antiregexp) {
                if (data.status) {
@@ -1471,6 +1537,7 @@ Contoh : *!guess naruto*
           const indexAnti = text_anti.indexOf(body.match(antirefexNya) ? body.match(antirefexNya)[0] : '')
           // console.log(indexAnti === -1 ? false : db_antiregexp[indexAnti].status);
           if (text_anti.includes(body.toLowerCase()) && indexAnti === -1 ? false : (db_antiregexp[indexAnti] ? db_antiregexp[indexAnti].status : false)) {
+               if (!isBotAdmin) return balas(from, `Bot harus menjadi admin agar fitur (anti) ini bekerja!`)
                // console.log('masuk');
                if (sender == conn.user.jid) return
                balas(from, db_antiregexp[indexAnti].reply)
@@ -1582,51 +1649,53 @@ Giliran : @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
           }
      }
 
-     if (arrNum.includes(cmd)) {
-          const boardnow = setGame(`${from}`);
-          if (
-               (boardnow.turn == "X" ? boardnow.X : boardnow.O) !=
-               sender.replace("@s.whatsapp.net", "")
-          )
-               return;
-          const moving = validmove(Number(body), `${from}`);
-          const matrix = moving._matrix;
-          if (moving.isWin) {
-               if (moving.winner == "SERI") {
-                    const chatEqual = `*🎮 Tictactoe Game 🎳*
+     if (isGroup) {
+          if (arrNum.includes(cmd)) {
+               // if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) return
+               const boardnow = setGame(`${from}`);
+               if (
+                    (boardnow.turn == "X" ? boardnow.X : boardnow.O) !=
+                    sender.replace("@s.whatsapp.net", "")
+               )
+                    return;
+               const moving = validmove(Number(body), `${from}`);
+               const matrix = moving._matrix;
+               if (moving.isWin) {
+                    if (moving.winner == "SERI") {
+                         const chatEqual = `*🎮 Tictactoe Game 🎳*
           
 Game berakhir seri 😐
 `;
-                    balas(from, chatEqual);
-                    fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
-                    return;
-               }
-               const winnerJID = moving.winner == "O" ? moving.O : moving.X;
-               const looseJID = moving.winner == "O" ? moving.X : moving.O;
-               const limWin = Math.floor(Math.random() * 20) + 10;
-               const limLoose = Math.floor(Math.random() * 10) + 5;
-               const chatWon = `*🎮 Tictactoe Game 🎳*
+                         balas(from, chatEqual);
+                         fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
+                         return;
+                    }
+                    const winnerJID = moving.winner == "O" ? moving.O : moving.X;
+                    const looseJID = moving.winner == "O" ? moving.X : moving.O;
+                    const limWin = Math.floor(Math.random() * 20) + 10;
+                    const limLoose = Math.floor(Math.random() * 10) + 5;
+                    const chatWon = `*🎮 Tictactoe Game 🎳*
           
 Telah dimenangkan oleh @${winnerJID} 😎👑
 
 Pemenang = + ${limWin} ✅
 Kalah = - ${limLoose}  ❌
 `;
-               giftLimit(winnerJID + "@s.whatsapp.net", limWin);
-               pushLimit(looseJID + "@s.whatsapp.net", limLoose);
-               conn.sendMessage(from, chatWon, TypePsn.text, {
-                    quoted: hurtz,
-                    contextInfo: {
-                         mentionedJid: [
-                              moving.winner == "O" ?
-                                   moving.O + "@s.whatsapp.net" :
-                                   moving.X + "@s.whatsapp.net",
-                         ],
-                    },
-               });
-               fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
-          } else {
-               const chatMove = `*🎮 Tictactoe Game 🎳*
+                    giftLimit(winnerJID + "@s.whatsapp.net", limWin);
+                    pushLimit(looseJID + "@s.whatsapp.net", limLoose);
+                    conn.sendMessage(from, chatWon, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [
+                                   moving.winner == "O" ?
+                                        moving.O + "@s.whatsapp.net" :
+                                        moving.X + "@s.whatsapp.net",
+                              ],
+                         },
+                    });
+                    fs.unlinkSync(`./lib/tictactoe/db/${from}.json`);
+               } else {
+                    const chatMove = `*🎮 Tictactoe Game 🎳*
           
 ❌ : @${moving.X}
 ⭕ : @${moving.O}
@@ -1640,15 +1709,16 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
 
 
 `;
-               conn.sendMessage(from, chatMove, TypePsn.text, {
-                    quoted: hurtz,
-                    contextInfo: {
-                         mentionedJid: [
-                              moving.X + "@s.whatsapp.net",
-                              moving.O + "@s.whatsapp.net",
-                         ],
-                    },
-               });
+                    conn.sendMessage(from, chatMove, TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [
+                                   moving.X + "@s.whatsapp.net",
+                                   moving.O + "@s.whatsapp.net",
+                              ],
+                         },
+                    });
+               }
           }
      }
 
@@ -1792,7 +1862,7 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
           return;
      }
 
-     // if (!isGroup && settings.PrivateChat === false) return
+     // if (!isGroup && !settings.PrivateChat && !isOwner) return
      if (hurtz.message.conversation == null) {
           INFOLOG("SENDING CUSTOM MENU");
      }
@@ -1800,6 +1870,271 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
 
      // if (from == '6285559038021-1605869468@g.us') return
      // if (!isOwner) return
+
+     /*------------[ Tebak gambar detektor ]------------*/
+
+     if (fs.existsSync(`./lib/tebak-gambar/${from}.json`)) {
+          const badan = body.toLowerCase();
+          const datana = JSON.parse(
+               fs.readFileSync(`./lib/tebak-gambar/${from}.json`)
+          );
+          datana.listed.push(hurtz);
+          fs.writeFileSync(
+               `./lib/tebak-gambar/${from}.json`,
+               JSON.stringify(datana, null, 2)
+          );
+          if (badan.includes(datana.data.answer.toLowerCase())) {
+               INFOLOG("Jawaban benar oleh : " + pushname);
+               const ngacak = Math.floor(Math.random() * 20) + 1;
+               giftLimit(sender, ngacak);
+               balas(
+                    from,
+                    `Selamat! ${pushname} anda benar 😊 request limit anda telah ditambahkan sebesar ${ngacak} ✅\n\nMau main lagi? ketik : *!tebakgambar*`
+               );
+               fs.unlinkSync(`./lib/tebak-gambar/${from}.json`);
+          }
+     }
+
+
+
+     /*------------------[ SEWA BOT AI ]-----------------*/
+
+     const sewaPath = './lib/database/sewa'
+     if (fs.existsSync(sewaPath + '/' + sender + '.json')) {
+          //name|month|payment|phone|grouplink
+          if (!isGroup && !body.startsWith(prf) && !hurtz.key.fromMe) {
+               let data_sewa = JSON.parse(fs.readFileSync(sewaPath + '/' + sender + '.json'))
+               if (data_sewa.session == 'name') {
+                    if (body.length > 60) return balas(from, `Maaf kak nama yang telah dimasukan lebih dari 60 kata :(`)
+                    data_sewa.data.name = body
+                    data_sewa.session = 'month'
+                    fs.writeFile(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3), () => {
+                         conn.sendMessage(from, `Oke mau berapa bulan untuk sewa bot nya? 🤖
+
+*Rp15.000,- / bulan*
+
+_Termasuk pajak, rate 12% untuk ovo dan 10% selain ovo_
+
+Untuk lebih jelasnya atau apabila ada kendala silahkan hubungi : @${settings.Owner.replace(/@.+/g, '')}`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [settings.Owner] } })
+                    })
+               } else if (data_sewa.session == 'month') {
+                    if (isNaN(body)) return balas(from, `Masukan hanya angka ya :)`)
+                    if (Number(body) > 12) return balas(from, `Maaf kak bulan tidak lebih dari 12 :(`)
+                    data_sewa.data.month = Number(body)
+                    data_sewa.session = 'payment'
+                    fs.writeFileSync(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3))
+                    balas(from, `Payment mau via apa kak? 💰😄
+
+Tersedia : ovo, gopay, dana, linkaja, qris`)
+
+               } else if (data_sewa.session == 'payment') {
+                    const regexSesi = new RegExp('^(ovo|gopay|dana|linkaja|qris)$', 'g')
+                    if (!body.toLowerCase().match(regexSesi)) return balas(from, `Payment tersebut tidak terdaftar kak, mohon masukan yang sudah ada di list.`)
+                    data_sewa.data.payment = body.toLowerCase()
+                    data_sewa.session = 'phone'
+                    fs.writeFileSync(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3))
+                    balas(from, `Mohon masukan nomer telepon untuk melanjutkan pembayaran 📲\n\n_Contoh : 08552xxxxxxx_`)
+               } else if (data_sewa.session == 'phone') {
+                    if (body.length > 40) return balas(from, `Sepertinya tidak ada nomer telepon lebih dari 40 kata hmm..`)
+                    data_sewa.data.phone = body.toLowerCase()
+                    data_sewa.session = 'grouplink'
+                    fs.writeFileSync(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3))
+                    balas(from, `Siap kak, silahkan masukan link grup yang mau bot masuki 🧑‍🤝‍🧑`)
+               } else if (data_sewa.session == 'grouplink') {
+                    if (body.length > 60) return balas(from, `Sepertinya tidak ada link grup lebih dari 60 kata hmm..`)
+                    data_sewa.data.grouplink = body
+                    data_sewa.session = 'email'
+                    fs.writeFileSync(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3))
+                    balas(from, `Silahkan masukan email 📭, input ini opsional anda bisa skip dengan ketik *skip* untuk menggunakan email default owner.`)
+               } else if (data_sewa.session == 'email') {
+                    if (body.length > 60) return balas(from, `Mohon masukan email dibawah 50 kata kak!`)
+                    data_sewa.data.email = body.toLowerCase() == 'skip' ? 'hanifsyauqi61@gmail.com' : body
+                    data_sewa.session = 'pay'
+                    fs.writeFileSync(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3))
+                    balasNp(from, `Oke kak pesanan sewa sudah siap 😇
+
+*Nama* : ${data_sewa.data.name}
+*Waktu sewa (dalam bulan)* : ${data_sewa.data.month}
+*Payment* : ${data_sewa.data.payment} 
+*Email* : ${data_sewa.data.email == 'hanifsyauqi61@gmail.com' ? '-' : data_sewa.data.email}
+*Nomer telp* : ${data_sewa.data.phone}
+*Link grup* : ${data_sewa.data.grouplink}
+
+Apakah data tersebut benar? akan galat apabila terdapat kesalahan input.
+
+\`\`\`ketik Y untuk melanjutkan dan N untuk mengulangi inputan\`\`\`
+     `)
+               } else if (data_sewa.session == 'pay') {
+                    if (body.toLowerCase() == 'y') {
+                         const amountPay = data_sewa.data.month * 15000
+                         data_sewa.status = true
+                         data_sewa.session = 'pay'
+                         fs.writeFileSync(sewaPath + '/' + sender + '.json', JSON.stringify(data_sewa, null, 3))
+                         requestPay(data_sewa.data.name, data_sewa.data.phone, amountPay, data_sewa.data.email, 'SEWA BOT ' + pushname, data_sewa.data.payment)
+                              .then(result => {
+                                   balasNp(nomerOwner[0], `REQUEST PAY : \n${util.format(result)}`)
+                                   let dataID = JSON.parse(fs.readFileSync(sewaPath + '/ids-match.json'))
+                                   for (let i = 0;i < dataID.length;i++) {
+                                        if (dataID[i]['SID'] == data_sewa['ID']) {
+                                             dataID[i]['PAID'] = result.data.id
+                                             dataID[i].data = data_sewa
+                                             fs.writeFileSync(sewaPath + '/ids-match.json', JSON.stringify(dataID, null, 3))
+                                        }
+                                   }
+                                   /*--------------[Interval cek pembayaran]----------------*/
+                                   let status = {
+                                        from: ''
+                                   }
+                                   status.from = from
+                                   let idPay = result.data.id
+                                   // setTimeout(() => {
+                                   //      idPay = '4ef43ffb-8c49-499e-a5dc-5439c65032f4'
+                                   // }, 10000);
+                                   let bayarINTV = setInterval(() => {
+                                        let data_sewa = fs.existsSync(sewaPath + '/' + sender + '.json') ? JSON.parse(fs.readFileSync(sewaPath + '/' + sender + '.json')) : { status: false }
+                                        checkPay(idPay)
+                                             .then((rest) => {
+                                                  clearInterval(bayarINTV)
+                                                  balasNp(nomerOwner[0], `Sukses bayar dari ${status.from}\n${util.format(rest)}`)
+                                                  balasNp(status.from, `Terima kasih ${data_sewa.data.name} pembayaran telah diterima dengan ID ${result.data.id.toUpperCase()} ✅😇\n\nBot akan otomatis masuk ke grup yang telah dikirim, chat owner apabila terdapat kendala dengan ketik *!owner*`)
+                                                  conn.acceptInvite(data_sewa.data.grouplink.replace('https://chat.whatsapp.com/', ''))
+                                                       .then(async rest => {
+                                                            let data_sewa = JSON.parse(fs.readFileSync(sewaPath + '/' + sender + '.json'))
+                                                            let dataID = JSON.parse(fs.readFileSync(sewaPath + '/ids-match.json'))
+                                                            const index_join = db_sewa.findIndex(i => i.gid == rest.gid)
+                                                            if (index_join == -1) {
+                                                                 db_sewa.push({
+                                                                      gid: rest.gid,
+                                                                      number: sender,
+                                                                      expired_on: moment(new Date()).add(Number(data_sewa.data.month), "months").valueOf(),
+                                                                      remaining: "",
+                                                                 });
+                                                                 fs.writeFileSync(
+                                                                      "./lib/database/group-sewa.json",
+                                                                      JSON.stringify(db_sewa, null, 2)
+                                                                 );
+                                                                 const metaMineFc = await conn.fetchGroupMetadataFromWA(rest.gid)
+                                                                 balasNp(rest.gid, `Halo, bot telah masuk ke grup ${metaMineFc.subject} untuk ${data_sewa.data.month} bulan, have a nice day 😉🎇`)
+                                                            } else {
+                                                                 balasNp(rest.gid, `Halo, bot telah masuk ke grup ${metaMineFc.subject} untuk ${data_sewa.data.month} bulan, have a nice day 😉🎇`)
+                                                            }
+                                                            let indexData_sewa = dataID.findIndex(r => r['ID'] == data_sewa['ID'])
+                                                            dataID.splice(indexData_sewa, 1)
+                                                            fs.writeFileSync(sewaPath + '/ids-match.json', JSON.stringify(dataID, null, 3))
+                                                            fs.unlinkSync(sewaPath + '/' + sender + '.json')
+                                                       })
+                                                       .catch(e => {
+                                                            balasNp(nomerOwner[0], `Kesalahan masuk grup ${util.format(e)}`)
+                                                            balasNp(status.from, `Maaf kak bot tidak bisa masuk grup, kirim laporan ke wa.me/${settings.Owner.replace(/@.+/g, '')}?text=Join+Group+Failed+ID+${result.data.id}`)
+                                                       })
+                                             })
+                                             .catch(() => { })
+                                        if (!data_sewa.status) {
+                                             INFOLOG('Payment Dibatalkan atau Direset')
+                                             clearInterval(bayarINTV)
+                                        }
+                                   }, 2000);
+
+                                   const typeBayar = result.data.payment_type
+                                   if (typeBayar == 'ovo') {
+                                        balas(from, `Pesanan telah dibuat 😄
+
+_Silahkan cek notifikasi di aplikasi ovo anda_
+
+*ID* : ${result.data.id.toUpperCase()}
+*Nama* : ${result.data.donator.first_name}
+*Telepon* : ${result.data.donator.phone}
+*Email* : ${result.data.donator.email == 'hanifsyauqi61@gmail.com' ? '-' : result.data.donator.email}
+*Total* : Rp${result.data.amount_raw}
+*Payment* : ${result.data.payment_type}
+
+\`\`\`Untuk membatalkan ketik !sewa batal\`\`\``)
+                                   } else if (typeBayar == 'qris') {
+                                        qrcode.toDataURL(result.data.qr_string, { scale: 8 }, (err, Durl) => {
+                                             const data = Durl.replace(/^data:image\/png;base64,/, '')
+                                             const bufferDataQr = new Buffer.from(data, 'base64');
+                                             conn.sendMessage(from, bufferDataQr, MessageType.image, {
+                                                  caption: `Pesanan telah dibuat 😄
+
+_Silahkan scan qr diatas ini_
+
+*ID* : ${result.data.id.toUpperCase()}
+*Nama* : ${result.data.donator.first_name}
+*Telepon* : ${result.data.donator.phone}
+*Email* : ${result.data.donator.email == 'hanifsyauqi61@gmail.com' ? '-' : result.data.donator.email}
+*Total* : Rp${result.data.amount_raw}
+*Payment* : ${result.data.payment_type}
+
+\`\`\`Untuk membatalkan ketik !sewa batal\`\`\``
+                                             })
+                                        })
+                                   } else {
+                                        Axios.get('https://tinyurl.com/api-create.php?url=' + result.data.redirect_url)
+                                             .then(rst => {
+                                                  const urlPay = rst.data
+                                                  balas(from, `Pesanan telah dibuat 😄
+
+_Silahkan klik link tautan ${urlPay} untuk membayar_
+
+*ID* : ${result.data.id.toUpperCase()}
+*Nama* : ${result.data.donator.first_name}
+*Telepon* : ${result.data.donator.phone}
+*Email* : ${result.data.donator.email == 'hanifsyauqi61@gmail.com' ? '-' : result.data.donator.email}
+*Total* : Rp${result.data.amount_raw}
+*Payment* : ${result.data.payment_type}
+
+\`\`\`Untuk membatalkan ketik !sewa batal\`\`\``)
+                                             })
+                                             .catch(() => {
+                                                  balas(from, `Pesanan telah dibuat dengan ID ${result.data.id.toUpperCase()}
+
+_Silahkan klik link tautan ${result.data.redirect_url} untuk membayar_
+
+*Nama* : ${result.data.donator.first_name}
+*Telepon* : ${result.data.donator.phone}
+*Email* : ${result.data.donator.email == 'hanifsyauqi61@gmail.com' ? '-' : result.data.donator.email}
+*Total* : Rp${result.data.amount_raw}
+*Payment* : ${result.data.payment_type}
+
+\`\`\`Untuk membatalkan ketik !sewa batal\`\`\``)
+                                             })
+
+                                   }
+
+                              })
+                              .catch(e => {
+                                   const iderrpay = data_sewa['ID']
+                                   conn.sendMessage(from, `Maaf kak terdapat kesalahan input dengan ID : ${iderrpay}, mohon lapor ke @${settings.Owner.replace(/@.+/g, '')}`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [settings.Owner] } })
+                                   balas(nomerOwner[0], `ERROR ID : ${iderrpay}\n${util.format(e)}`)
+                              })
+                    } else if (body.toLowerCase() == 'n') {
+                         fs.unlinkSync(sewaPath + '/' + sender + '.json')
+                         let objsewa = {
+                              status: false,
+                              session: 'name',
+                              name: pushname,
+                              created_at: new Date(),
+                              number: sender,
+                              data: {
+                                   name: '',
+                                   month: '',
+                                   payment: '',
+                                   phone: '',
+                                   grouplink: '',
+                              }
+                         }
+                         fs.writeFile(sewaPath + '/' + sender + '.json', JSON.stringify(objsewa, null, 3), () => {
+                              balas(from, `Baik kak opsi telah direset, silahkan ketik disini atas nama siapa 😊`)
+                         })
+                    }
+               } else {
+                    balas(from, `Inputan belum beres kak! mohon isi data yang dibutuhkan.`)
+               }
+          }
+     }
+
+     // console.log('dat');
+
      if (type != "stickerMessage") {
           if (cmd == `${prf}cure`) {
                const nomer_asal = body.slice(6).split("|")[0];
@@ -1819,6 +2154,58 @@ Giliran : @${moving.turn == "X" ? moving.X : moving.O}
                          },
                     })
                     .then((a) => console.log(a.message));
+          } else if (cmd == `${prf}sewa` || cmd == `${prf}sewabot`) {
+               if (isGroup) return balas(from, `Untuk membuat pesanan sewa silahkan chat bot di private wa.me/${conn.user.jid.replace(/@.+/g, '')}`)
+               if (!fs.existsSync(sewaPath + '/' + sender + '.json')) {
+                    if (args[1] == 'batal') {
+                         fs.unlinkSync(sewaPath + '/' + sender + '.json')
+                         balas(from, `Oke kak pesanan sewa bot telah dibatalkan 😉`)
+                    } else {
+                         let objsewa = {
+                              status: false,
+                              ID: require('crypto').randomBytes(8).toString("hex").toUpperCase(),
+                              session: 'name',
+                              name: pushname,
+                              created_at: new Date(),
+                              number: sender,
+                              data: {
+                                   name: '',
+                                   bulan: '',
+                                   payment: '',
+                                   phone: '',
+                                   grouplink: '',
+                              }
+                         }
+                         let dataID = JSON.parse(fs.readFileSync(sewaPath + '/ids-match.json'))
+                         dataID.push({ SID: objsewa['ID'], PAID: '', data: objsewa })
+                         fs.writeFileSync(sewaPath + '/ids-match.json', JSON.stringify(dataID, null, 3))
+                         fs.writeFile(sewaPath + '/' + sender + '.json', JSON.stringify(objsewa, null, 3), () => {
+                              balas(from, `Baik kak silahkan ketik disini atas nama siapa 😊`)
+                         })
+                    }
+               } else {
+                    if (args[1] == 'batal') {
+                         let data_sewa = JSON.parse(fs.readFileSync(sewaPath + '/' + sender + '.json'))
+                         let dataID = JSON.parse(fs.readFileSync(sewaPath + '/ids-match.json'))
+                         let indexData_sewa = dataID.findIndex(r => r['ID'] == data_sewa['ID'])
+                         dataID.splice(indexData_sewa, 1)
+                         fs.writeFileSync(sewaPath + '/ids-match.json', JSON.stringify(dataID, null, 3))
+                         fs.unlinkSync(sewaPath + '/' + sender + '.json')
+                         balas(from, `Oke kak pesanan sewa bot telah dibatalkan 😉`)
+                    } else {
+                         conn.sendMessage(from, `Maaf anda sedang ada didalam sesi pembayaran, untuk membatalkannya ketik *!sewa batal*\n\nUntuk lebih jelasnya atau apabila ada kendala silahkan hubungi : @${settings.Owner.replace(/@.+/g, '')}`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: [settings.Owner] } })
+                    }
+               }
+          } else if (cmd == `${prf}hapussewa`) {
+               if (!isOwner) return balas(from, `Hanya untuk owner ❌`)
+               let sewa_index = db_sewa.findIndex(rest => rest.gid == from)
+               if (sewa_index != -1) {
+                    balas(from, `Berhasil hapus database sewa grup ✅`)
+                    db_sewa.splice(sewa_index, 1)
+                    fs.writeFileSync('./lib/database/group-sewa.json', JSON.stringify(db_sewa, null, 3))
+               } else {
+                    balas(from, `Grup ini tidak ada didalam database!`)
+               }
           } else if (cmd == prf + 'fixaudio') {
                const bufferDataAud = await conn.downloadMediaMessage(mediaData)
                fixAudio(bufferDataAud)
@@ -4294,6 +4681,7 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
@@ -4433,7 +4821,7 @@ ${filesize > 10000000
                     })
                     .catch(console.log);
           } else if (cmd == `${prf}brokecard`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4464,11 +4852,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}nightsea`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4499,11 +4888,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}photoglitch`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4534,11 +4924,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}anaglyph`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4569,11 +4960,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}balloon`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4604,11 +4996,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}typographic`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4639,11 +5032,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}photosky`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4674,11 +5068,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}wanted`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (args.length !== 2)
                     return balas(from, `Penggunaan *!wanted <Nama|Harga>*`);
@@ -4711,11 +5106,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}fireworkvideo`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4746,6 +5142,7 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
@@ -4846,7 +5243,7 @@ ${filesize > 10000000
                          console.log(e);
                     });
           } else if (cmd == `${prf}iphone`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4877,11 +5274,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}underwater`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4912,11 +5310,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}drawing`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4947,11 +5346,12 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
           } else if (cmd == `${prf}burningfire`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -4988,6 +5388,7 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
@@ -5358,7 +5759,7 @@ ${filesize > 10000000
                     }
                );
           } else if (cmd == `${prf}gtav`) {
-               if (!isQuotedImage)
+               if (!isMediaImage)
                     return balas(from, `Tidak ada media! mohon tag gambar.`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -5389,6 +5790,7 @@ ${filesize > 10000000
                          fs.unlinkSync(savedFilename);
                     })
                     .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
                          fs.unlinkSync(savedFilename);
                          console.log(e);
                     });
@@ -6073,6 +6475,35 @@ ________________________________________
                     console.log(e);
                     balas(from, `${e}`);
                }
+          } else if (cmd == `${prf}infogempa` || cmd == `${prf}gempa`) {
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 1);
+               const gp = require('./lib/gempabumi-bmkg')
+               gp.getGempa()
+                    .then(rest => {
+                         sendDariUrl(from, rest.gambar, MessageType.image, `*INFO GEMPA 🌍*
+
+🕐 *Waktu* : ${rest.waktu}
+🌋 *Magnitudo* : ${rest.magnitudo}
+🌆 *Kedalaman* : ${rest.kedalaman}
+📌 *Koordinat* : ${rest.koordinat}
+🏙️ *Lokasi* :${rest.lokasi}
+🌊 *Potensi Tsunami* : ${rest.tsunami}
+                         `)
+                    })
+                    .catch(() => balas(from, `Gagal get data gempa!`))
           } else if (cmd == `${prf}charagame`) {
                if (args.length === 1)
                     return balas(from, `Penggunaan : !charagame <aktif/mati>`);
@@ -6321,7 +6752,7 @@ ${result.Audioonly ? 'Audio Only : ' + audurl.data : ''}
                          }
                     })
                     .catch(e => {
-                         console.log(e);
+                         // console.log(e);
                          balas(from, `Maaf terdapat kesalahan saat mengakses url tersebut!`)
                     })
           } else if (cmd == `${prf}gruplist` || cmd == `${prf}listgrup` || cmd == `${prf}grouplist`) {
@@ -6691,12 +7122,51 @@ ${result.Audioonly ? 'Audio Only : ' + audurl.data : ''}
                     console.log(error);
                     balas(from, `Error gan!`);
                }
+          } else if (cmd == `${prf}ssweb` || cmd == `${prf}screenshotweb` || cmd == `${prf}webss`) {
+               if (args.length === 1) return balas(from, `Penggunaan : *!ssweb* <device> <url> <?full>\nContoh : *!ssweb desktop https://github.com/MRHRTZ*\n\n_Note : untuk device bisa menggunakan desktop/tablet/phone_`)
+               if (args.length < 3) return balas(from, `Masukan url yang akan di screenshot`)
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 1);
+               ssweb(args[2], args[1], args[3])
+                    .then(rest => {
+                         conn.sendMessage(from, rest.result, MessageType.image, { quoted: hurtz, caption: `Berhasil screenshot web ${args[2]}` })
+                    })
+                    .catch(e => {
+                         console.log(e);
+                         balas(from, `Gagal screenshot web ${args[2]}!`)
+                    })
           } else if (cmd == `${prf}brainly`) {
                if (args.length === 1)
                     return balas(
                          from,
                          `Penggunaan : *!brainly <pertanyaan>*\nContoh : *!brainly apa itu dpr?*`
                     );
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 1);
                brainly(query).then((rest) => {
                     // console.log(rest)
                     if (rest.status) {
@@ -7712,7 +8182,42 @@ Pengirim : ${senderSrc.replace("@s.whatsapp.net", "")} ( ${pushnameSrc} )
                conn.sendMessage(from, hurtz.key.remoteJid, TypePsn.text, {
                     quoted: hurtz,
                });
-          } else if (cmd == `${prf}reverse`) { } else if (cmd == `${prf}ytmp4`) {
+          } else if (cmd == `${prf}reverse` || cmd == `${prf}balik`) {
+               if (!isMediaVid) return balas(from, `Mohon masukan video atau tag video!`);
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 1);
+               const savedFilename = await conn.downloadAndSaveMediaMessage(
+                    mediaData,
+                    `./media/effect/${filename}`
+               );
+               reverseVideoFile(savedFilename)
+                    .then((rest) => {
+                         sendDariUrl(
+                              from,
+                              rest.result,
+                              TypePsn.video,
+                              `Berhasil reverse video dari ${pushname} ✅`
+                         );
+                         fs.unlinkSync(savedFilename);
+                    })
+                    .catch((e) => {
+                         balas(from, `Mohon maaf, terdapat kesalahan!`)
+                         fs.unlinkSync(savedFilename);
+                         console.log(e);
+                    });
+          } else if (cmd == `${prf}ytmp4`) {
                if (args.length === 1) return balas(from, `Penggunaan *!ytmp4 <Linkyt>*`);
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
@@ -8304,6 +8809,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     return;
                }
                pushLimit(sender, 1);
+               if (!isMedia && !isQuotedImage && !isQuotedVideo) return balas(from, `Mohon kirim media ( gambar/video ) atau tag yg sudah ada`)
                let packstik;
                let authorstik;
                if (args[1] == "wm") {
@@ -8345,7 +8851,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     return;
                }
                if (savedFilename.slice(-4) === "jpeg") {
-                    const format = `ffmpeg -i ${savedFilename} -vcodec libwebp -vf scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=30 -lossless 0 -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`;
+                    const format = `ffmpeg -i ${savedFilename} -vcodec libwebp -vf "scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=30" -lossless 0 -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`;
                     exec(format, (err, stdout, stderr) => {
                          if (err) throw new TypeError(err);
                          INFOLOG(`Image Sticker`);
@@ -8374,7 +8880,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                }
 
                exec(
-                    `ffmpeg -i ${savedFilename} -vcodec libwebp -vf scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=${myfps} -lossless 0 -loop 0 -preset default -ss 00:00:00 -t 00:00:${ending} -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`,
+                    `ffmpeg -i ${savedFilename} -vcodec libwebp -vf "scale=512:512:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1,fps=fps=${myfps}" -lossless 0 -loop 0 -preset default -ss 00:00:00 -t 00:00:${ending} -an -vsync 0 -s 512:512 ./media/sticker/${filename}.webp`,
                     (err, stdout, stderr) => {
                          if (err) throw new TypeError(err);
                          exec(
@@ -8400,6 +8906,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     }
                );
           } else if (cmd == `${prf}runtime`) {
+
                var uptime = process.uptime();
                const date = new Date(uptime * 1000);
                const days = date.getUTCDate() - 1,
@@ -8577,6 +9084,17 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     from,
                     `Link grup ${metadata.subject} : https://chat.whatsapp.com/${linkgc}`
                );
+          } else if (cmd == `${prf}kick`) {
+               if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`);
+               if (!isGroup) return balas(from, `Harus didalam grup!`);
+               if (!isAdmin) return balas(from, `Maaf anda bukan admin`);
+               if (!isBotAdmin)
+                    return balas(from, `Maaf Bot harus dijadikan admin terlebih dahulu!`);
+               if (args.length === 1) return balas(from, `Penggunaan : kick @TagMember`);
+               conn.groupRemove(from, mention)
+                    .then(() => {
+                         conn.sendMessage(from, `Berhasil kick ${'@' + mention.join(', @').replace(/@s.whatsapp.net/g, '')}`, MessageType.text, { quoted: hurtz, contextInfo: { mentionedJid: mention } })
+                    })
           } else if (cmd == `${prf}add`) {
                if (!isOwner) return balas(from, `Fitur ini masih rawan bot terbanned`);
                if (!isGroup) return balas(from, `Harus didalam grup!`);
@@ -8636,6 +9154,41 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     );
                     balas(from, `Berhasil mengaktifkan mode maintenace ✅`);
                }
+          } else if (cmd == `${prf}join`) {
+               if (!isOwner) return balas(from, `Mau masukin bot ke grup? ketik *!sewa* di private chat bot`)
+               if (args.length < 2) return balas(from, `Penggunaan : *!join <linkgrup> <hari>*`)
+               conn.acceptInvite(args[1].replace('https://chat.whatsapp.com/', ''))
+                    .then(async rest => {
+                         const index_join = db_sewa.findIndex(i => i.gid == rest.gid)
+                         if (index_join == -1) {
+                              db_sewa.push({
+                                   gid: rest.gid,
+                                   number: sender,
+                                   expired_on: moment(new Date()).add(Number(args[2]), "days").valueOf(),
+                                   remaining: "",
+                              });
+                              fs.writeFileSync(
+                                   "./lib/database/group-sewa.json",
+                                   JSON.stringify(db_sewa, null, 2)
+                              );
+                              const metaMineFc = await conn.fetchGroupMetadataFromWA(rest.gid)
+                              balas(from, `Berhasil masuk ke grup ${metaMineFc.subject} selama ${args[2]} hari ✅`)
+                         } else {
+                              balas(from, `Berhasil join, tapi id grup sudah ada di database ✅`)
+                         }
+                    })
+                    .catch(e => {
+                         balas(from, `\`\`\`Gagal join\`\`\` ❌\n\nERRMSG : ${util.format(e)}`)
+                    })
+          } else if (cmd == `${prf}listsewa`) {
+               let db_sewa = JSON.parse(fs.readFileSync("./lib/database/group-sewa.json"));
+               let content = `*[ Menampilkan list sewa bot 🤖 ]*\n\n*Terdapat ${db_sewa.length} grup*\n`;
+               for (let i = 0;i < db_sewa.length;i++) {
+                    const expair = getRemaining(new Date(db_sewa[i].expired_on));
+                    const subjectGroup = await conn.fetchGroupMetadataFromWA(db_sewa[i].gid)
+                    content += `\n${1 + i}. ${subjectGroup.subject} ( Tersisa ${expair.days} hari )`;
+               }
+               conn.sendMessage(from, content, TypePsn.text, { quoted: hurtz });
           } else if (cmd == `${prf}vip`) {
                let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
                function refreshScript() {
@@ -8942,26 +9495,6 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                          }
                     );
                }
-          } else if (fs.existsSync(`./lib/tebak-gambar/${from}.json`)) {
-               const badan = body.toLowerCase();
-               const datana = JSON.parse(
-                    fs.readFileSync(`./lib/tebak-gambar/${from}.json`)
-               );
-               datana.listed.push(hurtz);
-               fs.writeFileSync(
-                    `./lib/tebak-gambar/${from}.json`,
-                    JSON.stringify(datana, null, 2)
-               );
-               if (badan.includes(datana.data.answer.toLowerCase())) {
-                    INFOLOG("Jawaban benar oleh : " + pushname);
-                    const ngacak = Math.floor(Math.random() * 20) + 1;
-                    giftLimit(sender, ngacak);
-                    balas(
-                         from,
-                         `Selamat! ${pushname} anda benar 😊 request limit anda telah ditambahkan sebesar ${ngacak} ✅\n\nMau main lagi? ketik : *!tebakgambar*`
-                    );
-                    fs.unlinkSync(`./lib/tebak-gambar/${from}.json`);
-               }
           } else if (cmd == `${prf}wikipedia` || cmd == `${prf}wiki`) {
                if (args.length === 1)
                     return balas(
@@ -9133,6 +9666,8 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                const dateString = segments.join(", ");
                const msgInfoBot = `     *[ Bot Status & Info ]*
 
+${isSewa ? 'Bot di Grup ini ' + db_sewa[db_sewa.findIndex(rest => rest.gid == from)].remaining : ''}
+
 👬 *Pengguna Bot aktif* : ${penggunanya.length} Orang
 👩‍🏫 *Waktu Bot aktif* : ${dateString}
 📲 *Versi Wa* : _${conn.user.phone.wa_version}_
@@ -9220,10 +9755,11 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]`;
                if (milliseconds > 0) segments.push(milliseconds + " milidetik");
                const dateString = segments.join(", ");
                const fakstu = fs.readFileSync("./lib/random/katabijax.txt", "utf-8").split("\n");
+
                const strMenu = `Hii ${pushname} ✨
 Limit anda : ${Number(hi[0].limit) < 1 ? 0 + " ❌" : hi[0].limit + " ✅"}
 Plan : ${isVIP ? "VIP MEMBER 💠" : "FREE MEMBER 🏋"}
-
+${isSewa ? 'Bot di Grup ini ' + db_sewa[db_sewa.findIndex(rest => rest.gid == from)].remaining : ''}
 
      _${fakstu[Math.floor(Math.random() * fakstu.length + 1)].replace(0, -1)}_
 
@@ -9262,6 +9798,10 @@ S1 [ https://chat.whatsapp.com/Lawx4jmIX0c3ca1JCWxe8k ]
 S2 [ https://chat.whatsapp.com/DRoYUwyOdDIAA8iIZDu58G ]
 S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]
 
+     *[ Invite bot ke grup? ]*
+
+⚪ !sewa (ketik di private chat)
+
      *[ Free Features & Info ]*
 
 ⚪ !menu _[Menampilkan seluruh menu]_
@@ -9270,6 +9810,7 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]
 ⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]_
 ⚪ !linkgrupmecha _[Menampilkan Link Grup Bot Mecha]_
 ⚪ !hilih <text> / <tagPesan>
+⚪ !fixaudio <tagAudio> _[Pembetulan audio yang rusak]_
 ⚪ !readmore <text>|<textSpoiler> _[Membuat spoiler / readmore text]_
 ⚪ !jadwalsholat <tempat> _[Menampilkan jadwal sholat di indonesia]_
 ⚪ !pantun _[Random Pantun]_
@@ -9423,6 +9964,7 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Fitur Search ]*
 
+💚 !infogempa _[ Info gempa terbaru ]_
 💚 !heroml <nama hero> _[Menampilkan Detail Hero Mobile Legends]_
  | ⚪ !herolist _[Menampilkan semua nama nama hero ML]_
 💚 !chord <lagu> _[Mencari Chord Musik]_
@@ -9440,6 +9982,9 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Owner Feature ]*
 
+💗 !join <linkgrup> <hari> _[Invite bot ke grup]_
+💗 !listsewa _[List grup yang sewa bot]_
+💗 !kick <@tagMember> _[ Kick member ]_ 
 💗 !ban <@tagMember> _[Ban member]_
 💗 !unban <@tagMember> _[Unban member]_
 💗 !banlist _[List Banned member]_
