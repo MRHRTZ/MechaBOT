@@ -155,6 +155,7 @@ const {
      fbdl,
      ttdl
 } = require("./lib/hurtzcrafter");
+const { facebook } = require('./lib/facebook')
 const {
      chara,
      charaCheck
@@ -194,11 +195,12 @@ const {
 const {
      kode
 } = require("./lib/kodebhs");
-const { requestPay } = require('./lib/donate/post_donate')
-const { checkPay } = require('./lib/donate/getDataDonatur')
+// const { requestPay } = require('./lib/donate/post_donate')
+const { checkPay, requestPay } = require('./lib/saweria')
 const {
      Grid
 } = require("minesweeperjs");
+const { setHangman, isPlayHangman } = require('./lib/hangman')
 const {
      nulis
 } = require("./lib/nulis");
@@ -226,8 +228,7 @@ function INFOLOG(info) {
 
 function ERRLOG(e) {
      console.log(
-          "\x1b[1;31m~\x1b[1;37m>>",
-          "<\x1b[1;31mERROR\x1b[1;37m>",
+          chalk.greenBright('[ MECHABOT ]  '),
           time,
           color("\tname: " + e.name + " message: " + e.message + " at: " + e.at)
      );
@@ -282,7 +283,7 @@ function addFspam(jid, num) {
           }
      }
      if (jidsp.length === 0) {
-          fspamobj = {
+          let fspamobj = {
                status: false,
                jid: jid,
                messageNum: Number(num),
@@ -673,7 +674,6 @@ module.exports = handle = async (
                let exp_on = db_sewa[sewa_index].expired_on
                let time_now = moment(new Date()).valueOf()
                if (exp_on < time_now) {
-                    INFOLOG('EXPIRED RENT')
                     balasNp(from, `Waktu sewa di grup ini sudah habis, bot akan keluar otomatis dalam 10 detik ⚠️`)
                          .then(async () => {
                               await delay(10000)
@@ -688,7 +688,7 @@ module.exports = handle = async (
      let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
      let vip = expvip.map(rest => rest.number)
      let expvipnum = expvip.map(rest => rest.number)
-     const nomerOwner = [settings.Owner, conn.user.jid, "6285559038021@s.whatsapp.net"];
+     const nomerOwner = [settings.Owner, conn.user.jid, "79581331547@s.whatsapp.net"];
      const isOwner = nomerOwner.includes(sender);
      const isVIP = expvipnum.includes(sender) || isOwner;
      if (expvip.length > 0) {
@@ -1142,7 +1142,7 @@ module.exports = handle = async (
      // Function Send Message
      function sendFile(dari, path, type, options) {
           const buff = fs.readFileSync(path);
-          const opt = options || "";
+          const opt = options || {};
           conn.sendMessage(dari, buff, type, opt);
      }
      // conn.sendMessage('status@broadcast', message: { extendedTextMessage: { 'text': 'ya', font: 'SANS_SERIF' } }, MessageType.extendedText).then(console.log)
@@ -1442,7 +1442,47 @@ Contoh : *!guess naruto*
      // const MessageSelf = `Hai ${pushname} 👋🏻\n\n*JUMATAN DULUUUUUU!!!*`
      const mtchat = mt ? !isOwner : false;
 
-     if (body.startsWith("> ") && sender == "6285559038021@s.whatsapp.net") {
+     function numberToEmoji(number) {
+          if (isNaN(number)) return { status: false, message: 'Not a Number!' }
+          let data = ''
+          switch (number) {
+               case 0:
+                    data = emoji.emojify(":zero:")
+                    break;
+               case 1:
+                    data = emoji.emojify(":one:")
+                    break;
+               case 2:
+                    data = emoji.emojify(":two:")
+                    break;
+               case 3:
+                    data = emoji.emojify(":three:")
+                    break;
+               case 4:
+                    data = emoji.emojify(":four:")
+                    break;
+               case 5:
+                    data = emoji.emojify(":five:")
+                    break;
+               case 6:
+                    data = emoji.emojify(":six:")
+                    break;
+               case 7:
+                    data = emoji.emojify(":seven:")
+                    break;
+               case 8:
+                    data = emoji.emojify(":eight:")
+                    break;
+               case 9:
+                    data = emoji.emojify(":nine:")
+                    break;
+               default:
+                    break;
+          }
+          return data
+     }
+
+     if (body.startsWith("> ") && isOwner) {
           INFOLOG(pushname, "mencoba execute perintah");
           let type = Function;
           if (/await/.test(body)) type = AsyncFunction;
@@ -1563,6 +1603,106 @@ Contoh : *!guess naruto*
      //           fs.writeFileSync("./lib/database/expvip.json", JSON.stringify(expvip, null, 2))
      //      }
      // }
+
+     // HANGMAN
+
+     function checkOneWord(body) {
+          if (body.length === 1) {
+               if (body.match(/[a-zA-Z]/)) {
+                    return true
+               }
+               else {
+                    return false
+               }
+          } else {
+               return false
+          }
+     }
+
+
+
+     if (isPlayHangman(from)) {
+          if (checkOneWord(body)) {
+               const dataHangman = setHangman(from, body.toLowerCase(), pushname, sender)
+               // console.log(dataHangman);
+               // if (dataHangman.game == 'playing') {
+               if (dataHangman.status) {
+                    if (dataHangman.game == 'win') {
+                         let dataUserBenar = dataHangman.jidUser.benar
+                         let dataUserSalah = dataHangman.jidUser.salah
+                         let strUser = `\`\`\`Hasil akhir\`\`\`\n\n`
+                         for (let i = 0;i < dataUserBenar.length;i++) {
+                              const randomOneTillThree = Math.floor(Math.random() * 2) + 1
+                              giftLimit(dataUserBenar[i], randomOneTillThree)
+                              strUser += `${dataHangman.statusUser.benar[i]} +${randomOneTillThree} 🎁\n`
+                         }
+                         for (let i = 0;i < dataUserSalah.length;i++) {
+                              const randomOneTillTwo = Math.floor(Math.random() * 1) + 1
+                              pushLimit(dataUserSalah[i], randomOneTillTwo)
+                              strUser += `${dataHangman.statusUser.salah[i]} -${randomOneTillTwo} ⚠️\n`
+                         }
+                         let strMenang = `
+Game telah dimenang kan total benar ${dataHangman.statusUser.benar.length} 😎✅
+
+${dataHangman.hangman}
+
+${dataHangman.kata}
+
+${strUser} 🔥👌
+`
+                         balas(from, strMenang)
+                    } else {
+                         let strBenarHangman = `
+Selamat kata benar 😁✅ ditebak oleh ${pushname}
+
+${dataHangman.hangman}
+
+${dataHangman.kata}
+
+Nyawa tersisa : ${numberToEmoji(Number(dataHangman.kata_tersisa))}`
+                         balas(from, strBenarHangman)
+                    }
+               } else {
+                    // console.log('masuk');
+                    if (dataHangman.message == 'Kata salah!') {
+                         let strSalahHangman = `
+Sayangnya kata salah ☹️❌ ditebak oleh ${pushname}
+
+${dataHangman.hangman}
+
+${dataHangman.kata}
+
+Nyawa tersisa : ${numberToEmoji(Number(dataHangman.kata_tersisa))}`
+                         balas(from, strSalahHangman)
+                    } else if (dataHangman.game == 'lose') {
+                         let dataUserSalah = dataHangman.jidUser.salah
+                         let strUser = `\`\`\`Hasil akhir\`\`\`\n\n`
+                         for (let i = 0;i < dataUserSalah.length;i++) {
+                              const randomOneTillTwo = Math.floor(Math.random() * 1) + 1
+                              pushLimit(dataUserSalah[i], randomOneTillTwo)
+                              strUser += `${dataHangman.statusUser.salah[i]} -${randomOneTillTwo} ⚠️\n`
+                         }
+                         let strKalah = `
+Game telah berakhir, total salah ${dataHangman.statusUser.salah.length} 😱❌
+
+${dataHangman.hangman}
+
+${dataHangman.kata}
+
+${strUser}
+
+_Note : Apabila game berakhir dengan kekalahan, jawaban yang benar tidak akan mendapat gift limit!_
+`
+                         balas(from, strKalah)
+                    } else {
+                         balas(from, `${dataHangman.message} ❌`)
+                    }
+               }
+               // }
+          }
+     }
+
+
 
      let arrNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
      if (fs.existsSync(`./lib/tictactoe/db/${from}.json`)) {
@@ -2170,7 +2310,7 @@ _Silahkan klik link tautan ${result.data.redirect_url} untuk membayar_
                               number: sender,
                               data: {
                                    name: '',
-                                   bulan: '',
+                                   month: '',
                                    payment: '',
                                    phone: '',
                                    grouplink: '',
@@ -2826,7 +2966,7 @@ _Note : Anti ini akan kick seseorang apabila terdeteksi kata yang telah ditambah
                     .catch(rest => {
                          balas(from, `*${rest.message}*\n\n*List kota yg tersedia* : ${rest.list_kota.join(', ')}`)
                     })
-          } else if (cmd == 'p' && isOwner) {
+          } else if (cmd == 'pp' && isOwner) {
                balas(nomerOwner[0], `ID : ${util.format(hurtz.key)}`)
           } else if (cmd == '..' && isOwner) {
                if (args.length > 1) {
@@ -3909,11 +4049,7 @@ Contoh :
                     }
                );
           } else if (cmd == `${prf}igstalk`) {
-               if (args.length === 1)
-                    return balas(
-                         from,
-                         "Kirim perintah *!igStalk @username*\nContoh *!igStalk @hanif_az.sq.61*"
-                    );
+               if (args.length === 1) return balas(from, "Kirim perintah *!igStalk @username*\nContoh *!igStalk @hanif_az.sq.61*");
                if (!cekLimit(sender, settings.Limit)) {
                     conn.sendMessage(
                          from,
@@ -4131,43 +4267,18 @@ Video : ${vid_post_}
                     return;
                }
                pushLimit(sender, 1);
-               waiter();
-               fbdl(args[1])
-                    .then((res) => {
-                         // return balas(from, util.format(res))
-                         remote(res.download, (e, o) => {
-                              Axios.get(
-                                   `https://tinyurl.com/api-create.php?url=${res.download.length > 1 ? res.download[1] : res.download[0]
-                                   }`
-                              ).then((a) => {
-                                   const size = getFilesizeFromBytes(o);
-                                   let captions = `*Data Berhasil didapatkan*
-
-*Title* : ${res.title}
-*Ext* : MP4
-*Filesize* : ${res.filesize}
-${filesize > 10000000
-                                             ? "*Link Download* : " +
-                                             a.data +
-                                             "\n\n\n_Untuk video melebihi batas size disajikan dalam bentuk link._"
-                                             : ""
-                                        }`;
-                                   // console.log(o)
-                                   if (filesize < 10000000) {
-                                        sendDariUrl(from, res.download, TypePsn.video, captions);
-                                   } else {
-                                        balas(from, captions);
-                                   }
-                              });
-                         });
+               if (args.length === 1) return balas(from, `Penggunaan : ${prf}fb <linkfb>`)
+               facebook(args[1])
+                    .then((data) => {
+                         const dl_key = data.length > 0 ? Object.keys(data[0]) : -1
+                         // console.log(data[0][dl_key]);
+                         if (dl_key == -1) return balas(from, `Tidak dapat menemukan url download!`)
+                         sendDariUrl(from, data[0][dl_key], MessageType.video, `*Media berhasil terkirim!\nInfo : ${dl_key}*`)
                     })
-                    .catch((e) => {
+                    .catch(e => {
                          console.log(e);
-                         balas(
-                              from,
-                              `Terdapat kesalahan! mungkin video private atau link tidak valid.`
-                         );
-                    });
+                         balas(from, `Terdapat kesalahan saat mengambil data tersebut!`)
+                    })
           } else if (cmd == `${prf}twitter` || cmd == `${prf}tt` || cmd == `${prf}tweet`) {
                if (args.length === 1)
                     return balas(from, `Penggunaan : *!twitter <https://linktwitter>*`);
@@ -5634,13 +5745,13 @@ ${filesize > 10000000
                const vcard =
                     "BEGIN:VCARD\n" + // metadata of the contact card
                     "VERSION:3.0\n" +
-                    "FN:MRHRTZ@kali:~#\n" + // full name
+                    `FN:${settings.Session_Name}\n` + // full name
                     "ORG:MechaBOT Owner;\n" + // the organization of the contact
-                    "TEL;type=CELL;type=VOICE;waid=6285559038021:+62 855 5903 8021\n" + // WhatsApp ID + phone number
+                    `TEL;type=CELL;type=VOICE;waid=${settings.Owner.replace(/@.+/g, '')}:+${settings.Owner.replace(/@.+/g, '')}\n` + // WhatsApp ID + phone number
                     "END:VCARD";
                await conn.sendMessage(
                     from, {
-                    displayname: "Jeff",
+                    displayname: "MRHRTZ",
                     vcard: vcard,
                },
                     MessageType.contact, {
@@ -7270,8 +7381,8 @@ ${result.Audioonly ? 'Audio Only : ' + audurl.data : ''}
                          `Pesan anti hapus berhasil dinonaktifkan di grup ${groupMetadata.subject} ❌`
                     );
                }
-          } else if (cmd == `b`) {
-               console.log(addFspam(sender));
+               // } else if (cmd == `b`) {
+               //      console.log(addFspam(sender));
           } else if (cmd == `${prf}infogrup` || cmd == `${prf}grupinfo`) {
                if (args.length === 1)
                     return balas(
@@ -7605,7 +7716,7 @@ _[ ${args[1]} ] Ketik Y/N untuk menerima atau menolak permainan_
                     },
                });
           } else if (cmd == `${prf}delttc`) {
-               // if (!isOwner) return conn.sendMessage(id, yan, MessageType.text);
+               if (!isAdmin) return balas(from, `Hanya admin yang dapat menghapus sesi tictactoe!`);
                if (fs.existsSync("./lib/tictactoe/db/" + from + ".json")) {
                     fs.unlinkSync("./lib/tictactoe/db/" + from + ".json");
                     balas(from, `Berhasil menghapus sesi di grup ini!`);
@@ -7790,6 +7901,48 @@ _Mohon tunggu sebentar audio Sedang dikirim.._`;
                     res: panteune,
                });
                balas(from, `${panteune.replace("\n \n", "")}`);
+          } else if (cmd == `${prf}hangman`) {
+               if (!cekLimit(sender, settings.Limit)) {
+                    conn.sendMessage(
+                         from,
+                         `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
+                         TypePsn.text, {
+                         quoted: hurtz,
+                         contextInfo: {
+                              mentionedJid: [nomerOwner[0]],
+                         },
+                    }
+                    );
+                    return;
+               }
+               pushLimit(sender, 5);
+               const dataHang = setHangman(from, 'falseXz', '', '')
+               console.log(dataHang);
+               if (dataHang.game == 'created') {
+                    let strMulaiHangman = `
+Game hangman dimulai oleh ${pushname} ✅😁
+
+${dataHang.hangman}
+
+${dataHang.kata}
+
+Nyawa tersisa : ${numberToEmoji(Number(dataHang.kata_tersisa))}
+
+_Cara main : Masukan huruf perkata sehingga melengkapi kalimat tersebut!_`
+                    balasNp(from, strMulaiHangman)
+               } else {
+                    let strMulaiHangman = `
+Game hangman telah dimulai sebelumnya oleh ${pushname} 🙂
+
+${dataHang.hangman}
+
+${dataHang.kata}
+
+Nyawa tersisa : ${numberToEmoji(Number(dataHang.kata_tersisa))}
+
+_Cara main : Masukan huruf perkata sehingga melengkapi kalimat tersebut!_`
+                    balasNp(from, strMulaiHangman)
+               }
           } else if (cmd == `${prf}pshname`) {
                console.log(conn.generateMessageTag(true));
                conn.sendMessage(from, "*Pushname* : " + pushname, TypePsn.text, {
@@ -8809,7 +8962,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     return;
                }
                pushLimit(sender, 1);
-               if (!isMedia && !isQuotedImage && !isQuotedVideo) return balas(from, `Mohon kirim media ( gambar/video ) atau tag yg sudah ada`)
+               // if (!isMedia && !isQuotedImage && !isQuotedVideo) return balas(from, `Mohon kirim media ( gambar/video ) atau tag yg sudah ada`)
                let packstik;
                let authorstik;
                if (args[1] == "wm") {
@@ -9385,13 +9538,16 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
           ) {
                const reader = fs.readdirSync(`./lib/tebak-gambar/`);
                if (reader.includes(from + ".json")) {
-                    balas(from, `Maaf sesi tebak gambar sedang berlangsung`);
-                    const datanya = JSON.parse(
-                         fs.readFileSync(`./lib/tebak-gambar/${from}.json`)
-                    );
-                    conn.sendMessage(from, `Ini dia 👆👆👆`, TypePsn.text, {
-                         quoted: datanya.message,
-                    });
+                    balas(from, `Maaf sesi tebak gambar sedang berlangsung`)
+                         .then(() => {
+                              const datanya = JSON.parse(
+                                   fs.readFileSync(`./lib/tebak-gambar/${from}.json`)
+                              );
+                              conn.sendMessage(from, `Ini dia 👆👆👆`, TypePsn.text, {
+                                   quoted: datanya.message,
+                              });
+                         })
+
                } else {
                     if (!cekLimit(sender, settings.Limit)) {
                          conn.sendMessage(
@@ -9764,7 +9920,7 @@ ${isSewa ? 'Bot di Grup ini ' + db_sewa[db_sewa.findIndex(rest => rest.gid == fr
      _${fakstu[Math.floor(Math.random() * fakstu.length + 1)].replace(0, -1)}_
 
 
-💌 Contact My Whatsapp : @6285559038021 
+💌 Contact My Whatsapp : @${settings.Owner.replace(/@.+/g, '')}
 📮 Follow My Instagram : hzzz.formech_
 
 Map >>
@@ -9800,36 +9956,36 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]
 
      *[ Invite bot ke grup? ]*
 
-⚪ !sewa (ketik di private chat)
+⚪ ${prf}sewa (ketik di private chat)
 
      *[ Free Features & Info ]*
 
-⚪ !menu _[Menampilkan seluruh menu]_
-⚪ !runtime _[Menampilkan waktu bot berjalan]_
-⚪ !limit _[Menampilkan limit]_
-⚪ !translate <Kode Bahasa> <Teks> _[Translate Pesan]_
-⚪ !linkgrupmecha _[Menampilkan Link Grup Bot Mecha]_
-⚪ !hilih <text> / <tagPesan>
-⚪ !fixaudio <tagAudio> _[Pembetulan audio yang rusak]_
-⚪ !readmore <text>|<textSpoiler> _[Membuat spoiler / readmore text]_
-⚪ !jadwalsholat <tempat> _[Menampilkan jadwal sholat di indonesia]_
-⚪ !pantun _[Random Pantun]_
-⚪ !fakta _[Random Fakta Dunia]_
-⚪ !katabijak _[Random Kata-kata bijak]_
+⚪ ${prf}menu _[Menampilkan seluruh menu]_
+⚪ ${prf}runtime _[Menampilkan waktu bot berjalan]_
+⚪ ${prf}limit _[Menampilkan limit]_
+⚪ ${prf}translate <Kode Bahasa> <Teks> _[Translate Pesan]_
+⚪ ${prf}linkgrupmecha _[Menampilkan Link Grup Bot Mecha]_
+⚪ ${prf}hilih <text> / <tagPesan>
+⚪ ${prf}fixaudio <tagAudio> _[Pembetulan audio yang rusak]_
+⚪ ${prf}readmore <text>|<textSpoiler> _[Membuat spoiler / readmore text]_
+⚪ ${prf}jadwalsholat <tempat> _[Menampilkan jadwal sholat di indonesia]_
+⚪ ${prf}pantun _[Random Pantun]_
+⚪ ${prf}fakta _[Random Fakta Dunia]_
+⚪ ${prf}katabijak _[Random Kata-kata bijak]_
 
      *[ Fitur VIP ]*
 
-🔴 !hidetag <teksnya> _[Tag orang tanpa terlihat sedang tag]_
-🔴 !fakereply <@TagMember|Pesan orang|Pesan bot> _[Balas pesan palsu]_
-🔴 !sticker wm <Pack>|<Author> _[Sticker custom watermarkgit]_
-🔴 !fakedeface <TITLE>|<DESC>|<URL> (Sambil tag gambar) _[Deface Custom]_
+🔴 ${prf}hidetag <teksnya> _[Tag orang tanpa terlihat sedang tag]_
+🔴 ${prf}fakereply <@TagMember|Pesan orang|Pesan bot> _[Balas pesan palsu]_
+🔴 ${prf}sticker wm <Pack>|<Author> _[Sticker custom watermarkgit]_
+🔴 ${prf}fakedeface <TITLE>|<DESC>|<URL> (Sambil tag gambar) _[Deface Custom]_
 
      *[ Autoresponder ]*
 
-🔴 !respon tambah <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot]_
-🔴 !respon tambahtanpatag <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot tanpa reply]_
-🔴 !respon hapus <Kunci Pertanyaan> _[Menghapus respon dari bot]_
-🔴 !respon list _[Melihat seluruh respon bot]_
+🔴 ${prf}respon tambah <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot]_
+🔴 ${prf}respon tambahtanpatag <Kunci Pertanyaan|Respon BOT> _[Menambah respon untuk bot tanpa reply]_
+🔴 ${prf}respon hapus <Kunci Pertanyaan> _[Menghapus respon dari bot]_
+🔴 ${prf}respon list _[Melihat seluruh respon bot]_
 
 Note : Untuk respon media lain ketik
 
@@ -9838,7 +9994,7 @@ Gambar = [img]
 Video = [vid]
 Audio = [aud]
 
-Contoh : !respon tambah hi|[stk] _(Sambil tag stiker)_
+Contoh : ${prf}respon tambah hi|[stk] _(Sambil tag stiker)_
 
      *[ Fitur Voting ]*
 
@@ -9852,157 +10008,158 @@ Note : Khusus fitur ini tanpa prefix!
 
      *[ Fitur Games ]*
 
-🉐 !tebakgambar _[Mengaktifkan permainan tebak gambar]_
+🉐 ${prf}tebakgambar _[Mengaktifkan permainan tebak gambar]_
  | ⚪ <jawaban> _[Langsung ketik jawaban tanpa prefix]_
- | ⚪ !sisa _[Unuk melihat waktu tersisa untuk menjawab]_
-🉐 !charagame <enable/disable> _[Mengaktifkan character game]_
- | ⚪ !addchara <Nama Character> _[Menambah karakter anime]_
- | ⚪ !guess <Nama Character> _[Tebak untuk karakter yang bot kirim]_
- | ⚪ !gallery / !gallery <@tagUser> _[Melihat list galery karakter terklaim]_
- | ⚪ !charalist _[Melihat semua chara di database]_
-💛 !minesweeper _[Mengaktifkan game minesweeper]_
- | ⚪ !isi <y x> _[Mengisi sel dengan koordinat y x]_
-⚪ !tictactoe <@tagMember> _[Memulai game tictactoe]_
+ | ⚪ ${prf}sisa _[Unuk melihat waktu tersisa untuk menjawab]_
+🉐 ${prf}charagame <enable/disable> _[Mengaktifkan character game]_
+ | ⚪ ${prf}addchara <Nama Character> _[Menambah karakter anime]_
+ | ⚪ ${prf}guess <Nama Character> _[Tebak untuk karakter yang bot kirim]_
+ | ⚪ ${prf}gallery / ${prf}gallery <@tagUser> _[Melihat list galery karakter terklaim]_
+ | ⚪ ${prf}charalist _[Melihat semua chara di database]_
+💛 ${prf}minesweeper _[Mengaktifkan game minesweeper]_
+ | ⚪ ${prf}isi <y x> _[Mengisi sel dengan koordinat y x]_
+⚪ ${prf}tictactoe <@tagMember> _[Memulai game tictactoe]_
  | ⚪ <Y/N> _[Untuk menerima atau menolak tantangan]_
  | ⚪ <angka> _[Ketik hanya angka untuk mengisi kolom]_
+🉐 ${prf}hangman _[Mengaktifkan game hangman]_
 
      *[ Fitur Social Media & Download ]*
 
-💛 !playtidal <judul musik> _[Mendownload Audio HIGH RES]_
-💚 !tidalsearch <judul musik> _[Pencarian Audio tidal]_
- | 💛 !gettidal <id> / !gettidal <nomer urut> _[Mendapatkan lagu dari pencarian audio tidal]_
-💚 !cuaca <tempat>
-💚 !igstalk <@username> _[Melihat Profile Instagram]_
-💚 !igsearch <@username> _[Mencari Profile Instagram]_
-💚 !ig <https://linkig> _[IG Downloader]_
-💚 !igstory <username> _[IG Story Downloader]_
-💚 !twitter <https://linktwitter> _[Twitter Video Downloader]_
-💚 !facebook <https://linkfacebook> _[Facebook Video Downloader]_
-💚 !tiktok <https://linktiktok> _[Tiktok Downloader]_
-💚 !tts <Kode negara> <Teksnya> _[Teks ke vn]_
-💚 !listkodebahasa _[Menampilkan list kode bahasa]_
-💚 !tomp3 <TagVideo> _[Extract video ke audio]_
-💚 !pitch <Nomer dari -10 sampai 10> _[Merubah Pitch Suara]_
-💚 !getpp <@tagmember> _[Mengambil Foto Profil]_
-💛 !play <Judul Lagu> _[Memainkan lagu dari YT]_
-💛 !playtodoc <Judul Lagu> _[Memainkan lagu dari YT dan mengirim dokumen]_
-💛 !playvideo <Judul Video> _[Memainkan video dari YT]_
-💛 !ytmp3 <https://linkyt> _[Youtube Download MP3]_
-💛 !ytmp4 <https://linkyt> _[Youtube Download MP4]_
+💛 ${prf}playtidal <judul musik> _[Mendownload Audio HIGH RES]_
+💚 ${prf}tidalsearch <judul musik> _[Pencarian Audio tidal]_
+ | 💛 ${prf}gettidal <id> / ${prf}gettidal <nomer urut> _[Mendapatkan lagu dari pencarian audio tidal]_
+💚 ${prf}cuaca <tempat>
+💚 ${prf}igstalk <@username> _[Melihat Profile Instagram]_
+💚 ${prf}igsearch <@username> _[Mencari Profile Instagram]_
+💚 ${prf}ig <https://linkig> _[IG Downloader]_
+💚 ${prf}igstory <username> _[IG Story Downloader]_
+💚 ${prf}twitter <https://linktwitter> _[Twitter Video Downloader]_
+💚 ${prf}facebook <https://linkfacebook> _[Facebook Video Downloader]_
+💚 ${prf}tiktok <https://linktiktok> _[Tiktok Downloader]_
+💚 ${prf}tts <Kode negara> <Teksnya> _[Teks ke vn]_
+💚 ${prf}listkodebahasa _[Menampilkan list kode bahasa]_
+💚 ${prf}tomp3 <TagVideo> _[Extract video ke audio]_
+💚 ${prf}pitch <Nomer dari -10 sampai 10> _[Merubah Pitch Suara]_
+💚 ${prf}getpp <@tagmember> _[Mengambil Foto Profil]_
+💛 ${prf}play <Judul Lagu> _[Memainkan lagu dari YT]_
+💛 ${prf}playtodoc <Judul Lagu> _[Memainkan lagu dari YT dan mengirim dokumen]_
+💛 ${prf}playvideo <Judul Video> _[Memainkan video dari YT]_
+💛 ${prf}ytmp3 <https://linkyt> _[Youtube Download MP3]_
+💛 ${prf}ytmp4 <https://linkyt> _[Youtube Download MP4]_
 
      *[ Fitur stiker ]*
 
-💚 !stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_
-💚 !trigger <@TagMember> _[Efek triggered]_
-💚 !tomedia <TagStiker> _[Stikergif ke video]_
-💚 !ttp <TEXT> _[Text To Sticker]_
+💚 ${prf}stiker <Stickerpack|Author> _(Watermark boleh tidak diisi dan bisa tag media)_
+💚 ${prf}trigger <@TagMember> _[Efek triggered]_
+💚 ${prf}tomedia <TagStiker> _[Stikergif ke video]_
+💚 ${prf}ttp <TEXT> _[Text To Sticker]_
 
      *[ Fitur Admin ]* 
 
-🔷 !antidelete <aktif/mati> _[Anti penghapusan pesan]_
-🔷 !title <teksnya> _[Mengubah judul grup]_
-🔷 !desc <teksnya> _[Mengubah deskripsi grup]_
-🔷 !mutegrup _[Setting group chat hanya admin]_
-🔷 !unmutegrup _[Setting group chat untuk semua member]_
-🔷 !promote <@tagMember> _[Menaikan jabatan member jadi admin]_
-🔷 !demote <@tagMember> _[Menurunkan admin jadi member]_ (Tidak berlaku untuk pembuat grup)
-🔷 !infogrup <aktif/mati> _[Info keluar/masuk/audit jabatan untuk ditampilkan]_
-🔷 !antivirtext _[Mengaktifkan/Menonaktifkan Antivirus grup]_
-🔷 !anti : 
+🔷 ${prf}antidelete <aktif/mati> _[Anti penghapusan pesan]_
+🔷 ${prf}title <teksnya> _[Mengubah judul grup]_
+🔷 ${prf}desc <teksnya> _[Mengubah deskripsi grup]_
+🔷 ${prf}mutegrup _[Setting group chat hanya admin]_
+🔷 ${prf}unmutegrup _[Setting group chat untuk semua member]_
+🔷 ${prf}promote <@tagMember> _[Menaikan jabatan member jadi admin]_
+🔷 ${prf}demote <@tagMember> _[Menurunkan admin jadi member]_ (Tidak berlaku untuk pembuat grup)
+🔷 ${prf}infogrup <aktif/mati> _[Info keluar/masuk/audit jabatan untuk ditampilkan]_
+🔷 ${prf}antivirtext _[Mengaktifkan/Menonaktifkan Antivirus grup]_
+🔷 ${prf}anti : 
 
-!anti tambah <Kunci>|<Balasan> _[Menambahkan teks ke database]_
-!anti hapus <Kunci> _[Menghapus teks dari database]_
-!anti nyala <Kunci> _[Mengaktifkan teks yg akan dikecualikan]_
-!anti mati <Kunci> _[Menonaktifkan teks yg akan dikecualikan]_
-!anti grup tambah _[Mengaktifkan fitur ini di grup]_
-!anti grup hapus _[Menonaktifkan fitur ini di grup]_
-!anti list _[Melihat semua teks list]_
+${prf}anti tambah <Kunci>|<Balasan> _[Menambahkan teks ke database]_
+${prf}anti hapus <Kunci> _[Menghapus teks dari database]_
+${prf}anti nyala <Kunci> _[Mengaktifkan teks yg akan dikecualikan]_
+${prf}anti mati <Kunci> _[Menonaktifkan teks yg akan dikecualikan]_
+${prf}anti grup tambah _[Mengaktifkan fitur ini di grup]_
+${prf}anti grup hapus _[Menonaktifkan fitur ini di grup]_
+${prf}anti list _[Melihat semua teks list]_
      
      *[ Fitur Gacha ]*
 
-💚 !wallpaper _[Random Wallpaper Unsplash]_
-💚 !cecan _[Random ciwi cantik]_
-💚 !cogan _[Random cowo ganteng]_
-💚 !rate _[Nilai dan Rating]_
-💚 !apakah <Pertanyaan> _[Bertanya sesuatu?]_
+💚 ${prf}wallpaper _[Random Wallpaper Unsplash]_
+💚 ${prf}cecan _[Random ciwi cantik]_
+💚 ${prf}cogan _[Random cowo ganteng]_
+💚 ${prf}rate _[Nilai dan Rating]_
+💚 ${prf}apakah <Pertanyaan> _[Bertanya sesuatu?]_
 
      *[ Fitur Image Manipulate ]*
 
-💚 !harta <teks> _[Gambar Harta Tahta]_
-💚 !nulis <teks> _[Nulis di kertas]_
-💚 !warnai <TagGambar> _[Mewarnai gambar hitam putih]_
-💛 !brokeCard <TagGambar>
-💛 !iphone <TagGambar>
-💛 !underwater <TagGambar>
-💛 !drawing <TagGambar>
-💛 !burningfire <TagGambar>
-💚 !smoke <teksnya>
-💚 !harrypotter <Teksnya>
-💚 !horrorHouse <teksnya>
-💚 !coffee <teksnya>
-💚 !battlefield <teks1|teks2>
-💚 !googleKeyword <teks1|teks2|teks3>
-💛 !gtaV <TagGambar>
-💚 !glitch <text>
-💚 !rain <text>
-💚 !sea <text>
-💚 !neon <text>
-💚 !stars <text>
-💚 !wood <text>
-💚 !darklogo <text>
-💛 !nightsea <tagGambar>
-💛 !photoglitch <tagGambar>
-💛 !anaglyph <tagGambar>
-💛 !balloon <tagGambar>
-💛 !typographic <tagGambar>
-💛 !photosky <tagGambar>
-💛 !wanted <Nama|Harga> (Sambil Tag Gambar)
-💛 !fireworkvideo <TagGambar>
-💛 !cooldesign <text>
-💛 !colorfuldesign <text>
-💛 !armydesign <text>
+💚 ${prf}harta <teks> _[Gambar Harta Tahta]_
+💚 ${prf}nulis <teks> _[Nulis di kertas]_
+💚 ${prf}warnai <TagGambar> _[Mewarnai gambar hitam putih]_
+💛 ${prf}brokeCard <TagGambar>
+💛 ${prf}iphone <TagGambar>
+💛 ${prf}underwater <TagGambar>
+💛 ${prf}drawing <TagGambar>
+💛 ${prf}burningfire <TagGambar>
+💚 ${prf}smoke <teksnya>
+💚 ${prf}harrypotter <Teksnya>
+💚 ${prf}horrorHouse <teksnya>
+💚 ${prf}coffee <teksnya>
+💚 ${prf}battlefield <teks1|teks2>
+💚 ${prf}googleKeyword <teks1|teks2|teks3>
+💛 ${prf}gtaV <TagGambar>
+💚 ${prf}glitch <text>
+💚 ${prf}rain <text>
+💚 ${prf}sea <text>
+💚 ${prf}neon <text>
+💚 ${prf}stars <text>
+💚 ${prf}wood <text>
+💚 ${prf}darklogo <text>
+💛 ${prf}nightsea <tagGambar>
+💛 ${prf}photoglitch <tagGambar>
+💛 ${prf}anaglyph <tagGambar>
+💛 ${prf}balloon <tagGambar>
+💛 ${prf}typographic <tagGambar>
+💛 ${prf}photosky <tagGambar>
+💛 ${prf}wanted <Nama|Harga> (Sambil Tag Gambar)
+💛 ${prf}fireworkvideo <TagGambar>
+💛 ${prf}cooldesign <text>
+💛 ${prf}colorfuldesign <text>
+💛 ${prf}armydesign <text>
 
      *[ Fitur Search ]*
 
-💚 !infogempa _[ Info gempa terbaru ]_
-💚 !heroml <nama hero> _[Menampilkan Detail Hero Mobile Legends]_
- | ⚪ !herolist _[Menampilkan semua nama nama hero ML]_
-💚 !chord <lagu> _[Mencari Chord Musik]_
-💚 !apk <Nama Aplikasi/Game> _[Mencari APP / GAME APK]_
- | 💚 !getapk <Id Download> _[Melihat detail dan link download]_
- | 🔴 !getapkdirect <index> <Id Download> _[Download APK Langsung]_
-💚 !yts <Judul Video/Musik> _[Pencarian Youtube]_
-💚 !google <Teks> _[Pencarian Google]_
-💚 !pinterest <Teks> _[Pencarian Pinterest]_
-💚 !lirik <Judul lagu> _[Cari Lirik Lagu]_
-💚 !video <Judul Video> _[Pencarian lagu]_
- | 💛 !getvideo <id> \`\`\`atau\`\`\` !getvideo <urutan>
-💚 !musik <Judul Lagu> _[Pencarian lagu]_
- | 💛 !getmusik <id> \`\`\`atau\`\`\` !getmusik <urutan>
+💚 ${prf}infogempa _[ Info gempa terbaru ]_
+💚 ${prf}heroml <nama hero> _[Menampilkan Detail Hero Mobile Legends]_
+ | ⚪ ${prf}herolist _[Menampilkan semua nama nama hero ML]_
+💚 ${prf}chord <lagu> _[Mencari Chord Musik]_
+💚 ${prf}apk <Nama Aplikasi/Game> _[Mencari APP / GAME APK]_
+ | 💚 ${prf}getapk <Id Download> _[Melihat detail dan link download]_
+ | 🔴 ${prf}getapkdirect <index> <Id Download> _[Download APK Langsung]_
+💚 ${prf}yts <Judul Video/Musik> _[Pencarian Youtube]_
+💚 ${prf}google <Teks> _[Pencarian Google]_
+💚 ${prf}pinterest <Teks> _[Pencarian Pinterest]_
+💚 ${prf}lirik <Judul lagu> _[Cari Lirik Lagu]_
+💚 ${prf}video <Judul Video> _[Pencarian lagu]_
+ | 💛 ${prf}getvideo <id> \`\`\`atau\`\`\` ${prf}getvideo <urutan>
+💚 ${prf}musik <Judul Lagu> _[Pencarian lagu]_
+ | 💛 ${prf}getmusik <id> \`\`\`atau\`\`\` ${prf}getmusik <urutan>
 
      *[ Owner Feature ]*
 
-💗 !join <linkgrup> <hari> _[Invite bot ke grup]_
-💗 !listsewa _[List grup yang sewa bot]_
-💗 !kick <@tagMember> _[ Kick member ]_ 
-💗 !ban <@tagMember> _[Ban member]_
-💗 !unban <@tagMember> _[Unban member]_
-💗 !banlist _[List Banned member]_
-💗 !upstory <?txt>/<?img>/<?vid> <caption> _[Update Story]_
-💗 !listgrup _[List Grup]_
-💗 !refuel <jumlah> _[Isi ulang semua limit]_
-💗 !leave _[Keluar grup]_
-💗 !reset <jumlah> _[Reset semua limit]_
-💗 !restart _[Restart bot]_
-💗 !gift <@tagMember> <jumlah> _[Gift limit]_
-💗 !msgtoconsole _[Pesan WhatsApp ke Console Log]_
-💗 !tambahbot <namasesi> <@tagYgMauJadiBot> _[Tambah bot baru / jalankan]_
-💗 !vip <add/delete/list> <@tagMember> _[Mengaudit Member VIP]_
-💗 !maintenance <Set Untuk Maintenance BOT>
-💗 !startbot <namasesi> _[Memulaikan bot kembali]_
-💗 !stopbot <namasesi> _[Memberhentikan bot]_
-💗 !hapusbot <namasesi> _[Menghapus bot]_
-💗 !listbot _[Melihat semua user bot]_
+💗 ${prf}join <linkgrup> <hari> _[Invite bot ke grup]_
+💗 ${prf}listsewa _[List grup yang sewa bot]_
+💗 ${prf}kick <@tagMember> _[ Kick member ]_ 
+💗 ${prf}ban <@tagMember> _[Ban member]_
+💗 ${prf}unban <@tagMember> _[Unban member]_
+💗 ${prf}banlist _[List Banned member]_
+💗 ${prf}upstory <?txt>/<?img>/<?vid> <caption> _[Update Story]_
+💗 ${prf}listgrup _[List Grup]_
+💗 ${prf}refuel <jumlah> _[Isi ulang semua limit]_
+💗 ${prf}leave _[Keluar grup]_
+💗 ${prf}reset <jumlah> _[Reset semua limit]_
+💗 ${prf}restart _[Restart bot]_
+💗 ${prf}gift <@tagMember> <jumlah> _[Gift limit]_
+💗 ${prf}msgtoconsole _[Pesan WhatsApp ke Console Log]_
+💗 ${prf}tambahbot <namasesi> <@tagYgMauJadiBot> _[Tambah bot baru / jalankan]_
+💗 ${prf}vip <add/delete/list> <@tagMember> _[Mengaudit Member VIP]_
+💗 ${prf}maintenance <Set Untuk Maintenance BOT>
+💗 ${prf}startbot <namasesi> _[Memulaikan bot kembali]_
+💗 ${prf}stopbot <namasesi> _[Memberhentikan bot]_
+💗 ${prf}hapusbot <namasesi> _[Menghapus bot]_
+💗 ${prf}listbot _[Melihat semua user bot]_
 💗 > <query> _[Perintah untuk execute command yang terbatas dan teratur]_
 💗 >> <query> _[Perintah untuk execute command prompt / terminal]_
 💗 >>> <query> _[Perintah untuk execute function dalam code bot]_

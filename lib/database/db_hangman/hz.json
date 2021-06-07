@@ -1,0 +1,16 @@
+{
+     "status": true,
+     "game": "created",
+     "statusUser": {
+          "benar": [],
+          "salah": []
+     },
+     "sesi": "hz",
+     "regexp": "[\b(?!paksarwonomasihseringmengetikdenganmesinketiklamanya)S+|w*\b$]",
+     "tertebak": [],
+     "kata_belum_ditebak": "paksarwonomasihseringmengetikdenganmesinketiklamanya",
+     "kata": " _  _  _   _  _  _  _  _  _  _   _  _  _  _  _   _  _  _  _  _  _   _  _  _  _  _  _  _  _   _  _  _  _  _  _   _  _  _  _  _   _  _  _  _  _   _  _  _  _  _  _  _ ",
+     "kata_ori": "pak sarwono masih sering mengetik dengan mesin ketik lamanya",
+     "kata_tersisa": 7,
+     "hangman": "\n  +---+\n  |   |\n      |\n      |\n      |\n      |\n========="
+}

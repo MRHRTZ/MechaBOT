@@ -12,11 +12,11 @@ let blokir = []
 
 
 function INFOLOG(info) {
-     console.log('\x1b[1;34m~\x1b[1;37m>>', '<\x1b[1;33mINF\x1b[1;37m>', time, color(info))
+     console.log(chalk.greenBright('[ MECHABOT ]  '), time, color(info))
 }
 
 function ERRLOG(e) {
-     console.log('\x1b[1;31m~\x1b[1;37m>>', '<\x1b[1;31mERROR\x1b[1;37m>', time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
+     console.log(chalk.greenBright('[ MECHABOT ]  '), time, color('\tname: ' + e.name + ' message: ' + e.message + ' at: ' + e.at))
 }
 
 const settings = JSON.parse(fs.readFileSync('./src/settings.json'))
@@ -33,31 +33,31 @@ require('./revokeHandler')
 require('./groupManager')
 require('./socketHandler')
 nocache('./myHandler', module => {
-     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 nocache('./groupManager', module => {
-     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 nocache('./revokeHandler', module => {
-     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 nocache('./socketHandler', module => {
-     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+     console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      clientsNow.forEach((client) => {
           if (!isClientLog) return
-          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + chalk.cyanBright(` "${module}" Updated!`))
+          client.send(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + chalk.cyanBright(` "${module}" Updated!`))
      })
 })
 
@@ -94,7 +94,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           .use((req, res) => {
                res.send({ status: true, address: req.headers['x-forwarded-for'] || req.connection.remoteAddress })
           })
-          .listen(PORT, () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.blueBright('Socket Ready On Port ' + PORT)));
+          .listen(PORT, () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + ' ' + chalk.blueBright('Socket Ready On Port ' + PORT)));
 
      // console.log(server)
 
@@ -106,7 +106,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
           clientsNow.push(ws)
           var userID = clientsNow.length
           webSockets[userID] = ws
-          console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Client ' + userID + ' Connected '))
+          console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + ' ' + chalk.bgBlueBright('Client ' + userID + ' Connected '))
           const statusConnected = chalk.greenBright('\nConnected client id : ' + clientsNow.length)
           ws.send(statusConnected)
 
@@ -120,7 +120,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                const wsArgs = dataMsg.split(/ +/g)
                console.log(
                     chalk.greenBright('[ MECHABOT ] '),
-                    moment(new Date()).format('HH:mm:ss DD/MM/YYYY'),
+                    moment(new Date()).format('DD/MM HH:mm:ss'),
                     chalk.blueBright(dataMsg),
                     "dari",
                     chalk.bgGreen(`[ Client WS ]`));
@@ -131,7 +131,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                //      ws.send(util.format(eval(dataMsg.slice(4))))
                // }
           }//)
-          ws.on('close', () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgRedBright('Client Disconnected')));
+          ws.on('close', () => console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + ' ' + chalk.bgRedBright('Client Disconnected')));
      });
 
      cron.schedule(`${settings.Reset_Time.Minute} ${settings.Reset_Time.Hour} * * *`, () => {
@@ -143,7 +143,7 @@ const mulai = async (sesi, conn = new WAConnection()) => {
                }
           }
           fs.writeFileSync("./lib/database/limit.json", JSON.stringify(obj, null, 2));
-          console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('HH:mm:ss DD/MM/YYYY') + ' ' + chalk.bgBlueBright('Reset success : ' + settings.Limit + ' limit'))
+          console.log(chalk.greenBright('[ MECHABOT ]  ') + moment(new Date()).format('DD/MM HH:mm:ss') + ' ' + chalk.bgBlueBright('Reset success : ' + settings.Limit + ' limit'))
           conn.sendMessage(settings.Owner, `\`\`\`Berhasil reset limit sebanyak ${settings.Limit} pada ${settings.Reset_Time.Hour}:${settings.Reset_Time.Minute}\`\`\`  ✅`, MessageType.text)
      }, {
           scheduled: true,
@@ -207,9 +207,6 @@ const mulai = async (sesi, conn = new WAConnection()) => {
      })
      // conn.logger.
      conn.on('CB:action,,battery', json => {
-          // const batteryLevelStr = json[2][0][1].value
-          // const batterylevel = parseInt(batteryLevelStr)
-          // INFOLOG('battery level: ' + batterylevel)
           fs.writeFileSync('./lib/database/batt.json', JSON.stringify(json[2][0], null, 2))
      })
 

@@ -1,25 +1,31 @@
 {
-  "Owner": "6285559038021@s.whatsapp.net",
-  "PORT": 3000,
-  "Session_Name": "MRHRTZ",
-  "Debug": false,
-  "Maintenace": false,
-  "MessageConsole": false,
-  "HangmanWord": 5,
-  "IDConsole": true,
-  "PrivateChat": true,
-  "Limit": 30,
-  "Reset_Time": {
-    "Hour": "6",
-    "Minute": "00"
-  },
-  "Reset_Status": false,
-  "Switcher": false,
-  "Vote": {
-    "Max": 5,
-    "Expired": 2
-  },
-  "Tebak_Gambar": {
-    "Max": 60
-  }
+     "Owner": "79581331547@s.whatsapp.net",
+     "PORT": 3000,
+     "Session_Name": "MRHRTZ",
+     "Debug": false,
+     "Maintenace": false,
+     "MessageConsole": false,
+     "HangmanWord": 7,
+     "IDConsole": true,
+     "PrivateChat": true,
+     "Limit": 30,
+     "Reset_Time": {
+          "Hour": "6",
+          "Minute": "00"
+     },
+     "Reset_Status": false,
+     "Switcher": false,
+     "Vote": {
+          "Max": 5,
+          "Expired": 2
+     },
+     "Tebak_Gambar": {
+          "Max": 60
+     },
+     "igsession": "44781279213%3AeWv6JOePezg9vV%3A11",
+     "saweria": {
+          "email": "hanifsyauqi61@gmail.com",
+          "password": "Redrexfarcry4456!",
+          "user-id": "30ccae6e-2940-495c-9eb8-f16e8231fc22"
+     }
 }

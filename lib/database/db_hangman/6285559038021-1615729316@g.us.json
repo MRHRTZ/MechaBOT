@@ -1,0 +1,27 @@
+{
+     "status": true,
+     "game": "playing",
+     "statusUser": {
+          "benar": [
+               "Call Me Nacht條"
+          ],
+          "salah": []
+     },
+     "jidUser": {
+          "benar": [
+               "601131401102@s.whatsapp.net"
+          ],
+          "salah": []
+     },
+     "ditebak": "Call Me Nacht條",
+     "sesi": "6285559038021-1615729316@g.us",
+     "regexp": "[\b(?!kmitertwdengnring)S+\b$]",
+     "tertebak": [
+          "a"
+     ],
+     "kata_belum_ditebak": "kmitertwdengnring",
+     "kata": " _ a _  _   _  _  _  _ a _ a  _  _  _  _ a _   _  _ a _  _ ",
+     "kata_ori": "kami tertawa dengan riang",
+     "kata_tersisa": 7,
+     "hangman": "\r\n------+\r\n  |       |\r\n  |     \r\n  |       \r\n  |\r\n  |\r\n==========="
+}

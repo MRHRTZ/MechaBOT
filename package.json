@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@adiwajshing/baileys": "git+https://github.com/adiwajshing/Baileys.git",
+    "@adiwajshing/baileys": "^3.5.0",
     "@vitalets/google-translate-api": "^5.0.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
@@ -45,7 +45,6 @@
     "random-useragent": "^0.5.0",
     "remote-file-size": "^3.0.5",
     "request": "^2.88.2",
-    "saweria": "^1.2.5",
     "socket.io": "^3.1.1",
     "speedtest-net": "^2.1.1",
     "stream": "0.0.2",
