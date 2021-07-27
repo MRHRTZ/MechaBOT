@@ -65,6 +65,8 @@ nocache('./socketHandler', module => {
 // conn.logger.level = 'debug'
 
 const mulai = async (sesi, conn = new WAConnection()) => {
+     
+     conn.version = [2, 2121, 7]
 
      conn.on('qr', qr => {
           conn.regenerateQRIntervalMs = null
