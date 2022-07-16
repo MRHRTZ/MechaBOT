@@ -90,6 +90,23 @@ const mulai = async () => {
           sock.chats = []
           sock.blocklist = [] // await sock.fetchBlocklist()
 
+          sock.downloadAndSaveMediaMessage = async (m, path) => {
+               const buffer = await downloadMediaMessage(
+                    m,
+                    'buffer',
+                    {},
+                    {
+                         logger,
+                         // pass this so that baileys can request a reupload of media
+                         // that has been deleted
+                         reuploadRequest: sock.updateMediaMessage
+                    }
+               )
+               // save to file
+               await writeFile(path, buffer)
+               return path
+          }
+
           sock.ev.on('connection.update', (update) => {
                const { connection, lastDisconnect } = update
                if (connection === 'close') {
