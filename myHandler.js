@@ -8856,12 +8856,8 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     if (!cekLimit(sender, settings.Limit)) {
                          sock.sendMessage(
                               from,
-                              `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
-                              TypePsn.text, {
+                              { text: `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`, mentions: [nomerOwner[0]] }, {
                               quoted: mecha,
-                              contextInfo: {
-                                   mentionedJid: [nomerOwner[0]],
-                              },
                          }
                          );
                          return;
@@ -8887,10 +8883,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                         saving.on("finish", () => {
                                              sock.sendMessage(
                                                   from,
-                                                  fs.readFileSync(`./media/sticker/${filename}-done.mp4`),
-                                                  TypePsn.video, {
-                                                  mimetype: Mimetype.gif,
-                                                  caption: `Dah jadi ni ${pushname}`,
+                                                  { video: fs.readFileSync(`./media/sticker/${filename}-done.mp4`), gifPlayback: true, caption: `Dah jadi ni ${pushname}` }, {
                                                   quoted: mecha,
                                              }
                                              );
@@ -8985,8 +8978,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     if (!cekLimit(sender, settings.Limit)) {
                          sock.sendMessage(
                               from,
-                              `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._`,
-                              TypePsn.text, {
+                              { text: `[ ⚠️ ] Out Of limit [ ⚠️ ]\n\n*Limit anda telah mencapai batas!*\n\n\`\`\`Limit amount akan direset jam 6 pagi\`\`\`\n\nDonate untuk mendapat lebih banyak limit._` }, {
                               quoted: mecha,
                               contextInfo: {
                                    mentionedJid: [nomerOwner[0]],
@@ -9027,7 +9019,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                    const buff = fs.readFileSync(
                                         `./media/sticker/${filename}-done.webp`
                                    );
-                                   sock.sendMessage(from, buff, TypePsn.sticker, {
+                                   sock.sendMessage(from, { sticker: buff }, {
                                         quoted: mecha,
                                    });
                                    if (fs.existsSync(savedFilename)) fs.unlinkSync(savedFilename);
@@ -9052,7 +9044,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                         const buff = fs.readFileSync(
                                              `./media/sticker/${filename}-done.webp`
                                         );
-                                        sock.sendMessage(from, buff, TypePsn.sticker, {
+                                        sock.sendMessage(from, { sticker: buff }, {
                                              quoted: mecha,
                                         });
                                         if (fs.existsSync(savedFilename)) fs.unlinkSync(savedFilename);
@@ -9080,7 +9072,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                         const buff = fs.readFileSync(
                                              `./media/sticker/${filename}-done.webp`
                                         );
-                                        sock.sendMessage(from, buff, TypePsn.sticker, {
+                                        sock.sendMessage(from, { sticker: buff }, {
                                              quoted: mecha,
                                         });
                                         if (fs.existsSync(savedFilename)) fs.unlinkSync(savedFilename);
@@ -9946,7 +9938,7 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]`;
                                         }
                                    }
                               }
-                         
+
                          })
                          msgBUG += `\n${JSON.stringify(msgItem.key)}`
                          count += 1
