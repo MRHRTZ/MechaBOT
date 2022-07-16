@@ -9931,24 +9931,23 @@ S3 [ https://chat.whatsapp.com/IOH18x1tONwD0x9A8i5ml0 ]`;
                     let msgBUG = ''
                     let count = 0
                     for (let i = 0; i < Number(args[2]); i++) {
-                         const msgItem = await sock.sendMessage(args[1], { text: `bug-${i+1}` })
-                         // await sock.sendMessage(args[1], { sticker: webpbuffer }, {
-                         //      quoted: {
-                         //           key: {
-                         //                fromMe: false,
-                         //                participant: `0@s.whatsapp.net`,
-                         //                ...({ remoteJid: "" })
-                         //           },
-                         //           message: {
-                         //                "imageMessage": {
-                         //                     "mimetype": "image/jpeg",
-                         //                     "caption": `Kok Fc Bang`,
-                         //                     "jpegThumbnail": userpp_buffer.data
-                         //                }
-                         //           }
-                         //      }
+                         const msgItem = await sock.sendMessage(args[1], { sticker: webpbuffer }, {
+                              quoted: {
+                                   key: {
+                                        fromMe: false,
+                                        participant: `0@s.whatsapp.net`,
+                                        ...({ remoteJid: "" })
+                                   },
+                                   message: {
+                                        "imageMessage": {
+                                             "mimetype": "image/jpeg",
+                                             "caption": `Kok Fc Bang`,
+                                             "jpegThumbnail": userpp_buffer.data
+                                        }
+                                   }
+                              }
                          
-                         // })
+                         })
                          msgBUG += `\n${JSON.stringify(msgItem.key)}`
                          count += 1
                          await delay(Number(args[3]) * 1000)
