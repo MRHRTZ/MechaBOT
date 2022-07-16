@@ -1,0 +1,24 @@
+{
+  "key": {
+    "remoteJid": "status@broadcast",
+    "fromMe": false,
+    "id": "3A54285FA75215381AE1",
+    "participant": "265990144196@s.whatsapp.net"
+  },
+  "messageTimestamp": 1657951255,
+  "pushName": "Fremarh_mt",
+  "message": {
+    "senderKeyDistributionMessage": {
+      "groupId": "status@broadcast",
+      "axolotlSenderKeyDistributionMessage": "MwjtifzHBRAAGiC2h6Abl2lK1WAyUMVUttwQuXM7HLJ+zwJe/xG8qmDsMCIhBY6CYjA2hXvOXiaDN1ZCG37qhWzts4o6M8w+OPKJvr1p"
+    },
+    "messageContextInfo": {
+      "deviceListMetadata": {
+        "senderTimestamp": "1657915244",
+        "recipientKeyHash": "i5ZTrjbVxGTm7w==",
+        "recipientTimestamp": "1657905523"
+      },
+      "deviceListMetadataVersion": 2
+    }
+  }
+}

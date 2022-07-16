@@ -8,5 +8,5 @@
  *                        MECHABOT             WHATSAPP                      *
  *                              CREATED BY MRHRTZ                            *
  *                                     ^_^                                   *
- *                        START OPERATING AT END OF DEC                      *
+ *                     START OPERATING AT END OF DEC 2019                    *
 \*                                                                          */
