@@ -8921,12 +8921,9 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                                             saving.on("finish", () => {
                                                                  sock.sendMessage(
                                                                       from,
-                                                                      fs.readFileSync(
+                                                                      {video:fs.readFileSync(
                                                                            `./media/sticker/${filename}-done.mp4`
-                                                                      ),
-                                                                      TypePsn.video, {
-                                                                      mimetype: Mimetype.gif,
-                                                                      caption: `Dah jadi ni ${pushname}`,
+                                                                      ), caption: `Dah jadi ni ${pushname}`, gifPlayback: true}, {
                                                                       quoted: mecha,
                                                                  }
                                                                  );
@@ -8953,10 +8950,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                    console.log(stdout);
                                    sendFile(
                                         from,
-                                        `./media/sticker/${filename}-done.png`,
-                                        TypePsn.image, {
-                                        caption: "Dah jadi ni " + pushname,
-                                   }
+                                        {image:`./media/sticker/${filename}-done.png`,caption: "Dah jadi ni " + pushname}
                                    );
                                    fs.unlinkSync(savedFilename);
                                    fs.unlinkSync(`./media/sticker/${filename}-done.png`);
