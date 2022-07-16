@@ -671,7 +671,7 @@ module.exports = handle = async (
           let expvip = JSON.parse(fs.readFileSync("./lib/database/expvip.json"));
           let vip = expvip.map(rest => rest.number)
           let expvipnum = expvip.map(rest => rest.number)
-          const nomerOwner = [settings.Owner];
+          const nomerOwner = [settings.Owner, sock.user.id];
           const isOwner = nomerOwner.includes(sender);
           const isVIP = expvipnum.includes(sender) || isOwner;
           if (expvip.length > 0) {
@@ -862,11 +862,11 @@ module.exports = handle = async (
                type == "extendedTextMessage" && mecha.message.extendedTextMessage ? Object.keys(mecha.message.extendedTextMessage.contextInfo ? mecha.message.extendedTextMessage.contextInfo.quotedMessage ? mecha.message.extendedTextMessage.contextInfo.quotedMessage : { mentionedText: "Created By MRHRTZ", } : { thumbnailMessage: "MRHRTZ Jangan diganti error ntar nangid :v", })[0] : type;
           let isMediaVid = type === "videoMessage" || isQuotedVideo
           let isMediaImage = type === "imageMessage" || isQuotedVideo
-          let mMediaData = type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message) != 'ephemeralMessage' ? JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message.extendedTextMessage.contextInfo : mText
-          if (type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message) == 'ephemeralMessage' && JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message) {
-               typeQuoted = Object.keys(JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message)
-               mMediaData = JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message.ephemeralMessage.message.extendedTextMessage.contextInfo
-               // console.log(JSON.parse(JSON.stringify(mecha).replace("quotedM", "mecha")).message.ephemeralMessage.message.extendedTextMessage.contextInfo)
+          let mMediaData = type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message) != 'ephemeralMessage' ? JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message.extendedTextMessage.contextInfo : mText
+          if (type == "extendedTextMessage" && Object.keys(JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message) == 'ephemeralMessage' && JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message) {
+               typeQuoted = Object.keys(JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo.message)
+               mMediaData = JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo
+               // console.log(JSON.parse(JSON.stringify(mecha).replace("quotedM", "m")).message.ephemeralMessage.message.extendedTextMessage.contextInfo)
           }
           const mediaData = type == "extendedTextMessage" ? typeQuoted == "thumbnailMessage" ? mText : mMediaData : mText;
           // const ment = ''
@@ -927,7 +927,7 @@ module.exports = handle = async (
           const isAdmin = adminGroups.includes(sender);
           const isBotAdmin = adminGroups.includes(botNumber);
           // console.log(mText[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo)
-          const mention = mText.message[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo ? mText.message[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo.mentionedJid ? type == 'extendedTextMessage' || type == 'mentionedText' ? mText.message.extendedTextMessage.contextInfo.mentionedJid : type == 'imageMessage' ? mText.message.imageMessage.contextInfo.mentionedJid : type == 'videoMessage' ? mText.message.videoMessage.contextInfo.mentionedJid : type == 'stickerMessage' ? mText.message.stickerMessage.contextInfo.mentionedJid : type == 'documentMessage' ? mText.message.documentMessage.contextInfo.mentionedJid : type == 'conversation' ? mText.message.conversation.contextInfo.mentionedJid : type == 'ephemeralMessage' ? mText.message.ephemeralMessage.message.extendedTextMessage.contextInfo.mentionedJid : [] : [] : []
+          const mention = mText.message[type == 'mentionedText' ? 'extendedTextMessage' : type]?.contextInfo ? mText.message[type == 'mentionedText' ? 'extendedTextMessage' : type].contextInfo.mentionedJid ? type == 'extendedTextMessage' || type == 'mentionedText' ? mText.message.extendedTextMessage.contextInfo.mentionedJid : type == 'imageMessage' ? mText.message.imageMessage.contextInfo.mentionedJid : type == 'videoMessage' ? mText.message.videoMessage.contextInfo.mentionedJid : type == 'stickerMessage' ? mText.message.stickerMessage.contextInfo.mentionedJid : type == 'documentMessage' ? mText.message.documentMessage.contextInfo.mentionedJid : type == 'conversation' ? mText.message.conversation.contextInfo.mentionedJid : type == 'ephemeralMessage' ? mText.message.ephemeralMessage.message.extendedTextMessage.contextInfo.mentionedJid : [] : [] : []
           if (from === '6285559038021-1603688917@g.us') {
                // console.log(type == 'ephemeralMessage' ? mecha.message.ephemeralMessage.message : '')
           }
@@ -8865,9 +8865,10 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     pushLimit(sender, 1);
                     const savedFilename = await sock.downloadAndSaveMediaMessage(
                          mediaData,
-                         `./media/sticker/${filename}`
+                         `./media/sticker/${filename}.jpeg`
                     );
-                    if (mediaData.message.stickerMessage.isAnimated) {
+                    // return console.log(savedFilename);
+                    if (mediaData.message.stickerMessage.firstFrameSidecar) {
                          webp2mp4File(savedFilename)
                               .then(async (rest) => {
                                    Axios({
@@ -8948,9 +8949,9 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                                         return;
                                    }
                                    console.log(stdout);
-                                   sendFile(
+                                   sock.sendMessage(
                                         from,
-                                        {image:`./media/sticker/${filename}-done.png`,caption: "Dah jadi ni " + pushname}
+                                        {image:fs.readFileSync(`./media/sticker/${filename}-done.png`),caption: "Dah jadi ni " + pushname}
                                    );
                                    fs.unlinkSync(savedFilename);
                                    fs.unlinkSync(`./media/sticker/${filename}-done.png`);
@@ -8983,6 +8984,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     }
                     pushLimit(sender, 1);
                     // if (!isMedia && !isQuotedImage && !isQuotedVideo) return balas(from, `Mohon kirim media ( gambar/video ) atau tag yg sudah ada`)
+                    // console.log(`mediadata:${JSON.stringify(mediaData, null, 2)}`);
                     let packstik;
                     let authorstik;
                     if (args[1] == "wm") {
@@ -8998,7 +9000,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                     createExif(packstik, authorstik);
                     const savedFilename = await sock.downloadAndSaveMediaMessage(
                          mediaData,
-                         `./media/sticker/${filename}`
+                         `./media/sticker/${filename}.jpeg`
                     );
                     const sizestik = getFilesize(savedFilename);
                     INFOLOG("Ukuran Stiker Mentah : " + sizestik);
@@ -9007,7 +9009,7 @@ IOS Apple Link : ${jsonna["ios-app-store-link"]}
                               `webpmux -set exif ./media/sticker/data.exif ${savedFilename} -o ./media/sticker/${filename}-done.webp`,
                               (err, stdout, stderr) => {
                                    if (err) {
-                                        console.error(err);
+                                        console.error('err-1:', err);
                                         return;
                                    }
                                    const buff = fs.readFileSync(

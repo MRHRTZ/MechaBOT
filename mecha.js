@@ -1,7 +1,7 @@
 "use strict";
 
 const fs = require('fs')
-const { default: sockWAConnection, MessageType, WAMessageStubType, useSingleFileAuthState, useMultiFileAuthState, DisconnectReason } = require("@adiwajshing/baileys")
+const { default: sockWAConnection, downloadMediaMessage, useSingleFileAuthState, useMultiFileAuthState, DisconnectReason } = require("@adiwajshing/baileys")
 const { default: Axios } = require('axios')
 const qrcode = require('qrcode')
 const chalk = require('chalk')
@@ -90,21 +90,23 @@ const mulai = async () => {
           sock.chats = []
           sock.blocklist = [] // await sock.fetchBlocklist()
 
-          sock.downloadAndSaveMediaMessage = async (m, path) => {
-               const buffer = await downloadMediaMessage(
-                    m,
-                    'buffer',
-                    {},
-                    {
-                         logger,
-                         // pass this so that baileys can request a reupload of media
-                         // that has been deleted
-                         reuploadRequest: sock.updateMediaMessage
-                    }
-               )
-               // save to file
-               await writeFile(path, buffer)
-               return path
+          sock.downloadAndSaveMediaMessage = (m, path) => {
+               return new Promise(async(resolve, reject) => {
+                    const buffer = await downloadMediaMessage(
+                         m,
+                         'buffer',
+                         {},
+                         {
+                              logger,
+                              // pass this so that baileys can request a reupload of media
+                              // that has been deleted
+                              reuploadRequest: sock.updateMediaMessage
+                         }
+                    ).catch(reject)
+                    // save to file
+                    await fs.writeFile(path, buffer, (err) => err && reject(err))
+                    resolve(path)
+               })
           }
 
           sock.ev.on('connection.update', (update) => {
@@ -287,6 +289,7 @@ const mulai = async () => {
 
           return sock
      } catch (e) {
+          // mulai()
           logger.error(e)
      }
 }
